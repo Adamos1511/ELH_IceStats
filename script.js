@@ -96,34 +96,36 @@ Papa.parse("https://raw.githubusercontent.com/Adamos1511/ELH_web/refs/heads/main
 function zobrazHrace(data) {
   const container = document.getElementById("hraci");
   if (!container) return;
-  
+
   if (data.length === 0) {
-    container.innerHTML = "<p style='text-align:center;'>Žádní hráči nenalezeni.</p>";
+    container.innerHTML = "<p class='zadni-hraci'>Žádní hráči nenalezeni.</p>";
     return;
   }
 
   container.innerHTML = data.map(h => `
-    <div class="hrac" onclick="zobrazDetail('${h.jmeno}', '${h.prijmeni}', '${h.tym}', '${h.pozice}', '${h.vek}', '${h.smlouva}', '${h.drzeni}', '${h.narodnost}', '${h.foto}')">
+    <div class="hrac-radek" onclick="zobrazDetail('${h.jmeno}', '${h.prijmeni}', '${h.tym}', '${h.pozice}', '${h.vek}', '${h.smlouva}', '${h.drzeni}', '${h.narodnost}', '${h.foto}')">
       
-      <div class="foto-box">
-        ${h.foto 
-          ? `<img src="${h.foto}" alt="${h.jmeno} ${h.prijmeni}" class="fotoHraceKarta">`
-          : `<div class="fotoPlaceholder"></div>`}
+      <div class="hrac-foto-mini">
+        ${
+          h.foto
+            ? `<img src="${h.foto}" alt="${h.jmeno} ${h.prijmeni}">`
+            : `<div class="foto-mini-placeholder"></div>`
+        }
       </div>
 
-      <div class="hrac-info">
-        <h3>${h.jmeno} ${h.prijmeni}</h3>
-        <p><b>Tým:</b> 
-          ${zkratkyTymu[h.tym] ? zkratkyTymu[h.tym] : h.tym} 
-          ${logoTymu(h.tym)} 
-          
-        </p>
-        <p><b>Pozice:</b> ${h.pozice || "-"}</p>
-        <p><b>Věk:</b> ${h.vek || "-"}</p>
-        <p><b>Smlouva:</b> ${h.smlouva || "-"}</p>
-        <p><b>Držení hole:</b> ${h.drzeni || "-"}</p>
-        <p><b>Národnost:</b> ${h.narodnost || "-"}</p>
+      <div class="hrac-jmeno">
+        <strong>${h.jmeno} ${h.prijmeni}</strong>
+        <span>${h.narodnost || "-"}</span>
       </div>
+
+      <div class="hrac-tym">
+        ${logoTymu(h.tym)}
+        <span>${zkratkyTymu[h.tym] || h.tym}</span>
+      </div>
+
+      <div class="hrac-pozice">${h.pozice || "-"}</div>
+      <div class="hrac-vek">${h.vek || "-"} let</div>
+      <div class="hrac-smlouva">${h.smlouva || "-"}</div>
     </div>
   `).join("");
 }
@@ -950,3 +952,36 @@ const kam = [...new Set(
     }
   });
 }
+document.addEventListener("DOMContentLoaded", () => {
+  const btnHraci = document.getElementById("btnHraci");
+  const zpetMenu = document.getElementById("zpetMenu");
+  const gameMenu = document.querySelector(".game-menu");
+  const strankaHraci = document.getElementById("strankaHraci");
+
+  if (btnHraci && gameMenu && strankaHraci) {
+    btnHraci.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      gameMenu.style.display = "none";
+      strankaHraci.style.display = "block";
+      document.body.style.overflow = "auto";
+
+      if (hraciData.length === 0) {
+        nactiData();
+      } else {
+        zobrazHrace(hraciData);
+      }
+
+      window.scrollTo(0, 0);
+    });
+  }
+
+  if (zpetMenu && gameMenu && strankaHraci) {
+    zpetMenu.addEventListener("click", () => {
+      strankaHraci.style.display = "none";
+      gameMenu.style.display = "block";
+      document.body.style.overflow = "hidden";
+      window.scrollTo(0, 0);
+    });
+  }
+});

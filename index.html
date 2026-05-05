@@ -3,37 +3,79 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ELH Databáze | ELH 2026</title>
+  <title>ELH IceStats | ELH 2026</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 </head>
+
 <body>
+
+  <!-- ÚVODNÍ MENU -->
   <header class="game-menu">
-  <div class="top-bar">
-    <div class="logo-title">🏒 ELH IceStats</div>
+    <div class="top-bar">
+      <div class="logo-title">🏒 ELH IceStats</div>
+
       <nav class="top-nav">
-      <a href="#" class="active">Statistiky</a>
-      <a href="#" class="active">Návštěvnost</a>
-      <a href="#" class="active">Historie</a>
-      © 2026 Czech Players Database | Vytvořeno ve VS Code
-    </nav>
-  </div>
-
-  <div class="hero-menu">
-    <div class="menu-panel">
-      <h1>ELH IceStats</h1>
-
-      <a href="#" class="menu-item active">Hráči</a>
-      <a href="kluby.html" class="menu-item">Kluby</a>
-      <a href="#" class="menu-item">Tabulka</a>
-      <a href="#" id="odkazPrestupy" class="menu-item">Přestupy</a>
+        <a href="#">Statistiky</a>
+        <a href="#">Návštěvnost</a>
+        <a href="#">Historie</a>
+        <span class="top-copy">© 2026 Czech Players Database | Vytvořeno ve VS Code</span>
+      </nav>
     </div>
-  </div>
-</header>
-<section id="kluby" style="display:none;">
-  <h2>Přehled klubů</h2>
-  <div id="seznam-klubu" class="kluby-grid"></div>
-</section>
+
+    <div class="hero-menu">
+      <div class="menu-panel">
+        <h1>ELH IceStats</h1>
+
+        <a href="#" id="btnHraci" class="menu-item active">Hráči</a>
+        <a href="kluby.html" class="menu-item">Kluby</a>
+        <a href="#" class="menu-item">Tabulka</a>
+        <a href="#" id="odkazPrestupy" class="menu-item">Přestupy</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- STRÁNKA HRÁČŮ -->
+  <section id="strankaHraci" class="page-hraci" style="display:none;">
+    <div class="hraci-header">
+      <button id="zpetMenu" class="back-btn">← Zpět do menu</button>
+      <h2>Hráči ELH</h2>
+    </div>
+
+    <div class="filtry">
+      <input type="text" id="vyhledavani" placeholder="Hledat hráče...">
+      <select id="filtrTymu"></select>
+      <select id="filtrPozice"></select>
+      <select id="filtrDrzeni"></select>
+      <select id="filtrNarodnost"></select>
+      <select id="filtrSmlouva"></select>
+
+      <select id="razeni">
+        <option value="">Řadit podle...</option>
+        <option value="prijmeni_az">Příjmení A–Z</option>
+        <option value="prijmeni_za">Příjmení Z–A</option>
+        <option value="vek_asc">Věk mladší → starší</option>
+        <option value="vek_desc">Věk starší → mladší</option>
+        <option value="tym_az">Tým A–Z</option>
+        <option value="tym_za">Tým Z–A</option>
+        <option value="pozice_az">Pozice A–Z</option>
+        <option value="pozice_za">Pozice Z–A</option>
+        <option value="narodnost_az">Národnost A–Z</option>
+        <option value="narodnost_za">Národnost Z–A</option>
+        <option value="smlouva_asc">Smlouva nejkratší → nejdelší</option>
+        <option value="smlouva_desc">Smlouva nejdelší → nejkratší</option>
+      </select>
+    </div>
+
+    <main id="hraci">Načítám hráče...</main>
+  </section>
+
+  <!-- KLUBY -->
+  <section id="kluby" style="display:none;">
+    <h2>Přehled klubů</h2>
+    <div id="seznam-klubu" class="kluby-grid"></div>
+  </section>
+
   <script src="script.js"></script>
 </body>
 </html>
