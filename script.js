@@ -21,9 +21,9 @@ const zkratkyTymu = {
   "HC Dynamo Pardubice": "PCE",
   "HC Sparta Praha": "SPA",
   "HC Oceláři Třinec": "TRI",
-  "HC Kometa Brno": "BRN",
+  "HC Kometa Brno": "KOM",
   "HC Škoda Plzeň": "PLZ",
-  "Mountfield HK": "HKM",
+  "Mountfield HK": "MHK",
   "HC Vítkovice Ridera": "VIT",
   "HC Olomouc": "OLO",
   "BK Mladá Boleslav": "MBL",
@@ -44,7 +44,7 @@ const nazvyTymu = {
   KVA: "HC Energie Karlovy Vary",
   OLO: "HC Olomouc",
   LIB: "Bílí Tygři Liberec",
-  HRA: "Mountfield HK",
+  MHK: "Mountfield HK",
   PCE: "HC Dynamo Pardubice",
   KLA: "Rytíři Kladno",
 };
@@ -53,7 +53,7 @@ const nazvyTymu = {
 function logoTymu(nazev) {
   if (!nazev) return "";
   const zkratka = zkratkyTymu[nazev] || nazev;
-  const path = `https://raw.githubusercontent.com/Adamos1511/ELH-web/main/loga_tymu/${zkratka}.png`;
+  const path = `https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/${zkratka}.png`;
   return `<img src="${path}" alt="${zkratka}" class="logoMale">`;
 }
 
@@ -131,8 +131,8 @@ function zobrazHrace(data) {
 
 // --- DETAIL HRÁČE ---
 function zobrazDetail(jmeno, prijmeni, tym, pozice, vek, smlouva, drzeni, narodnost, foto) {
-  const csvUrl = "https://raw.githubusercontent.com/Adamos1511/ELH-web/main/hraci_detail.csv";
-  const logoUrl = `https://raw.githubusercontent.com/Adamos1511/ELH-web/main/loga_tymu/${tym}.png`;
+  const csvUrl = "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/hraci_detail.csv";
+  const logoUrl = `https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/${tym}.png`;
 
   const zkratkyTymu = {
     CBU: "Banes Motor České Budějovice",
@@ -442,7 +442,7 @@ function zobrazKluby() {
   if (!container) return;
   container.innerHTML = kluby.map(k => `
     <div class="klub-karta" onclick="otevriKlub('${k.zkratka}')">
-      <img src="https://raw.githubusercontent.com/Adamos1511/ELH-web/main/loga_tymu/${k.zkratka}.png" alt="${k.nazev}">
+      <img src="https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/${k.zkratka}.png" alt="${k.nazev}">
       <h3>${k.nazev}</h3>
     </div>
   `).join("");
@@ -535,7 +535,7 @@ function otevriKlub(zkratka) {
 
   <!-- HLAVIČKA KLUBU -->
   <div class="klub-detail">
-    <img src="https://raw.githubusercontent.com/Adamos1511/ELH-web/main/loga_tymu/${zkratka}.png" alt="${klub["NÁZEV TÝMU"]}">
+    <img src="https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/${zkratka}.png" alt="${klub["NÁZEV TÝMU"]}">
     <h1>${klub["NÁZEV TÝMU"]}</h1>
   </div>
 
@@ -606,7 +606,7 @@ function otevriKlub(zkratka) {
   `);
 }
 function zobrazDetailHrace(h) {
-  const csvUrl = "https://raw.githubusercontent.com/Adamos1511/ELH-web/main/hraci_detail.csv";
+  const csvUrl = "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/hraci_detail.csv";
 
   // odstraníme diakritiku z příjmení kvůli názvům fotek
   const prijmeniBezDiakritiky = h.prijmeni
@@ -615,7 +615,7 @@ function zobrazDetailHrace(h) {
     .replace(" ", "_");
 
   // fotka hráče
-  const fotoUrl = `https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/${prijmeniBezDiakritiky}.png`;
+  const fotoUrl = `https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/${prijmeniBezDiakritiky}.png`;
 
   // mapa zkratek týmů -> plné názvy
   const nazvyTymu = {
@@ -635,7 +635,7 @@ function zobrazDetailHrace(h) {
   };
 
   const plnyNazev = nazvyTymu[h.tym] || h.tym;
-  const logoUrl = `https://raw.githubusercontent.com/Adamos1511/ELH-web/main/loga_tymu/${h.tym}.png`;
+  const logoUrl = `https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/${h.tym}.png`;
 
   // otevře novou kartu
   const okno = window.open("", "_blank");
@@ -788,7 +788,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function zobrazPrestupy() {
-  const csvUrl = "https://raw.githubusercontent.com/Adamos1511/ELH-web/main/prestupy.csv";
+  const csvUrl = "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/prestupy.csv";
 
   Papa.parse(csvUrl, {
     

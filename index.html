@@ -8,15 +8,29 @@
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 </head>
 <body>
-  <header>
-    <h1>🏒 ELH Databáze</h1>
-    <nav>
-      <a href="#" class="active">Hráči</a>
-      <a href="kluby.html" target="_blank">Kluby</a>
-      <a href="#">Tabulka</a>
-      <a href="#" id="odkazPrestupy">Přestupy</a>
+  <header class="game-menu">
+  <div class="top-bar">
+    <div class="logo-title">🏒 ELH IceStats</div>
+
+    <nav class="top-nav">
+      <a href="#" class="active">Statistiky</a>
+      <a href="#" class="active">Návštěvnost</a>
+      <a href="#" class="active">Historie</a>
+      
     </nav>
-  </header>
+  </div>
+
+  <div class="hero-menu">
+    <div class="menu-panel">
+      <h1>ELH DATABÁZE</h1>
+
+      <a href="#" class="menu-item active">Hráči</a>
+      <a href="kluby.html" class="menu-item">Kluby</a>
+      <a href="#" class="menu-item">Tabulka</a>
+      <a href="#" id="odkazPrestupyHero" class="menu-item">Přestupy</a>
+    </div>
+  </div>
+</header>
 <section id="kluby" style="display:none;">
   <h2>Přehled klubů</h2>
   <div id="seznam-klubu" class="kluby-grid"></div>
