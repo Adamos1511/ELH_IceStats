@@ -11,23 +11,22 @@
   <header class="game-menu">
   <div class="top-bar">
     <div class="logo-title">🏒 ELH IceStats</div>
-
-    <nav class="top-nav">
+      <nav class="top-nav">
       <a href="#" class="active">Statistiky</a>
       <a href="#" class="active">Návštěvnost</a>
       <a href="#" class="active">Historie</a>
-      
+      © 2026 Czech Players Database | Vytvořeno ve VS Code
     </nav>
   </div>
 
   <div class="hero-menu">
     <div class="menu-panel">
-      <h1>ELH DATABÁZE</h1>
+      <h1>ELH IceStats</h1>
 
       <a href="#" class="menu-item active">Hráči</a>
       <a href="kluby.html" class="menu-item">Kluby</a>
       <a href="#" class="menu-item">Tabulka</a>
-      <a href="#" id="odkazPrestupyHero" class="menu-item">Přestupy</a>
+      <a href="#" id="odkazPrestupy" class="menu-item">Přestupy</a>
     </div>
   </div>
 </header>
@@ -35,38 +34,6 @@
   <h2>Přehled klubů</h2>
   <div id="seznam-klubu" class="kluby-grid"></div>
 </section>
-
-
-  <div class="filtry">
-  <input type="text" id="vyhledavani" placeholder="Hledat hráče...">
-  <select id="filtrTymu"></select>
-  <select id="filtrPozice"></select>
-  <select id="filtrDrzeni"></select>
-  <select id="filtrNarodnost"></select>
-  <select id="filtrSmlouva"></select>
-  <select id="razeni">
-  <option value="">Řadit podle...</option>
-  <option value="prijmeni_az">Příjmení (A–Z)</option>
-  <option value="prijmeni_za">Příjmení (Z–A)</option>
-  <option value="vek_asc">Věk (mladší → starší)</option>
-  <option value="vek_desc">Věk (starší → mladší)</option>
-  <option value="tym_az">Tým (A–Z)</option>
-  <option value="tym_za">Tým (Z–A)</option>
-  <option value="pozice_az">Pozice (A–Z)</option>
-  <option value="pozice_za">Pozice (Z–A)</option>
-  <option value="narodnost_az">Národnost (A–Z)</option>
-  <option value="narodnost_za">Národnost (Z–A)</option>
-  <option value="smlouva_asc">Smlouva (nejkratší → nejdelší)</option>
-  <option value="smlouva_desc">Smlouva (nejdelší → nejkratší)</option>
-  </select>
-</div>
-  
-<main id="hraci">Načítám hráče...</main>
-
-  <footer>
-    <p>© 2026 Czech Players Database | Vytvořeno ve VS Code</p>
-  </footer>
-
   <script src="script.js"></script>
 </body>
 </html>

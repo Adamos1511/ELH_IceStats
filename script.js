@@ -767,11 +767,6 @@ function zobrazDetailHrace(h) {
 
 
 
-
-// --- NAČTENÍ DAT PO STARTU ---
-naplnitFiltry();
-zobrazHrace(hraciData);
-nactiData();
 /* ===============================
    PŘESTUPY
 ================================ */
