@@ -793,14 +793,7 @@ const hraciTymu = hraciData.filter(h =>
               background: rgba(255,255,255,0.13);
             }
 
-            .player-card img {
-              width: 100%;
-              height: 190px;
-              object-fit: cover;
-              object-position: top center;
-              border-radius: 12px;
-              margin-bottom: 10px;
-            }
+            
 
             .player-card h3 {
               margin: 8px 0 6px;
@@ -881,23 +874,53 @@ const hraciTymu = hraciData.filter(h =>
               ${
                 hraciTymu.length
                   ? hraciTymu.map(h => `
-                    <div class="player-card" onclick="window.opener.zobrazDetail('${esc(h.jmeno)}', '${esc(h.prijmeni)}', '${esc(h.tym)}', '${esc(h.pozice)}', '${esc(h.vek)}', '${esc(h.smlouva)}', '${esc(h.drzeni)}', '${esc(h.narodnost)}', '${esc(h.foto)}')">
-                      ${h.foto ? `<img src="${h.foto}" alt="${h.jmeno} ${h.prijmeni}">` : ""}
-                      <h3>${h.jmeno} ${h.prijmeni}</h3>
-                      <p><b>Pozice:</b> ${h.pozice || "-"}</p>
-                      <p><b>Věk:</b> ${h.vek || "-"}</p>
-                      <p><b>Národnost:</b> ${h.narodnost || "-"}</p>
-                      <p><b>Smlouva:</b> ${h.smlouva || "-"}</p>
-                    </div>
+                    <div class="player-card"
+                    data-jmeno="${h.jmeno}"
+                    data-prijmeni="${h.prijmeni}"
+                    data-tym="${h.tym}"
+                    data-pozice="${h.pozice}"
+                    data-vek="${h.vek}"
+                    data-smlouva="${h.smlouva}"
+                    data-drzeni="${h.drzeni}"
+                    data-narodnost="${h.narodnost}"
+                    data-foto="${h.foto}">
+
+                    <h3>${h.jmeno} ${h.prijmeni}</h3>
+                    <p><b>Pozice:</b> ${h.pozice || "-"}</p>
+                    <p><b>Věk:</b> ${h.vek || "-"}</p>
+                    <p><b>Národnost:</b> ${h.narodnost || "-"}</p>
+                    <p><b>Smlouva:</b> ${h.smlouva || "-"}</p>
+
+                  </div>
                   `).join("")
                   : `<div class="info-card"><strong>Soupiska nebyla nalezena.</strong></div>`
               }
             </div>
 
           </div>
-        </body>
-        </html>
-      `);
+        
+        <script>
+document.querySelectorAll(".player-card").forEach(function(card) {
+  card.addEventListener("click", function() {
+    if (window.opener && window.opener.zobrazDetail) {
+      window.opener.zobrazDetail(
+        card.dataset.jmeno,
+        card.dataset.prijmeni,
+        card.dataset.tym,
+        card.dataset.pozice,
+        card.dataset.vek,
+        card.dataset.smlouva,
+        card.dataset.drzeni,
+        card.dataset.narodnost,
+        card.dataset.foto
+      );
+    }
+  });
+});
+<\/script>
+</body>
+</html>
+`);
     }
   });
 }
