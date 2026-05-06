@@ -873,26 +873,15 @@ const hraciTymu = hraciData.filter(h =>
             <div class="roster-grid">
               ${
                 hraciTymu.length
-                  ? hraciTymu.map(h => `
-                    <div class="player-card"
-                    data-jmeno="${h.jmeno}"
-                    data-prijmeni="${h.prijmeni}"
-                    data-tym="${h.tym}"
-                    data-pozice="${h.pozice}"
-                    data-vek="${h.vek}"
-                    data-smlouva="${h.smlouva}"
-                    data-drzeni="${h.drzeni}"
-                    data-narodnost="${h.narodnost}"
-                    data-foto="${h.foto}">
-
-                                        <h3>${h.jmeno} ${h.prijmeni}</h3>
+                  ?hraciTymu.map((h, index) => `
+                  <div class="player-card" data-index="${index}">
+                    <h3>${h.jmeno} ${h.prijmeni}</h3>
                     <p><b>Pozice:</b> ${h.pozice || "-"}</p>
                     <p><b>Věk:</b> ${h.vek || "-"}</p>
                     <p><b>Národnost:</b> ${h.narodnost || "-"}</p>
                     <p><b>Smlouva:</b> ${h.smlouva || "-"}</p>
-
                   </div>
-                  `).join("")
+                `).join("")
                   : `<div class="info-card"><strong>Soupiska nebyla nalezena.</strong></div>`
               }
             </div>
@@ -900,25 +889,32 @@ const hraciTymu = hraciData.filter(h =>
           </div>
         </body>
         </html>
-      `);
+            `);
 
       okno.document.close();
 
-      okno.document.querySelectorAll(".player-card").forEach(function(card) {
-        card.addEventListener("click", function() {
-          zobrazDetail(
-            card.dataset.jmeno,
-            card.dataset.prijmeni,
-            card.dataset.tym,
-            card.dataset.pozice,
-            card.dataset.vek,
-            card.dataset.smlouva,
-            card.dataset.drzeni,
-            card.dataset.narodnost,
-            card.dataset.foto
-          );
+      setTimeout(function() {
+        okno.document.querySelectorAll(".player-card").forEach(function(card) {
+          card.addEventListener("click", function() {
+            const index = Number(card.getAttribute("data-index"));
+            const h = hraciTymu[index];
+
+            if (!h) return;
+
+            zobrazDetail(
+              h.jmeno,
+              h.prijmeni,
+              h.tym,
+              h.pozice,
+              h.vek,
+              h.smlouva,
+              h.drzeni,
+              h.narodnost,
+              h.foto
+            );
+          });
         });
-      });
+      }, 100);
 
     }
   });
