@@ -598,7 +598,10 @@ function zobrazKluby() {
 
   document.getElementById("kluby").style.display = "block";
 }
-function otevriKlub(zkratka) {
+async function otevriKlub(zkratka) {
+  if (hraciData.length === 0) {
+  await nactiData();
+}
   const klub = dataKluby.find(k => k["NÁZEV TÝMU"] === zkratka);
 
   if (!klub) {
@@ -611,14 +614,26 @@ function otevriKlub(zkratka) {
   }
 
   const plnyNazevTymu = klub["NÁZEV TÝMU"];
+const nazevPodleZkratky = nazvyTymu[zkratka] || zkratka;
 
-  const hraciTymu = hraciData.filter(h =>
-    h.tym === zkratka ||
-    h.tym === plnyNazevTymu ||
-    zkratkyTymu[h.tym] === zkratka ||
-    nazvyTymu[h.tym] === plnyNazevTymu
-  );
+function norm(text) {
+  return String(text || "")
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+}
 
+const hraciTymu = hraciData.filter(h =>
+  norm(h.tym) === norm(zkratka) ||
+  norm(h.tym) === norm(nazevPodleZkratky) ||
+  norm(zkratkyTymu[h.tym]) === norm(zkratka) ||
+  norm(nazvyTymu[h.tym]) === norm(nazevPodleZkratky)
+);
+  console.log("Kliknutý klub zkratka:", zkratka);
+  console.log("Plný název klubu:", plnyNazevTymu);
+  console.log("Všechny týmy v hraciData:", [...new Set(hraciData.map(h => h.tym))]);
+  console.log("Nalezení hráči:", hraciTymu);
   const logo = `https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/${zkratka}.png`;
   const detailUrl = "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/hraci_detail.csv";
 
@@ -807,7 +822,7 @@ function otevriKlub(zkratka) {
               <img src="${logo}" alt="${plnyNazevTymu}" class="club-logo">
 
               <div>
-                <h1 class="club-title">${plnyNazevTymu}</h1>
+                <h1 class="club-title">${nazevPodleZkratky}</h1>
                 <div class="club-sub">${klub["NÁZEV STADIONU"] || "Stadion neuveden"}</div>
 
                 <div class="info-grid">
