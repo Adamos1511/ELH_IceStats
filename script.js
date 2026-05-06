@@ -135,195 +135,233 @@ function zobrazHrace(data) {
 function zobrazDetail(jmeno, prijmeni, tym, pozice, vek, smlouva, drzeni, narodnost, foto) {
   const csvUrl = "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/hraci_detail.csv";
   const logoUrl = `https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/${tym}.png`;
+  const plnyNazev = nazvyTymu[tym] || tym;
 
-  const zkratkyTymu = {
-    CBU: "Banes Motor České Budějovice",
-    PLZ: "HC Škoda Plzeň",
-    SPA: "HC Sparta Praha",
-    TRI: "HC Oceláři Třinec",
-    KOM: "HC Kometa Brno",
-    MBL: "BK Mladá Boleslav",
-    LIT: "HC Verva Litvínov",
-    KVA: "HC Energie Karlovy Vary",
-    OLO: "HC Olomouc",
-    LIB: "Bílí Tygři Liberec",
-    HRA: "Mountfield HK",
-    PCE: "HC Dynamo Pardubice",
-    KLA: "Rytíři Kladno"
-  };
+  function normalizuj(text) {
+    return String(text || "")
+      .trim()
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+  }
 
-  const plnyNazev = zkratkyTymu[tym] || tym;
+  function getHodnota(obj, key) {
+    const hledanyKey = normalizuj(key);
+    const realKey = Object.keys(obj).find(k => normalizuj(k) === hledanyKey);
+    return realKey ? obj[realKey] : "";
+  }
 
-  // otevře novou kartu
-  const okno = window.open("", "_blank");
-  okno.document.write(`
-    <html lang="cs">
-      <head>
-        <meta charset="UTF-8">
-        <title>${jmeno} ${prijmeni}</title>
-        <style>
-          body {
-  background: linear-gradient(to bottom, #001147, #002b80);
-  color: white;
-  font-family: 'Segoe UI', Tahoma, sans-serif;
-  margin: 0;
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+  Papa.parse(csvUrl, {
+    download: true,
+    header: true,
+    delimiter: ";",
+    skipEmptyLines: true,
+    complete: function (results) {
+      const hrac = results.data.find(r =>
+        normalizuj(r["Jméno"]) === normalizuj(jmeno) &&
+        normalizuj(r["Příjmení"]) === normalizuj(prijmeni)
+      );
+      console.log("NALEZENÝ HRÁČ:", hrac);
+      console.log("SLOUPCE CSV:", hrac ? Object.keys(hrac) : "hráč nenalezen");
+      const statistiky = [
+        ["Odehrané zápasy", "Odehrané zápasy"],
+        ["Góly", "Goly"],
+        ["Asistence", "Asistence"],
+        ["Body", "Body"],
+        ["ØČasu na ledě", "Ø Času na ledě"],
+        ["Body z přesilovek", "Body z přesilovek"],
+        ["+/-", "+/-"],
+        ["Trestné minuty", "Trestné minuty"],
+        ["Hity", "Hity"],
+        ["Bloky", "Bloky"],
+        ["Úspěšnost vhazování", "Úspěšnost vhazování %", " %"],
+        ["Úspěšnost střelby", "Úspěšnost střelby %", " %"],
+        ["Body na zápas", "Body na zápas"],
+        ["Hity na zápas", "Hity na zápas"],
+        ["Bloky na zápas", "Bloky na zápas"],
+        ["Pořadí podle bodů v týmu", "Pořadí podle bodu v tymu"],
+        ["Pořadí podle času na ledě", "Poradi prumerneho casu na lede"],
+        ["Podíl na ofenzivě týmu", "Podíl na ofenzivě týmu"],
+        ["Profil hráče", "Profil Hráče"],
+        ["Role TOI", "Role_TOI"]
+      ];
 
-.profil {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 60px;                   /* mezera mezi fotkou a infem */
-  flex-wrap: wrap;
-}
+      let statsHtml = "";
 
+      if (hrac) {
+        statsHtml = statistiky.map(stat => {
+          const label = stat[0];
+          const key = stat[1];
+          const suffix = stat[2] || "";
+          const hodnota = getHodnota(hrac, key);
 
-          .foto-hrace {
-  width: 500px;                 /* ✅ větší fotka */
-  height: auto;
-  border-radius: 15px;
-  box-shadow: 0 0 35px rgba(0,0,0,0.6);
-  margin-bottom: 25px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+          return `
+            <div class="stat">
+              <span>${label}</span>
+              <span>${hodnota ? hodnota + suffix : "-"}</span>
+            </div>
+          `;
+        }).join("");
+      } else {
+        statsHtml = "<p>Statistiky nenalezeny.</p>";
+      }
 
-.foto-hrace:hover {
-  transform: scale(1.05);       /* efekt při najetí myší */
-  box-shadow: 0 0 45px rgba(255,255,255,0.4);
-}
+      const vyska = hrac ? getHodnota(hrac, "Výška (cm)") : "-";
+      const vaha = hrac ? getHodnota(hrac, "Váha (kg)") : "-";
 
+      const okno = window.open("", "_blank");
 
-          .info-karta {
-  display: inline-block;
-  background: rgba(255,255,255,0.08);
-  padding: 15px 25px;           /* menší vnitřní mezery */
-  border-radius: 12px;
-  text-align: left;
-  min-width: 280px;             /* menší šířka boxu */
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
-  font-size: 15px;
-}
+      okno.document.write(`
+        <html lang="cs">
+        <head>
+          <meta charset="UTF-8">
+          <title>${jmeno} ${prijmeni}</title>
+          <style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+      linear-gradient(90deg, rgba(160,0,0,0.75), rgba(0,17,71,0.92)),
+      #001147;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    padding: 40px;
+  }
 
+  .player-page {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
 
-          .info-karta p {
-            margin: 8px 0;
-            font-size: 17px;
-          }
+  .player-hero {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 35px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 22px;
+    padding: 24px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+  }
 
-          .tym-logo {
-            height: 28px;
-            vertical-align: middle;
-            margin-left: 8px;
-          }
+  .foto-hrace {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 18px;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+  }
 
-          h2 {
-            margin-top: 60px;
-            font-size: 24px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-          }
+  .player-name {
+    font-size: 48px;
+    line-height: 1;
+    margin: 0 0 18px;
+    text-transform: uppercase;
+  }
 
-          .stat-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 25px;
-          }
+  .team-line {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 25px;
+  }
 
-          .stat {
-            width: 300px;
-            background: rgba(255,255,255,0.08);
-            border-radius: 10px;
-            padding: 12px 18px;
-            margin: 6px 0;
-            display: flex;
-            justify-content: space-between;
-            font-size: 16px;
-            box-shadow: 0 0 8px rgba(0,0,0,0.2);
-          }
+  .tym-logo {
+    height: 36px;
+  }
 
-          .stat span:first-child {
-            font-weight: bold;
-            text-transform: uppercase;
-          }
-        </style>
-      </head>
-      <body>
-        <img src="${foto}" alt="Foto ${jmeno} ${prijmeni}" class="foto-hrace" onerror="this.style.display='none'">
+  .info-grid,
+  .stat-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+  }
 
-        <div class="info-karta" id="info-karta">
-          <p><b>Jméno:</b> ${jmeno} ${prijmeni}</p>
-          <p><b>Tým:</b> ${plnyNazev}
-            <img src="${logoUrl}" alt="Logo ${plnyNazev}" class="tym-logo" onerror="this.style.display='none'">
-          </p>
-          <p><b>Pozice:</b> ${pozice}</p>
-          <p><b>Věk:</b> ${vek}</p>
-          <p><b>Držení hole:</b> ${drzeni}</p>
-          <p><b>Národnost:</b> ${narodnost}</p>
-          <p><b>Smlouva:</b> ${smlouva}</p>
+  .info-box,
+  .stat {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 14px;
+    padding: 14px 16px;
+  }
+
+  .info-box span,
+  .stat span:first-child {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.58);
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+
+  .info-box strong,
+  .stat span:last-child {
+    font-size: 18px;
+    font-weight: 900;
+    color: white;
+  }
+
+  .section-title {
+    margin: 38px 0 18px;
+    font-size: 28px;
+    text-transform: uppercase;
+  }
+
+  .stat {
+    min-height: 72px;
+    transition: 0.2s ease;
+  }
+
+  .stat:hover {
+    transform: translateY(-3px);
+    background: rgba(255,255,255,0.16);
+  }
+</style>
+        </head>
+
+        <body>
+  <div class="player-page">
+
+    <section class="player-hero">
+      <img src="${foto}" alt="Foto ${jmeno} ${prijmeni}" class="foto-hrace" onerror="this.style.display='none'">
+
+      <div class="player-info">
+        <h1 class="player-name">${jmeno} ${prijmeni}</h1>
+
+        <div class="team-line">
+          <span>${plnyNazev}</span>
+          <img src="${logoUrl}" alt="Logo ${plnyNazev}" class="tym-logo" onerror="this.style.display='none'">
         </div>
 
-        <h2>Statistiky hráče</h2>
-        <div id="statistiky">Načítám data...</div>
+        <div class="info-grid">
+          <div class="info-box"><span>Pozice</span><strong>${pozice}</strong></div>
+          <div class="info-box"><span>Věk</span><strong>${vek}</strong></div>
+          <div class="info-box"><span>Výška</span><strong>${vyska || "-"} cm</strong></div>
+          <div class="info-box"><span>Váha</span><strong>${vaha || "-"} kg</strong></div>
+          <div class="info-box"><span>Držení hole</span><strong>${drzeni}</strong></div>
+          <div class="info-box"><span>Národnost</span><strong>${narodnost}</strong></div>
+          <div class="info-box"><span>Smlouva</span><strong>${smlouva}</strong></div>
+          
+        </div>
+      </div>
+    </section>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
-        <script>
-          Papa.parse("${csvUrl}", {
-            download: true,
-            header: true,
-            complete: function (results) {
-              const data = results.data.filter(r =>
-                r["Jméno"] === "${jmeno}" && r["Příjmení"] === "${prijmeni}"
-              );
+    <h2 class="section-title">Statistiky hráče</h2>
 
-              if (data.length === 0) {
-                document.getElementById("statistiky").innerHTML = "<p>Statistiky nenalezeny.</p>";
-                return;
-              }
+    <div class="stat-box">
+      ${statsHtml}
+    </div>
 
-              const hrac = data[0];
-              const infoKarta = document.getElementById("info-karta");
-
-              // 🔹 Doplň výšku a váhu z CSV
-              const vyska = hrac["Výška (cm)"] || "-";
-              const vaha = hrac["Váha (kg)"] || "-";
-
-              // 🔹 Aktualizuj obsah info karty o tyto parametry
-              infoKarta.innerHTML = \`
-                <p><b>Jméno:</b> ${jmeno} ${prijmeni}</p>
-                <p><b>Tým:</b> ${plnyNazev}
-                  <img src="${logoUrl}" alt="Logo ${plnyNazev}" class="tym-logo" onerror="this.style.display='none'">
-                </p>
-                <p><b>Pozice:</b> ${pozice}</p>
-                <p><b>Věk:</b> ${vek}</p>
-                <p><b>Výška:</b> \${vyska} cm</p>
-                <p><b>Váha:</b> \${vaha} kg</p>
-                <p><b>Držení hole:</b> ${drzeni}</p>
-                <p><b>Národnost:</b> ${narodnost}</p>
-                <p><b>Smlouva:</b> ${smlouva}</p>
-              \`;
-
-              const statDiv = document.getElementById("statistiky");
-              statDiv.classList.add("stat-box");
-
-              const hlavicky = [
-                "Zápasy","PPP","Body","Góly","Asistence",
-                "Ø TOI","+/-","TM","HITY","BLOKY","ÚSP. Vhazování"
-              ];
-
-              statDiv.innerHTML = hlavicky.map(k => 
-                \`<div class="stat"><span>\${k}</span><span>\${hrac[k] || "-"}</span></div>\`
-              ).join("");
-            }
-          });
-        </script>
-      </body>
-    </html>
-  `);
+  </div>
+</body>
+        </html>
+      `);
+    }
+  });
 }
 
 
@@ -733,39 +771,92 @@ function zobrazDetailHrace(h) {
   `);
 
   // načti statistiky z CSV
-  Papa.parse(csvUrl, {
-    download: true,
-    header: true,
-    complete: function (results) {
-      const data = results.data.filter(r =>
-        r["Jméno"] === h.jmeno && r["Příjmení"] === h.prijmeni
-      );
+Papa.parse("${csvUrl}", {
+  download: true,
+  header: true,
+  delimiter: ";",
+  skipEmptyLines: true,
+  complete: function (results) {
+    const data = results.data.filter(r =>
+      r["Jméno"] === h.jmeno && r["Příjmení"] === h.prijmeni
+    );
 
-      if (data.length === 0) {
-        okno.document.getElementById("statistiky").innerHTML = "<p>Statistiky nenalezeny.</p>";
-        return;
-      }
-
-      const hlavicky = [
-        "Zápasy", "PPP", "Body", "Góly", "Asistence",
-        "Ø TOI", "+/-", "TM", "HITY", "BLOKY", "ÚSP. Vhazování"
-      ];
-
-      const radky = data.map(r =>
-        "<tr>" + hlavicky.map(k => `<td>${r[k] || "-"}</td>`).join("") + "</tr>"
-      ).join("");
-
-      const tabulka = `
-        <table>
-          <thead><tr>${hlavicky.map(k => `<th>${k}</th>`).join("")}</tr></thead>
-          <tbody>${radky}</tbody>
-        </table>
-      `;
-      okno.document.getElementById("statistiky").innerHTML = tabulka;
+    if (data.length === 0) {
+      okno.document.getElementById("statistiky").innerHTML = "<p>Statistiky nenalezeny.</p>";
+      return;
     }
-  });
+
+    const hrac = data[0];
+    function normalizeKey(text) {
+  return text
+    .toString()
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
 }
 
+function getHodnota(obj, key) {
+  const hledanyKey = normalizeKey(key);
+  const realKey = Object.keys(obj).find(k => normalizeKey(k) === hledanyKey);
+  return realKey ? obj[realKey] : "";
+}
+    const statistiky = [
+      ["Jméno", "Jméno"],
+      ["Příjmení", "Příjmení"],
+      ["Smlouva", "Smlouva"],
+      ["Pozice", "Pozice"],
+      ["Tým", "Tým"],
+      ["Věk", "Věk"],
+      ["Držení hole", "Držení hole"],
+      ["Národnost", "Národnost"],
+      ["Výška", "Výška (cm)", " cm"],
+      ["Váha", "Váha (kg)", " kg"],
+      ["Odehrané zápasy", "Odehrané zápasy"],
+      ["Góly", "Goly"],
+      ["Asistence", "Asistence"],
+      ["Body", "Body"],
+      ["Ø času na ledě", "Ø Času na ledě"],
+      ["Body z přesilovek", "Body z přesilovek"],
+      ["+/-", "+/-"],
+      ["Trestné minuty", "Trestné minuty"],
+      ["Hity", "Hity"],
+      ["Bloky", "Bloky"],
+      ["Úspěšnost vhazování", "Úspěšnost vhazování %", " %"],
+      ["Úspěšnost střelby", "Úspěšnost střelby %", " %"],
+      ["Body na zápas", "Body na zápas"],
+      ["Hity na zápas", "Hity na zápas"],
+      ["Bloky na zápas", "Bloky na zápas"],
+      ["Pořadí podle bodů v týmu", "Pořadí podle bodu v tymu"],
+      ["Pořadí podle času na ledě", "Poradi prumerneho casu na lede"],
+      ["Podíl na ofenzivě týmu", "Podíl na ofenzivě týmu"],
+      ["Profil hráče", "Profil Hráče"],
+      ["TOI min", "TOI_min"],
+      ["Podíl num", "Podíl_num"],
+      ["Role TOI", "Role_TOI"]
+    ];
+
+    let html = "";
+
+    statistiky.forEach(stat => {
+      const label = stat[0];
+      const key = stat[1];
+      const suffix = stat[2] || "";
+      const hodnota = hrac[key];
+
+      html += `
+        <div class="stat">
+          <span>${label}</span>
+          <span>${hodnota ? hodnota + suffix : "-"}</span>
+        </div>
+      `;
+    });
+
+        okno.document.getElementById("statistiky").classList.add("stat-box");
+    okno.document.getElementById("statistiky").innerHTML = html;
+  }
+});
+}
 
 
 
