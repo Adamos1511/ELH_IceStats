@@ -211,23 +211,42 @@ function statTyp(key, hodnota) {
 
 function progressProcenta(key, hodnota) {
   const val = cislo(hodnota);
+
   if (isNaN(val)) return 0;
 
-  if (key === "Body") return Math.min(val / 80 * 100, 100);
-  if (key === "Goly" || key === "Góly") return Math.min(val / 35 * 100, 100);
-  if (key === "Asistence") return Math.min(val / 50 * 100, 100);
-  if (key === "Hity") return Math.min(val / 120 * 100, 100);
-  if (key === "Bloky") return Math.min(val / 90 * 100, 100);
-  if (key.includes("Úspěšnost")) return Math.min(val, 100);
-  if (key.includes("Body na zápas")) return Math.min(val / 1.2 * 100, 100);
+  // statistiky kde chceme bary
+  const povoleneStaty = [
+    "Body",
+    "Goly",
+    "Góly",
+    "Asistence",
+    "Hity",
+    "Bloky",
+    "Body na zápas",
+    "Úspěšnost střelby %",
+    "Úspěšnost vhazování %"
+  ];
 
-  return 0;
+  const povoleno = povoleneStaty.some(s =>
+    normalizuj(key).includes(normalizuj(s))
+  );
+
+  if (!povoleno) return 0;
+
+  // najde všechny hodnoty stejné statistiky
+  const hodnoty = results.data
+    .map(hrac => cislo(getHodnota(hrac, key)))
+    .filter(v => !isNaN(v));
+
+  const max = Math.max(...hodnoty);
+
+  if (!max || max <= 0) return 0;
+
+  return Math.min((val / max) * 100, 100);
 }
 
 if (hrac) {
-  Object.keys(hrac).forEach(key => {
-    Object.keys(hrac).forEach(key => {
-  const preskocit = [
+  const skryteUdaje = [
     "Jméno",
     "Příjmení",
     "Smlouva",
@@ -240,21 +259,14 @@ if (hrac) {
     "Váha (kg)"
   ];
 
-  if (preskocit.includes(key.trim())) return;
+  Object.keys(hrac).forEach(key => {
+    const schovat = skryteUdaje.some(udaj => normalizuj(udaj) === normalizuj(key));
+    if (schovat) return;
 
-  let hodnota = getHodnota(hrac, key);
-
-  if (!hodnota) return;
-
-  // zbytek necháš
-});
     let hodnota = getHodnota(hrac, key);
-
     if (!hodnota) return;
 
     let jednotka = "";
-    if (key.includes("Výška")) jednotka = " cm";
-    if (key.includes("Váha")) jednotka = " kg";
     if (key.includes("%")) jednotka = " %";
 
     const typ = statTyp(key, hodnota);
@@ -370,7 +382,7 @@ if (hrac) {
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(to right, #4facfe, #00f2fe);
+  background: linear-gradient(to right, rgba(120,180,255,0.7), rgba(180,220,255,0.95));
   border-radius: 999px;
 }
   .info-box span,
@@ -378,39 +390,28 @@ if (hrac) {
     display: block;
     font-size: 12px;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.58);
+    color: rgba(255,255,255,0.55);
     font-weight: 800;
     margin-bottom: 6px;
   }
-    .stat-star {
-  background: rgba(255, 215, 0, 0.10);
-  border: 1px solid rgba(255, 215, 0, 0.25);
+    .stat {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 14px;
+  padding: 14px 16px;
+  transition: 0.2s ease;
 }
 
-.stat-elite {
-  background: rgba(0, 255, 140, 0.08);
-  border: 1px solid rgba(0, 255, 140, 0.18);
-}
-
-.stat-bad {
-  background: rgba(255, 80, 80, 0.08);
-  border: 1px solid rgba(255, 80, 80, 0.18);
-}
-
-.stat-physical {
-  background: rgba(0, 170, 255, 0.08);
-  border: 1px solid rgba(0, 170, 255, 0.18);
-}
-
-.stat-toi {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.08);
+.stat:hover {
+  transform: translateY(-3px);
+  background: rgba(255,255,255,0.11);
+  border-color: rgba(255,255,255,0.18);
 }
   .info-box strong,
   .stat span:last-child {
-    font-size: 18px;
-    font-weight: 900;
-    color: white;
+    font-size: 20px;
+    font-weight: 800;
+    color: #ffffff;
   }
 
   .section-title {
@@ -910,6 +911,16 @@ function getHodnota(obj, key) {
   return realKey ? obj[realKey] : "";
 }
     const statistiky = [
+      ["Jméno", "Jméno"],
+      ["Příjmení", "Příjmení"],
+      ["Smlouva", "Smlouva"],
+      ["Pozice", "Pozice"],
+      ["Tým", "Tým"],
+      ["Věk", "Věk"],
+      ["Držení hole", "Držení hole"],
+      ["Národnost", "Národnost"],
+      ["Výška", "Výška (cm)", " cm"],
+      ["Váha", "Váha (kg)", " kg"],
       ["Odehrané zápasy", "Odehrané zápasy"],
       ["Góly", "Goly"],
       ["Asistence", "Asistence"],
