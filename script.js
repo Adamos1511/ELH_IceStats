@@ -885,7 +885,7 @@ const hraciTymu = hraciData.filter(h =>
                     data-narodnost="${h.narodnost}"
                     data-foto="${h.foto}">
 
-                    <h3>${h.jmeno} ${h.prijmeni}</h3>
+                                        <h3>${h.jmeno} ${h.prijmeni}</h3>
                     <p><b>Pozice:</b> ${h.pozice || "-"}</p>
                     <p><b>Věk:</b> ${h.vek || "-"}</p>
                     <p><b>Národnost:</b> ${h.narodnost || "-"}</p>
@@ -898,29 +898,28 @@ const hraciTymu = hraciData.filter(h =>
             </div>
 
           </div>
-        
-        <script>
-document.querySelectorAll(".player-card").forEach(function(card) {
-  card.addEventListener("click", function() {
-    if (window.opener && window.opener.zobrazDetail) {
-      window.opener.zobrazDetail(
-        card.dataset.jmeno,
-        card.dataset.prijmeni,
-        card.dataset.tym,
-        card.dataset.pozice,
-        card.dataset.vek,
-        card.dataset.smlouva,
-        card.dataset.drzeni,
-        card.dataset.narodnost,
-        card.dataset.foto
-      );
-    }
-  });
-});
-<\/script>
-</body>
-</html>
-`);
+        </body>
+        </html>
+      `);
+
+      okno.document.close();
+
+      okno.document.querySelectorAll(".player-card").forEach(function(card) {
+        card.addEventListener("click", function() {
+          zobrazDetail(
+            card.dataset.jmeno,
+            card.dataset.prijmeni,
+            card.dataset.tym,
+            card.dataset.pozice,
+            card.dataset.vek,
+            card.dataset.smlouva,
+            card.dataset.drzeni,
+            card.dataset.narodnost,
+            card.dataset.foto
+          );
+        });
+      });
+
     }
   });
 }
