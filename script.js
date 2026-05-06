@@ -188,23 +188,95 @@ function zobrazDetail(jmeno, prijmeni, tym, pozice, vek, smlouva, drzeni, narodn
 
       let statsHtml = "";
 
-      if (hrac) {
-        statsHtml = statistiky.map(stat => {
-          const label = stat[0];
-          const key = stat[1];
-          const suffix = stat[2] || "";
-          const hodnota = getHodnota(hrac, key);
+function cislo(hodnota) {
+  return parseFloat(String(hodnota).replace(",", "."));
+}
 
-          return `
-            <div class="stat">
-              <span>${label}</span>
-              <span>${hodnota ? hodnota + suffix : "-"}</span>
-            </div>
-          `;
-        }).join("");
-      } else {
-        statsHtml = "<p>Statistiky nenalezeny.</p>";
-      }
+function statTyp(key, hodnota) {
+  const val = cislo(hodnota);
+
+  if (key === "Body" || key === "Goly" || key === "Góly") return "stat-star";
+  if (key === "TOI_min" || key === "Ø Času na ledě" || key === "Role_TOI") return "stat-toi";
+  if (key === "Hity" || key === "Bloky") return "stat-physical";
+
+  if (!isNaN(val)) {
+    if (key.includes("Body na zápas") && val >= 0.7) return "stat-elite";
+    if (key.includes("Úspěšnost střelby") && val >= 12) return "stat-elite";
+    if (key.includes("Úspěšnost") && val < 45) return "stat-bad";
+    if (key.includes("+/-") && val < 0) return "stat-bad";
+  }
+
+  return "";
+}
+
+function progressProcenta(key, hodnota) {
+  const val = cislo(hodnota);
+  if (isNaN(val)) return 0;
+
+  if (key === "Body") return Math.min(val / 80 * 100, 100);
+  if (key === "Goly" || key === "Góly") return Math.min(val / 35 * 100, 100);
+  if (key === "Asistence") return Math.min(val / 50 * 100, 100);
+  if (key === "Hity") return Math.min(val / 120 * 100, 100);
+  if (key === "Bloky") return Math.min(val / 90 * 100, 100);
+  if (key.includes("Úspěšnost")) return Math.min(val, 100);
+  if (key.includes("Body na zápas")) return Math.min(val / 1.2 * 100, 100);
+
+  return 0;
+}
+
+if (hrac) {
+  Object.keys(hrac).forEach(key => {
+    Object.keys(hrac).forEach(key => {
+  const preskocit = [
+    "Jméno",
+    "Příjmení",
+    "Smlouva",
+    "Pozice",
+    "Tým",
+    "Věk",
+    "Držení hole",
+    "Národnost",
+    "Výška (cm)",
+    "Váha (kg)"
+  ];
+
+  if (preskocit.includes(key.trim())) return;
+
+  let hodnota = getHodnota(hrac, key);
+
+  if (!hodnota) return;
+
+  // zbytek necháš
+});
+    let hodnota = getHodnota(hrac, key);
+
+    if (!hodnota) return;
+
+    let jednotka = "";
+    if (key.includes("Výška")) jednotka = " cm";
+    if (key.includes("Váha")) jednotka = " kg";
+    if (key.includes("%")) jednotka = " %";
+
+    const typ = statTyp(key, hodnota);
+    const progress = progressProcenta(key, hodnota);
+
+    statsHtml +=
+      '<div class="stat ' + typ + '">' +
+        '<span>' + key + '</span>' +
+        '<strong>' + hodnota + jednotka + '</strong>';
+
+    if (progress > 0) {
+      statsHtml +=
+        '<div class="progress">' +
+          '<div class="progress-fill" style="width:' + progress + '%"></div>' +
+        '</div>';
+    }
+
+    statsHtml += '</div>';
+  });
+} else {
+  statsHtml = "<p>Statistiky nenalezeny.</p>";
+}
 
       const vyska = hrac ? getHodnota(hrac, "Výška (cm)") : "-";
       const vaha = hrac ? getHodnota(hrac, "Váha (kg)") : "-";
@@ -287,7 +359,20 @@ function zobrazDetail(jmeno, prijmeni, tym, pozice, vek, smlouva, drzeni, narodn
     border-radius: 14px;
     padding: 14px 16px;
   }
+  .progress {
+  width: 100%;
+  height: 6px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 999px;
+  margin-top: 12px;
+  overflow: hidden;
+}
 
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(to right, #4facfe, #00f2fe);
+  border-radius: 999px;
+}
   .info-box span,
   .stat span:first-child {
     display: block;
@@ -297,7 +382,30 @@ function zobrazDetail(jmeno, prijmeni, tym, pozice, vek, smlouva, drzeni, narodn
     font-weight: 800;
     margin-bottom: 6px;
   }
+    .stat-star {
+  background: rgba(255, 215, 0, 0.10);
+  border: 1px solid rgba(255, 215, 0, 0.25);
+}
 
+.stat-elite {
+  background: rgba(0, 255, 140, 0.08);
+  border: 1px solid rgba(0, 255, 140, 0.18);
+}
+
+.stat-bad {
+  background: rgba(255, 80, 80, 0.08);
+  border: 1px solid rgba(255, 80, 80, 0.18);
+}
+
+.stat-physical {
+  background: rgba(0, 170, 255, 0.08);
+  border: 1px solid rgba(0, 170, 255, 0.18);
+}
+
+.stat-toi {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+}
   .info-box strong,
   .stat span:last-child {
     font-size: 18px;
@@ -802,16 +910,6 @@ function getHodnota(obj, key) {
   return realKey ? obj[realKey] : "";
 }
     const statistiky = [
-      ["Jméno", "Jméno"],
-      ["Příjmení", "Příjmení"],
-      ["Smlouva", "Smlouva"],
-      ["Pozice", "Pozice"],
-      ["Tým", "Tým"],
-      ["Věk", "Věk"],
-      ["Držení hole", "Držení hole"],
-      ["Národnost", "Národnost"],
-      ["Výška", "Výška (cm)", " cm"],
-      ["Váha", "Váha (kg)", " kg"],
       ["Odehrané zápasy", "Odehrané zápasy"],
       ["Góly", "Goly"],
       ["Asistence", "Asistence"],
