@@ -1,26 +1,26 @@
 ﻿Foto;Jméno;Příjmení;Smlouva;Pozice;Tým;Věk;Držení hole;Národnost;Výška (cm);Váha (kg);Odehrané zápasy;Goly;Asistence;Body;Body z přesilovek;Ø Času na ledě;+/-;Trestné minuty;Hity;Bloky;Úspěšnost vhazování %;Úspěšnost střelby %;Body na zápas;Hity na zápas;Bloky na zápas;Pořadí podle bodu v tymu;Poradi prumerneho casu na lede;Podíl na ofenzivě týmu;Profil Hráče
-;Ondřej;Kachyňa;27/28;O;CBU;28;L;CZE;193;96;5;0;0;0;0;12:10;-4;8;1;2;0,00%;0,00%;0;0,2;0,4;10;1;0%;Bez vstřeleného gólu, přesto je výrazně cítit v kombinaci a tvorbě hry.
-;Tomáš;Kundrátek;27/28;O;CBU;36;P;CZE;187;91;5;2;3;5;2;14:15;2;2;0;1;0,00%;25,00%;1;0;0,2;1;1;50%;Obránce první dvojice, jehož hlavní síla je v defenzivní práci a stabilitě.
-;Pavel;Pýcha;26/27;O;CBU;30;L;CZE;185;81;5;0;0;0;0;17:15;2;3;0;0;0,00%;0,00%;0;0;0;10;1;0%;Zatím čeká na první gól, ale do ofenzivy se zapojuje pravidelně. Už nasbíral 1 asistencí.
-;Jan;Štencel;27/28;O;CBU;31;L;CZE;175;84;5;0;0;0;0;18:20;1;5;0;4;0,00%;0,00%;0;0;0,8;10;1;0%;Stabilní obránce využívaný hlavně v defenzivních situacích. Silný je v poziční hře a osobních soubojích.
-;Ondřej;Vála;27/28;O;CBU;28;L;CZE;194;100;5;0;0;0;0;13:10;2;4;0;5;0,00%;0,00%;0;0;1;10;1;0%;Produktivitu zatím táhne hlavně asistencemi a podporou ofenzivy.
-;Roman;Vráblík;27/28;O;CBU;36;L;CZE;187;90;5;0;0;0;0;14:16;4;6;0;6;0,00%;0,00%;0;0;1,2;10;1;0%;Defenzivně orientovaný obránce s velkým vytížením. Vyniká hlavně blokováním střel a hrou bez puku.
-;Filip;Ahl;26/27+1;LW/RW;CBU;28;L;SWE;193;97;5;1;0;1;0;17:16;-1;8;4;0;0,00%;10,00%;0,2;0,8;0;6;1;10%;Ofenziva týmu jde často právě přes něj. Výrazně pomáhá tvorbě šancí i kombinaci.
-;Martin;Beránek;27/28;RW/LW;CBU;25;L;CZE;185;83;5;0;0;0;0;18:21;-2;4;4;1;0,00%;0,00%;0;0,8;0,2;10;1;0%;Patří mezi klíčové tvůrce hry svého týmu a podílí se na 44,4% gólů mužstva.
-;Michal;Bulíř;27/28;C;CBU;34;L;CZE;187;90;5;2;1;3;1;13:11;0;0;2;2;62,22%;66,67%;0,6;0,4;0,4;2;1;30%;Fyzicky laděný forvard, který přináší energii, důraz a aktivitu v napadání.
-;Samuel;Drančák;27/28+1;C;CBU;20;L;CZE;183;88;5;0;1;1;0;14:17;-1;0;3;4;0,00%;0,00%;0,2;0,6;0,8;6;1;10%;Energy forward s výrazným přínosem v osobních soubojích a hře bez puku.
-;Tomáš;Chlubna;26/27+1;RW;CBU;23;P;CZE;190;87;5;0;0;0;0;17:17;2;0;4;4;0,00%;0,00%;0;0,8;0,8;10;1;0%;Produktivitu zatím táhne hlavně asistencemi a podporou ofenzivy.
-;Štěpán;Hoch;26/27;LW;CBU;19;L;CZE;193;87;5;0;1;1;0;18:22;3;0;2;5;0,00%;0,00%;0,2;0,4;1;6;1;10%;Zatím čeká na první gól, ale do ofenzivy se zapojuje pravidelně. Už nasbíral 1 asistencí.
-;Matyáš;Humeník;26/27+1;RW;CBU;19;P;CZE;183;82;5;0;0;0;0;13:12;-1;0;0;0;0,00%;0,00%;0;0;0;10;1;0%;Bodově zatím mlčí, do hry ale přináší fyzickou práci a energii.
-;Josef;Koláček;27/28;RW;CBU;23;L;CZE;183;85;5;0;0;0;0;14:18;0;0;0;1;42,86%;0,00%;0;0;0,2;10;1;0%;Forvard s přínosem hlavně mimo produktivitu. Aktivní je především v napadání a osobních soubojích.
-;Róbert;Lantoši;27/28;RW/C;CBU;30;P;SVK;180;84;5;1;1;2;1;17:18;0;2;0;2;0,00%;50,00%;0,4;0;0,4;4;1;20%;Univerzální hráč s vyváženým stylem hry. Dokáže pomoci jak směrem dopředu, tak v defenzivě.
-;Jakub;Lev;27/28+1;F;CBU;19;P;CZE;174;74;5;0;0;0;0;18:23;0;4;0;3;0,00%;0,00%;0;0;0,6;10;1;0%;Bodově zatím mlčí, do hry ale přináší fyzickou práci a energii.
-;Pavel;Novák;26/27;RW;CBU;24;P;CZE;175;77;5;0;0;0;0;13:13;0;2;0;4;0,00%;0,00%;0;0;0,8;10;1;0%;Forvard s přínosem hlavně mimo produktivitu. Aktivní je především v napadání a osobních soubojích.
-;Nick;Olesen;27/28;W/C;CBU;30;L;DEN;185;84;5;1;2;3;0;14:19;1;6;0;0;0,00%;25,00%;0,6;0;0;2;1;30%;Univerzální hráč s vyváženým stylem hry. Dokáže pomoci jak směrem dopředu, tak v defenzivě.
-;Jan;Ordoš;27/28;RW/LW;CBU;29;P;CZE;181;81;5;0;0;0;0;17:19;2;0;7;5;25,00%;0,00%;0;1,4;1;10;1;0%;Bodově zatím mlčí, do hry ale přináší fyzickou práci a energii.
-;Jakub;Pour;27/28;RW;CBU;27;L;CZE;191;90;5;1;0;1;0;18:24;-1;0;4;0;0,00%;100,00%;0,2;0,8;0;6;1;10%;Do hry přináší hlavně fyzickou práci, pohyb a aktivitu v soubojích.
-;Matěj;Toman;27/28;C/W;CBU;25;L;CZE;180;80;5;0;0;0;0;13:14;-2;0;0;1;0,00%;0,00%;0;0;0,2;10;1;0%;Energický forvard, který přináší pohyb, důraz a aktivitu v soubojích.
-;Marek;Zachar;27/28+1;C/W;CBU;27;L;CZE;175;85;5;0;2;2;0;12:10;1;0;10;0;66,67%;0,00%;0,4;2;0;4;1;20%;Bez vstřeleného gólu, přesto je výrazně cítit v kombinaci a tvorbě hry.
+;Ondřej;Kachyňa;27/28;O;CBU;28;L;CZE;193;96;43;4;4;8;0,490277778;0;5;30;16;32;0,00%;9,30%;0,186046512;0,372093023;0,74;12;5;8%;Obránce s důrazem na hru bez puku a podporu defenzivy.
+;Tomáš;Kundrátek;27/28;O;CBU;36;P;CZE;187;91;0;0;0;0;0;0;0;0;0;0;0,00%;0,00%;0;0;0;16;6;0%;Stabilní bek, jehož přínos je nejvíc vidět směrem dozadu.
+;Pavel;Pýcha;26/27;O;CBU;30;L;CZE;185;81;48;3;10;13;0,702777778;6;-5;24;5;54;0,00%;6,38%;0,270833333;0,104166667;1,13;8;3;13%;Defenzivně orientovaný obránce s velkým vytížením. Vyniká hlavně blokováním střel a hrou bez puku.
+;Jan;Štencel;27/28;O;CBU;31;L;CZE;175;84;51;8;19;27;0,713888889;3;11;18;9;72;0,00%;15,69%;0,529411765;0,176470588;1,41;3;2;28%;Stabilní obránce využívaný hlavně v defenzivních situacích. Silný je v poziční hře a osobních soubojích.
+;Ondřej;Vála;27/28;O;CBU;28;L;CZE;194;100;52;4;7;11;0,83125;0;-1;28;18;74;0,00%;4,44%;0,211538462;0,346153846;1,42;10;1;11%;Obránce první dvojice, jehož hlavní síla je v defenzivní práci a stabilitě.
+;Roman;Vráblík;27/28;O;CBU;36;L;CZE;187;90;52;4;10;14;0,654166667;0;1;20;19;63;0,00%;5,00%;0,269230769;0,365384615;1,21;7;4;14%;Defenzivně orientovaný obránce s velkým vytížením. Vyniká hlavně blokováním střel a hrou bez puku.
+;Filip;Ahl;26/27+1;LW/RW;CBU;28;L;SWE;193;97;0;0;0;0;0;0;0;0;0;0;79,49%;0,00%;0;0;0;16;6;0%;Stabilní člen sestavy, který odvádí spolehlivou práci na obou stranách kluziště.
+;Martin;Beránek;27/28;RW/LW;CBU;25;L;CZE;185;83;51;7;10;17;0;0;0;0;0;0;87,04%;0,00%;0,333333333;0;0;6;6;17%;Two-way hráč využitelný v různých herních situacích a stabilní součást sestavy.
+;Michal;Bulíř;27/28;C;CBU;34;L;CZE;187;90;31;8;11;19;0;0;0;0;0;0;72,92%;0,00%;0,612903226;0;0;5;6;19%;Univerzální hráč s vyváženým stylem hry. Dokáže pomoci jak směrem dopředu, tak v defenzivě.
+;Samuel;Drančák;27/28+1;C;CBU;20;L;CZE;183;88;0;0;0;0;0;0;0;0;0;0;65,12%;0,00%;0;0;0;16;6;0%;Stabilní člen sestavy, který odvádí spolehlivou práci na obou stranách kluziště.
+;Tomáš;Chlubna;26/27+1;RW;CBU;23;P;CZE;190;87;33;2;0;2;0;0;0;0;0;0;51,72%;0,00%;0,060606061;0;0;15;6;2%;Two-way hráč využitelný v různých herních situacích a stabilní součást sestavy.
+;Štěpán;Hoch;26/27;LW;CBU;19;L;CZE;193;87;37;2;4;6;0;0;3;0;2;5;0,00%;0,00%;0,162162162;0,054054054;0,14;14;1;6%;Univerzální hráč s vyváženým stylem hry. Dokáže pomoci jak směrem dopředu, tak v defenzivě.
+;Matyáš;Humeník;26/27+1;RW;CBU;19;P;CZE;183;82;19;0;0;0;0;0;-1;0;0;0;0,00%;0,00%;0;0;0;16;1;0%;Bodově zatím mlčí, do hry ale přináší fyzickou práci a energii.
+;Josef;Koláček;27/28;RW;CBU;23;L;CZE;183;85;27;5;6;11;0;0;0;0;0;1;42,86%;125,00%;0,407407407;0;0,04;10;1;11%;Two-way hráč využitelný v různých herních situacích a stabilní součást sestavy.
+;Róbert;Lantoši;27/28;RW/C;CBU;30;P;SVK;180;84;52;17;26;43;0;1;0;2;0;2;0,00%;850,00%;0,826923077;0;0,04;2;1;44%;Kreativní hráč v top 6, přes kterého často přechází ofenziva týmu. Patří mezi hlavní tvůrce hry.
+;Jakub;Lev;27/28+1;F;CBU;19;P;CZE;174;74;10;0;0;0;0;0;0;4;0;3;0,00%;0,00%;0;0;0,3;16;1;0%;Bodově zatím mlčí, do hry ale přináší fyzickou práci a energii.
+;Pavel;Novák;26/27;RW;CBU;24;P;CZE;175;77;51;4;4;8;0;0;0;2;0;4;0,00%;57,14%;0,156862745;0;0,08;12;1;8%;Two-way hráč využitelný v různých herních situacích a stabilní součást sestavy.
+;Nick;Olesen;27/28;W/C;CBU;30;L;DEN;185;84;51;14;31;45;0;0;1;6;0;0;0,00%;350,00%;0,882352941;0;0;1;1;46%;Kreativní hráč v top 6, přes kterého často přechází ofenziva týmu. Patří mezi hlavní tvůrce hry.
+;Jan;Ordoš;27/28;RW/LW;CBU;29;P;CZE;181;81;49;13;10;23;0;0;2;0;7;5;25,00%;0,00%;0,469387755;0,142857143;0,1;4;1;23%;Produktivní forvard s velmi dobrým zakončením. V útočném pásmu bývá velmi nebezpečný.
+;Jakub;Pour;27/28;RW;CBU;27;L;CZE;191;90;0;0;0;0;0;0;-1;0;4;0;0,00%;0,00%;0;0;0;16;1;0%;Two-way hráč využitelný v různých herních situacích a stabilní součást sestavy.
+;Matěj;Toman;27/28;C/W;CBU;25;L;CZE;180;80;51;3;9;12;0;0;-2;0;0;1;0,00%;150,00%;0,235294118;0;0,02;9;1;12%;Univerzální hráč s vyváženým stylem hry. Dokáže pomoci jak směrem dopředu, tak v defenzivě.
+;Marek;Zachar;27/28+1;C/W;CBU;27;L;CZE;175;85;0;0;0;0;0;0;1;0;10;0;66,67%;0,00%;0;0;0;16;1;0%;Stabilní člen sestavy, který odvádí spolehlivou práci na obou stranách kluziště.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;Jéremie;Blain;-;O;KLA;33;P;CAN;191;91;;;;;;;;;;;;;;;;;;;
 ;Martin;Jandus;-;O;KLA;28;P;CZE;181;79;;;;;;;;;;;;;;;;;;;

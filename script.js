@@ -472,6 +472,7 @@ if (hrac) {
     }
   });
 }
+window.zobrazDetail = zobrazDetail;
 
 
 /* --- FUNKCE PRO FILTROVÁNÍ --- */
@@ -875,32 +876,211 @@ async function otevriKlub(zkratka) {
             <h2 class="section-title">Soupiska týmu</h2>
             <div class="roster-grid">
               ${
-                hraciTymu.length
-                  ? hraciTymu.map(h => `
-                    <div class="player-card" onclick="window.opener.zobrazDetail(
-                      '${esc(h.jmeno)}',
-                      '${esc(h.prijmeni)}',
-                      '${esc(h.tym)}',
-                      '${esc(h.pozice)}',
-                      '${esc(h.vek)}',
-                      '${esc(h.smlouva)}',
-                      '${esc(h.drzeni)}',
-                      '${esc(h.narodnost)}',
-                      '${esc(h.foto)}'
-                    )">
-                      <h3>${h.jmeno} ${h.prijmeni}</h3>
-                      <p><b>Pozice:</b> ${h.pozice || "-"}</p>
-                      <p><b>Věk:</b> ${h.vek || "-"}</p>
-                      <p><b>Národnost:</b> ${h.narodnost || "-"}</p>
-                      <p><b>Smlouva:</b> ${h.smlouva || "-"}</p>
-                    </div>
-                  `).join("")
-                  : `<div class="info-card"><strong>Soupiska nebyla nalezena.</strong></div>`
-              }
+  hraciTymu.length
+    ? hraciTymu.map((h, index) => `
+      <div class="player-card" onclick="openPlayerDetailFromClub(${index})">
+        <h3>${h.jmeno} ${h.prijmeni}</h3>
+        <p><b>Pozice:</b> ${h.pozice || "-"}</p>
+        <p><b>Věk:</b> ${h.vek || "-"}</p>
+        <p><b>Národnost:</b> ${h.narodnost || "-"}</p>
+        <p><b>Smlouva:</b> ${h.smlouva || "-"}</p>
+      </div>
+    `).join("")
+    : `<div class="info-card"><strong>Soupiska nebyla nalezena.</strong></div>`
+}
             </div>
 
           </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"><\/script>
+
+<script>
+const hraciTymuKlub = ${JSON.stringify(hraciTymu)};
+const nazvyTymuKlub = ${JSON.stringify(nazvyTymu)};
+
+function normalizujKlub(text) {
+  return String(text || "")
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\\u0300-\\u036f]/g, "");
+}
+
+function openPlayerDetailFromClub(index) {
+  const h = hraciTymuKlub[index];
+  if (!h) return;
+
+  const csvUrl = "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/hraci_detail.csv";
+  const plnyNazev = nazvyTymuKlub[h.tym] || h.tym;
+  const logoUrl = "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/" + h.tym + ".png";
+
+  Papa.parse(csvUrl, {
+    download: true,
+    header: true,
+    delimiter: ";",
+    skipEmptyLines: true,
+    complete: function(results) {
+      const detail = results.data.find(r =>
+        normalizujKlub(r["Jméno"]) === normalizujKlub(h.jmeno) &&
+        normalizujKlub(r["Příjmení"]) === normalizujKlub(h.prijmeni)
+      );
+
+      let statsHtml = "";
+
+      if (detail) {
+        Object.keys(detail).forEach(function(key) {
+          const skryt = ["Jméno","Příjmení","Smlouva","Pozice","Tým","Věk","Držení hole","Národnost","Výška (cm)","Váha (kg)"]
+            .some(s => normalizujKlub(s) === normalizujKlub(key));
+
+          if (skryt || !detail[key]) return;
+
+          statsHtml +=
+            '<div class="stat">' +
+              '<span>' + key + '</span>' +
+              '<strong>' + detail[key] + '</strong>' +
+            '</div>';
+        });
+      } else {
+        statsHtml = "<p>Statistiky nenalezeny.</p>";
+      }
+
+      const vyska = detail ? (detail["Výška (cm)"] || "-") : "-";
+      const vaha = detail ? (detail["Váha (kg)"] || "-") : "-";
+
+      const detailOkno = window.open("", "_blank");
+
+      detailOkno.document.write(\`
+        <html lang="cs">
+        <head>
+          <meta charset="UTF-8">
+          <title>\${h.jmeno} \${h.prijmeni}</title>
+          <style>
+            body {
+              margin: 0;
+              min-height: 100vh;
+              background: linear-gradient(90deg, rgba(160,0,0,0.75), rgba(0,17,71,0.92)), #001147;
+              color: white;
+              font-family: 'Segoe UI', Tahoma, sans-serif;
+              padding: 40px;
+            }
+
+            .player-page {
+              max-width: 1200px;
+              margin: 0 auto;
+            }
+
+            .player-hero {
+              display: grid;
+              grid-template-columns: 360px 1fr;
+              gap: 35px;
+              background: rgba(255,255,255,0.08);
+              border: 1px solid rgba(255,255,255,0.14);
+              border-radius: 22px;
+              padding: 24px;
+              box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+            }
+
+            .foto-hrace {
+              width: 100%;
+              height: 420px;
+              object-fit: cover;
+              object-position: top center;
+              border-radius: 18px;
+            }
+
+            .player-name {
+              font-size: 48px;
+              margin: 0 0 18px;
+              text-transform: uppercase;
+            }
+
+            .team-line {
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              font-size: 20px;
+              font-weight: 800;
+              margin-bottom: 25px;
+            }
+
+            .tym-logo {
+              height: 36px;
+            }
+
+            .info-grid,
+            .stat-box {
+              display: grid;
+              grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+              gap: 12px;
+            }
+
+            .info-box,
+            .stat {
+              background: rgba(255,255,255,0.08);
+              border: 1px solid rgba(255,255,255,0.12);
+              border-radius: 14px;
+              padding: 14px 16px;
+            }
+
+            .info-box span,
+            .stat span {
+              display: block;
+              font-size: 12px;
+              text-transform: uppercase;
+              color: rgba(255,255,255,0.55);
+              font-weight: 800;
+              margin-bottom: 6px;
+            }
+
+            .info-box strong,
+            .stat strong {
+              font-size: 20px;
+              color: white;
+            }
+
+            .section-title {
+              margin: 38px 0 18px;
+              font-size: 28px;
+              text-transform: uppercase;
+            }
+          </style>
+        </head>
+
+        <body>
+          <div class="player-page">
+            <section class="player-hero">
+              <img src="\${h.foto}" class="foto-hrace" onerror="this.style.display='none'">
+
+              <div>
+                <h1 class="player-name">\${h.jmeno} \${h.prijmeni}</h1>
+
+                <div class="team-line">
+                  <span>\${plnyNazev}</span>
+                  <img src="\${logoUrl}" class="tym-logo" onerror="this.style.display='none'">
+                </div>
+
+                <div class="info-grid">
+                  <div class="info-box"><span>Pozice</span><strong>\${h.pozice || "-"}</strong></div>
+                  <div class="info-box"><span>Věk</span><strong>\${h.vek || "-"}</strong></div>
+                  <div class="info-box"><span>Výška</span><strong>\${vyska} cm</strong></div>
+                  <div class="info-box"><span>Váha</span><strong>\${vaha} kg</strong></div>
+                  <div class="info-box"><span>Držení hole</span><strong>\${h.drzeni || "-"}</strong></div>
+                  <div class="info-box"><span>Národnost</span><strong>\${h.narodnost || "-"}</strong></div>
+                  <div class="info-box"><span>Smlouva</span><strong>\${h.smlouva || "-"}</strong></div>
+                </div>
+              </div>
+            </section>
+
+            <h2 class="section-title">Statistiky hráče</h2>
+            <div class="stat-box">\${statsHtml}</div>
+          </div>
         </body>
+        </html>
+      \`);
+    }
+  });
+}
+<\/script>
+          </body>
         </html>
       `);
 
@@ -943,29 +1123,6 @@ function zobrazDetailHrace(h) {
 
   // otevře novou kartu
   const okno = window.open("", "_blank");
-
-okno.hraciTymuKlub = hraciTymu;
-
-okno.zobrazDetailKlub = function(index) {
-  const h = okno.hraciTymuKlub[index];
-
-  if (!h) {
-    console.log("Hráč nenalezen:", index);
-    return;
-  }
-
-  window.zobrazDetail(
-    h.jmeno,
-    h.prijmeni,
-    h.tym,
-    h.pozice,
-    h.vek,
-    h.smlouva,
-    h.drzeni,
-    h.narodnost,
-    h.foto
-  );
-};
 
 okno.document.write(`
     <html lang="cs">
