@@ -183,7 +183,7 @@ function zobrazDetail(jmeno, prijmeni, tym, pozice, vek, smlouva, drzeni, narodn
         ["Pořadí podle času na ledě", "Poradi prumerneho casu na lede"],
         ["Podíl na ofenzivě týmu", "Podíl na ofenzivě týmu"],
         ["Profil hráče", "Profil Hráče"],
-        ["Role TOI", "Role_TOI"]
+        
       ];
 
       let statsHtml = "";
@@ -196,7 +196,7 @@ function statTyp(key, hodnota) {
   const val = cislo(hodnota);
 
   if (key === "Body" || key === "Goly" || key === "Góly") return "stat-star";
-  if (key === "TOI_min" || key === "Ø Času na ledě" || key === "Role_TOI") return "stat-toi";
+  if (key === "TOI_min" || key === "Ø Času na ledě") return "stat-toi";
   if (key === "Hity" || key === "Bloky") return "stat-physical";
 
   if (!isNaN(val)) {
@@ -599,9 +599,11 @@ function zobrazKluby() {
   document.getElementById("kluby").style.display = "block";
 }
 async function otevriKlub(zkratka) {
+
   if (hraciData.length === 0) {
-  await nactiData();
-}
+    await nactiData();
+  }
+
   const klub = dataKluby.find(k => k["NÁZEV TÝMU"] === zkratka);
 
   if (!klub) {
@@ -609,31 +611,31 @@ async function otevriKlub(zkratka) {
     return;
   }
 
-  function esc(text) {
-    return String(text || "").replace(/'/g, "\\'");
+  const plnyNazevTymu = klub["NÁZEV TÝMU"];
+  const nazevPodleZkratky = nazvyTymu[zkratka] || zkratka;
+
+  function norm(text) {
+    return String(text || "")
+      .trim()
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
   }
 
-  const plnyNazevTymu = klub["NÁZEV TÝMU"];
-const nazevPodleZkratky = nazvyTymu[zkratka] || zkratka;
+  function esc(text) {
+    return String(text || "")
+      .replace(/\\/g, "\\\\")
+      .replace(/'/g, "\\'")
+      .replace(/\n/g, " ");
+  }
 
-function norm(text) {
-  return String(text || "")
-    .trim()
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
-}
+  const hraciTymu = hraciData.filter(h =>
+    norm(h.tym) === norm(zkratka) ||
+    norm(h.tym) === norm(nazevPodleZkratky) ||
+    norm(zkratkyTymu[h.tym]) === norm(zkratka) ||
+    norm(nazvyTymu[h.tym]) === norm(nazevPodleZkratky)
+  );
 
-const hraciTymu = hraciData.filter(h =>
-  norm(h.tym) === norm(zkratka) ||
-  norm(h.tym) === norm(nazevPodleZkratky) ||
-  norm(zkratkyTymu[h.tym]) === norm(zkratka) ||
-  norm(nazvyTymu[h.tym]) === norm(nazevPodleZkratky)
-);
-  console.log("Kliknutý klub zkratka:", zkratka);
-  console.log("Plný název klubu:", plnyNazevTymu);
-  console.log("Všechny týmy v hraciData:", [...new Set(hraciData.map(h => h.tym))]);
-  console.log("Nalezení hráči:", hraciTymu);
   const logo = `https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/${zkratka}.png`;
   const detailUrl = "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/hraci_detail.csv";
 
@@ -646,12 +648,15 @@ const hraciTymu = hraciData.filter(h =>
     header: true,
     delimiter: ";",
     skipEmptyLines: true,
+
     complete: function(results) {
+
       const detailData = results.data;
 
       const detailHraciTymu = detailData.filter(d =>
         d["Tým"] === zkratka ||
-        d["Tým"] === plnyNazevTymu
+        d["Tým"] === plnyNazevTymu ||
+        d["Tým"] === nazevPodleZkratky
       );
 
       function topHrac(sloupec) {
@@ -675,7 +680,7 @@ const hraciTymu = hraciData.filter(h =>
         <html lang="cs">
         <head>
           <meta charset="UTF-8">
-          <title>${plnyNazevTymu}</title>
+          <title>${nazevPodleZkratky}</title>
 
           <style>
             body {
@@ -793,8 +798,6 @@ const hraciTymu = hraciData.filter(h =>
               background: rgba(255,255,255,0.13);
             }
 
-            
-
             .player-card h3 {
               margin: 8px 0 6px;
               font-size: 18px;
@@ -812,7 +815,7 @@ const hraciTymu = hraciData.filter(h =>
           <div class="club-page">
 
             <section class="club-hero">
-              <img src="${logo}" alt="${plnyNazevTymu}" class="club-logo">
+              <img src="${logo}" alt="${nazevPodleZkratky}" class="club-logo">
 
               <div>
                 <h1 class="club-title">${nazevPodleZkratky}</h1>
@@ -873,15 +876,25 @@ const hraciTymu = hraciData.filter(h =>
             <div class="roster-grid">
               ${
                 hraciTymu.length
-                  ?hraciTymu.map((h, index) => `
-                  <div class="player-card" data-index="${index}">
-                    <h3>${h.jmeno} ${h.prijmeni}</h3>
-                    <p><b>Pozice:</b> ${h.pozice || "-"}</p>
-                    <p><b>Věk:</b> ${h.vek || "-"}</p>
-                    <p><b>Národnost:</b> ${h.narodnost || "-"}</p>
-                    <p><b>Smlouva:</b> ${h.smlouva || "-"}</p>
-                  </div>
-                `).join("")
+                  ? hraciTymu.map(h => `
+                    <div class="player-card" onclick="window.opener.zobrazDetail(
+                      '${esc(h.jmeno)}',
+                      '${esc(h.prijmeni)}',
+                      '${esc(h.tym)}',
+                      '${esc(h.pozice)}',
+                      '${esc(h.vek)}',
+                      '${esc(h.smlouva)}',
+                      '${esc(h.drzeni)}',
+                      '${esc(h.narodnost)}',
+                      '${esc(h.foto)}'
+                    )">
+                      <h3>${h.jmeno} ${h.prijmeni}</h3>
+                      <p><b>Pozice:</b> ${h.pozice || "-"}</p>
+                      <p><b>Věk:</b> ${h.vek || "-"}</p>
+                      <p><b>Národnost:</b> ${h.narodnost || "-"}</p>
+                      <p><b>Smlouva:</b> ${h.smlouva || "-"}</p>
+                    </div>
+                  `).join("")
                   : `<div class="info-card"><strong>Soupiska nebyla nalezena.</strong></div>`
               }
             </div>
@@ -889,32 +902,9 @@ const hraciTymu = hraciData.filter(h =>
           </div>
         </body>
         </html>
-            `);
+      `);
 
       okno.document.close();
-
-      setTimeout(function() {
-        okno.document.querySelectorAll(".player-card").forEach(function(card) {
-          card.addEventListener("click", function() {
-            const index = Number(card.getAttribute("data-index"));
-            const h = hraciTymu[index];
-
-            if (!h) return;
-
-            zobrazDetail(
-              h.jmeno,
-              h.prijmeni,
-              h.tym,
-              h.pozice,
-              h.vek,
-              h.smlouva,
-              h.drzeni,
-              h.narodnost,
-              h.foto
-            );
-          });
-        });
-      }, 100);
 
     }
   });
@@ -953,7 +943,31 @@ function zobrazDetailHrace(h) {
 
   // otevře novou kartu
   const okno = window.open("", "_blank");
-  okno.document.write(`
+
+okno.hraciTymuKlub = hraciTymu;
+
+okno.zobrazDetailKlub = function(index) {
+  const h = okno.hraciTymuKlub[index];
+
+  if (!h) {
+    console.log("Hráč nenalezen:", index);
+    return;
+  }
+
+  window.zobrazDetail(
+    h.jmeno,
+    h.prijmeni,
+    h.tym,
+    h.pozice,
+    h.vek,
+    h.smlouva,
+    h.drzeni,
+    h.narodnost,
+    h.foto
+  );
+};
+
+okno.document.write(`
     <html lang="cs">
       <head>
         <meta charset="UTF-8">
@@ -1107,8 +1121,7 @@ function getHodnota(obj, key) {
       ["Profil hráče", "Profil Hráče"],
       ["TOI min", "TOI_min"],
       ["Podíl num", "Podíl_num"],
-      ["Role TOI", "Role_TOI"]
-    ];
+       ];
 
     let html = "";
 
