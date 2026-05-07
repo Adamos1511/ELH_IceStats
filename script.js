@@ -135,6 +135,7 @@ function zobrazHrace(data) {
 function zobrazDetail(jmeno, prijmeni, tym, pozice, vek, smlouva, drzeni, narodnost, foto) {
   const csvUrl = "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/hraci_detail.csv";
   const logoUrl = `https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/${tym}.png`;
+  const zkratkaProKlik = zkratkyTymu[tym] || tym;
   const plnyNazev = nazvyTymu[tym] || tym;
 
   function normalizuj(text) {
@@ -443,7 +444,13 @@ if (hrac) {
 
         <div class="team-line">
           <span>${plnyNazev}</span>
-          <img src="${logoUrl}" alt="Logo ${plnyNazev}" class="tym-logo" onerror="this.style.display='none'">
+          <img 
+  src="${logoUrl}" 
+  alt="Logo ${plnyNazev}" 
+  class="tym-logo" 
+  style="cursor:pointer;"
+onclick="window.open('${location.href.split("index.html")[0]}index.html?klub=${zkratkaProKlik}', '_blank')"  onerror="this.style.display='none'"
+>
         </div>
 
         <div class="info-grid">
@@ -466,9 +473,39 @@ if (hrac) {
     </div>
 
   </div>
+<script>
+function otevriKlubZDetailu() {
+
+  if (window.opener && typeof window.opener.otevriKlub === "function") {
+    window.opener.otevriKlub("${tym}");
+    return;
+  }
+
+  if (
+    window.opener &&
+    window.opener.opener &&
+    typeof window.opener.opener.otevriKlub === "function"
+  ) {
+    window.opener.opener.otevriKlub("${tym}");
+    return;
+  }
+
+  alert("Klub se nepodařilo otevřít.");
+}
+
+document.querySelector(".tym-logo").style.cursor = "pointer";
+document.querySelector(".team-line span").style.cursor = "pointer";
+
+document.querySelector(".tym-logo")
+  .addEventListener("click", otevriKlubZDetailu);
+
+document.querySelector(".team-line span")
+  .addEventListener("click", otevriKlubZDetailu);
+<\/script>
+
 </body>
-        </html>
-      `);
+</html>
+`);
     }
   });
 }
@@ -675,7 +712,7 @@ async function otevriKlub(zkratka) {
       const topGoly = topHrac("Goly");
       const topAsistence = topHrac("Asistence");
 
-      const okno = window.open("", "_blank");
+      const okno = window.open("", "_blank") || window;
 
       okno.document.write(`
         <html lang="cs">
@@ -1089,6 +1126,8 @@ function openPlayerDetailFromClub(index) {
     }
   });
 }
+
+window.otevriKlub = otevriKlub;
 function zobrazDetailHrace(h) {
   const csvUrl = "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/hraci_detail.csv";
 
@@ -1198,7 +1237,14 @@ okno.document.write(`
           <p><b>Jméno:</b> ${h.jmeno} ${h.prijmeni}</p>
           <p><b>Tým:</b> 
             ${plnyNazev}
-            <img src="${logoUrl}" alt="Logo ${plnyNazev}" class="tym-logo" onerror="this.style.display='none'">
+            <img 
+  src="${logoUrl}" 
+  alt="Logo ${plnyNazev}" 
+  class="tym-logo" 
+  style="cursor:pointer;"
+  onclick="alert('Tým: ${zkratkaProKlik}')"
+  onerror="this.style.display='none'"
+>
           </p>
           <p><b>Pozice:</b> ${h.pozice}</p>
           <p><b>Věk:</b> ${h.vek}</p>
@@ -1211,9 +1257,23 @@ okno.document.write(`
 
         <h2>Statistiky hráče</h2>
         <div id="statistiky">Načítám data...</div>
-      </body>
-    </html>
-  `);
+      <script>
+document.querySelector(".tym-logo").style.cursor = "pointer";
+
+document.querySelector(".tym-logo").addEventListener("click", function() {
+  window.opener.otevriKlub("${tym}");
+});
+
+document.querySelector(".team-line span").style.cursor = "pointer";
+
+document.querySelector(".team-line span").addEventListener("click", function() {
+  window.opener.otevriKlub("${tym}");
+});
+</script>
+
+</body>
+</html>
+`);
 
   // načti statistiky z CSV
 Papa.parse("${csvUrl}", {
@@ -1519,4 +1579,161 @@ document.addEventListener("DOMContentLoaded", () => {
       window.scrollTo(0, 0);
     });
   }
+});
+document.addEventListener("DOMContentLoaded", async () => {
+  const params = new URLSearchParams(window.location.search);
+  const klubParam = params.get("klub");
+
+  if (!klubParam) return;
+
+  const gameMenu = document.querySelector(".game-menu");
+  const strankaHraci = document.getElementById("strankaHraci");
+  const sekceKluby = document.getElementById("kluby");
+
+  if (gameMenu) gameMenu.style.display = "none";
+  if (strankaHraci) strankaHraci.style.display = "none";
+  if (sekceKluby) sekceKluby.style.display = "block";
+
+  if (hraciData.length === 0) {
+    await nactiData();
+  }
+
+  let pokusy = 0;
+
+  const cekej = setInterval(() => {
+    pokusy++;
+
+    if (dataKluby.length > 0) {
+      clearInterval(cekej);
+      otevriKlub(klubParam);
+    }
+
+    if (pokusy > 50) {
+      clearInterval(cekej);
+      alert("Klubová data se nenačetla.");
+    }
+  }, 100);
+});
+async function nactiLiveStatistiky() {
+
+  const csvUrl = "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/hraci_detail.csv";
+
+  Papa.parse(csvUrl, {
+    download: true,
+    header: true,
+    delimiter: ";",
+
+    complete: function(results) {
+
+      const data = results.data.filter(h => h["Jméno"]);
+
+      // TOP BODY
+      const topBody = [...data]
+        .sort((a, b) => Number(b["Body"]) - Number(a["Body"]))
+        .slice(0, 5);
+
+      // TOP GOLY
+      const topGoly = [...data]
+        .sort((a, b) => Number(b["Goly"]) - Number(a["Goly"]))
+        .slice(0, 5);
+
+      const bodyContainer = document.querySelector("#topBody .live-stats");
+      const golyContainer = document.querySelector("#topGoly .live-stats");
+
+      bodyContainer.innerHTML = topBody.map(h => `
+        <div class="live-row">
+          <span class="live-name">${h["Jméno"]} ${h["Příjmení"]}</span>
+          <span class="live-value">${h["Body"]}</span>
+        </div>
+      `).join("");
+
+      golyContainer.innerHTML = topGoly.map(h => `
+        <div class="live-row">
+          <span class="live-name">${h["Jméno"]} ${h["Příjmení"]}</span>
+          <span class="live-value">${h["Goly"]}</span>
+        </div>
+      `).join("");
+
+    }
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  nactiLiveStatistiky();
+});
+function nactiPosledniPrestupy() {
+  const csvUrl = "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/prestupy.csv";
+
+  Papa.parse(csvUrl, {
+    download: true,
+    header: true,
+    delimiter: ";",
+    skipEmptyLines: true,
+
+    complete: function(results) {
+      const data = results.data
+        .filter(r => r["JMÉNO"] && r["PŘÍJMENÍ"])
+        .slice(-8)
+        .reverse();
+
+      const container = document.querySelector("#posledniPrestupy .live-stats");
+
+      if (!container) return;
+
+      container.innerHTML = `
+  <div class="transfer-slider">
+    ${data.map((r, index) => `
+      <div class="transfer-slide ${index === 0 ? "active" : ""}">
+        <div class="transfer-label">Nový přestup</div>
+
+        <div class="transfer-player">
+          ${r["JMÉNO"]} ${r["PŘÍJMENÍ"]}
+        </div>
+
+        <div class="transfer-position">
+          ${r["POZICE"] || "-"}
+        </div>
+
+        <div class="transfer-route">
+          <span>${r["ODKUD"] || "-"}</span>
+          <strong>→</strong>
+          <span>${r["KAM"] || "-"}</span>
+        </div>
+
+        <div class="transfer-season">
+          ${r["SEZONA"] || ""}
+        </div>
+      </div>
+    `).join("")}
+
+    <div class="transfer-controls">
+      <button id="prevTransfer">‹</button>
+      <button id="nextTransfer">›</button>
+    </div>
+  </div>
+`;
+
+      let aktualniPrestup = 0;
+      const slides = container.querySelectorAll(".transfer-slide");
+
+      function zobrazPrestup(index) {
+        slides.forEach(slide => slide.classList.remove("active"));
+        slides[index].classList.add("active");
+      }
+
+      container.querySelector("#nextTransfer").addEventListener("click", () => {
+        aktualniPrestup = (aktualniPrestup + 1) % slides.length;
+        zobrazPrestup(aktualniPrestup);
+      });
+
+      container.querySelector("#prevTransfer").addEventListener("click", () => {
+        aktualniPrestup = (aktualniPrestup - 1 + slides.length) % slides.length;
+        zobrazPrestup(aktualniPrestup);
+      });
+    }
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  nactiPosledniPrestupy();
 });

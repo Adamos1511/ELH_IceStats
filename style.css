@@ -61,43 +61,245 @@ html, body {
 }
 
 .hero-menu {
-  height: 330px;
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 78px;
+
+  position: relative;
+}
+.right-stats {
+  position: absolute;
+  right: 55px;
+  top: 38%;
+  transform: translateY(-50%);
+
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+
+  width: 175px;
+}
+.left-stats {
+  position: absolute;
+  left: 55px;
+  top: 38%;
+  transform: translateY(-50%);
+
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+
+  width: 175px;
+}
+/* ======== Přestupy přepínání ======== */
+.transfer-slider {
+  position: relative;
+}
+
+.transfer-slide {
+  display: none;
+  min-height: 160px;
+  padding: 6px 2px;
+  transition: 0.25s ease;
+}
+
+.transfer-slide.active {
+  display: block;
+}
+
+.transfer-slide:hover {
+  transform: translateY(-3px);
+}
+
+.transfer-label {
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 10px;
+}
+
+.transfer-player {
+  font-size: 23px;
+  line-height: 1.05;
+  font-weight: 950;
+  color: white;
+  margin-bottom: 6px;
+}
+
+.transfer-position {
+  font-size: 13px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 18px;
+}
+
+.transfer-route {
   display: flex;
   align-items: center;
+  gap: 10px;
+
+  font-size: 14px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.72);
+}
+
+.transfer-route strong {
+  color: #8fc7ff;
+  font-size: 22px;
+}
+
+.transfer-season {
+  margin-top: 14px;
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.38);
+}
+
+.transfer-controls {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.transfer-controls button {
+  width: 30px;
+  height: 28px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.08);
+  color: white;
+  font-size: 18px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.transfer-controls button:hover {
+  background: rgba(255,255,255,0.16);
+}
+.side-panel {
+  width: 160px;
+
+  padding: 9px 20px;
+
+  background: rgba(0, 8, 35, 0.42);
+
+  backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+
+  box-shadow: 0 12px 28px rgba(0,0,0,0.28);
+
+  transition: 0.2s ease;
+}
+
+.side-panel h2 {
+  margin: 0 0 2px;
+  font-size: 24px;
+  line-height: 1.1;
+  
+  text-align: center;
+}
+
+.live-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+
+  padding: 8px 0;
+  font-size: 15px;
+}
+
+.live-row:last-child {
+  border-bottom: none;
+}
+
+.live-name {
+  font-weight: 800;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.live-value {
+  font-weight: 900;
+  color: #ffffff;
 }
 
 .menu-panel {
-  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 26px;
+
+  min-width: 320px;
 }
 
-.menu-panel h1 {
-  font-size: 42px;
-  line-height: 0.95;
-  margin: 0 0 20px;
-  color: white;
-  font-weight: 950;
-  text-transform: uppercase;
-  letter-spacing: -1px;
-}
 
 .menu-item {
-  display: block;
-  color: rgba(255,255,255,0.72);
-  text-decoration: none;
-  font-size: 22px;
+  font-size: 40px;
   font-weight: 900;
   text-transform: uppercase;
-  margin: 7px 0;
-  letter-spacing: -0.5px;
-  transition: 0.2s;
+
+  color: white;
+  text-decoration: none;
+
+  transition: 0.2s ease;
+
+  border-left: 4px solid transparent;
+  padding: 8px 18px;
 }
 
-.menu-item:hover,
+.menu-item:hover {
+  transform: translateX(10px);
+  border-left: 5px solid #ffffff;
+  background: rgba(255,255,255,0.08);
+}
 .menu-item.active {
   color: white;
   transform: translateX(8px);
 }
+.bottom-clubs {
+  position: fixed;
 
+  bottom: 25px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  display: flex;
+  align-items: center;
+  gap: 22px;
+
+  padding: 14px 28px;
+
+  
+
+  z-index: 999;
+}
+
+.bottom-clubs img {
+  width: 42px;
+  height: 42px;
+
+  object-fit: contain;
+
+  opacity: 0.72;
+
+  transition: 0.2s ease;
+}
+
+.bottom-clubs img:hover {
+  opacity: 1;
+  transform: scale(1.12);
+}
 
 
 /* ======== CELKOVÝ STYL ======== */
