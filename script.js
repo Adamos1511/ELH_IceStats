@@ -133,8 +133,17 @@ function zobrazHrace(data) {
 
 // --- DETAIL HRÁČE ---
 function zobrazDetail(jmeno, prijmeni, tym, pozice, vek, smlouva, drzeni, narodnost, foto) {
-  const csvUrl = "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/hraci_detail.csv";
-  const logoUrl = `https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/${tym}.png`;
+const jeBrankar =
+  pozice &&
+  (
+    pozice.toLowerCase().includes("brank") ||
+    pozice.toLowerCase().includes("g") ||
+    pozice.toLowerCase() === "b"
+  );
+
+const csvUrl = jeBrankar
+  ? "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/brankari_detail.csv"
+  : "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/hraci_detail.csv";  const logoUrl = `https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/${tym}.png`;
   const zkratkaProKlik = zkratkyTymu[tym] || tym;
   const plnyNazev = nazvyTymu[tym] || tym;
 
@@ -164,28 +173,47 @@ function zobrazDetail(jmeno, prijmeni, tym, pozice, vek, smlouva, drzeni, narodn
       );
       console.log("NALEZENÝ HRÁČ:", hrac);
       console.log("SLOUPCE CSV:", hrac ? Object.keys(hrac) : "hráč nenalezen");
-      const statistiky = [
-        ["Odehrané zápasy", "Odehrané zápasy"],
-        ["Góly", "Goly"],
-        ["Asistence", "Asistence"],
-        ["Body", "Body"],
-        ["ØČasu na ledě", "Ø Času na ledě"],
-        ["Body z přesilovek", "Body z přesilovek"],
-        ["+/-", "+/-"],
-        ["Trestné minuty", "Trestné minuty"],
-        ["Hity", "Hity"],
-        ["Bloky", "Bloky"],
-        ["Úspěšnost vhazování", "Úspěšnost vhazování %", " %"],
-        ["Úspěšnost střelby", "Úspěšnost střelby %", " %"],
-        ["Body na zápas", "Body na zápas"],
-        ["Hity na zápas", "Hity na zápas"],
-        ["Bloky na zápas", "Bloky na zápas"],
-        ["Pořadí podle bodů v týmu", "Pořadí podle bodu v tymu"],
-        ["Pořadí podle času na ledě", "Poradi prumerneho casu na lede"],
-        ["Podíl na ofenzivě týmu", "Podíl na ofenzivě týmu"],
-        ["Profil hráče", "Profil Hráče"],
-        
-      ];
+      const statistiky = jeBrankar
+  ? [
+      ["Odchytané zápasy", "Oodchytané zápasy"],
+      ["Odchytané minuty", "Odchytané minuty"],
+      ["Výhry", "Výhry"],
+      ["Průměr obdržených branek", "průměr obdržených branek"],
+      ["Úspěšnost zákroků", "% zákroků", " %"],
+      ["Čistá konta", "Čistá konta"],
+      ["Zákroky", "Zákroky"],
+      ["Střel proti", "Střel proti"],
+      ["Průměr střel na zápas", "Průměr střel na zápas"],
+      ["Workload", "Workload"],
+      ["Role", "Role"],
+      ["Archetyp", "Archetyp"],
+      ["Varianta", "Varianta"],
+      ["Profil hráče", "Profil Hráče"],
+      ["Týmové zápasy", "Týmové zápasy"],
+      ["Podíl startů", "Podíl startů"]
+    ]
+  : [
+      ["Odehrané zápasy", "Odehrané zápasy"],
+      ["Góly", "Goly"],
+      ["Asistence", "Asistence"],
+      ["Body", "Body"],
+      ["ØČasu na ledě", "Ø Času na ledě"],
+      ["Body z přesilovek", "Body z přesilovek"],
+      ["+/-", "+/-"],
+      ["Trestné minuty", "Trestné minuty"],
+      ["Hity", "Hity"],
+      ["Bloky", "Bloky"],
+      ["Úspěšnost vhazování", "Úspěšnost vhazování %", " %"],
+      ["Úspěšnost střelby", "Úspěšnost střelby %", " %"],
+      ["Body na zápas", "Body na zápas"],
+      ["Hity na zápas", "Hity na zápas"],
+      ["Bloky na zápas", "Bloky na zápas"],
+      ["Pořadí podle bodů v týmu", "Pořadí podle bodu v tymu"],
+      ["Pořadí podle času na ledě", "Poradi prumerneho casu na lede"],
+      ["Podíl na ofenzivě týmu", "Podíl na ofenzivě týmu"],
+      ["Profil hráče", "Profil Hráče"],
+      
+    ];
 
       let statsHtml = "";
 

@@ -13,7 +13,7 @@ html, body {
   box-sizing: border-box;
 
   background:
-    linear-gradient(90deg, rgba(254, 0, 0, 0.88) 0%, rgba(0, 17, 71, 0.78) 42%, rgba(0, 0, 0, 0.25) 100%),
+    linear-gradient(30deg, rgba(255, 255, 255, 0.88) 0%, rgba(0, 17, 71, 0.78) 42%, rgba(0, 0, 0, 0.25) 100%),
     url("https://images.unsplash.com/photo-1515703407324-5f753afd8be8?auto=format&fit=crop&w=1600&q=80");
 
   background-size: cover;
@@ -150,7 +150,7 @@ html, body {
 }
 
 .transfer-route strong {
-  color: #8fc7ff;
+  color: #0d0256;
   font-size: 22px;
 }
 
@@ -186,10 +186,6 @@ html, body {
   width: 160px;
 
   padding: 9px 20px;
-
-  background: rgba(0, 8, 35, 0.42);
-
-  backdrop-filter: blur(12px);
 
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 18px;
@@ -230,6 +226,7 @@ html, body {
 .live-value {
   font-weight: 900;
   color: #ffffff;
+  text-shadow: #e30404;
 }
 
 .menu-panel {
