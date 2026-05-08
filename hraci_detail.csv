@@ -1,108 +1,108 @@
 ﻿Foto;Jméno;Příjmení;Smlouva;Pozice;Tým;Věk;Držení hole;Národnost;Výška (cm);Váha (kg);Odehrané zápasy;Goly;Asistence;Body;Body z přesilovek;Ø Času na ledě;+/-;Trestné minuty;Hity;Bloky;Úspěšnost vhazování %;Úspěšnost střelby %;Body na zápas;Hity na zápas;Bloky na zápas;Pořadí podle bodu v tymu;Poradi prumerneho casu na lede;Podíl na ofenzivě týmu;Profil Hráče
-;Ondřej;Kachyňa;27/28;O;CBU;28;L;CZE;193;96;43;4;4;8;0,490277778;0;5;30;16;32;0,00%;9,30%;0,186046512;0,372093023;0,74;12;5;8%;Obránce s důrazem na hru bez puku a podporu defenzivy.
+;Ondřej;Kachyňa;27/28;O;CBU;28;L;CZE;193;96;43;4;4;8;0,5;0;5;30;16;32;0,00%;9,30%;0,2;0,4;0,7;12;5;8%;Obránce s důrazem na hru bez puku a podporu defenzivy.
 ;Tomáš;Kundrátek;27/28;O;CBU;36;P;CZE;187;91;0;0;0;0;0;0;0;0;0;0;0,00%;0,00%;0;0;0;16;6;0%;Stabilní bek, jehož přínos je nejvíc vidět směrem dozadu.
-;Pavel;Pýcha;26/27;O;CBU;30;L;CZE;185;81;48;3;10;13;0,702777778;6;-5;24;5;54;0,00%;6,38%;0,270833333;0,104166667;1,13;8;3;13%;Defenzivně orientovaný obránce s velkým vytížením. Vyniká hlavně blokováním střel a hrou bez puku.
-;Jan;Štencel;27/28;O;CBU;31;L;CZE;175;84;51;8;19;27;0,713888889;3;11;18;9;72;0,00%;15,69%;0,529411765;0,176470588;1,41;3;2;28%;Stabilní obránce využívaný hlavně v defenzivních situacích. Silný je v poziční hře a osobních soubojích.
-;Ondřej;Vála;27/28;O;CBU;28;L;CZE;194;100;52;4;7;11;0,83125;0;-1;28;18;74;0,00%;4,44%;0,211538462;0,346153846;1,42;10;1;11%;Obránce první dvojice, jehož hlavní síla je v defenzivní práci a stabilitě.
-;Roman;Vráblík;27/28;O;CBU;36;L;CZE;187;90;52;4;10;14;0,654166667;0;1;20;19;63;0,00%;5,00%;0,269230769;0,365384615;1,21;7;4;14%;Defenzivně orientovaný obránce s velkým vytížením. Vyniká hlavně blokováním střel a hrou bez puku.
+;Pavel;Pýcha;26/27;O;CBU;30;L;CZE;185;81;48;3;10;13;0,7;6;-5;24;5;54;0,00%;6,38%;0,3;0,1;1,1;8;3;13%;Defenzivně orientovaný obránce s velkým vytížením. Vyniká hlavně blokováním střel a hrou bez puku.
+;Jan;Štencel;27/28;O;CBU;31;L;CZE;175;84;51;8;19;27;0,7;3;11;18;9;72;0,00%;15,69%;0,5;0,2;1,4;3;2;28%;Stabilní obránce využívaný hlavně v defenzivních situacích. Silný je v poziční hře a osobních soubojích.
+;Ondřej;Vála;27/28;O;CBU;28;L;CZE;194;100;52;4;7;11;0,8;0;-1;28;18;74;0,00%;4,44%;0,2;0,3;1,4;10;1;11%;Obránce první dvojice, jehož hlavní síla je v defenzivní práci a stabilitě.
+;Roman;Vráblík;27/28;O;CBU;36;L;CZE;187;90;52;4;10;14;0,7;0;1;20;19;63;0,00%;5,00%;0,3;0,4;1,2;7;4;14%;Defenzivně orientovaný obránce s velkým vytížením. Vyniká hlavně blokováním střel a hrou bez puku.
 ;Filip;Ahl;26/27+1;LW/RW;CBU;28;L;SWE;193;97;0;0;0;0;0;0;0;0;0;0;79,49%;0,00%;0;0;0;16;6;0%;Stabilní člen sestavy, který odvádí spolehlivou práci na obou stranách kluziště.
-;Martin;Beránek;27/28;RW/LW;CBU;25;L;CZE;185;83;51;7;10;17;0;0;0;0;0;0;87,04%;0,00%;0,333333333;0;0;6;6;17%;Two-way hráč využitelný v různých herních situacích a stabilní součást sestavy.
-;Michal;Bulíř;27/28;C;CBU;34;L;CZE;187;90;31;8;11;19;0;0;0;0;0;0;72,92%;0,00%;0,612903226;0;0;5;6;19%;Univerzální hráč s vyváženým stylem hry. Dokáže pomoci jak směrem dopředu, tak v defenzivě.
+;Martin;Beránek;27/28;RW/LW;CBU;25;L;CZE;185;83;51;7;10;17;0;0;0;0;0;0;87,04%;0,00%;0,3;0;0;6;6;17%;Two-way hráč využitelný v různých herních situacích a stabilní součást sestavy.
+;Michal;Bulíř;27/28;C;CBU;34;L;CZE;187;90;31;8;11;19;0;0;0;0;0;0;72,92%;0,00%;0,6;0;0;5;6;19%;Univerzální hráč s vyváženým stylem hry. Dokáže pomoci jak směrem dopředu, tak v defenzivě.
 ;Samuel;Drančák;27/28+1;C;CBU;20;L;CZE;183;88;0;0;0;0;0;0;0;0;0;0;65,12%;0,00%;0;0;0;16;6;0%;Stabilní člen sestavy, který odvádí spolehlivou práci na obou stranách kluziště.
-;Tomáš;Chlubna;26/27+1;RW;CBU;23;P;CZE;190;87;33;2;0;2;0;0;0;0;0;0;51,72%;0,00%;0,060606061;0;0;15;6;2%;Two-way hráč využitelný v různých herních situacích a stabilní součást sestavy.
-;Štěpán;Hoch;26/27;LW;CBU;19;L;CZE;193;87;37;2;4;6;0;0;3;0;2;5;0,00%;0,00%;0,162162162;0,054054054;0,14;14;1;6%;Univerzální hráč s vyváženým stylem hry. Dokáže pomoci jak směrem dopředu, tak v defenzivě.
+;Tomáš;Chlubna;26/27+1;RW;CBU;23;P;CZE;190;87;33;2;0;2;0;0;0;0;0;0;51,72%;0,00%;0,1;0;0;15;6;2%;Two-way hráč využitelný v různých herních situacích a stabilní součást sestavy.
+;Štěpán;Hoch;26/27;LW;CBU;19;L;CZE;193;87;37;2;4;6;0;0;3;0;2;5;0,00%;0,00%;0,2;0,1;0,1;14;1;6%;Univerzální hráč s vyváženým stylem hry. Dokáže pomoci jak směrem dopředu, tak v defenzivě.
 ;Matyáš;Humeník;26/27+1;RW;CBU;19;P;CZE;183;82;19;0;0;0;0;0;-1;0;0;0;0,00%;0,00%;0;0;0;16;1;0%;Bodově zatím mlčí, do hry ale přináší fyzickou práci a energii.
-;Josef;Koláček;27/28;RW;CBU;23;L;CZE;183;85;27;5;6;11;0;0;0;0;0;1;42,86%;125,00%;0,407407407;0;0,04;10;1;11%;Two-way hráč využitelný v různých herních situacích a stabilní součást sestavy.
-;Róbert;Lantoši;27/28;RW/C;CBU;30;P;SVK;180;84;52;17;26;43;0;1;0;2;0;2;0,00%;850,00%;0,826923077;0;0,04;2;1;44%;Kreativní hráč v top 6, přes kterého často přechází ofenziva týmu. Patří mezi hlavní tvůrce hry.
+;Josef;Koláček;27/28;RW;CBU;23;L;CZE;183;85;27;5;6;11;0;0;0;0;0;1;42,86%;125,00%;0,4;0;0;10;1;11%;Two-way hráč využitelný v různých herních situacích a stabilní součást sestavy.
+;Róbert;Lantoši;27/28;RW/C;CBU;30;P;SVK;180;84;52;17;26;43;0;1;0;2;0;2;0,00%;850,00%;0,8;0;0;2;1;44%;Kreativní hráč v top 6, přes kterého často přechází ofenziva týmu. Patří mezi hlavní tvůrce hry.
 ;Jakub;Lev;27/28+1;F;CBU;19;P;CZE;174;74;10;0;0;0;0;0;0;4;0;3;0,00%;0,00%;0;0;0,3;16;1;0%;Bodově zatím mlčí, do hry ale přináší fyzickou práci a energii.
-;Pavel;Novák;26/27;RW;CBU;24;P;CZE;175;77;51;4;4;8;0;0;0;2;0;4;0,00%;57,14%;0,156862745;0;0,08;12;1;8%;Two-way hráč využitelný v různých herních situacích a stabilní součást sestavy.
-;Nick;Olesen;27/28;W/C;CBU;30;L;DEN;185;84;51;14;31;45;0;0;1;6;0;0;0,00%;350,00%;0,882352941;0;0;1;1;46%;Kreativní hráč v top 6, přes kterého často přechází ofenziva týmu. Patří mezi hlavní tvůrce hry.
-;Jan;Ordoš;27/28;RW/LW;CBU;29;P;CZE;181;81;49;13;10;23;0;0;2;0;7;5;25,00%;0,00%;0,469387755;0,142857143;0,1;4;1;23%;Produktivní forvard s velmi dobrým zakončením. V útočném pásmu bývá velmi nebezpečný.
+;Pavel;Novák;26/27;RW;CBU;24;P;CZE;175;77;51;4;4;8;0;0;0;2;0;4;0,00%;57,14%;0,2;0;0,1;12;1;8%;Two-way hráč využitelný v různých herních situacích a stabilní součást sestavy.
+;Nick;Olesen;27/28;W/C;CBU;30;L;DEN;185;84;51;14;31;45;0;0;1;6;0;0;0,00%;350,00%;0,9;0;0;1;1;46%;Kreativní hráč v top 6, přes kterého často přechází ofenziva týmu. Patří mezi hlavní tvůrce hry.
+;Jan;Ordoš;27/28;RW/LW;CBU;29;P;CZE;181;81;49;13;10;23;0;0;2;0;7;5;25,00%;0,00%;0,5;0,1;0,1;4;1;23%;Produktivní forvard s velmi dobrým zakončením. V útočném pásmu bývá velmi nebezpečný.
 ;Jakub;Pour;27/28;RW;CBU;27;L;CZE;191;90;0;0;0;0;0;0;-1;0;4;0;0,00%;0,00%;0;0;0;16;1;0%;Two-way hráč využitelný v různých herních situacích a stabilní součást sestavy.
-;Matěj;Toman;27/28;C/W;CBU;25;L;CZE;180;80;51;3;9;12;0;0;-2;0;0;1;0,00%;150,00%;0,235294118;0;0,02;9;1;12%;Univerzální hráč s vyváženým stylem hry. Dokáže pomoci jak směrem dopředu, tak v defenzivě.
+;Matěj;Toman;27/28;C/W;CBU;25;L;CZE;180;80;51;3;9;12;0;0;-2;0;0;1;0,00%;150,00%;0,2;0;0;9;1;12%;Univerzální hráč s vyváženým stylem hry. Dokáže pomoci jak směrem dopředu, tak v defenzivě.
 ;Marek;Zachar;27/28+1;C/W;CBU;27;L;CZE;175;85;0;0;0;0;0;0;1;0;10;0;66,67%;0,00%;0;0;0;16;1;0%;Stabilní člen sestavy, který odvádí spolehlivou práci na obou stranách kluziště.
+;Michal;Houdek;26/27;O;KLA;25;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Martin;Jandus;26/27;O;KLA;28;P;CZE;;;;;;;;;;;;;;;;;;;;;
+;Michal;Kempný;26/27;O;KLA;35;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Martin;Matějíček;26/27+1;O;KLA;20;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Griffin;Mendel;26/27;O;KLA;27;L;CAN;;;;;;;;;;;;;;;;;;;;;
+;Phil;Pietroniro;26/27;O;KLA;31;P;ITA;;;;;;;;;;;;;;;;;;;;;
+;Tomáš;Tomek;26/27+1;O;KLA;23;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Tomáš;Vandas;26/27+1;O;KLA;20;P;CZE;;;;;;;;;;;;;;;;;;;;;
+;Daniel;Audette;26/27;C/LW;KLA;30;L;CAN;;;;;;;;;;;;;;;;;;;;;
+;Adam;Bareš;26/27;F;KLA;22;P;CZE;;;;;;;;;;;;;;;;;;;;;
+;Ondřej;Bláha;26/27;LW;KLA;25;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Miroslav;Forman;26/27;RW;KLA;35;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Kelly;Klíma;27/28;RW;KLA;28;P;CZE;;;;;;;;;;;;;;;;;;;;;
+;Jakub;Konečný;27/28;C;KLA;23;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Adam;Kubík;28/29;LW;KLA;27;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Oskar;Lisler;26/27;LW/RW;KLA;19;P;CZE;;;;;;;;;;;;;;;;;;;;;
+;Marcel;Marcel;27/28+1;LW/RW;KLA;22;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Niko;Ojamaki;26/27;RW;KLA;30;P;FIN;;;;;;;;;;;;;;;;;;;;;
+;Filip;Přikryl;27/28;C/LW;KLA;25;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Martin;Procházka;26/27;RW/LW;KLA;32;P;CZE;;;;;;;;;;;;;;;;;;;;;
+;Sebastián;Redlich;26/27+1;F;KLA;22;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Martin;Ryšavý;26/27;LW;KLA;23;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Samuel;Vigneault;26/27;C;KLA;30;L;CAN;;;;;;;;;;;;;;;;;;;;;
+;Brandon;Davidson;26/27;O;KOM;34;L;CAN;;;;;;;;;;;;;;;;;;;;;
+;Michal;Gulaši;26/27;O;KOM;39;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Filip;Král;27/28;O;KOM;26;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Radek;Kučeřík;26/27;O;KOM;24;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Dalimil;Mikyska;26/27;O;KOM;26;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Richard;Nedomlel;28/29;O;KOM;32;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Jan;Ščotka;27/28;O;KOM;29;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Luke;Witkowski;26/27;O;KOM;36;P;USA;;;;;;;;;;;;;;;;;;;;;
+;Libor;Zábranský;27/28;O;KOM;25;P;CZE;;;;;;;;;;;;;;;;;;;;;
+;Lukáš;Cingel;26/27;C;KOM;33;L;SVK;;;;;;;;;;;;;;;;;;;;;
+;Maxim;Čajkovič;26/27;RW;KOM;25;P;SVK;;;;;;;;;;;;;;;;;;;;;
+;Jan;Ekrt;26/27;C;KOM;21;P;CZE;;;;;;;;;;;;;;;;;;;;;
+;Jakub;Flek;27/28+1;LW/RW;KOM;33;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Michal;Hartl;J;C/W;KOM;16;P;CZE;;;;;;;;;;;;;;;;;;;;;
+;Danny;Chludil;26/27+1;LW;KOM;19;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Arttu;Ilomaki;26/27;C/RW;KOM;34;P;CZE;;;;;;;;;;;;;;;;;;;;;
+;Andrej;Kollár;26/27;C/W;KOM;26;P;CZE;;;;;;;;;;;;;;;;;;;;;
+;Michal;Kunc;26/27;LW/RW;KOM;25;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Silvester;Kusko;27/28;C/LW;KOM;31;L;SVK;;;;;;;;;;;;;;;;;;;;;
+;Robert;Leino;26/27;C;KOM;33;P;FIN;;;;;;;;;;;;;;;;;;;;;
+;David;Moravec;26/27;LW;KOM;20;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Kristián;Pospíšil;26/27;LW;KOM;30;L;SVK;;;;;;;;;;;;;;;;;;;;;
+;Jan;Suss;26/27;C;KOM;27;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Adam;Zbořil;27/28;C/LW;KOM;30;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Hynek;Zohorna;26/27;RW/C;KOM;35;P;CZE;;;;;;;;;;;;;;;;;;;;;
+;Tomáš;Zohorna;26/27+1;C/LW;KOM;38;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Elmeri;Eronen;26/27+1;O;KVA;31;P;FIN;;;;;;;;;;;;;;;;;;;;;
+;Janis;Jaks;26/27;O;KVA;30;P;LOT;;;;;;;;;;;;;;;;;;;;;
+;Matte;Kočí;29/30;O;KVA;20;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Roberts;Mamčics;26/27;O;KVA;31;L;LOT;;;;;;;;;;;;;;;;;;;;;
+;Josef;Myšák;26/27;O;KVA;26;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Tobias;Winberg;26/27+1;O;KVA;27;L;FIN;;;;;;;;;;;;;;;;;;;;;
+;Ondřej;Beránek;27/28;LW/RW;KVA;30;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Jan;Bambula;27/28;LW;KVA;25;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Jiří;Černoch;28/29;C/RW;KVA;29;P;CZE;;;;;;;;;;;;;;;;;;;;;
+;Haralds;Egle;26/27;C/RW;KVA;29;P;LOT;;;;;;;;;;;;;;;;;;;;;
+;Vít;Jiskra;27/28;C/LW;KVA;24;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Nick;Jones;26/27;C/RW;KVA;29;P;CAN;;;;;;;;;;;;;;;;;;;;;
+;Filip;Koffer;27/28;RW/LW;KVA;25;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Adam;Lukošík;26/27;LW;KVA;24;L;SVK;;;;;;;;;;;;;;;;;;;;;
+;Jakub;Minárik;26/27;C;KVA;25;L;SVK;;;;;;;;;;;;;;;;;;;;;
+;Tomáš;Redlich;27/28;W;KVA;33;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Robin;Sapoušek;26/27;C;KVA;22;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;David;Šťastný;26/27;LW;KVA;33;L;CZE;;;;;;;;;;;;;;;;;;;;;
+;Petr;Tomek;J;C;KVA;17;L;CZE;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;Jéremie;Blain;-;O;KLA;33;P;CAN;191;91;;;;;;;;;;;;;;;;;;;
-;Martin;Jandus;-;O;KLA;28;P;CZE;181;79;;;;;;;;;;;;;;;;;;;
-;Martin;Matějíček;-;O;KLA;20;L;CZE;188;94;;;;;;;;;;;;;;;;;;;
-;Michal;Houdek;-;O;KLA;25;L;CZE;193;95;;;;;;;;;;;;;;;;;;;
-;Griffin;Mendel;-;O;KLA;26;L;CAN;197;100;;;;;;;;;;;;;;;;;;;
-;Phil;Pietroniro;26/27;O;KLA;31;P;ITA;185;80;;;;;;;12:10;;;;;;;;;;;;
-;Jan;Piskáček;-;O;KLA;36;L;CZE;180;88;;;;;;0;14:15;;;;;;;;;;;;
-;Tomáš;Tomek;-;O;KLA;23;L;CZE;178;78;;;;;;2;17:15;;;;;;;;;;;;
-;Tomáš;Vandas;-;O;KLA;20;P;CZE;191;94;;;;;;0;18:20;;;;;;;;;;;;
-;Wyatte;Wylie;-;O;KLA;26;P;USA;183;86;;;;;;0;13:10;;;;;;;;;;;;
-;Dušan;Žovinec;-;O;KLA;33;L;CZE;182;83;;;;;;0;14:16;;;;;;;;;;;;
-;Daniel;Audette;-;C;KLA;29;L;CAN;175;75;;;;;;0;17:16;;;;;;;;;;;;
-;Adam;Bareš;-;F;KLA;21;P;CZE;179;77;;;;;;0;18:21;;;;;;;;;;;;
-;Marcel;Barinka;-;C;KLA;24;P;CZE;182;85;;;;;;0;13:11;;;;;;;;;;;;
-;Ondřej;Bláha;-;LW;KLA;25;L;CZE;187;86;;;;;;1;14:17;;;;;;;;;;;;
-;Miroslav;Forman;26/27;RW;KLA;35;L;CZE;185;91;;;;;;0;17:17;;;;;;;;;;;;
-;Kelly;Klíma;-;RW;KLA;28;P;USA;176;74;;;;;;0;18:22;;;;;;;;;;;;
-;Jaromír;Jágr;-;RW;KLA;53;L;CZE;189;115;;;;;;0;13:12;;;;;;;;;;;;
-;Jakub;Konečný;26/27+1;C;KLA;23;L;CZE;179;77;;;;;;0;14:18;;;;;;;;;;;;
-;Oskar;Lisler;-;LW;KLA;19;P;CZE;188;88;;;;;;0;17:18;;;;;;;;;;;;
-;Marcel;Marcel;27/28;LW;KLA;22;L;CZE;193;110;;;;;;1;18:23;;;;;;;;;;;;
-;Antonín;Melka;-;LW;KLA;35;L;CZE;178;85;;;;;;0;13:13;;;;;;;;;;;;
-;Niko;Ojamaki;-;RW;KLA;30;P;FIN;181;84;;;;;;0;14:19;;;;;;;;;;;;
-;Martin;Procházka;-;RW;KLA;31;P;CZE;191;101;;;;;;0;17:19;;;;;;;;;;;;
-;Tomáš;Redlich;-;F;KLA;21;L;CZE;186;82;;;;;;0;18:24;;;;;;;;;;;;
-;Tristans;Robins;-;C;KLA;24;P;CAN;178;80;;;;;;0;13:14;;;;;;;;;;;;
-;Jakub;Strnad;-;LW;KLA;33;L;CZE;180;78;;;;;;0;12:10;;;;;;;;;;;;
-;Samuel;Vigneault;-;C;KLA;30;L;CAN;196;92;;;;;;0;;;;;;;;;;;;;
-;Aliaksandr;Vishneuski;-;C;KLA;20;L;BEU;182;80;;;;;;;;;;;;;;;;;;;
-;Martin;Ryšavý;host(-);LW;KLA;22;L;CZE;190;92;;;;;;;;;;;;;;;;;;;
-;Tomáš;Bartejs;-;O;KOM;33;L;CZE;181;88;;;;;;;;;;;;;;;;;;;
-;Marek;Ďaloga;-;O;KOM;36;L;SVK;193;95;;;;;;;;;;;;;;;;;;;
-;Brandon;Davidson;-;O;KOM;34;L;CAN;188;95;;;;;;;;;;;;;;;;;;;
-;Michal;Gulaši;-;O;KOM;39;L;CZE;182;93;;;;;;;;;;;;;;;;;;;
-;Rhett;Holland;-;O;KOM;32;P;CAN;188;100;;;;;;;;;;;;;;;;;;;
-;Filip;Král;27/28;O;KOM;26;L;CZE;185;89;;;;;;;;;;;;;;;;;;;
-;Jan;Ščotka;27/28;O;KOM;29;L;CZE;187;101;;;;;;;;;;;;;;;;;;;
-;Denis;Svoboda;-;O;KOM;20;L;CZE;182;106;;;;;;;;;;;;;;;;;;;
-;Libor;Zábranský;27/28;O;KOM;25;P;CZE;184;92;;;;;;;;;;;;;;;;;;;
-;Adam;Boltvan;-;LW;KOM;21;L;CZE;183;88;;;;;;;;;;;;;;;;;;;
-;Danny;Chludil;-;LW;KOM;19;L;CZE;183;88;;;;;;;;;;;;;;;;;;;
-;Lukáš;Cingel;-;C;KOM;33;L;SVK;187;91;;;;;;;;;;;;;;;;;;;
-;Jan;Ekrt;-;C;KOM;21;P;CZE;189;81;;;;;;;;;;;;;;;;;;;
-;Radim;Ferda;-;F;KOM;27;P;CZE;180;90;;;;;;;;;;;;;;;;;;;
-;Jakub;Flek;27/28+1;LW;KOM;33;L;CZE;173;78;;;;;;;;;;;;;;;;;;;
-;Arttu;Ilomaki;-;C;KOM;34;P;FIN;182;87;;;;;;;;;;;;;;;;;;;
-;Andrej;Kollár;-;C;KOM;26;P;SVK;187;93;;;;;;;;;;;;;;;;;;;
-;Jakub;Kos;-;LW;KOM;22;L;CZE;192;92;;;;;;;;;;;;;;;;;;;
-;David;Moravec;-;LW;KOM;20;L;CZE;180;70;;;;;;;;;;;;;;;;;;;
-;Kristián;Pospíšil;26/27;LW;KOM;29;L;SVK;188;99;;;;;;;;;;;;;;;;;;;
-;Šimon;Stránský;26/27;LW;KOM;28;L;CZE;182;90;;;;;;;;;;;;;;;;;;;
-;Jan;Suss;-;C;KOM;27;L;CZE;185;80;;;;;;;;;;;;;;;;;;;
-;Adam;Veselský;-;W;KOM;19;L;CZE;173;82;;;;;;;;;;;;;;;;;;;
-;Adam;Zbořil;27/28;C;KOM;30;L;CZE;170;90;;;;;;;;;;;;;;;;;;;
-;Hynek;Zohorna;-;RW;KOM;35;P;CZE;188;102;;;;;;;;;;;;;;;;;;;
-;Tomáš;Zohorna;-;C;KOM;38;L;CZE;186;97;;;;;;;;;;;;;;;;;;;
-;Tory;Dello;-;O;KVA;28;P;USA;183;88;;;;;;;;;;;;;;;;;;;
-;Ondřej;Dorot;-;O;KVA;21;P;CZE;193;80;;;;;;;;;;;;;;;;;;;
-;Kryštof;Dyk;-;O;KVA;18;L;CZE;187;74;;;;;;;;;;;;;;;;;;;
-;Janis;Jaks;-;O;KVA;30;P;LAT;186;86;;;;;;;;;;;;;;;;;;;
-;Matteo;Kočí;-;O;KVA;20;L;CZE;184;86;;;;;;;;;;;;;;;;;;;
-;Roberts;Mamcis;26/27;O;KVA;30;L;LAT;196;105;;;;;;;;;;;;;;;;;;;
-;Dalimil;Mikyska;-;O;KVA;26;L;CZE;186;91;;;;;;;;;;;;;;;;;;;
-;David;Moravec;-;O;KVA;22;L;CZE;183;92;;;;;;;;;;;;;;;;;;;
-;Josef;Myšák;26/27;O;KVA;26;L;CZE;191;98;;;;;;;;;;;;;;;;;;;
-;Ondřej;Postl;-;O;KVA;19;L;CZE;191;74;;;;;;;;;;;;;;;;;;;
-;Adam;Rulík;-;O;KVA;29;L;CZE;185;81;;;;;;;;;;;;;;;;;;;
-;Jan;Bambula;-;LW;KVA;25;L;CZE;177;83;;;;;;;;;;;;;;;;;;;
-;Ondřej;Beránek;27/28;LW;KVA;30;L;CZE;183;90;;;;;;;;;;;;;;;;;;;
-;Jiří;Černoch;-;C;KVA;29;P;CZE;179;93;;;;;;;;;;;;;;;;;;;
-;Haralds;Egle;26/27;C;KVA;29;P;LAT;180;88;;;;;;;;;;;;;;;;;;;
-;Vít;Jiskra;-;C;KVA;24;L;CZE;180;83;;;;;;;;;;;;;;;;;;;
-;Nick;Jones;-;C;KVA;29;P;CAN;180;84;;;;;;;;;;;;;;;;;;;
-;Filip;Koffer;-;RW;KVA;24;L;CZE;180;48;;;;;;;;;;;;;;;;;;;
-;Adam;Lukošík;-;LW;KVA;23;L;SVK;183;80;;;;;;;;;;;;;;;;;;;
-;Sebastián;Malát;26/27;C;KVA;23;L;CZE;184;83;;;;;;;;;;;;;;;;;;;
-;Jakub;Minárik;26/27;C;KVA;25;L;SVK;191;95;;;;;;;;;;;;;;;;;;;
-;Tomáš;Redlich;-;W;KVA;32;L;CZE;188;96;;;;;;;;;;;;;;;;;;;
-;Robin;Sapoušek;26/27;C;KVA;21;L;CZE;186;76;;;;;;;;;;;;;;;;;;;
-;David;Šťastný;26/27;LW;KVA;32;L;CZE;187;92;;;;;;;;;;;;;;;;;;;
-;Petr ;Tomek;Junior;C;KVA;17;L;CZE;177;73;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;Layton;Ahac;26/27;O;LIB;24;L;CAN;188;93;;;;;;;;;;;;;;;;;;;
 ;Tomáš;Galvas;26/27;O;LIB;19;L;CZE;179;76;;;;;;;;;;;;;;;;;;;
 ;David;Aubrecht;-;O;LIB;25;L;CZE;184;90;;;;;;;;;;;;;;;;;;;
@@ -265,7 +265,7 @@
 ;Radim;Šalda;25/26 +1;O;PLZ;26;L;CZE;;;;;;;;;;;;;;;;;;;;;
 ;Petr ;Zámorský;-;O;PLZ;33;P;CZE;;;;;;;;;;;;;;;;;;;;;
 ;Matyáš;Filip;26/27;C;PLZ;25;L;CZE;;;;;;;;;;;;;;;;;;;;;
-;Adam;Kubík;-;LW;PLZ;27;L;CZE;184;88;38;3;17;7;10;15:42;-10;6;3;11;48,89% (45/22);;;;;;;;
+;Adam;Kubík;-;LW;PLZ;27;L;CZE;184;88;38;3;17;7;10;0,654166667;-10;6;3;11;48,89% (45/22);;;;;;;;
 ;Christophe;Lalancette;-;C;PLZ;31;P;CAN;;;;;;;;;;;;;;;;;;;;;
 ;Jakub;Lev;-;C;PLZ;35;P;CZE;;;;;;;;;;;;;;;;;;;;;
 ;Adam;Měchura;26/27;C;PLZ;22;L;CZE;;;;;;;;;;;;;;;;;;;;;
