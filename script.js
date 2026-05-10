@@ -1,4 +1,11 @@
 let hraciData = [];
+function normalizujGlobal(text) {
+  return String(text || "")
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+}
 /* === PŘEHLED KLUBŮ === */
 const kluby = [
   { nazev: "HC Dynamo Pardubice", zkratka: "PCE" },
@@ -103,7 +110,7 @@ function zobrazHrace(data) {
   }
 
   container.innerHTML = data.map(h => `
-    <div class="hrac-radek" onclick="zobrazDetail('${h.jmeno}', '${h.prijmeni}', '${h.tym}', '${h.pozice}', '${h.vek}', '${h.smlouva}', '${h.drzeni}', '${h.narodnost}', '${h.foto}')">
+    <div class="hrac-radek" onclick="window.location.href='/hrac/${normalizujGlobal(h.jmeno)}-${normalizujGlobal(h.prijmeni)}'">
       
       <div class="hrac-foto-mini">
         ${
@@ -1783,4 +1790,48 @@ function nactiPosledniPrestupy() {
 
 document.addEventListener("DOMContentLoaded", () => {
   nactiPosledniPrestupy();
+});
+document.addEventListener("DOMContentLoaded", async () => {
+  const playerDetail = document.querySelector("#playerDetail");
+  if (!playerDetail) return;
+
+  const params = new URLSearchParams(window.location.search);
+  const slug = params.get("name");
+
+  if (!slug) {
+    playerDetail.innerHTML = "Hráč nenalezen.";
+    return;
+  }
+
+  if (hraciData.length === 0) {
+    await nactiData();
+  }
+
+  const rozdeleno = slug.split("-");
+  const jmeno = rozdeleno[0];
+  const prijmeni = rozdeleno.slice(1).join("-");
+
+  const hrac = hraciData.find(h =>
+    normalizujGlobal(h.jmeno) === normalizujGlobal(jmeno) &&
+    normalizujGlobal(h.prijmeni) === normalizujGlobal(prijmeni)
+  );
+
+  if (!hrac) {
+    playerDetail.innerHTML = "Hráč nenalezen.";
+    return;
+  }
+
+  playerDetail.innerHTML = "";
+
+  zobrazDetail(
+    hrac.jmeno,
+    hrac.prijmeni,
+    hrac.tym,
+    hrac.pozice,
+    hrac.vek,
+    hrac.smlouva,
+    hrac.drzeni,
+    hrac.narodnost,
+    hrac.foto
+  );
 });
