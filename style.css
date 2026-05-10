@@ -31,10 +31,19 @@ html, body {
 }
 
 .logo-title {
-  font-size: 26px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  font-size: 42px;
   font-weight: 900;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  color: white;
+}
+
+.logo-title img {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
 }
 
 .top-nav {
