@@ -802,3 +802,47 @@ footer {
   color: rgba(255,255,255,0.85);
   font-size: 14px;
 }
+/* ===============================
+   MOBILNÍ VERZE
+================================ */
+@media (max-width: 900px) {
+
+  .hero-menu {
+    height: auto;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 28px;
+
+    padding: 120px 18px 120px;
+  }
+
+  .left-stats,
+  .right-stats {
+    position: static;
+    transform: none;
+
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .menu-panel {
+    order: 1;
+
+    align-items: center;
+
+    min-width: auto;
+    width: 100%;
+  }
+
+  .left-stats {
+    order: 2;
+  }
+
+  .right-stats {
+    order: 3;
+  }
+
+}

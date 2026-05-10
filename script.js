@@ -175,7 +175,7 @@ const csvUrl = jeBrankar
       console.log("SLOUPCE CSV:", hrac ? Object.keys(hrac) : "hráč nenalezen");
       const statistiky = jeBrankar
   ? [
-      ["Odchytané zápasy", "Oodchytané zápasy"],
+      ["Odchytané zápasy", "Odchytané zápasy"],
       ["Odchytané minuty", "Odchytané minuty"],
       ["Výhry", "Výhry"],
       ["Průměr obdržených branek", "průměr obdržených branek"],
@@ -244,17 +244,29 @@ function progressProcenta(key, hodnota) {
   if (isNaN(val)) return 0;
 
   // statistiky kde chceme bary
-  const povoleneStaty = [
-    "Body",
-    "Goly",
-    "Góly",
-    "Asistence",
-    "Hity",
-    "Bloky",
-    "Body na zápas",
-    "Úspěšnost střelby %",
-    "Úspěšnost vhazování %"
-  ];
+  const povoleneStaty = jeBrankar
+  ? [
+      "Odchytané zápasy",
+      "Odchytané minuty",
+      "Výhry",
+      "% zákroků",
+      "Čistá konta",
+      "Zákroky",
+      "Střel proti",
+      "Průměr střel na zápas",
+      "průměr obdržených branek",
+     ]
+  : [
+      "Body",
+      "Goly",
+      "Góly",
+      "Asistence",
+      "Hity",
+      "Bloky",
+      "Body na zápas",
+      "Úspěšnost střelby %",
+      "Úspěšnost vhazování %"
+    ];
 
   const povoleno = povoleneStaty.some(s =>
     normalizuj(key).includes(normalizuj(s))
@@ -271,6 +283,13 @@ function progressProcenta(key, hodnota) {
 
   if (!max || max <= 0) return 0;
 
+  if (normalizuj(key).includes(normalizuj("průměr obdržených branek"))) {
+  const min = Math.min(...hodnoty);
+
+  if (!val || !min) return 0;
+
+  return Math.min((min / val) * 100, 100);
+}
   return Math.min((val / max) * 100, 100);
 }
 
