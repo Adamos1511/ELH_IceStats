@@ -1,8 +1,0 @@
-{
-  "rewrites": [
-    {
-      "source": "/hrac/:slug",
-      "destination": "/player.html?name=:slug"
-    }
-  ]
-}
