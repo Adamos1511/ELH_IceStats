@@ -68,7 +68,7 @@
   <div class="menu-panel">
     <a href="#" id="btnHraci" class="menu-item active">Hráči</a>
     <a href="kluby.html" class="menu-item">Kluby</a>
-    <a href="#" class="menu-item">Tabulka</a>
+    <a href="#" id="odkazTabulka" class="menu-item">Tabulka</a>
     <a href="#" id="odkazPrestupy" class="menu-item">Přestupy</a>
   </div>
 
@@ -87,14 +87,7 @@
 </div>
 
 </div>
-      <div class="menu-panel">
-        
-
-        <a href="#" id="btnHraci" class="menu-item active">Hráči</a>
-        <a href="kluby.html" class="menu-item">Kluby</a>
-        <a href="#" class="menu-item">Tabulka</a>
-        <a href="#" id="odkazPrestupy" class="menu-item">Přestupy</a>
-      </div>
+      
     </div>
   </header>
   <div class="bottom-clubs">
@@ -151,12 +144,26 @@
     <main id="hraci">Načítám hráče...</main>
   </section>
 
-  <!-- KLUBY -->
-  <section id="kluby" style="display:none;">
-    <h2>Přehled klubů</h2>
-    <div id="seznam-klubu" class="kluby-grid"></div>
-  </section>
+<!-- TABULKA ELH -->
+<section id="strankaTabulka" class="stranka-tabulka" style="display:none;">
 
-  <script src="script.js"></script>
+  <div class="hraci-header">
+    <button id="zpetZTabulky" class="back-btn">← Zpět do menu</button>
+    <h2>Tabulka ELH</h2>
+  </div>
+
+  <div id="tabulkaELH" class="tabulka-elh-wrap">
+    Načítám tabulku...
+  </div>
+
+</section>
+
+<!-- KLUBY -->
+<section id="kluby" style="display:none;">
+  <h2>Přehled klubů</h2>
+  <div id="seznam-klubu" class="kluby-grid"></div>
+</section>
+
+<script src="script.js"></script>
 </body>
 </html>

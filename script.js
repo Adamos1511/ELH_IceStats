@@ -54,6 +54,7 @@ const nazvyTymu = {
   MHK: "Mountfield HK",
   PCE: "HC Dynamo Pardubice",
   KLA: "Rytíři Kladno",
+  VIT: "HC Vítkovice Ridera",
 };
 
 // --- FUNKCE PRO ZOBRAZENÍ LOGA TÝMU ---
@@ -110,7 +111,7 @@ function zobrazHrace(data) {
   }
 
   container.innerHTML = data.map(h => `
-    <div class="hrac-radek" onclick="window.location.href='/hrac/${normalizujGlobal(h.jmeno)}-${normalizujGlobal(h.prijmeni)}'">
+    <div class="hrac-radek" onclick="zobrazDetail('${h.jmeno}', '${h.prijmeni}', '${h.tym}', '${h.pozice}', '${h.vek}', '${h.smlouva}', '${h.drzeni}', '${h.narodnost}', '${h.foto}')">
       
       <div class="hrac-foto-mini">
         ${
@@ -1791,47 +1792,103 @@ function nactiPosledniPrestupy() {
 document.addEventListener("DOMContentLoaded", () => {
   nactiPosledniPrestupy();
 });
-document.addEventListener("DOMContentLoaded", async () => {
-  const playerDetail = document.querySelector("#playerDetail");
-  if (!playerDetail) return;
+async function nactiTabulkuELH() {
+  const container = document.getElementById("tabulkaELH");
+  if (!container) return;
 
-  const params = new URLSearchParams(window.location.search);
-  const slug = params.get("name");
+  const response = await fetch("TabulkaELH.csv");
+  const text = await response.text();
 
-  if (!slug) {
-    playerDetail.innerHTML = "Hráč nenalezen.";
-    return;
+  const radky = text
+    .trim()
+    .split(/\r?\n/)
+    .filter(r => r.trim() !== "");
+
+  const oddelovac = radky[0].includes(";") ? ";" : radky[0].includes("\t") ? "\t" : ",";
+
+  const hlavickaIndex = radky.findIndex(r => r.includes("TÝM"));
+  const hlavicka = radky[hlavickaIndex]
+    .split(oddelovac)
+    .map(h => h.trim().replace(/^\uFEFF/, ""));
+
+  const dataRadky = radky.slice(hlavickaIndex + 1);
+
+  const data = dataRadky.map(radek => {
+    const hodnoty = radek.split(oddelovac).map(h => h.trim());
+    const obj = {};
+
+    hlavicka.forEach((sloupec, i) => {
+      obj[sloupec] = hodnoty[i] || "";
+    });
+
+    return obj;
+  }).filter(r => r["TÝM"]);
+
+  container.innerHTML = `
+    <div class="elh-tabulka">
+
+      <div class="elh-hlavicka">
+        <div>Pořadí</div>
+        <div>Tým</div>
+        <div>Zápasy</div>
+        <div>V</div>
+        <div>VP</div>
+        <div>PP</div>
+        <div>P</div>
+        <div>Skóre</div>
+        <div>Body</div>
+        <div>Forma</div>
+      </div>
+
+      ${data.map(radek => `
+        <div class="elh-radek">
+          <div>${radek["POŘADÍ"] || "-"}</div>
+          <div class="tym-nazev">${radek["TÝM"] || "-"}</div>
+          <div>${radek["ZÁPASY"] || "-"}</div>
+          <div>${radek["V"] || "-"}</div>
+          <div>${radek["VP"] || "-"}</div>
+          <div>${radek["PP"] || "-"}</div>
+          <div>${radek["P"] || "-"}</div>
+          <div>${radek["SKÓRE"] || "-"}</div>
+          <div class="body-cell">${radek["BODY"] || "-"}</div>
+          <div class="forma-cell">${radek["FORMA"] || "-"}</div>
+        </div>
+      `).join("")}
+
+    </div>
+  `;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const odkazTabulka = document.getElementById("odkazTabulka");
+  const zpetZTabulky = document.getElementById("zpetZTabulky");
+
+  const gameMenu = document.querySelector(".game-menu");
+  const strankaHraci = document.getElementById("strankaHraci");
+  const strankaTabulka = document.getElementById("strankaTabulka");
+  const kluby = document.getElementById("kluby");
+
+  if (odkazTabulka) {
+    odkazTabulka.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      if (gameMenu) gameMenu.style.display = "none";
+      if (strankaHraci) strankaHraci.style.display = "none";
+      if (kluby) kluby.style.display = "none";
+
+      if (strankaTabulka) strankaTabulka.style.display = "block";
+
+      nactiTabulkuELH();
+      window.scrollTo(0, 0);
+    });
   }
 
-  if (hraciData.length === 0) {
-    await nactiData();
+  if (zpetZTabulky) {
+    zpetZTabulky.addEventListener("click", () => {
+      if (strankaTabulka) strankaTabulka.style.display = "none";
+      if (gameMenu) gameMenu.style.display = "block";
+
+      window.scrollTo(0, 0);
+    });
   }
-
-  const rozdeleno = slug.split("-");
-  const jmeno = rozdeleno[0];
-  const prijmeni = rozdeleno.slice(1).join("-");
-
-  const hrac = hraciData.find(h =>
-    normalizujGlobal(h.jmeno) === normalizujGlobal(jmeno) &&
-    normalizujGlobal(h.prijmeni) === normalizujGlobal(prijmeni)
-  );
-
-  if (!hrac) {
-    playerDetail.innerHTML = "Hráč nenalezen.";
-    return;
-  }
-
-  playerDetail.innerHTML = "";
-
-  zobrazDetail(
-    hrac.jmeno,
-    hrac.prijmeni,
-    hrac.tym,
-    hrac.pozice,
-    hrac.vek,
-    hrac.smlouva,
-    hrac.drzeni,
-    hrac.narodnost,
-    hrac.foto
-  );
 });
