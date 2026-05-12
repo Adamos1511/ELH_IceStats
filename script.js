@@ -37,6 +37,7 @@ const zkratkyTymu = {
   "HC Energie Karlovy Vary": "KVA",
   "Banes Motor České Budějovice": "CBU",
   "HC Litvínov": "LIT",
+  "HC Verva Litvínov": "LIT",
   "Bílí Tygři Liberec": "LIB",
   "Rytíři Kladno": "KLA"
 };
@@ -1382,8 +1383,8 @@ function getHodnota(obj, key) {
       ["Trestné minuty", "Trestné minuty"],
       ["Hity", "Hity"],
       ["Bloky", "Bloky"],
-      ["Úspěšnost vhazování", "Úspěšnost vhazování %", " %"],
-      ["Úspěšnost střelby", "Úspěšnost střelby %", " %"],
+      ["Úspěšnost vhazování", "Úspěšnost vhazování %",],
+      ["Úspěšnost střelby", "Úspěšnost střelby %",],
       ["Body na zápas", "Body na zápas"],
       ["Hity na zápas", "Hity na zápas"],
       ["Bloky na zápas", "Bloky na zápas"],
@@ -1841,9 +1842,16 @@ async function nactiTabulkuELH() {
       </div>
 
       ${data.map(radek => `
-        <div class="elh-radek">
+        <div class="elh-radek 
+  ${Number(radek["POŘADÍ"]) <= 4 ? "top4" : ""}
+  ${Number(radek["POŘADÍ"]) >= 5 && Number(radek["POŘADÍ"]) <= 12 ? "predkolo" : ""}
+  ${Number(radek["POŘADÍ"]) === 14 ? "baraz" : ""}
+">
           <div>${radek["POŘADÍ"] || "-"}</div>
-          <div class="tym-nazev">${radek["TÝM"] || "-"}</div>
+          <div class="tym-nazev tabulka-tym">
+  ${logoTymu(radek["TÝM"])}
+  <span>${radek["TÝM"] || "-"}</span>
+</div>
           <div>${radek["ZÁPASY"] || "-"}</div>
           <div>${radek["V"] || "-"}</div>
           <div>${radek["VP"] || "-"}</div>

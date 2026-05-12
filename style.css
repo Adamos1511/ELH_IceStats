@@ -885,22 +885,41 @@ footer {
   align-items: center;
   gap: 10px;
   padding: 14px 18px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  font-size: 15px;
+  transition: 0.2s ease;
+}
+.elh-radek.top4 {
+  background: rgba(0, 90, 180, 0.35);
+}
+
+.elh-radek.predkolo {
+  background: rgba(80, 170, 255, 0.18);
+}
+
+.elh-radek.baraz {
+  background: rgba(180, 20, 20, 0.35);
+}
+
+.elh-radek.top4:hover {
+  background: rgba(0, 110, 220, 0.50);
+}
+
+.elh-radek.predkolo:hover {
+  background: rgba(100, 190, 255, 0.28);
+}
+
+.elh-radek.baraz:hover {
+  background: rgba(220, 40, 40, 0.50);
 }
 
 .elh-hlavicka {
-  background: rgba(255,255,255,0.13);
+  background: rgba(255, 255, 255, 0.13);
   font-size: 12px;
   font-weight: 900;
   text-transform: uppercase;
   color: rgba(255,255,255,0.65);
 }
-
-.elh-radek {
-  border-top: 1px solid rgba(255,255,255,0.08);
-  font-size: 15px;
-  transition: 0.2s ease;
-}
-
 .elh-radek:hover {
   background: rgba(255,255,255,0.10);
   transform: scale(1.01);
@@ -913,10 +932,21 @@ footer {
 .body-cell {
   font-size: 20px;
   font-weight: 900;
-  color: #8fd3ff;
+  color: #ffffff;
 }
 
 .forma-cell {
   font-weight: 800;
-  color: rgba(255,255,255,0.8);
+  color: rgba(244, 242, 242, 0.8);
+}
+.tabulka-tym {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.tabulka-tym .logoMale {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
 }
