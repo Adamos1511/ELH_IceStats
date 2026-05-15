@@ -193,13 +193,7 @@ const csvUrl = jeBrankar
       ["Zákroky", "Zákroky"],
       ["Střel proti", "Střel proti"],
       ["Průměr střel na zápas", "Průměr střel na zápas"],
-      ["Workload", "Workload"],
-      ["Role", "Role"],
-      ["Archetyp", "Archetyp"],
-      ["Varianta", "Varianta"],
       ["Profil hráče", "Profil Hráče"],
-      ["Týmové zápasy", "Týmové zápasy"],
-      ["Podíl startů", "Podíl startů"]
     ]
   : [
       ["Odehrané zápasy", "Odehrané zápasy"],
@@ -1446,6 +1440,21 @@ function zobrazPrestupy() {
     complete: function (results) {
       const data = results.data.filter(r => r["JMÉNO"]);
       const elhTymy = [
+  "PCE",
+  "SPA",
+  "TRI",
+  "KOM",
+  "PLZ",
+  "MHK",
+  "VIT",
+  "OLO",
+  "MBL",
+  "KVA",
+  "CBU",
+  "LIT",
+  "LIB",
+  "KLA",
+
   "HC Dynamo Pardubice",
   "HC Sparta Praha",
   "HC Oceláři Třinec",
@@ -1458,6 +1467,7 @@ function zobrazPrestupy() {
   "HC Energie Karlovy Vary",
   "Banes Motor České Budějovice",
   "HC Verva Litvínov",
+  "HC Litvínov",
   "Bílí Tygři Liberec",
   "Rytíři Kladno"
 ];
@@ -1859,7 +1869,25 @@ async function nactiTabulkuELH() {
           <div>${radek["P"] || "-"}</div>
           <div>${radek["SKÓRE"] || "-"}</div>
           <div class="body-cell">${radek["BODY"] || "-"}</div>
-          <div class="forma-cell">${radek["FORMA"] || "-"}</div>
+          <div class="forma-cell">
+  ${(radek["FORMA"] || "")
+    .split(",")
+    .map(vysledek => {
+      const v = vysledek.trim();
+
+      return `
+        <span class="
+          forma-vysledek
+          ${v === "V" ? "forma-v" : ""}
+          ${v === "P" ? "forma-p" : ""}
+          ${v === "VP" ? "forma-vp" : ""}
+          ${v === "PP" ? "forma-pp" : ""}
+        ">
+          ${v}
+        </span>
+      `;
+    }).join("")}
+</div>
         </div>
       `).join("")}
 

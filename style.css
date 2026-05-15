@@ -936,8 +936,46 @@ footer {
 }
 
 .forma-cell {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.forma-vysledek {
+  min-width: 22px;
+  height: 22px;
+
+  padding: 0 4px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 5px;
+
+  font-size: 10px;
   font-weight: 800;
-  color: rgba(244, 242, 242, 0.8);
+
+  color: white;
+
+  box-sizing: border-box;
+}
+
+.forma-v {
+  background: #1db954;
+}
+
+.forma-p {
+  background: #e53935;
+}
+
+.forma-vp {
+  background: linear-gradient(135deg, #1db954 0%, #1db954 50%, #ff9800 50%, #ff9800 100%);
+}
+
+.forma-pp {
+  background: linear-gradient(135deg, #e53935 0%, #e53935 50%, #ff9800 50%, #ff9800 100%);
 }
 .tabulka-tym {
   display: flex;
