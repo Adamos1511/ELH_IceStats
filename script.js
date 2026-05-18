@@ -1593,15 +1593,22 @@ const kam = [...new Set(
           <title>Přestupy ELH</title>
           <style>
             body {
-              background: linear-gradient(to bottom, #001147, #002b80);
-              color: white;
-              font-family: 'Segoe UI', Tahoma, sans-serif;
-              padding: 40px;
-            }
+  margin: 0;
+  min-height: 100vh;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.55), rgba(0,17,71,0.94)),
+    #001147;
+  color: white;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  padding: 40px;
+}
             h1 {
-              text-align: center;
-              margin-bottom: 30px;
-            }
+  text-align: center;
+  margin: 0 0 30px;
+  font-size: 42px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
             .filtry {
               display: flex;
               justify-content: center;
@@ -1616,25 +1623,73 @@ const kam = [...new Set(
               font-size: 14px;
             }
             table {
-              width: 100%;
-              border-collapse: collapse;
-              background: rgba(255,255,255,0.08);
-              border-radius: 12px;
-              overflow: hidden;
-            }
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+  backdrop-filter: blur(8px);
+}
             th, td {
               padding: 10px 12px;
               text-align: left;
             }
             th {
-              background: rgba(255,255,255,0.15);
-              text-transform: uppercase;
-              font-size: 13px;
-            }
+  background: rgba(255,255,255,0.14);
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: rgba(255,255,255,0.75);
+}
             tr:nth-child(even) {
               background: rgba(255,255,255,0.05);
             }
-          </style>
+            tr {
+  transition: 0.18s ease;
+}
+
+tr:hover {
+  background: rgba(255,255,255,0.12);
+}
+  @media (max-width: 700px) {
+  body {
+    padding: 16px;
+  }
+
+  h1 {
+    font-size: 30px;
+    margin-bottom: 22px;
+  }
+
+  .filtry {
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 8px;
+  }
+
+  .filtry select {
+    min-width: 150px;
+    font-size: 13px;
+  }
+
+  #tabulka {
+    overflow-x: auto;
+  }
+
+  table {
+    min-width: 760px;
+  }
+
+  th,
+  td {
+    padding: 9px 10px;
+    font-size: 13px;
+  }
+}
+            </style>
         </head>
         <body>
 
