@@ -1013,7 +1013,17 @@ function openPlayerDetailFromClub(index) {
   const h = hraciTymuKlub[index];
   if (!h) return;
 
-  const csvUrl = "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/hraci_detail.csv";
+  const jeBrankar =
+  h.pozice &&
+  (
+    h.pozice.toLowerCase().includes("brank") ||
+    h.pozice.toLowerCase().includes("g") ||
+    h.pozice.toLowerCase() === "b"
+  );
+
+const csvUrl = jeBrankar
+  ? "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/brankari_detail.csv"
+  : "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/hraci_detail.csv";
   const plnyNazev = nazvyTymuKlub[h.tym] || h.tym;
   const logoUrl = "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/" + h.tym + ".png";
 
@@ -1611,14 +1621,23 @@ const kam = [...new Set(
             \`;
           }
 
-          function filtruj() {
-            let f = data.filter(r =>
-              (!filtrSezona.value || r["SEZONA"] === filtrSezona.value) &&
-              (!filtrOdkud.value || r["ODKUD"] === filtrOdkud.value) &&
-              (!filtrKam.value || r["KAM"] === filtrKam.value)
-            );
-            vykresli(f);
-          }
+          function normalizujPrestup(text) {
+  return String(text || "")
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\\u0300-\\u036f]/g, "");
+}
+
+function filtruj() {
+  let f = data.filter(r =>
+    (!filtrSezona.value || normalizujPrestup(r["SEZONA"]) === normalizujPrestup(filtrSezona.value)) &&
+    (!filtrOdkud.value || normalizujPrestup(r["ODKUD"]) === normalizujPrestup(filtrOdkud.value)) &&
+    (!filtrKam.value || normalizujPrestup(r["KAM"]) === normalizujPrestup(filtrKam.value))
+  );
+
+  vykresli(f);
+}
 
           filtrSezona.onchange = filtrOdkud.onchange = filtrKam.onchange = filtruj;
           vykresli(data);
