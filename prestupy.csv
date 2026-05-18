@@ -34,7 +34,7 @@ Tobias;Winberg;Jyvaskyla;HC Energie Karlovy Vary ;Obránce;2026/27
 Oscar ;Dansk;Rytíři Kladno;-;Brankář;2026/27
 Jeremie;Blain;Rytíři Kladno;-;Obránce;2026/27
 Dušan;Žovinec;Rytíři Kladno;HC Piráti Chomutov;Obránce;2026/27
-Jan ;Piskáček;Rytíři Kladno;-;Obránce;2026/27
+Jan ;Piskáček;Rytíři Kladno;HC Slavia Praha;Obránce;2026/27
 Wyatte;Wylie;Rytíři Kladno;-;Obránce;2026/27
 Tristant;Robins;Rytíři Kladno;-;Útočník;2026/27
 Marcel;Barinka;Rytíři Kladno;-;Útočník;2026/27
@@ -42,7 +42,7 @@ Antonín;Melka;Rytíři Kladno;-;Útočník;2026/27
 Jakub;Strnad;Rytíři Kladno;-;Útočník;2026/27
 Adam;Kubík;HC Škoda Plzeň ;Rytíři Kladno;Útočník;2026/27
 Michal;Kempný;Brynas;Rytíři Kladno;Obránce;2026/27
-Štěpán;Lukeš;Bílí Tygři Liberec ;-;Brankář;2026/27
+Štěpán;Lukeš;Bílí Tygři Liberec ;EV Landshut;Brankář;2026/27
 Marek;Baránek;Bílí Tygři Liberec ;-;Obránce;2026/27
 David;Aubrecht;Bílí Tygři Liberec ;HC Frýdek-Místek;Obránce;2026/27
 Jasper;Weatherby;Bílí Tygři Liberec ;-;Útočník;2026/27
@@ -71,8 +71,8 @@ Vojtěch;Budík;HC Vítkovice Ridera ;BK Mladá Boleslav ;Obránce;2026/27
 Petr;Zámorský;HC Škoda Plzeň ;BK Mladá Boleslav ;Obránce;2026/27
 Jordan;Martel;Michalovce;BK Mladá Boleslav ;Útočník;2026/27
 Felikss;Gavars;Minnesota State;BK Mladá Boleslav ;Útočník;2026/27
-David;Škůrek;HC Olomouc ;-;Obránce;2026/27
-Alex;Rašner;HC Olomouc ;-;Obránce;2026/27
+David;Škůrek;HC Olomouc ;Berani Zlín;Obránce;2026/27
+Alex;Rašner;HC Olomouc ;HC Frýdek-Místek;Obránce;2026/27
 Renars;Krastenbergs;HC Olomouc ;-;Útočník;2026/27
 Petr;Fridrich;HC Olomouc ;Saipa;Útočník;2026/27
 Lukáš;Nahodil;HC Olomouc ;Třebíč;Útočník;2026/27
@@ -113,3 +113,5 @@ Dominik;Pavlát;Ilves;Rytíři Kladno;Brankář;2026/27
 Tomáš ;Vomáčka;HC Dynamo Pardubice ;Mountfield HK ;Brankář;2026/27
 Daniel;Herčík;HC Dynamo Pardubice ;HC Olomouc ;Útočník;2026/27
 David;Tomášek;Färjestad BK;HC Dynamo Pardubice ;Útočník;2026/27
+Marek;Ročák;Swift Current Brontos;HC Oceláři Třinec ;Obránce;2026/27
+Matěj;Stránský;HC Davos;HC Dynamo Pardubice ;Útočník;2026/27

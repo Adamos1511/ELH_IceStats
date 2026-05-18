@@ -1524,259 +1524,180 @@ document.addEventListener("DOMContentLoaded", () => {
   const odkazPrestupy = document.getElementById("odkazPrestupy");
   if (odkazPrestupy) {
     odkazPrestupy.addEventListener("click", (e) => {
-      e.preventDefault();
-      zobrazPrestupy();
-    });
+  e.preventDefault();
+
+  const gameMenu = document.querySelector(".game-menu");
+  const strankaPrestupy = document.getElementById("strankaPrestupy");
+  const strankaHraci = document.getElementById("strankaHraci");
+  const strankaTabulka = document.getElementById("strankaTabulka");
+  const kluby = document.getElementById("kluby");
+
+  if (gameMenu) gameMenu.style.display = "none";
+  if (strankaHraci) strankaHraci.style.display = "none";
+  if (strankaTabulka) strankaTabulka.style.display = "none";
+  if (kluby) kluby.style.display = "none";
+
+  if (strankaPrestupy) strankaPrestupy.style.display = "block";
+
+  zobrazPrestupy();
+
+  window.scrollTo(0, 0);
+});
   }
 });
 
 function zobrazPrestupy() {
   const csvUrl = "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/prestupy.csv";
+  const container = document.getElementById("prestupyObsah");
+
+  if (!container) return;
+
+  container.innerHTML = "Načítám přestupy...";
 
   Papa.parse(csvUrl, {
-    
     download: true,
     header: true,
     delimiter: ";",
+    skipEmptyLines: true,
+
     complete: function (results) {
       const data = results.data.filter(r => r["JMÉNO"]);
+
       const elhTymy = [
-  "PCE",
-  "SPA",
-  "TRI",
-  "KOM",
-  "PLZ",
-  "MHK",
-  "VIT",
-  "OLO",
-  "MBL",
-  "KVA",
-  "CBU",
-  "LIT",
-  "LIB",
-  "KLA",
+        "PCE", "SPA", "TRI", "KOM", "PLZ", "MHK", "VIT", "OLO", "MBL", "KVA", "CBU", "LIT", "LIB", "KLA",
+        "HC Dynamo Pardubice", "HC Sparta Praha", "HC Oceláři Třinec", "HC Kometa Brno", "HC Škoda Plzeň",
+        "Mountfield HK", "HC Vítkovice Ridera", "HC Olomouc", "BK Mladá Boleslav", "HC Energie Karlovy Vary",
+        "Banes Motor České Budějovice", "HC Verva Litvínov", "HC Litvínov", "Bílí Tygři Liberec", "Rytíři Kladno"
+      ];
 
-  "HC Dynamo Pardubice",
-  "HC Sparta Praha",
-  "HC Oceláři Třinec",
-  "HC Kometa Brno",
-  "HC Škoda Plzeň",
-  "Mountfield HK",
-  "HC Vítkovice Ridera",
-  "HC Olomouc",
-  "BK Mladá Boleslav",
-  "HC Energie Karlovy Vary",
-  "Banes Motor České Budějovice",
-  "HC Verva Litvínov",
-  "HC Litvínov",
-  "Bílí Tygři Liberec",
-  "Rytíři Kladno"
-];
-      const sezony = [...new Set(data.map(r => r["SEZONA"]))].sort();
-      const odkud = [...new Set(data.map(r => r["ODKUD"]?.trim())
-    .filter(t => elhTymy.includes(t))
-)].sort();
+      const sezony = [...new Set(data.map(r => r["SEZONA"]).filter(Boolean))].sort();
 
-const kam = [...new Set(
-  data
-    .map(r => r["KAM"]?.trim())
-    .filter(t => elhTymy.includes(t))
-)].sort();
+      const odkud = [...new Set(
+        data.map(r => r["ODKUD"]?.trim()).filter(t => elhTymy.includes(t))
+      )].sort();
 
+      const kam = [...new Set(
+        data.map(r => r["KAM"]?.trim()).filter(t => elhTymy.includes(t))
+      )].sort();
 
+      container.innerHTML = `
+        <div class="prestupy-page">
+          <div class="filtry">
+            <select id="filtrSezonaPrestupy">
+              <option value="">Všechny sezony</option>
+              ${sezony.map(s => `<option value="${s}">${s}</option>`).join("")}
+            </select>
 
-      const okno = window.open("", "_blank");
-      okno.document.write(`
-        <html lang="cs">
-        <head>
-          <meta charset="UTF-8">
-          <title>Přestupy ELH</title>
-          <style>
-            body {
-  margin: 0;
-  min-height: 100vh;
-  background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.55), rgba(0,17,71,0.94)),
-    #001147;
-  color: white;
-  font-family: 'Segoe UI', Tahoma, sans-serif;
-  padding: 40px;
-}
-            h1 {
-  text-align: center;
-  margin: 0 0 30px;
-  font-size: 42px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-            .filtry {
-              display: flex;
-              justify-content: center;
-              gap: 15px;
-              margin-bottom: 25px;
-              flex-wrap: wrap;
-            }
-            select {
-              padding: 8px 12px;
-              border-radius: 8px;
-              border: none;
-              font-size: 14px;
-            }
-            table {
-  width: 100%;
-  border-collapse: collapse;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.14);
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 25px 60px rgba(0,0,0,0.35);
-  backdrop-filter: blur(8px);
-}
-            th, td {
-              padding: 10px 12px;
-              text-align: left;
-            }
-            th {
-  background: rgba(255,255,255,0.14);
-  text-transform: uppercase;
-  font-size: 12px;
-  letter-spacing: 1px;
-  color: rgba(255,255,255,0.75);
-}
-            tr:nth-child(even) {
-              background: rgba(255,255,255,0.05);
-            }
-            tr {
-  transition: 0.18s ease;
-}
+            <select id="filtrOdkudPrestupy">
+              <option value="">Odkud</option>
+              ${odkud.map(t => `<option value="${t}">${t}</option>`).join("")}
+            </select>
 
-tr:hover {
-  background: rgba(255,255,255,0.12);
-}
-  @media (max-width: 700px) {
-  body {
-    padding: 16px;
-  }
+            <select id="filtrKamPrestupy">
+              <option value="">Kam</option>
+              ${kam.map(t => `<option value="${t}">${t}</option>`).join("")}
+            </select>
+          </div>
 
-  h1 {
-    font-size: 30px;
-    margin-bottom: 22px;
-  }
-
-  .filtry {
-    justify-content: flex-start;
-    overflow-x: auto;
-    flex-wrap: nowrap;
-    padding-bottom: 8px;
-  }
-
-  .filtry select {
-    min-width: 150px;
-    font-size: 13px;
-  }
-
-  #tabulka {
-    overflow-x: auto;
-  }
-
-  table {
-    min-width: 760px;
-  }
-
-  th,
-  td {
-    padding: 9px 10px;
-    font-size: 13px;
-  }
-}
-            </style>
-        </head>
-        <body>
-
-        <h1>Přestupy ELH</h1>
-
-        <div class="filtry">
-          <select id="filtrSezona">
-            <option value="">Všechny sezony</option>
-            ${sezony.map(s => `<option value="${s}">${s}</option>`).join("")}
-          </select>
-
-          <select id="filtrOdkud">
-            <option value="">Odkud</option>
-            ${odkud.map(t => `<option value="${t}">${t}</option>`).join("")}
-          </select>
-
-          <select id="filtrKam">
-            <option value="">Kam</option>
-            ${kam.map(t => `<option value="${t}">${t}</option>`).join("")}
-          </select>
+          <div id="prestupyTabulka"></div>
         </div>
+      `;
 
-        <div id="tabulka"></div>
+      const filtrSezona = document.getElementById("filtrSezonaPrestupy");
+      const filtrOdkud = document.getElementById("filtrOdkudPrestupy");
+      const filtrKam = document.getElementById("filtrKamPrestupy");
+      const tabulka = document.getElementById("prestupyTabulka");
 
-        <script>
-          const data = ${JSON.stringify(data)};
+      function normalizujPrestup(text) {
+        return String(text || "")
+          .trim()
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "");
+      }
 
-          const filtrSezona = document.getElementById("filtrSezona");
-          const filtrOdkud = document.getElementById("filtrOdkud");
-          const filtrKam = document.getElementById("filtrKam");
+      function vykresli(radky) {
+        tabulka.innerHTML = `
+          <table class="prestupy-tabulka">
+            <thead>
+              <tr>
+                <th>Jméno</th>
+                <th>Příjmení</th>
+                <th>Odkud</th>
+                <th>Kam</th>
+                <th>Pozice</th>
+                <th>Sezona</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${radky.map(r => `
+                <tr>
+                  <td class="prestup-hrac" onclick="otevriHraceZPrestupu('${r["JMÉNO"]}', '${r["PŘÍJMENÍ"]}')">${r["JMÉNO"]}</td>
+                  <td class="prestup-hrac" onclick="otevriHraceZPrestupu('${r["JMÉNO"]}', '${r["PŘÍJMENÍ"]}')">${r["PŘÍJMENÍ"]}</td>
+                  <td>${r["ODKUD"] || "-"}</td>
+                  <td>${r["KAM"] || "-"}</td>
+                  <td>${r["POZICE"] || "-"}</td>
+                  <td>${r["SEZONA"] || "-"}</td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        `;
+      }
 
-          function vykresli(radky) {
-            document.getElementById("tabulka").innerHTML = \`
-              <table>
-                <thead>
-                  <tr>
-                    <th>Jméno</th>
-                    <th>Příjmení</th>
-                    <th>Odkud</th>
-                    <th>Kam</th>
-                    <th>Pozice</th>
-                    <th>Sezona</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  \${radky.map(r => \`
-                    <tr>
-                      <td>\${r["JMÉNO"]}</td>
-                      <td>\${r["PŘÍJMENÍ"]}</td>
-                      <td>\${r["ODKUD"]}</td>
-                      <td>\${r["KAM"]}</td>
-                      <td>\${r["POZICE"]}</td>
-                      <td>\${r["SEZONA"]}</td>
-                    </tr>
-                  \`).join("")}
-                </tbody>
-              </table>
-            \`;
-          }
+      function filtrujPrestupy() {
+        const filtrovane = data.filter(r =>
+          (!filtrSezona.value || normalizujPrestup(r["SEZONA"]) === normalizujPrestup(filtrSezona.value)) &&
+          (!filtrOdkud.value || normalizujPrestup(r["ODKUD"]) === normalizujPrestup(filtrOdkud.value)) &&
+          (!filtrKam.value || normalizujPrestup(r["KAM"]) === normalizujPrestup(filtrKam.value))
+        );
 
-          function normalizujPrestup(text) {
-  return String(text || "")
-    .trim()
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\\u0300-\\u036f]/g, "");
-}
+        vykresli(filtrovane);
+      }
 
-function filtruj() {
-  let f = data.filter(r =>
-    (!filtrSezona.value || normalizujPrestup(r["SEZONA"]) === normalizujPrestup(filtrSezona.value)) &&
-    (!filtrOdkud.value || normalizujPrestup(r["ODKUD"]) === normalizujPrestup(filtrOdkud.value)) &&
-    (!filtrKam.value || normalizujPrestup(r["KAM"]) === normalizujPrestup(filtrKam.value))
-  );
+      filtrSezona.addEventListener("change", filtrujPrestupy);
+      filtrOdkud.addEventListener("change", filtrujPrestupy);
+      filtrKam.addEventListener("change", filtrujPrestupy);
 
-  vykresli(f);
-}
-
-          filtrSezona.onchange = filtrOdkud.onchange = filtrKam.onchange = filtruj;
-          vykresli(data);
-        </script>
-
-        </body>
-        </html>
-      `);
+      vykresli(data);
     }
   });
+}
+async function otevriHraceZPrestupu(jmeno, prijmeni) {
+
+  if (hraciData.length === 0) {
+    await nactiData();
+  }
+
+  function norm(text) {
+    return String(text || "")
+      .trim()
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+  }
+
+  const hrac = hraciData.find(h =>
+    norm(h.jmeno) === norm(jmeno) &&
+    norm(h.prijmeni) === norm(prijmeni)
+  );
+
+  if (!hrac) {
+    alert("Hráč nebyl nalezen.");
+    return;
+  }
+
+  zobrazDetail(
+    hrac.jmeno,
+    hrac.prijmeni,
+    hrac.tym,
+    hrac.pozice,
+    hrac.vek,
+    hrac.smlouva,
+    hrac.drzeni,
+    hrac.narodnost,
+    hrac.foto
+  );
 }
 document.addEventListener("DOMContentLoaded", () => {
   const btnHraci = document.getElementById("btnHraci");
