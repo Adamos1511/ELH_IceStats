@@ -90,7 +90,7 @@ html, body {
   flex-direction: column;
   gap: 22px;
 
-  width: 175px;
+  width: 220px;
 }
 .left-stats {
   position: absolute;
@@ -102,7 +102,7 @@ html, body {
   flex-direction: column;
   gap: 22px;
 
-  width: 175px;
+  width: 220px;
 }
 /* ======== Přestupy přepínání ======== */
 .transfer-slider {
@@ -192,7 +192,7 @@ html, body {
   background: rgba(255,255,255,0.16);
 }
 .side-panel {
-  width: 160px;
+  width: 210px;
 
   padding: 9px 20px;
 
@@ -1027,14 +1027,14 @@ footer {
   }
 
   .left-stats,
-  .right-stats {
-    position: static;
-    transform: none;
-    width: 100%;
-    max-width: 340px;
-    order: 2;
-    gap: 14px;
-  }
+.right-stats {
+  position: static;
+  transform: none;
+  width: 100%;
+  max-width: 100%;
+  order: 2;
+  gap: 14px;
+}
 
   .right-stats {
     order: 3;
@@ -1142,4 +1142,30 @@ footer {
     padding: 12px 14px;
     font-size: 13px;
   }
+}
+/* ===============================
+   EXTRA MOBILE FIXES
+================================ */
+* {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+}
+
+.live-name,
+.transfer-player,
+.player-name,
+.club-title,
+.hrac-jmeno strong,
+.top-player-card strong {
+  word-break: break-word;
+}
+
+body,
+.game-menu,
+.page-hraci,
+.stranka-tabulka {
+  overflow-x: hidden;
 }

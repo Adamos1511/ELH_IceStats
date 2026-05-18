@@ -477,9 +477,44 @@ if (hrac) {
   }
 
   .stat:hover {
-    transform: translateY(-3px);
-    background: rgba(255,255,255,0.16);
+  transform: translateY(-3px);
+  background: rgba(255,255,255,0.16);
+}
+
+@media (max-width: 700px) {
+  body {
+    padding: 16px;
   }
+
+  .player-hero {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 16px;
+  }
+
+  .foto-hrace {
+    height: auto;
+    max-height: 420px;
+  }
+
+  .player-name {
+    font-size: 34px;
+  }
+
+  .team-line {
+    font-size: 16px;
+    flex-wrap: wrap;
+  }
+
+  .info-grid,
+  .stat-box {
+    grid-template-columns: 1fr;
+  }
+
+  .section-title {
+    font-size: 24px;
+  }
+}
 </style>
         </head>
 
@@ -909,10 +944,49 @@ const klub = dataKluby.find(k =>
             }
 
             .player-card p {
-              margin: 4px 0;
-              color: rgba(255,255,255,0.72);
-              font-size: 14px;
-            }
+  margin: 4px 0;
+  color: rgba(255,255,255,0.72);
+  font-size: 14px;
+}
+
+@media (max-width: 700px) {
+
+  body {
+    padding: 16px;
+  }
+
+  .club-hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 18px;
+  }
+
+  .club-logo {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto;
+  }
+
+  .club-title {
+    font-size: 30px;
+  }
+
+  .club-sub {
+    font-size: 15px;
+  }
+
+  .info-grid,
+  .top-players-grid,
+  .results-grid,
+  .roster-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-title {
+    font-size: 24px;
+  }
+
+}
           </style>
         </head>
 
