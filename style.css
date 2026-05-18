@@ -811,50 +811,7 @@ footer {
   color: rgba(255,255,255,0.85);
   font-size: 14px;
 }
-/* ===============================
-   MOBILNÍ VERZE
-================================ */
-@media (max-width: 900px) {
 
-  .hero-menu {
-    height: auto;
-    min-height: 100vh;
-
-    display: flex;
-    flex-direction: column;
-
-    gap: 28px;
-
-    padding: 120px 18px 120px;
-  }
-
-  .left-stats,
-  .right-stats {
-    position: static;
-    transform: none;
-
-    width: 100%;
-    max-width: 360px;
-  }
-
-  .menu-panel {
-    order: 1;
-
-    align-items: center;
-
-    min-width: auto;
-    width: 100%;
-  }
-
-  .left-stats {
-    order: 2;
-  }
-
-  .right-stats {
-    order: 3;
-  }
-
-}
 /* ===============================
    Tabulka
 ================================ */
@@ -987,4 +944,202 @@ footer {
   width: 20px;
   height: 20px;
   object-fit: contain;
+}
+/* ===============================
+   RESPONSIVE FIX — TELEFONY
+================================ */
+@media (max-width: 700px) {
+
+  html,
+  body {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .game-menu {
+    min-height: 100vh;
+    height: auto;
+    padding: 16px;
+    overflow-y: auto;
+  }
+
+  .top-bar {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo-title {
+    font-size: 28px;
+    justify-content: center;
+  }
+
+  .logo-title img {
+    width: 44px;
+    height: 44px;
+  }
+
+  .top-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .top-nav a {
+    font-size: 10px;
+    padding: 5px 7px;
+  }
+
+  .top-copy {
+    display: none;
+  }
+
+  .hero-menu {
+    height: auto;
+    min-height: auto;
+    padding: 35px 0 40px;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+  }
+
+  .menu-panel {
+    width: 100%;
+    align-items: center;
+    gap: 14px;
+    order: 1;
+  }
+
+  .menu-item {
+    font-size: 32px;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    border-left: none;
+    border-bottom: 2px solid rgba(255,255,255,0.25);
+  }
+
+  .menu-item:hover,
+  .menu-item.active {
+    transform: none;
+    border-left: none;
+    background: rgba(255,255,255,0.08);
+  }
+
+  .left-stats,
+  .right-stats {
+    position: static;
+    transform: none;
+    width: 100%;
+    max-width: 340px;
+    order: 2;
+    gap: 14px;
+  }
+
+  .right-stats {
+    order: 3;
+  }
+
+  .side-panel {
+    width: auto;
+    padding: 14px 16px;
+  }
+
+  .side-panel h2 {
+    font-size: 20px;
+  }
+
+  .live-row {
+    font-size: 14px;
+  }
+
+  /* HRÁČI */
+  .page-hraci {
+    padding: 18px 14px 35px;
+  }
+
+  .hraci-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .hraci-header h2 {
+    font-size: 28px;
+  }
+
+  .filtry {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding: 10px;
+  }
+
+  .filtry input,
+  .filtry select,
+  #razeni {
+    min-width: 170px;
+    font-size: 13px;
+  }
+
+  .hrac-radek {
+    grid-template-columns: 48px 1fr;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .hrac-tym,
+  .hrac-pozice,
+  .hrac-vek,
+  .hrac-smlouva {
+    grid-column: 2;
+    font-size: 13px;
+  }
+
+  .hrac-foto-mini img,
+  .foto-mini-placeholder {
+    width: 42px;
+    height: 42px;
+  }
+
+  /* KLUBY */
+  .kluby-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    padding: 10px 0;
+  }
+
+  .klub-karta {
+    width: auto;
+    max-width: 150px;
+  }
+
+  .klub-karta img {
+    width: 70px;
+    height: 70px;
+  }
+
+  .klub-karta h3 {
+    font-size: 12px;
+  }
+
+  /* TABULKA */
+  .stranka-tabulka {
+    padding: 18px 10px 35px;
+  }
+
+  .tabulka-elh-wrap {
+    overflow-x: auto;
+    margin-top: 20px;
+  }
+
+  .elh-tabulka {
+    min-width: 900px;
+  }
+
+  .elh-hlavicka,
+  .elh-radek {
+    grid-template-columns: 55px 180px repeat(5, 55px) 95px 65px 110px;
+    padding: 12px 14px;
+    font-size: 13px;
+  }
 }
