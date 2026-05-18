@@ -67,7 +67,7 @@
   
   <div class="menu-panel">
     <a href="#" id="btnHraci" class="menu-item active">Hráči</a>
-    <a href="kluby.html" class="menu-item">Kluby</a>
+    <a href="#" id="odkazKluby" class="menu-item">Kluby</a>
     <a href="#" id="odkazTabulka" class="menu-item">Tabulka</a>
     <a href="#" id="odkazPrestupy" class="menu-item">Přestupy</a>
   </div>
@@ -142,8 +142,12 @@
 </section>
 
 <!-- KLUBY -->
-<section id="kluby" style="display:none;">
-  <h2>Přehled klubů</h2>
+<section id="kluby" class="page-hraci" style="display:none;">
+  <div class="hraci-header">
+    <button id="zpetZKlubu" class="back-btn">← Zpět do menu</button>
+    <h2>Přehled klubů</h2>
+  </div>
+
   <div id="seznam-klubu" class="kluby-grid"></div>
 </section>
 

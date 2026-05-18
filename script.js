@@ -676,7 +676,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function zobrazKluby() {
   const container = document.getElementById("seznam-klubu");
-  if (!container) return;
+  const sekceKluby = document.getElementById("kluby");
+  const gameMenu = document.querySelector(".game-menu");
+  const strankaHraci = document.getElementById("strankaHraci");
+  const strankaTabulka = document.getElementById("strankaTabulka");
+
+  if (!container || !sekceKluby) return;
+
+  if (gameMenu) gameMenu.style.display = "none";
+  if (strankaHraci) strankaHraci.style.display = "none";
+  if (strankaTabulka) strankaTabulka.style.display = "none";
+
+  sekceKluby.style.display = "block";
+
   container.innerHTML = kluby.map(k => `
     <div class="klub-karta" onclick="otevriKlub('${k.zkratka}')">
       <img src="https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/${k.zkratka}.png" alt="${k.nazev}">
@@ -684,7 +696,7 @@ function zobrazKluby() {
     </div>
   `).join("");
 
-  document.getElementById("kluby").style.display = "block";
+  window.scrollTo(0, 0);
 }
 async function otevriKlub(zkratka) {
 
@@ -692,7 +704,12 @@ async function otevriKlub(zkratka) {
     await nactiData();
   }
 
-  const klub = dataKluby.find(k => k["NÁZEV TÝMU"] === zkratka);
+  const nazevPodleZkratky = nazvyTymu[zkratka] || zkratka;
+
+const klub = dataKluby.find(k =>
+  normalizujGlobal(k["NÁZEV TÝMU"]) === normalizujGlobal(zkratka) ||
+  normalizujGlobal(k["NÁZEV TÝMU"]) === normalizujGlobal(nazevPodleZkratky)
+);
 
   if (!klub) {
     alert("⚠️ Klub nebyl nalezen v CSV souboru.");
@@ -700,7 +717,7 @@ async function otevriKlub(zkratka) {
   }
 
   const plnyNazevTymu = klub["NÁZEV TÝMU"];
-  const nazevPodleZkratky = nazvyTymu[zkratka] || zkratka;
+  
 
   function norm(text) {
     return String(text || "")
@@ -1922,6 +1939,20 @@ document.addEventListener("DOMContentLoaded", () => {
   if (zpetZTabulky) {
     zpetZTabulky.addEventListener("click", () => {
       if (strankaTabulka) strankaTabulka.style.display = "none";
+      if (gameMenu) gameMenu.style.display = "block";
+
+      window.scrollTo(0, 0);
+    });
+  }
+});
+document.addEventListener("DOMContentLoaded", () => {
+  const zpetZKlubu = document.getElementById("zpetZKlubu");
+  const gameMenu = document.querySelector(".game-menu");
+  const sekceKluby = document.getElementById("kluby");
+
+  if (zpetZKlubu) {
+    zpetZKlubu.addEventListener("click", () => {
+      if (sekceKluby) sekceKluby.style.display = "none";
       if (gameMenu) gameMenu.style.display = "block";
 
       window.scrollTo(0, 0);
