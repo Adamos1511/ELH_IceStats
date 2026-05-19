@@ -1232,6 +1232,15 @@ body,
 .prestup-hrac:hover {
   text-decoration: underline;
 }
+.prestup-tym {
+  font-weight: 800;
+  cursor: pointer;
+  color: white;
+}
+
+.prestup-tym:hover {
+  text-decoration: underline;
+}
 
 /* MOBILE */
 @media (max-width: 700px) {

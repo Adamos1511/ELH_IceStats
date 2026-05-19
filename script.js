@@ -1634,8 +1634,19 @@ function zobrazPrestupy() {
                 <tr>
                   <td class="prestup-hrac" onclick="otevriHraceZPrestupu('${r["JMÉNO"]}', '${r["PŘÍJMENÍ"]}')">${r["JMÉNO"]}</td>
                   <td class="prestup-hrac" onclick="otevriHraceZPrestupu('${r["JMÉNO"]}', '${r["PŘÍJMENÍ"]}')">${r["PŘÍJMENÍ"]}</td>
-                  <td>${r["ODKUD"] || "-"}</td>
-                  <td>${r["KAM"] || "-"}</td>
+                  <td 
+  class="prestup-tym"
+  onclick="otevriTymZPrestupu('${r["ODKUD"] || ""}')"
+>
+  ${r["ODKUD"] || "-"}
+</td>
+
+<td 
+  class="prestup-tym"
+  onclick="otevriTymZPrestupu('${r["KAM"] || ""}')"
+>
+  ${r["KAM"] || "-"}
+</td>
                   <td>${r["POZICE"] || "-"}</td>
                   <td>${r["SEZONA"] || "-"}</td>
                 </tr>
@@ -1699,6 +1710,49 @@ async function otevriHraceZPrestupu(jmeno, prijmeni) {
     hrac.foto
   );
 }
+function otevriTymZPrestupu(tym) {
+  if (!tym) return;
+
+  function norm(text) {
+    return String(text || "")
+      .trim()
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+  }
+
+  const vsechnyTymy = {
+    PCE: ["PCE", "HC Dynamo Pardubice", "Dynamo Pardubice", "Pardubice"],
+    SPA: ["SPA", "HC Sparta Praha", "Sparta Praha", "Sparta"],
+    TRI: ["TRI", "HC Oceláři Třinec", "Oceláři Třinec", "Třinec", "Trinec"],
+    KOM: ["KOM", "HC Kometa Brno", "Kometa Brno", "Brno"],
+    PLZ: ["PLZ", "HC Škoda Plzeň", "Škoda Plzeň", "Plzeň", "Plzen"],
+    MHK: ["MHK", "Mountfield HK", "Hradec Králové", "Hradec Kralove"],
+    VIT: ["VIT", "HC Vítkovice Ridera", "Vítkovice", "Vitkovice"],
+    OLO: ["OLO", "HC Olomouc", "Olomouc"],
+    MBL: ["MBL", "BK Mladá Boleslav", "Mladá Boleslav", "Mlada Boleslav"],
+    KVA: ["KVA", "HC Energie Karlovy Vary", "Energie Karlovy Vary", "Karlovy Vary"],
+    CBU: ["CBU", "Banes Motor České Budějovice", "Motor České Budějovice", "České Budějovice", "Ceske Budejovice", "Motor"],
+    LIT: ["LIT", "HC Verva Litvínov", "HC Litvínov", "Verva Litvínov", "Litvínov", "Litvinov"],
+    LIB: ["LIB", "Bílí Tygři Liberec", "Liberec"],
+    KLA: ["KLA", "Rytíři Kladno", "Kladno"]
+  };
+
+  const hledany = norm(tym);
+
+  const nalezenyZaznam = Object.entries(vsechnyTymy).find(([zkratka, varianty]) =>
+    varianty.some(v => norm(v) === hledany)
+  );
+
+  if (!nalezenyZaznam) {
+    alert("Tým nebyl nalezen: " + tym);
+    return;
+  }
+
+  otevriKlub(nalezenyZaznam[0]);
+}
+
+window.otevriTymZPrestupu = otevriTymZPrestupu;
 document.addEventListener("DOMContentLoaded", () => {
   const btnHraci = document.getElementById("btnHraci");
   const zpetMenu = document.getElementById("zpetMenu");
