@@ -1984,10 +1984,12 @@ async function nactiTabulkuELH() {
 document.addEventListener("DOMContentLoaded", () => {
   const odkazTabulka = document.getElementById("odkazTabulka");
   const zpetZTabulky = document.getElementById("zpetZTabulky");
+  const zpetZPrestupu = document.getElementById("zpetZPrestupu");
 
   const gameMenu = document.querySelector(".game-menu");
   const strankaHraci = document.getElementById("strankaHraci");
   const strankaTabulka = document.getElementById("strankaTabulka");
+  const strankaPrestupy = document.getElementById("strankaPrestupy");
   const kluby = document.getElementById("kluby");
 
   if (odkazTabulka) {
@@ -2013,6 +2015,20 @@ document.addEventListener("DOMContentLoaded", () => {
       window.scrollTo(0, 0);
     });
   }
+  if (zpetZPrestupu) {
+  zpetZPrestupu.addEventListener("click", () => {
+
+    if (strankaPrestupy) {
+      strankaPrestupy.style.display = "none";
+    }
+
+    if (gameMenu) {
+      gameMenu.style.display = "block";
+    }
+
+    window.scrollTo(0, 0);
+  });
+}
 });
 document.addEventListener("DOMContentLoaded", () => {
   const zpetZKlubu = document.getElementById("zpetZKlubu");
