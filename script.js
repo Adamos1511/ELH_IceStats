@@ -1634,19 +1634,8 @@ function zobrazPrestupy() {
                 <tr>
                   <td class="prestup-hrac" onclick="otevriHraceZPrestupu('${r["JMÉNO"]}', '${r["PŘÍJMENÍ"]}')">${r["JMÉNO"]}</td>
                   <td class="prestup-hrac" onclick="otevriHraceZPrestupu('${r["JMÉNO"]}', '${r["PŘÍJMENÍ"]}')">${r["PŘÍJMENÍ"]}</td>
-                  <td 
-  class="prestup-tym"
-  onclick="otevriTymZPrestupu('${r["ODKUD"] || ""}')"
->
-  ${r["ODKUD"] || "-"}
-</td>
-
-<td 
-  class="prestup-tym"
-  onclick="otevriTymZPrestupu('${r["KAM"] || ""}')"
->
-  ${r["KAM"] || "-"}
-</td>
+                  <td>${vypisTymPrestupu(r["ODKUD"])}</td>
+<td>${vypisTymPrestupu(r["KAM"])}</td>
                   <td>${r["POZICE"] || "-"}</td>
                   <td>${r["SEZONA"] || "-"}</td>
                 </tr>
@@ -1710,8 +1699,8 @@ async function otevriHraceZPrestupu(jmeno, prijmeni) {
     hrac.foto
   );
 }
-function otevriTymZPrestupu(tym) {
-  if (!tym) return;
+function najdiZkratkuELH(tym) {
+  if (!tym) return null;
 
   function norm(text) {
     return String(text || "")
@@ -1740,16 +1729,26 @@ function otevriTymZPrestupu(tym) {
 
   const hledany = norm(tym);
 
-  const nalezenyZaznam = Object.entries(vsechnyTymy).find(([zkratka, varianty]) =>
+  const nalezeny = Object.entries(vsechnyTymy).find(([_, varianty]) =>
     varianty.some(v => norm(v) === hledany)
   );
 
-  if (!nalezenyZaznam) {
-    alert("Tým nebyl nalezen: " + tym);
-    return;
+  return nalezeny ? nalezeny[0] : null;
+}
+
+function vypisTymPrestupu(tym) {
+  const zkratka = najdiZkratkuELH(tym);
+  const text = tym || "-";
+
+  if (!zkratka) {
+    return text;
   }
 
-  otevriKlub(nalezenyZaznam[0]);
+  return `<span class="prestup-tym" onclick="otevriTymZPrestupu('${zkratka}')">${text}</span>`;
+}
+function otevriTymZPrestupu(tym) {
+  if (!tym) return;
+  otevriKlub(tym);
 }
 
 window.otevriTymZPrestupu = otevriTymZPrestupu;
