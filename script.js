@@ -73,7 +73,7 @@ async function nactiData() {
   const radky = text.trim().split("\n").slice(1);
 
   hraciData = radky.map(r => {
-    const [jmeno, prijmeni, smlouva, pozice, tym, vek, drzeni, narodnost, foto] = r.split(";");
+    const [jmeno, prijmeni, smlouva, pozice, tym, vek, drzeni, narodnost, foto, zdroj] = r.split(";");
     return {
       jmeno: jmeno?.trim(),
       prijmeni: prijmeni?.trim(),
@@ -83,7 +83,18 @@ async function nactiData() {
       vek: parseInt(vek?.trim()) || "",
       drzeni: drzeni?.trim(),
       narodnost: narodnost?.trim(),
-      foto: foto?.trim().replace(/\r/g, "")
+      foto: String(foto || "")
+  .trim()
+  .replace(/\r/g, "")
+  .replace(/\n/g, "")
+  .replace(/"/g, "")
+  .replace(/\uFEFF/g, ""),
+
+zdroj: String(zdroj || "")
+  .trim()
+  .replace(/\r/g, "")
+  .replace(/\n/g, "")
+  .replace(/"/g, "")
 
     };
   });
@@ -112,7 +123,7 @@ function zobrazHrace(data) {
   }
 
   container.innerHTML = data.map(h => `
-    <div class="hrac-radek" onclick="zobrazDetail('${h.jmeno}', '${h.prijmeni}', '${h.tym}', '${h.pozice}', '${h.vek}', '${h.smlouva}', '${h.drzeni}', '${h.narodnost}', '${h.foto}')">
+    <div class="hrac-radek" onclick="zobrazDetail('${h.jmeno}', '${h.prijmeni}', '${h.tym}', '${h.pozice}', '${h.vek}', '${h.smlouva}', '${h.drzeni}', '${h.narodnost}', '${h.foto}', '${h.zdroj}')">
       
       <div class="hrac-foto-mini">
         ${
@@ -141,7 +152,7 @@ function zobrazHrace(data) {
 
 
 // --- DETAIL HRÁČE ---
-function zobrazDetail(jmeno, prijmeni, tym, pozice, vek, smlouva, drzeni, narodnost, foto) {
+function zobrazDetail(jmeno, prijmeni, tym, pozice, vek, smlouva, drzeni, narodnost, foto, zdroj = "") {
 const jeBrankar =
   pozice &&
   (
@@ -522,7 +533,15 @@ if (hrac) {
   <div class="player-page">
 
     <section class="player-hero">
-      <img src="${foto}" alt="Foto ${jmeno} ${prijmeni}" class="foto-hrace" onerror="this.style.display='none'">
+      <div class="foto-wrapper">
+  <img src="${foto}" alt="Foto ${jmeno} ${prijmeni}" class="foto-hrace" onerror="this.style.display='none'">
+
+  ${
+    zdroj
+      ? `<div class="foto-zdroj">© Fotka: ${zdroj}</div>`
+      : ""
+  }
+</div>
 
       <div class="player-info">
         <h1 class="player-name">${jmeno} ${prijmeni}</h1>
@@ -734,6 +753,14 @@ function zobrazKluby() {
   window.scrollTo(0, 0);
 }
 async function otevriKlub(zkratka) {
+const detailSekce = document.getElementById("strankaDetailKlubu");
+const detailObsah = document.getElementById("detailKlubuObsah");
+
+const gameMenu = document.querySelector(".game-menu");
+const sekceKluby = document.getElementById("kluby");
+const strankaHraci = document.getElementById("strankaHraci");
+const strankaTabulka = document.getElementById("strankaTabulka");
+const strankaPrestupy = document.getElementById("strankaPrestupy");
 
   if (hraciData.length === 0) {
     await nactiData();
@@ -750,6 +777,15 @@ const klub = dataKluby.find(k =>
     alert("⚠️ Klub nebyl nalezen v CSV souboru.");
     return;
   }
+  if (gameMenu) gameMenu.style.display = "none";
+if (sekceKluby) sekceKluby.style.display = "none";
+if (strankaHraci) strankaHraci.style.display = "none";
+if (strankaTabulka) strankaTabulka.style.display = "none";
+if (strankaPrestupy) strankaPrestupy.style.display = "none";
+
+if (detailSekce) {
+  detailSekce.style.display = "block";
+}
 
   const plnyNazevTymu = klub["NÁZEV TÝMU"];
   
