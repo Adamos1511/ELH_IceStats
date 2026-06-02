@@ -744,7 +744,7 @@ function zobrazKluby() {
   sekceKluby.style.display = "block";
 
   container.innerHTML = kluby.map(k => `
-    <div class="klub-karta" onclick="otevriKlub('${k.zkratka}')">
+    <div class="klub-karta" onclick="otevriKlubNovy('${k.zkratka}')">
       <img src="https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/${k.zkratka}.png" alt="${k.nazev}">
       <h3>${k.nazev}</h3>
     </div>
@@ -1075,7 +1075,23 @@ if (detailSekce) {
                 <span>Nejvíce bodů</span>
                 <strong>${topText(topBody, "Body")}</strong>
               </div>
+            <h2 class="section-title">Soupiska týmu</h2>
 
+<div class="roster-grid">
+  ${
+    hraciTymu.length
+      ? hraciTymu.map((h, index) => `
+        <div class="player-card" onclick="zobrazDetail('${h.jmeno}', '${h.prijmeni}', '${h.tym}', '${h.pozice}', '${h.vek}', '${h.smlouva}', '${h.drzeni}', '${h.narodnost}', '${h.foto}', '${h.zdroj || ""}')">
+          <h3>${h.jmeno} ${h.prijmeni}</h3>
+          <p><b>Pozice:</b> ${h.pozice || "-"}</p>
+          <p><b>Věk:</b> ${h.vek || "-"}</p>
+          <p><b>Národnost:</b> ${h.narodnost || "-"}</p>
+          <p><b>Smlouva:</b> ${h.smlouva || "-"}</p>
+        </div>
+      `).join("")
+      : `<div class="info-card"><strong>Soupiska nebyla nalezena.</strong></div>`
+  }
+</div>
               <div class="top-player-card">
                 <span>Nejvíce gólů</span>
                 <strong>${topText(topGoly, "Goly")}</strong>
@@ -1313,7 +1329,197 @@ const csvUrl = jeBrankar
     }
   });
 }
+async function otevriKlubNovy(zkratka) {
+  const nazevPodleZkratky = nazvyTymu[zkratka] || zkratka;
 
+  const detailSekce = document.getElementById("strankaDetailKlubu");
+  const detailObsah = document.getElementById("detailKlubuObsah");
+
+  const gameMenu = document.querySelector(".game-menu");
+  const sekceKluby = document.getElementById("kluby");
+  const strankaHraci = document.getElementById("strankaHraci");
+  const strankaTabulka = document.getElementById("strankaTabulka");
+  const strankaPrestupy = document.getElementById("strankaPrestupy");
+
+  if (!detailSekce || !detailObsah) return;
+
+  if (gameMenu) gameMenu.style.display = "none";
+  if (sekceKluby) sekceKluby.style.display = "none";
+  if (strankaHraci) strankaHraci.style.display = "none";
+  if (strankaTabulka) strankaTabulka.style.display = "none";
+  if (strankaPrestupy) strankaPrestupy.style.display = "none";
+
+  detailSekce.style.display = "block";
+  if (hraciData.length === 0) {
+  await nactiData();
+}
+
+function cislo(hodnota) {
+  return parseFloat(String(hodnota || "0").replace(",", "."));
+}
+
+const hraciTymu = hraciData.filter(h => {
+  const tymHrace = h.tym;
+  const zkratkaHrace = zkratkyTymu[tymHrace] || tymHrace;
+  const plnyNazevHrace = nazvyTymu[tymHrace] || tymHrace;
+
+  return (
+    normalizujGlobal(tymHrace) === normalizujGlobal(zkratka) ||
+    normalizujGlobal(tymHrace) === normalizujGlobal(nazevPodleZkratky) ||
+    normalizujGlobal(zkratkaHrace) === normalizujGlobal(zkratka) ||
+    normalizujGlobal(plnyNazevHrace) === normalizujGlobal(nazevPodleZkratky)
+  );
+});
+console.log("DETAIL KLUBU:", zkratka, nazevPodleZkratky);
+console.log("POČET HRÁČŮ CELKEM:", hraciData.length);
+console.log("HRÁČI TÝMU:", hraciTymu);
+console.log("UKÁZKA TÝMŮ V HRACIDATA:", [...new Set(hraciData.map(h => h.tym))]);
+const detailData = await new Promise(resolve => {
+  Papa.parse("https://raw.githubusercontent.com/Adamos1511/ELH_web/main/hraci_detail.csv", {
+    download: true,
+    header: true,
+    delimiter: ";",
+    skipEmptyLines: true,
+    complete: function(results) {
+      resolve(results.data);
+    }
+  });
+});
+
+const detailHraciTymu = detailData.filter(d =>
+  normalizujGlobal(d["Tým"]) === normalizujGlobal(zkratka) ||
+  normalizujGlobal(d["Tým"]) === normalizujGlobal(nazevPodleZkratky)
+);
+
+function topHrac(sloupec) {
+  return detailHraciTymu
+    .filter(h => h["Jméno"] && h["Příjmení"])
+    .sort((a, b) => cislo(b[sloupec]) - cislo(a[sloupec]))[0];
+}
+
+function topText(hrac, sloupec) {
+  if (!hrac) return "-";
+  return `${hrac["Jméno"]} ${hrac["Příjmení"]} (${hrac[sloupec] || 0})`;
+}
+
+const topBody = topHrac("Body");
+const topGoly = topHrac("Goly");
+const topAsistence = topHrac("Asistence");
+  detailObsah.innerHTML = `<p>Načítám klub ${zkratka}...</p>`;
+
+  window.scrollTo(0, 0);
+  if (dataKluby.length === 0) {
+  await new Promise(resolve => {
+    const cekej = setInterval(() => {
+      if (dataKluby.length > 0) {
+        clearInterval(cekej);
+        resolve();
+      }
+    }, 100);
+  });
+}
+
+
+const klub = dataKluby.find(k =>
+  normalizujGlobal(k["NÁZEV TÝMU"]) === normalizujGlobal(zkratka) ||
+  normalizujGlobal(k["NÁZEV TÝMU"]) === normalizujGlobal(nazevPodleZkratky)
+);
+
+if (!klub) {
+  detailObsah.innerHTML = `<p>Klub nebyl nalezen.</p>`;
+  return;
+}
+
+const logo = `https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/${zkratka}.png`;
+
+detailObsah.innerHTML = `
+  <div class="club-page">
+
+    <section class="club-hero">
+      <img src="${logo}" alt="${nazevPodleZkratky}" class="club-logo">
+
+      <div>
+        <h1 class="club-title">${nazevPodleZkratky}</h1>
+        <div class="club-sub">${klub["NÁZEV STADIONU"] || "Stadion neuveden"}</div>
+
+        <div class="info-grid">
+          <div class="info-card"><span>Rok založení</span><strong>${klub["ROK ZALOŽENÍ"] || "-"}</strong></div>
+          <div class="info-card"><span>Počet titulů</span><strong>${klub["POČET TITULŮ"] || "-"}</strong></div>
+          <div class="info-card"><span>Poslední titul</span><strong>${klub["POSLEDNÍ TITUL"] || "-"}</strong></div>
+          <div class="info-card"><span>Hlavní trenér</span><strong>${klub["HLAVNÍ TRENÉR"] || "-"}</strong></div>
+          <div class="info-card"><span>Průměrná návštěvnost</span><strong>${klub["PRŮMĚRNÁ NÁVŠTĚVNOST"] || "-"}</strong></div>
+          <div class="info-card"><span>Kapacita stadionu</span><strong>${klub["KAPACITA"] || "-"}</strong></div>
+          <div class="info-card"><span>Zaplněnost</span><strong>${klub["% ZAPLNĚNOST"] || "-"}</strong></div>
+        </div>
+      </div>
+    </section>
+    <h2 class="section-title">Týmové průměry</h2>
+
+<div class="info-grid">
+  <div class="info-card"><span>Průměrný věk</span><strong>${klub["Průměrný věk"] || "-"} let</strong></div>
+  <div class="info-card"><span>Průměrná výška</span><strong>${klub["Průměrná výška"] || "-"} cm</strong></div>
+  <div class="info-card"><span>Průměrná váha</span><strong>${klub["Průměrná váha"] || "-"} kg</strong></div>
+</div>
+<h2 class="section-title">Výsledky umístění</h2>
+
+<div class="results-grid">
+  <div class="result-card"><span>2025/26 ZČ</span><strong>${klub["2025/26 ZČ"] || "-"}</strong></div>
+  <div class="result-card"><span>2025/26 Playoff</span><strong>${klub["2025/26 PLAYOFF"] || "-"}</strong></div>
+  <div class="result-card"><span>2024/25 ZČ</span><strong>${klub["2024/25 ZČ"] || "-"}</strong></div>
+  <div class="result-card"><span>2024/25 Playoff</span><strong>${klub["2024/25 PLAYOFF"] || "-"}</strong></div>
+  <div class="result-card"><span>2023/24 ZČ</span><strong>${klub["2023/24 ZČ"] || "-"}</strong></div>
+  <div class="result-card"><span>2023/24 Playoff</span><strong>${klub["2023/24 PLAYOFF"] || "-"}</strong></div>
+  <div class="result-card"><span>2022/23 ZČ</span><strong>${klub["2022/23 ZČ"] || "-"}</strong></div>
+  <div class="result-card"><span>2022/23 Playoff</span><strong>${klub["2022/23 PLAYOFF"] || "-"}</strong></div>
+  <div class="result-card"><span>2021/22 ZČ</span><strong>${klub["2021/22 ZČ"] || "-"}</strong></div>
+  <div class="result-card"><span>2021/22 Playoff</span><strong>${klub["2021/22 PLAYOFF"] || "-"}</strong></div>
+  <div class="result-card"><span>2020/21 ZČ</span><strong>${klub["2020/21 ZČ"] || "-"}</strong></div>
+  <div class="result-card"><span>2020/21 Playoff</span><strong>${klub["2020/21 PLAYOFF"] || "-"}</strong></div>
+</div>
+<h2 class="section-title">TOP hráči týmu</h2>
+
+<div class="top-players-grid">
+  <div class="top-player-card">
+    <span>Nejvíce bodů</span>
+    <strong>${topText(topBody, "Body")}</strong>
+  </div>
+
+  <div class="top-player-card">
+    <span>Nejvíce gólů</span>
+    <strong>${topText(topGoly, "Goly")}</strong>
+  </div>
+
+  <div class="top-player-card">
+    <span>Nejvíce asistencí</span>
+    <strong>${topText(topAsistence, "Asistence")}</strong>
+  </div>
+</div>
+<h2 class="section-title">Soupiska týmu</h2>
+
+<div class="roster-grid">
+  ${
+    hraciTymu.length
+      ? hraciTymu.map((h) => `
+        <div class="player-card" onclick="zobrazDetail('${h.jmeno}', '${h.prijmeni}', '${h.tym}', '${h.pozice}', '${h.vek}', '${h.smlouva}', '${h.drzeni}', '${h.narodnost}', '${h.foto}', '${h.zdroj || ""}')">
+          <h3>${h.jmeno} ${h.prijmeni}</h3>
+          <p><b>Pozice:</b> ${h.pozice || "-"}</p>
+          <p><b>Věk:</b> ${h.vek || "-"}</p>
+          <p><b>Národnost:</b> ${h.narodnost || "-"}</p>
+          <p><b>Smlouva:</b> ${h.smlouva || "-"}</p>
+        </div>
+      `).join("")
+      : `<div class="info-card"><strong>Soupiska nebyla nalezena.</strong></div>`
+  }
+</div>
+  </div>
+`;
+
+  // zatím fallback, dalším krokem ho odstraníme
+  // otevriKlubStare(zkratka);
+}
+
+window.otevriKlubNovy = otevriKlubNovy;
+window.otevriKlubStare = otevriKlub;
 window.otevriKlub = otevriKlub;
 function zobrazDetailHrace(h) {
   const csvUrl = "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/hraci_detail.csv";
@@ -2074,11 +2280,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const odkazTabulka = document.getElementById("odkazTabulka");
   const zpetZTabulky = document.getElementById("zpetZTabulky");
   const zpetZPrestupu = document.getElementById("zpetZPrestupu");
+  const zpetZDetailuKlubu = document.getElementById("zpetZDetailuKlubu");
 
   const gameMenu = document.querySelector(".game-menu");
   const strankaHraci = document.getElementById("strankaHraci");
   const strankaTabulka = document.getElementById("strankaTabulka");
   const strankaPrestupy = document.getElementById("strankaPrestupy");
+  const strankaDetailKlubu = document.getElementById("strankaDetailKlubu");
+const sekceKluby = document.getElementById("kluby");
   const kluby = document.getElementById("kluby");
 
   if (odkazTabulka) {
@@ -2116,6 +2325,22 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     window.scrollTo(0, 0);
+  });
+}
+if (zpetZDetailuKlubu) {
+  zpetZDetailuKlubu.addEventListener("click", () => {
+
+    if (strankaDetailKlubu) strankaDetailKlubu.style.display = "none";
+
+    if (sekceKluby) sekceKluby.style.display = "block";
+
+    const gameMenu = document.querySelector(".game-menu");
+    if (gameMenu) gameMenu.style.display = "none";
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
   });
 }
 });

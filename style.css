@@ -1288,3 +1288,131 @@ body,
   border-radius: 18px;
   overflow: hidden;
 }
+.filtry select option,
+#razeni option {
+  background: #001147;
+  color: white;
+}
+#strankaDetailKlubu {
+  min-height: 100vh;
+  background:
+    linear-gradient(90deg, rgba(150,0,0,0.65), rgba(0,17,71,0.92)),
+    #001147;
+  color: white;
+  padding: 40px;
+}
+
+.club-page {
+  max-width: 1250px;
+  margin: 0 auto;
+}
+
+.club-hero {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 35px;
+  align-items: center;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+}
+
+.club-logo {
+  width: 190px;
+  height: 190px;
+  object-fit: contain;
+  background: rgba(255,255,255,0.08);
+  border-radius: 22px;
+  padding: 18px;
+}
+
+.club-title {
+  font-size: 46px;
+  margin: 0 0 18px;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.club-sub {
+  color: rgba(255,255,255,0.7);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.info-grid,
+.top-players-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.info-card,
+.top-player-card,
+.result-card,
+.player-card {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 16px;
+  padding: 16px 18px;
+}
+
+.info-card span,
+.top-player-card span,
+.result-card span {
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.info-card strong,
+.top-player-card strong,
+.result-card strong {
+  font-size: 19px;
+  color: white;
+}
+
+.section-title {
+  margin: 42px 0 18px;
+  font-size: 28px;
+  text-transform: uppercase;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 12px;
+}
+
+.roster-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.player-card {
+  transition: 0.2s ease;
+  cursor: pointer;
+}
+
+.player-card:hover {
+  transform: translateY(-4px);
+  background: rgba(255,255,255,0.13);
+}
+
+.player-card h3 {
+  margin: 8px 0 6px;
+  font-size: 18px;
+}
+
+.player-card p {
+  margin: 4px 0;
+  color: rgba(255,255,255,0.72);
+  font-size: 14px;
+}
