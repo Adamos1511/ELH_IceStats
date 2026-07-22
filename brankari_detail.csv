@@ -1,4 +1,22 @@
 ﻿Foto;Jméno;Příjmení;Smlouva;Tým;Věk;Držení hole;Národnost;Výška (cm);Váha (kg);Odchytané zápasy;Odchytané minuty;Výhry;průměr obdržených branek;% zákroků;Čistá konta;Zákroky;Střel proti;Průměr střel na zápas;Profil Hráče
-;Milan;Klouček;26/27;CBU;28;L;CZE;193;96;44;2550;28;1,95;0,92;9;1013;1096;24,91;Tým na něm staví velkou část své jistoty v brankovišti. Průměr obdržených branek drží na hodnotě 1,95.
-;Matyáš;Mařík;26/27+1;CBU;19;L;CZE;187;91;9;453;2;2,78;0,88;0;167;188;20,89;Brankářská dvojka zatím nepůsobí úplně jistě. Úspěšnost zákroků se drží kolem 88,83%.
-;Jan;Strmeň;26/27+1;CBU;34;L;CZE;185;81;0;0;0;0;0;0;0;0;0;V brankovišti zatím naskakuje spíše výběrově.
+;Milan;Klouček;26/27;CBU;28;L;CZE;193;96;4;253;1;2.13;90.22;0;83;92;23.0;Tým na něm staví velkou část své jistoty v brankovišti. Průměr obdržených branek drží na hodnotě 1,95.
+;Matyáš;Mařík;26/27+1;CBU;19;L;CZE;187;91;9;453;2;2,78;0,88;0;167;188;20.89;Brankářská dvojka zatím nepůsobí úplně jistě. Úspěšnost zákroků se drží kolem 88,83%.
+;Jan;Strmeň;26/27+1;CBU;34;L;CZE;185;81;0;0;0;0;0;0;0;0;0.0;V brankovišti zatím naskakuje spíše výběrově.
+;Matěj;Machovský;;OLO;;;;;;3;188;0;1.91;95.35;0;123;129;43.0;
+;Dominik;Frodl;;KVA;;;;;;14;811;8;1.63;95.01;3;419;441;31.5;
+;Jakub;Kovář;;SPA;;;;;;7;459;3;1.44;94.12;0;176;187;26.71;
+;Adam;Brízgala;;KLA;;;;;;5;351;2;1.88;93.82;0;167;178;35.6;
+;Josef;Kořenář;;SPA;;;;;;12;780;7;1.92;93.57;2;364;389;32.42;
+;Roman;Will;;PCE;;;;;;15;891;10;2.15;92.97;2;423;455;30.33;
+;Petr;Kváča;;LIB;;;;;;7;428;3;1.68;92.77;1;154;166;23.71;
+;Nick;Malík;;PLZ;;;;;;7;395;3;1.97;92.22;1;154;167;23.86;
+;Stanislav;Škorvánek;;MHK;;;;;;5;332;1;2.53;92.0;0;161;175;35.0;
+;Aleš;Stezka;;KOM;;;;;;8;483;3;2.86;91.64;0;252;275;34.38;
+;Marek;Mazanec;;TRI;;;;;;13;762;9;1.97;91.47;1;268;293;22.54;
+;Ondřej;Kacetl;;TRI;;;;;;8;445;4;2.7;90.43;0;189;209;26.12;
+;Dominik;Hrachovina;;VIT;;;;;;3;143;0;3.36;89.47;0;68;76;25.33;
+;Malcolm;Subban;;PCE;;;;;;3;177;2;2.03;91.55;0;65;71;23.67;
+;Jan;Růžička;;PLZ;;;;;;1;40;0;3.0;88.24;0;15;17;17.0;
+;Daniel;Král;;KVA;;;;;;2;100;0;3.6;87.5;0;42;48;24.0;
+;Gašper;Krošelj;;KOM;;;;;;1;15;0;4.0;80.0;0;4;5;5.0;
+;Lukáš;Klimeš;;VIT;;;;;;1;36;0;3.33;66.67;0;4;6;6.0;

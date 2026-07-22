@@ -1,11 +1,11 @@
 ﻿1.kolo;;;;;
-;Banes Motor Č. Budějovice;VS;BK Mladá Boleslav;16.09.2026;17:30
+;HC Energie Karlovy Vary;VS;HC Oceláři Třinec;15.09.2026;18:00
 ;HC VÍTKOVICE RIDERA;VS;Rytíři Kladno;16.09.2026;17:30
 ;HC Škoda Plzeň;VS;Bílí Tygři Liberec;16.09.2026;17:30
 ;HC Dynamo Pardubice;VS;Mountfield HK;16.09.2026;18:00
 ;HC Olomouc;VS;HC Sparta Praha;16.09.2026;18:00
 ;HC Kometa Brno;VS;HC VERVA Litvínov;16.09.2026;18:00
-;HC Energie Karlovy Vary;VS;HC Oceláři Třinec;16.09.2026;18:00
+;Banes Motor Č. Budějovice;VS;BK Mladá Boleslav;16.09.2026;17:30
 ;;;;;
 2.kolo;;;;;
 ;HC Oceláři Třinec;VS;HC Kometa Brno;18.09.2026;17:00
@@ -17,451 +17,451 @@
 ;Rytíři Kladno;VS;HC Sparta Praha;18.09.2026;18:00
 ;;;;;
 3.kolo;;;;;
-;HC Sparta Praha;VS;BK Mladá Boleslav;20.09.2026;16:00
-;Bílí Tygři Liberec;VS;Rytíři Kladno;20.09.2026;16:00
-;HC Škoda Plzeň;VS;HC Oceláři Třinec;20.09.2026;16:30
-;HC Kometa Brno;VS;Mountfield HK;20.09.2026;17:00
-;HC Dynamo Pardubice;VS;HC Energie Karlovy Vary;20.09.2026;17:00
-;Banes Motor Č. Budějovice;VS;HC Olomouc;20.09.2026;17:00
-;HC VÍTKOVICE RIDERA;VS;HC VERVA Litvínov;20.09.2026;17:00
+;HC Sparta Praha;VS;BK Mladá Boleslav;;
+;Bílí Tygři Liberec;VS;Rytíři Kladno;;
+;HC Škoda Plzeň;VS;HC Oceláři Třinec;;
+;HC Kometa Brno;VS;Mountfield HK;;
+;HC Dynamo Pardubice;VS;HC Energie Karlovy Vary;;
+;Banes Motor Č. Budějovice;VS;HC Olomouc;;
+;HC VÍTKOVICE RIDERA;VS;HC VERVA Litvínov;;
 ;;;;;
 4.kolo;;;;;
-;HC Oceláři Třinec;VS;HC VÍTKOVICE RIDERA;25.09.2026;17:00
-;BK Mladá Boleslav;VS;HC Dynamo Pardubice;25.09.2026;17:30
-;HC VERVA Litvínov;VS;HC Sparta Praha;25.09.2026;17:30
-;Rytíři Kladno;VS;HC Škoda Plzeň;25.09.2026;18:00
-;Mountfield HK;VS;Bílí Tygři Liberec;25.09.2026;18:00
-;HC Energie Karlovy Vary;VS;Banes Motor Č. Budějovice;25.09.2026;18:00
-;HC Olomouc;VS;HC Kometa Brno;25.09.2026;18:00
+;HC Oceláři Třinec;VS;HC VÍTKOVICE RIDERA;;
+;BK Mladá Boleslav;VS;HC Dynamo Pardubice;;
+;HC VERVA Litvínov;VS;HC Sparta Praha;;
+;Rytíři Kladno;VS;HC Škoda Plzeň;;
+;Mountfield HK;VS;Bílí Tygři Liberec;;
+;HC Energie Karlovy Vary;VS;Banes Motor Č. Budějovice;;
+;HC Olomouc;VS;HC Kometa Brno;;
 ;;;;;
 5.kolo;;;;;
-;Rytíři Kladno;VS;HC Olomouc;27.09.2026;16:00
-;HC Sparta Praha;VS;HC Energie Karlovy Vary;27.09.2026;16:00
-;Bílí Tygři Liberec;VS;HC Oceláři Třinec;27.09.2026;16:00
-;HC Škoda Plzeň;VS;Mountfield HK;27.09.2026;16:30
-;HC Kometa Brno;VS;HC Dynamo Pardubice;27.09.2026;17:00
-;Banes Motor Č. Budějovice;VS;HC VERVA Litvínov;27.09.2026;17:00
-;HC VÍTKOVICE RIDERA;VS;BK Mladá Boleslav;27.09.2026;17:00
+;Rytíři Kladno;VS;HC Olomouc;;
+;HC Sparta Praha;VS;HC Energie Karlovy Vary;;
+;Bílí Tygři Liberec;VS;HC Oceláři Třinec;;
+;HC Škoda Plzeň;VS;Mountfield HK;;
+;HC Kometa Brno;VS;HC Dynamo Pardubice;;
+;Banes Motor Č. Budějovice;VS;HC VERVA Litvínov;;
+;HC VÍTKOVICE RIDERA;VS;BK Mladá Boleslav;;
 ;;;;;
 6.kolo;;;;;
-;HC Oceláři Třinec;VS;Rytíři Kladno;29.09.2026;17:00
-;HC VERVA Litvínov;VS;Bílí Tygři Liberec;29.09.2026;17:30
-;BK Mladá Boleslav;VS;HC Škoda Plzeň;29.09.2026;17:30
-;HC Dynamo Pardubice;VS;Banes Motor Č. Budějovice;29.09.2026;18:00
-;HC Olomouc;VS;HC VÍTKOVICE RIDERA;29.09.2026;18:00
-;HC Energie Karlovy Vary;VS;HC Kometa Brno;29.09.2026;18:00
-;Mountfield HK;VS;HC Sparta Praha;29.09.2026;18:00
+;HC Oceláři Třinec;VS;Rytíři Kladno;;
+;HC VERVA Litvínov;VS;Bílí Tygři Liberec;;
+;BK Mladá Boleslav;VS;HC Škoda Plzeň;;
+;HC Dynamo Pardubice;VS;Banes Motor Č. Budějovice;;
+;HC Olomouc;VS;HC VÍTKOVICE RIDERA;;
+;HC Energie Karlovy Vary;VS;HC Kometa Brno;;
+;Mountfield HK;VS;HC Sparta Praha;;
 ;;;;;
 7.kolo;;;;;
-;HC Oceláři Třinec;VS;HC VERVA Litvínov;02.10.2026;17:00
-;HC Škoda Plzeň;VS;HC Dynamo Pardubice;02.10.2026;17:30
-;HC VÍTKOVICE RIDERA;VS;HC Energie Karlovy Vary;02.10.2026;17:30
-;Rytíři Kladno;VS;Mountfield HK;02.10.2026;18:00
-;Bílí Tygři Liberec;VS;HC Olomouc;02.10.2026;18:00
-;HC Kometa Brno;VS;BK Mladá Boleslav;02.10.2026;18:00
-;HC Sparta Praha;VS;Banes Motor Č. Budějovice;02.10.2026;18:30
+;HC Oceláři Třinec;VS;HC VERVA Litvínov;;
+;HC Škoda Plzeň;VS;HC Dynamo Pardubice;;
+;HC VÍTKOVICE RIDERA;VS;HC Energie Karlovy Vary;;
+;Rytíři Kladno;VS;Mountfield HK;;
+;Bílí Tygři Liberec;VS;HC Olomouc;;
+;HC Kometa Brno;VS;BK Mladá Boleslav;;
+;HC Sparta Praha;VS;Banes Motor Č. Budějovice;;
 ;;;;;
 8.kolo;;;;;
-;BK Mladá Boleslav;VS;Bílí Tygři Liberec;04.10.2026;16:00
-;HC Energie Karlovy Vary;VS;HC Škoda Plzeň;04.10.2026;16:00
-;HC Olomouc;VS;HC Oceláři Třinec;04.10.2026;17:00
-;HC Dynamo Pardubice;VS;HC Sparta Praha;04.10.2026;17:00
-;Mountfield HK;VS;HC VÍTKOVICE RIDERA;04.10.2026;17:00
-;Banes Motor Č. Budějovice;VS;HC Kometa Brno;04.10.2026;17:00
-;HC VERVA Litvínov;VS;Rytíři Kladno;04.10.2026;17:30
+;BK Mladá Boleslav;VS;Bílí Tygři Liberec;;
+;HC Energie Karlovy Vary;VS;HC Škoda Plzeň;;
+;HC Olomouc;VS;HC Oceláři Třinec;;
+;HC Dynamo Pardubice;VS;HC Sparta Praha;;
+;Mountfield HK;VS;HC VÍTKOVICE RIDERA;;
+;Banes Motor Č. Budějovice;VS;HC Kometa Brno;;
+;HC VERVA Litvínov;VS;Rytíři Kladno;;
 ;;;;;
 9.kolo;;;;;
-;HC Oceláři Třinec;VS;Mountfield HK;09.10.2026;17:00
-;HC VERVA Litvínov;VS;HC Olomouc;09.10.2026;17:30
-;HC Škoda Plzeň;VS;Banes Motor Č. Budějovice;09.10.2026;17:30
-;HC VÍTKOVICE RIDERA;VS;HC Dynamo Pardubice;09.10.2026;17:30
-;HC Kometa Brno;VS;HC Sparta Praha;09.10.2026;18:00
-;Rytíři Kladno;VS;BK Mladá Boleslav;09.10.2026;18:00
-;Bílí Tygři Liberec;VS;HC Energie Karlovy Vary;09.10.2026;18:00
+;HC Oceláři Třinec;VS;Mountfield HK;;
+;HC VERVA Litvínov;VS;HC Olomouc;;
+;HC Škoda Plzeň;VS;Banes Motor Č. Budějovice;;
+;HC VÍTKOVICE RIDERA;VS;HC Dynamo Pardubice;;
+;HC Kometa Brno;VS;HC Sparta Praha;;
+;Rytíři Kladno;VS;BK Mladá Boleslav;;
+;Bílí Tygři Liberec;VS;HC Energie Karlovy Vary;;
 ;;;;;
 10.kolo;;;;;
-;BK Mladá Boleslav;VS;HC VERVA Litvínov;11.10.2026;16:00
-;HC Sparta Praha;VS;HC VÍTKOVICE RIDERA;11.10.2026;16:00
-;HC Energie Karlovy Vary;VS;Rytíři Kladno;11.10.2026;16:00
-;HC Dynamo Pardubice;VS;HC Oceláři Třinec;11.10.2026;17:00
-;Banes Motor Č. Budějovice;VS;Bílí Tygři Liberec;11.10.2026;17:00
-;Mountfield HK;VS;HC Olomouc;11.10.2026;17:00
-;HC Kometa Brno;VS;HC Škoda Plzeň;11.10.2026;17:00
+;BK Mladá Boleslav;VS;HC VERVA Litvínov;;
+;HC Sparta Praha;VS;HC VÍTKOVICE RIDERA;;
+;HC Energie Karlovy Vary;VS;Rytíři Kladno;;
+;HC Dynamo Pardubice;VS;HC Oceláři Třinec;;
+;Banes Motor Č. Budějovice;VS;Bílí Tygři Liberec;;
+;Mountfield HK;VS;HC Olomouc;;
+;HC Kometa Brno;VS;HC Škoda Plzeň;;
 ;;;;;
 11.kolo;;;;;
-;HC Oceláři Třinec;VS;BK Mladá Boleslav;16.10.2026;17:00
-;HC Škoda Plzeň;VS;HC Sparta Praha;16.10.2026;17:30
-;HC VÍTKOVICE RIDERA;VS;Banes Motor Č. Budějovice;16.10.2026;17:30
-;HC VERVA Litvínov;VS;Mountfield HK;16.10.2026;17:30
-;HC Olomouc;VS;HC Energie Karlovy Vary;16.10.2026;18:00
-;Bílí Tygři Liberec;VS;HC Dynamo Pardubice;16.10.2026;18:00
-;Rytíři Kladno;VS;HC Kometa Brno;16.10.2026;18:00
+;HC Oceláři Třinec;VS;BK Mladá Boleslav;;
+;HC Škoda Plzeň;VS;HC Sparta Praha;;
+;HC VÍTKOVICE RIDERA;VS;Banes Motor Č. Budějovice;;
+;HC VERVA Litvínov;VS;Mountfield HK;;
+;HC Olomouc;VS;HC Energie Karlovy Vary;;
+;Bílí Tygři Liberec;VS;HC Dynamo Pardubice;;
+;Rytíři Kladno;VS;HC Kometa Brno;;
 ;;;;;
 12.kolo;;;;;
-;HC Energie Karlovy Vary;VS;HC VERVA Litvínov;18.10.2026;16:00
-;BK Mladá Boleslav;VS;Mountfield HK;18.10.2026;16:00
-;HC Sparta Praha;VS;HC Oceláři Třinec;18.10.2026;16:00
-;HC Škoda Plzeň;VS;HC VÍTKOVICE RIDERA;18.10.2026;16:30
-;HC Dynamo Pardubice;VS;HC Olomouc;18.10.2026;17:00
-;Banes Motor Č. Budějovice;VS;Rytíři Kladno;18.10.2026;17:00
-;HC Kometa Brno;VS;Bílí Tygři Liberec;18.10.2026;17:00
+;HC Energie Karlovy Vary;VS;HC VERVA Litvínov;;
+;BK Mladá Boleslav;VS;Mountfield HK;;
+;HC Sparta Praha;VS;HC Oceláři Třinec;;
+;HC Škoda Plzeň;VS;HC VÍTKOVICE RIDERA;;
+;HC Dynamo Pardubice;VS;HC Olomouc;;
+;Banes Motor Č. Budějovice;VS;Rytíři Kladno;;
+;HC Kometa Brno;VS;Bílí Tygři Liberec;;
 ;;;;;
 13.kolo;;;;;
-;HC Oceláři Třinec;VS;Banes Motor Č. Budějovice;23.10.2026;17:00
-;HC VERVA Litvínov;VS;HC Škoda Plzeň;23.10.2026;17:30
-;HC VÍTKOVICE RIDERA;VS;HC Kometa Brno;23.10.2026;17:30
-;Rytíři Kladno;VS;HC Dynamo Pardubice;23.10.2026;18:00
-;Bílí Tygři Liberec;VS;HC Sparta Praha;23.10.2026;18:00
-;HC Olomouc;VS;BK Mladá Boleslav;23.10.2026;18:00
-;Mountfield HK;VS;HC Energie Karlovy Vary;23.10.2026;18:00
+;HC Oceláři Třinec;VS;Banes Motor Č. Budějovice;;
+;HC VERVA Litvínov;VS;HC Škoda Plzeň;;
+;HC VÍTKOVICE RIDERA;VS;HC Kometa Brno;;
+;Rytíři Kladno;VS;HC Dynamo Pardubice;;
+;Bílí Tygři Liberec;VS;HC Sparta Praha;;
+;HC Olomouc;VS;BK Mladá Boleslav;;
+;Mountfield HK;VS;HC Energie Karlovy Vary;;
 ;;;;;
 14.kolo;;;;;
-;BK Mladá Boleslav;VS;Banes Motor Č. Budějovice;25.10.2026;16:00
-;Rytíři Kladno;VS;HC VÍTKOVICE RIDERA;25.10.2026;16:00
-;Bílí Tygři Liberec;VS;HC Škoda Plzeň;25.10.2026;16:00
-;Mountfield HK;VS;HC Dynamo Pardubice;25.10.2026;17:00
-;HC Sparta Praha;VS;HC Olomouc;25.10.2026;16:00
-;HC VERVA Litvínov;VS;HC Kometa Brno;25.10.2026;17:30
-;HC Oceláři Třinec;VS;HC Energie Karlovy Vary;25.10.2026;17:00
+;BK Mladá Boleslav;VS;Banes Motor Č. Budějovice;;
+;Rytíři Kladno;VS;HC VÍTKOVICE RIDERA;;
+;Bílí Tygři Liberec;VS;HC Škoda Plzeň;;
+;Mountfield HK;VS;HC Dynamo Pardubice;;
+;HC Sparta Praha;VS;HC Olomouc;;
+;HC VERVA Litvínov;VS;HC Kometa Brno;;
+;HC Oceláři Třinec;VS;HC Energie Karlovy Vary;;
 ;;;;;
 15.kolo;;;;;
-;HC Kometa Brno;VS;HC Oceláři Třinec;27.10.2026;18:00
-;HC Dynamo Pardubice;VS;HC VERVA Litvínov;27.10.2026;18:00
-;HC Energie Karlovy Vary;VS;BK Mladá Boleslav;27.10.2026;18:00
-;HC VÍTKOVICE RIDERA;VS;Bílí Tygři Liberec;27.10.2026;17:30
-;Banes Motor Č. Budějovice;VS;Mountfield HK;27.10.2026;17:30
-;HC Škoda Plzeň;VS;HC Olomouc;27.10.2026;17:30
-;HC Sparta Praha;VS;Rytíři Kladno;27.10.2026;18:30
+;HC Kometa Brno;VS;HC Oceláři Třinec;;
+;HC Dynamo Pardubice;VS;HC VERVA Litvínov;;
+;HC Energie Karlovy Vary;VS;BK Mladá Boleslav;;
+;HC VÍTKOVICE RIDERA;VS;Bílí Tygři Liberec;;
+;Banes Motor Č. Budějovice;VS;Mountfield HK;;
+;HC Škoda Plzeň;VS;HC Olomouc;;
+;HC Sparta Praha;VS;Rytíři Kladno;;
 ;;;;;
 16.kolo;;;;;
-;BK Mladá Boleslav;VS;HC Sparta Praha;30.10.2026;17:30
-;Rytíři Kladno;VS;Bílí Tygři Liberec;30.10.2026;18:00
-;HC Oceláři Třinec;VS;HC Škoda Plzeň;30.10.2026;17:00
-;Mountfield HK;VS;HC Kometa Brno;30.10.2026;18:00
-;HC Energie Karlovy Vary;VS;HC Dynamo Pardubice;30.10.2026;18:00
-;HC Olomouc;VS;Banes Motor Č. Budějovice;30.10.2026;18:00
-;HC VERVA Litvínov;VS;HC VÍTKOVICE RIDERA;30.10.2026;17:30
+;BK Mladá Boleslav;VS;HC Sparta Praha;;
+;Rytíři Kladno;VS;Bílí Tygři Liberec;;
+;HC Oceláři Třinec;VS;HC Škoda Plzeň;;
+;Mountfield HK;VS;HC Kometa Brno;;
+;HC Energie Karlovy Vary;VS;HC Dynamo Pardubice;;
+;HC Olomouc;VS;Banes Motor Č. Budějovice;;
+;HC VERVA Litvínov;VS;HC VÍTKOVICE RIDERA;;
 ;;;;;
 17.kolo;;;;;
-;HC VÍTKOVICE RIDERA;VS;HC Oceláři Třinec;01.11.2026;17:00
-;HC Dynamo Pardubice;VS;BK Mladá Boleslav;01.11.2026;17:00
-;HC Sparta Praha;VS;HC VERVA Litvínov;01.11.2026;16:00
-;HC Škoda Plzeň;VS;Rytíři Kladno;01.11.2026;16:30
-;Bílí Tygři Liberec;VS;Mountfield HK;01.11.2026;16:00
-;Banes Motor Č. Budějovice;VS;HC Energie Karlovy Vary;01.11.2026;17:00
-;HC Kometa Brno;VS;HC Olomouc;01.11.2026;17:00
+;HC VÍTKOVICE RIDERA;VS;HC Oceláři Třinec;;
+;HC Dynamo Pardubice;VS;BK Mladá Boleslav;;
+;HC Sparta Praha;VS;HC VERVA Litvínov;;
+;HC Škoda Plzeň;VS;Rytíři Kladno;;
+;Bílí Tygři Liberec;VS;Mountfield HK;;
+;Banes Motor Č. Budějovice;VS;HC Energie Karlovy Vary;;
+;HC Kometa Brno;VS;HC Olomouc;;
 ;;;;;
 18.kolo;;;;;
-;HC Olomouc;VS;Rytíři Kladno;13.11.2026;18:00
-;HC Energie Karlovy Vary;VS;HC Sparta Praha;13.11.2026;18:00
-;HC Oceláři Třinec;VS;Bílí Tygři Liberec;13.11.2026;17:00
-;Mountfield HK;VS;HC Škoda Plzeň;13.11.2026;18:00
-;HC Dynamo Pardubice;VS;HC Kometa Brno;13.11.2026;18:00
-;HC VERVA Litvínov;VS;Banes Motor Č. Budějovice;13.11.2026;17:30
-;BK Mladá Boleslav;VS;HC VÍTKOVICE RIDERA;13.11.2026;17:30
+;HC Olomouc;VS;Rytíři Kladno;;
+;HC Energie Karlovy Vary;VS;HC Sparta Praha;;
+;HC Oceláři Třinec;VS;Bílí Tygři Liberec;;
+;Mountfield HK;VS;HC Škoda Plzeň;;
+;HC Dynamo Pardubice;VS;HC Kometa Brno;;
+;HC VERVA Litvínov;VS;Banes Motor Č. Budějovice;;
+;BK Mladá Boleslav;VS;HC VÍTKOVICE RIDERA;;
 ;;;;;
 19.kolo;;;;;
-;Rytíři Kladno;VS;HC Oceláři Třinec;15.11.2026;16:00
-;Bílí Tygři Liberec;VS;HC VERVA Litvínov;15.11.2026;16:00
-;HC Škoda Plzeň;VS;BK Mladá Boleslav;15.11.2026;16:30
-;Banes Motor Č. Budějovice;VS;HC Dynamo Pardubice;15.11.2026;17:00
-;HC VÍTKOVICE RIDERA;VS;HC Olomouc;15.11.2026;17:00
-;HC Kometa Brno;VS;HC Energie Karlovy Vary;15.11.2026;17:00
-;HC Sparta Praha;VS;Mountfield HK;15.11.2026;16:00
+;Rytíři Kladno;VS;HC Oceláři Třinec;;
+;Bílí Tygři Liberec;VS;HC VERVA Litvínov;;
+;HC Škoda Plzeň;VS;BK Mladá Boleslav;;
+;Banes Motor Č. Budějovice;VS;HC Dynamo Pardubice;;
+;HC VÍTKOVICE RIDERA;VS;HC Olomouc;;
+;HC Kometa Brno;VS;HC Energie Karlovy Vary;;
+;HC Sparta Praha;VS;Mountfield HK;;
 ;;;;;
 20.kolo;;;;;
-;HC VERVA Litvínov;VS;HC Oceláři Třinec;20.11.2026;17:30
-;HC Dynamo Pardubice;VS;HC Škoda Plzeň;20.11.2026;18:00
-;HC Energie Karlovy Vary;VS;HC VÍTKOVICE RIDERA;20.11.2026;18:00
-;Mountfield HK;VS;Rytíři Kladno;20.11.2026;18:00
-;HC Olomouc;VS;Bílí Tygři Liberec;20.11.2026;18:00
-;BK Mladá Boleslav;VS;HC Kometa Brno;20.11.2026;17:30
-;Banes Motor Č. Budějovice;VS;HC Sparta Praha;20.11.2026;17:30
+;HC VERVA Litvínov;VS;HC Oceláři Třinec;;
+;HC Dynamo Pardubice;VS;HC Škoda Plzeň;;
+;HC Energie Karlovy Vary;VS;HC VÍTKOVICE RIDERA;;
+;Mountfield HK;VS;Rytíři Kladno;;
+;HC Olomouc;VS;Bílí Tygři Liberec;;
+;BK Mladá Boleslav;VS;HC Kometa Brno;;
+;Banes Motor Č. Budějovice;VS;HC Sparta Praha;;
 ;;;;;
 21.kolo;;;;;
-;Bílí Tygři Liberec;VS;BK Mladá Boleslav;22.11.2026;16:00
-;HC Škoda Plzeň;VS;HC Energie Karlovy Vary;22.11.2026;16:30
-;HC Oceláři Třinec;VS;HC Olomouc;22.11.2026;15:00
-;HC Sparta Praha;VS;HC Dynamo Pardubice;22.11.2026;16:00
-;HC VÍTKOVICE RIDERA;VS;Mountfield HK;22.11.2026;17:00
-;HC Kometa Brno;VS;Banes Motor Č. Budějovice;22.11.2026;17:00
-;Rytíři Kladno;VS;HC VERVA Litvínov;22.11.2026;16:00
+;Bílí Tygři Liberec;VS;BK Mladá Boleslav;;
+;HC Škoda Plzeň;VS;HC Energie Karlovy Vary;;
+;HC Oceláři Třinec;VS;HC Olomouc;;
+;HC Sparta Praha;VS;HC Dynamo Pardubice;;
+;HC VÍTKOVICE RIDERA;VS;Mountfield HK;;
+;HC Kometa Brno;VS;Banes Motor Č. Budějovice;;
+;Rytíři Kladno;VS;HC VERVA Litvínov;;
 ;;;;;
 22.kolo;;;;;
-;Mountfield HK;VS;HC Oceláři Třinec;24.11.2026;18:00
-;HC Olomouc;VS;HC VERVA Litvínov;24.11.2026;18:00
-;Banes Motor Č. Budějovice;VS;HC Škoda Plzeň;24.11.2026;17:30
-;HC Dynamo Pardubice;VS;HC VÍTKOVICE RIDERA;24.11.2026;18:00
-;HC Sparta Praha;VS;HC Kometa Brno;24.11.2026;18:30
-;BK Mladá Boleslav;VS;Rytíři Kladno;24.11.2026;17:30
-;HC Energie Karlovy Vary;VS;Bílí Tygři Liberec;24.11.2026;18:00
+;Mountfield HK;VS;HC Oceláři Třinec;;
+;HC Olomouc;VS;HC VERVA Litvínov;;
+;Banes Motor Č. Budějovice;VS;HC Škoda Plzeň;;
+;HC Dynamo Pardubice;VS;HC VÍTKOVICE RIDERA;;
+;HC Sparta Praha;VS;HC Kometa Brno;;
+;BK Mladá Boleslav;VS;Rytíři Kladno;;
+;HC Energie Karlovy Vary;VS;Bílí Tygři Liberec;;
 ;;;;;
 23.kolo;;;;;
-;HC VERVA Litvínov;VS;BK Mladá Boleslav;27.11.2026;17:30
-;HC VÍTKOVICE RIDERA;VS;HC Sparta Praha;27.11.2026;17:30
-;Rytíři Kladno;VS;HC Energie Karlovy Vary;27.11.2026;18:00
-;HC Oceláři Třinec;VS;HC Dynamo Pardubice;27.11.2026;17:00
-;Bílí Tygři Liberec;VS;Banes Motor Č. Budějovice;27.11.2026;18:00
-;HC Olomouc;VS;Mountfield HK;27.11.2026;18:00
-;HC Škoda Plzeň;VS;HC Kometa Brno;27.11.2026;17:30
+;HC VERVA Litvínov;VS;BK Mladá Boleslav;;
+;HC VÍTKOVICE RIDERA;VS;HC Sparta Praha;;
+;Rytíři Kladno;VS;HC Energie Karlovy Vary;;
+;HC Oceláři Třinec;VS;HC Dynamo Pardubice;;
+;Bílí Tygři Liberec;VS;Banes Motor Č. Budějovice;;
+;HC Olomouc;VS;Mountfield HK;;
+;HC Škoda Plzeň;VS;HC Kometa Brno;;
 ;;;;;
 24.kolo;;;;;
-;BK Mladá Boleslav;VS;HC Oceláři Třinec;29.11.2026;16:00
-;HC Sparta Praha;VS;HC Škoda Plzeň;29.11.2026;16:00
-;Banes Motor Č. Budějovice;VS;HC VÍTKOVICE RIDERA;29.11.2026;17:00
-;Mountfield HK;VS;HC VERVA Litvínov;29.11.2026;16:00
-;HC Energie Karlovy Vary;VS;HC Olomouc;29.11.2026;16:00
-;HC Dynamo Pardubice;VS;Bílí Tygři Liberec;29.11.2026;17:00
-;HC Kometa Brno;VS;Rytíři Kladno;29.11.2026;17:00
+;BK Mladá Boleslav;VS;HC Oceláři Třinec;;
+;HC Sparta Praha;VS;HC Škoda Plzeň;;
+;Banes Motor Č. Budějovice;VS;HC VÍTKOVICE RIDERA;;
+;Mountfield HK;VS;HC VERVA Litvínov;;
+;HC Energie Karlovy Vary;VS;HC Olomouc;;
+;HC Dynamo Pardubice;VS;Bílí Tygři Liberec;;
+;HC Kometa Brno;VS;Rytíři Kladno;;
 ;;;;;
 25.kolo;;;;;
-;HC VERVA Litvínov;VS;HC Energie Karlovy Vary;04.12.2026;17:30
-;Mountfield HK;VS;BK Mladá Boleslav;04.12.2026;18:00
-;HC Oceláři Třinec;VS;HC Sparta Praha;04.12.2026;17:00
-;HC VÍTKOVICE RIDERA;VS;HC Škoda Plzeň;04.12.2026;17:30
-;HC Olomouc;VS;HC Dynamo Pardubice;04.12.2026;18:00
-;Rytíři Kladno;VS;Banes Motor Č. Budějovice;04.12.2026;18:00
-;Bílí Tygři Liberec;VS;HC Kometa Brno;04.12.2026;18:00
+;HC VERVA Litvínov;VS;HC Energie Karlovy Vary;;
+;Mountfield HK;VS;BK Mladá Boleslav;;
+;HC Oceláři Třinec;VS;HC Sparta Praha;;
+;HC VÍTKOVICE RIDERA;VS;HC Škoda Plzeň;;
+;HC Olomouc;VS;HC Dynamo Pardubice;;
+;Rytíři Kladno;VS;Banes Motor Č. Budějovice;;
+;Bílí Tygři Liberec;VS;HC Kometa Brno;;
 ;;;;;
 26.kolo;;;;;
-;Banes Motor Č. Budějovice;VS;HC Oceláři Třinec;06.12.2026;17:00
-;HC Škoda Plzeň;VS;HC VERVA Litvínov;06.12.2026;16:30
-;HC Kometa Brno;VS;HC VÍTKOVICE RIDERA;06.12.2026;17:00
-;HC Dynamo Pardubice;VS;Rytíři Kladno;06.12.2026;17:00
-;HC Sparta Praha;VS;Bílí Tygři Liberec;06.12.2026;16:00
-;BK Mladá Boleslav;VS;HC Olomouc;06.12.2026;16:00
-;HC Energie Karlovy Vary;VS;Mountfield HK;06.12.2026;16:00
+;Banes Motor Č. Budějovice;VS;HC Oceláři Třinec;;
+;HC Škoda Plzeň;VS;HC VERVA Litvínov;;
+;HC Kometa Brno;VS;HC VÍTKOVICE RIDERA;;
+;HC Dynamo Pardubice;VS;Rytíři Kladno;;
+;HC Sparta Praha;VS;Bílí Tygři Liberec;;
+;BK Mladá Boleslav;VS;HC Olomouc;;
+;HC Energie Karlovy Vary;VS;Mountfield HK;;
 ;;;;;
 27.kolo;;;;;
-;Banes Motor Č. Budějovice;VS;BK Mladá Boleslav;18.12.2026;17:30
-;HC VÍTKOVICE RIDERA;VS;Rytíři Kladno;18.12.2026;17:30
-;HC Škoda Plzeň;VS;Bílí Tygři Liberec;18.12.2026;17:30
-;HC Dynamo Pardubice;VS;Mountfield HK;18.12.2026;18:00
-;HC Sparta Praha;VS;HC Olomouc;18.12.2026;18:30
-;HC Kometa Brno;VS;HC VERVA Litvínov;18.12.2026;18:00
-;HC Energie Karlovy Vary;VS;HC Oceláři Třinec;18.12.2026;18:00
+;Banes Motor Č. Budějovice;VS;BK Mladá Boleslav;;
+;HC VÍTKOVICE RIDERA;VS;Rytíři Kladno;;
+;HC Škoda Plzeň;VS;Bílí Tygři Liberec;;
+;HC Dynamo Pardubice;VS;Mountfield HK;;
+;HC Olomouc;VS;HC Sparta Praha;;
+;HC Kometa Brno;VS;HC VERVA Litvínov;;
+;HC Energie Karlovy Vary;VS;HC Oceláři Třinec;;
 ;;;;;
 28.kolo;;;;;
-;HC Oceláři Třinec;VS;HC Kometa Brno;20.12.2026;15:00
-;HC VERVA Litvínov;VS;HC Dynamo Pardubice;20.12.2026;15:30
-;BK Mladá Boleslav;VS;HC Energie Karlovy Vary;20.12.2026;16:00
-;Bílí Tygři Liberec;VS;HC VÍTKOVICE RIDERA;20.12.2026;16:00
-;Mountfield HK;VS;Banes Motor Č. Budějovice;20.12.2026;16:00
-;HC Olomouc;VS;HC Škoda Plzeň;20.12.2026;17:00
-;Rytíři Kladno;VS;HC Sparta Praha;20.12.2026;16:00
+;HC Oceláři Třinec;VS;HC Kometa Brno;;
+;HC VERVA Litvínov;VS;HC Dynamo Pardubice;;
+;BK Mladá Boleslav;VS;HC Energie Karlovy Vary;;
+;Bílí Tygři Liberec;VS;HC VÍTKOVICE RIDERA;;
+;Mountfield HK;VS;Banes Motor Č. Budějovice;;
+;HC Olomouc;VS;HC Škoda Plzeň;;
+;Rytíři Kladno;VS;HC Sparta Praha;;
 ;;;;;
 29.kolo;;;;;
-;HC Sparta Praha;VS;BK Mladá Boleslav;22.12.2026;18:30
-;Bílí Tygři Liberec;VS;Rytíři Kladno;22.12.2026;18:00
-;HC Škoda Plzeň;VS;HC Oceláři Třinec;22.12.2026;17:30
-;HC Kometa Brno;VS;Mountfield HK;22.12.2026;18:00
-;HC Dynamo Pardubice;VS;HC Energie Karlovy Vary;22.12.2026;18:00
-;Banes Motor Č. Budějovice;VS;HC Olomouc;22.12.2026;17:30
-;HC VÍTKOVICE RIDERA;VS;HC VERVA Litvínov;22.12.2026;17:30
+;HC Sparta Praha;VS;BK Mladá Boleslav;;
+;Bílí Tygři Liberec;VS;Rytíři Kladno;;
+;HC Škoda Plzeň;VS;HC Oceláři Třinec;;
+;HC Kometa Brno;VS;Mountfield HK;;
+;HC Dynamo Pardubice;VS;HC Energie Karlovy Vary;;
+;Banes Motor Č. Budějovice;VS;HC Olomouc;;
+;HC VÍTKOVICE RIDERA;VS;HC VERVA Litvínov;;
 ;;;;;
 30.kolo;;;;;
-;HC Oceláři Třinec;VS;HC VÍTKOVICE RIDERA;26.12.2026;17:00
-;BK Mladá Boleslav;VS;HC Dynamo Pardubice;26.12.2026;16:00
-;HC VERVA Litvínov;VS;HC Sparta Praha;26.12.2026;15:30
-;Rytíři Kladno;VS;HC Škoda Plzeň;26.12.2026;16:00
-;Mountfield HK;VS;Bílí Tygři Liberec;26.12.2026;16:00
-;HC Energie Karlovy Vary;VS;Banes Motor Č. Budějovice;26.12.2026;16:00
-;HC Olomouc;VS;HC Kometa Brno;26.12.2026;17:00
+;HC Oceláři Třinec;VS;HC VÍTKOVICE RIDERA;;
+;BK Mladá Boleslav;VS;HC Dynamo Pardubice;;
+;HC VERVA Litvínov;VS;HC Sparta Praha;;
+;Rytíři Kladno;VS;HC Škoda Plzeň;;
+;Mountfield HK;VS;Bílí Tygři Liberec;;
+;HC Energie Karlovy Vary;VS;Banes Motor Č. Budějovice;;
+;HC Olomouc;VS;HC Kometa Brno;;
 ;;;;;
 31.kolo;;;;;
-;Rytíři Kladno;VS;HC Olomouc;28.12.2026;18:00
-;HC Sparta Praha;VS;HC Energie Karlovy Vary;28.12.2026;18:30
-;Bílí Tygři Liberec;VS;HC Oceláři Třinec;28.12.2026;18:00
-;HC Škoda Plzeň;VS;Mountfield HK;28.12.2026;17:30
-;HC Kometa Brno;VS;HC Dynamo Pardubice;28.12.2026;18:00
-;Banes Motor Č. Budějovice;VS;HC VERVA Litvínov;28.12.2026;17:30
-;HC VÍTKOVICE RIDERA;VS;BK Mladá Boleslav;28.12.2026;17:30
+;Rytíři Kladno;VS;HC Olomouc;;
+;HC Sparta Praha;VS;HC Energie Karlovy Vary;;
+;Bílí Tygři Liberec;VS;HC Oceláři Třinec;;
+;HC Škoda Plzeň;VS;Mountfield HK;;
+;HC Kometa Brno;VS;HC Dynamo Pardubice;;
+;Banes Motor Č. Budějovice;VS;HC VERVA Litvínov;;
+;HC VÍTKOVICE RIDERA;VS;BK Mladá Boleslav;;
 ;;;;;
 32.kolo;;;;;
-;HC Oceláři Třinec;VS;Rytíři Kladno;30.12.2026;17:00
-;HC VERVA Litvínov;VS;Bílí Tygři Liberec;30.12.2026;17:30
-;BK Mladá Boleslav;VS;HC Škoda Plzeň;30.12.2026;17:30
-;HC Dynamo Pardubice;VS;Banes Motor Č. Budějovice;30.12.2026;18:00
-;HC Olomouc;VS;HC VÍTKOVICE RIDERA;30.12.2026;18:00
-;HC Energie Karlovy Vary;VS;HC Kometa Brno;30.12.2026;18:00
-;Mountfield HK;VS;HC Sparta Praha;30.12.2026;18:00
+;HC Oceláři Třinec;VS;Rytíři Kladno;;
+;HC VERVA Litvínov;VS;Bílí Tygři Liberec;;
+;BK Mladá Boleslav;VS;HC Škoda Plzeň;;
+;HC Dynamo Pardubice;VS;Banes Motor Č. Budějovice;;
+;HC Olomouc;VS;HC VÍTKOVICE RIDERA;;
+;HC Energie Karlovy Vary;VS;HC Kometa Brno;;
+;Mountfield HK;VS;HC Sparta Praha;;
 ;;;;;
 33.kolo;;;;;
-;HC Oceláři Třinec;VS;HC VERVA Litvínov;03.01.2027;15:00
-;HC Škoda Plzeň;VS;HC Dynamo Pardubice;03.01.2027;16:30
-;HC VÍTKOVICE RIDERA;VS;HC Energie Karlovy Vary;03.01.2027;16:00
-;Rytíři Kladno;VS;Mountfield HK;03.01.2027;16:00
-;Bílí Tygři Liberec;VS;HC Olomouc;03.01.2027;16:00
-;HC Kometa Brno;VS;BK Mladá Boleslav;03.01.2027;17:00
-;HC Sparta Praha;VS;Banes Motor Č. Budějovice;03.01.2027;16:00
+;HC Oceláři Třinec;VS;HC VERVA Litvínov;;
+;HC Škoda Plzeň;VS;HC Dynamo Pardubice;;
+;HC VÍTKOVICE RIDERA;VS;HC Energie Karlovy Vary;;
+;Rytíři Kladno;VS;Mountfield HK;;
+;Bílí Tygři Liberec;VS;HC Olomouc;;
+;HC Kometa Brno;VS;BK Mladá Boleslav;;
+;HC Sparta Praha;VS;Banes Motor Č. Budějovice;;
 ;;;;;
 34.kolo;;;;;
-;BK Mladá Boleslav;VS;Bílí Tygři Liberec;08.01.2027;17:30
-;HC Energie Karlovy Vary;VS;HC Škoda Plzeň;08.01.2027;18:00
-;HC Olomouc;VS;HC Oceláři Třinec;08.01.2027;18:00
-;HC Dynamo Pardubice;VS;HC Sparta Praha;08.01.2027;18:00
-;Mountfield HK;VS;HC VÍTKOVICE RIDERA;08.01.2027;18:00
-;Banes Motor Č. Budějovice;VS;HC Kometa Brno;08.01.2027;17:30
-;HC VERVA Litvínov;VS;Rytíři Kladno;08.01.2027;17:30
+;BK Mladá Boleslav;VS;Bílí Tygři Liberec;;
+;HC Energie Karlovy Vary;VS;HC Škoda Plzeň;;
+;HC Olomouc;VS;HC Oceláři Třinec;;
+;HC Dynamo Pardubice;VS;HC Sparta Praha;;
+;Mountfield HK;VS;HC VÍTKOVICE RIDERA;;
+;Banes Motor Č. Budějovice;VS;HC Kometa Brno;;
+;HC VERVA Litvínov;VS;Rytíři Kladno;;
 ;;;;;
 35.kolo;;;;;
-;HC Oceláři Třinec;VS;Mountfield HK;10.01.2027;15:00
-;HC VERVA Litvínov;VS;HC Olomouc;10.01.2027;15:30
-;HC Škoda Plzeň;VS;Banes Motor Č. Budějovice;10.01.2027;16:30
-;HC VÍTKOVICE RIDERA;VS;HC Dynamo Pardubice;10.01.2027;16:00
-;HC Kometa Brno;VS;HC Sparta Praha;10.01.2027;17:00
-;Rytíři Kladno;VS;BK Mladá Boleslav;10.01.2027;16:00
-;Bílí Tygři Liberec;VS;HC Energie Karlovy Vary;10.01.2027;16:00
+;HC Oceláři Třinec;VS;Mountfield HK;;
+;HC VERVA Litvínov;VS;HC Olomouc;;
+;HC Škoda Plzeň;VS;Banes Motor Č. Budějovice;;
+;HC VÍTKOVICE RIDERA;VS;HC Dynamo Pardubice;;
+;HC Kometa Brno;VS;HC Sparta Praha;;
+;Rytíři Kladno;VS;BK Mladá Boleslav;;
+;Bílí Tygři Liberec;VS;HC Energie Karlovy Vary;;
 ;;;;;
 36.kolo;;;;;
-;BK Mladá Boleslav;VS;HC VERVA Litvínov;15.01.2027;17:30
-;HC Sparta Praha;VS;HC VÍTKOVICE RIDERA;15.01.2027;18:30
-;HC Energie Karlovy Vary;VS;Rytíři Kladno;15.01.2027;18:00
-;HC Dynamo Pardubice;VS;HC Oceláři Třinec;15.01.2027;18:00
-;Banes Motor Č. Budějovice;VS;Bílí Tygři Liberec;15.01.2027;17:30
-;Mountfield HK;VS;HC Olomouc;15.01.2027;18:00
-;HC Kometa Brno;VS;HC Škoda Plzeň;15.01.2027;18:00
+;BK Mladá Boleslav;VS;HC VERVA Litvínov;;
+;HC Sparta Praha;VS;HC VÍTKOVICE RIDERA;;
+;HC Energie Karlovy Vary;VS;Rytíři Kladno;;
+;HC Dynamo Pardubice;VS;HC Oceláři Třinec;;
+;Banes Motor Č. Budějovice;VS;Bílí Tygři Liberec;;
+;Mountfield HK;VS;HC Olomouc;;
+;HC Kometa Brno;VS;HC Škoda Plzeň;;
 ;;;;;
 37.kolo;;;;;
-;HC Oceláři Třinec;VS;BK Mladá Boleslav;17.01.2027;15:00
-;HC Škoda Plzeň;VS;HC Sparta Praha;17.01.2027;16:30
-;HC VÍTKOVICE RIDERA;VS;Banes Motor Č. Budějovice;17.01.2027;16:00
-;HC VERVA Litvínov;VS;Mountfield HK;17.01.2027;15:30
-;HC Olomouc;VS;HC Energie Karlovy Vary;17.01.2027;17:00
-;Bílí Tygři Liberec;VS;HC Dynamo Pardubice;17.01.2027;16:00
-;Rytíři Kladno;VS;HC Kometa Brno;17.01.2027;16:00
+;HC Oceláři Třinec;VS;BK Mladá Boleslav;;
+;HC Škoda Plzeň;VS;HC Sparta Praha;;
+;HC VÍTKOVICE RIDERA;VS;Banes Motor Č. Budějovice;;
+;HC VERVA Litvínov;VS;Mountfield HK;;
+;HC Olomouc;VS;HC Energie Karlovy Vary;;
+;Bílí Tygři Liberec;VS;HC Dynamo Pardubice;;
+;Rytíři Kladno;VS;HC Kometa Brno;;
 ;;;;;
 38.kolo;;;;;
-;HC Energie Karlovy Vary;VS;HC VERVA Litvínov;22.01.2027;18:00
-;BK Mladá Boleslav;VS;Mountfield HK;22.01.2027;17:30
-;HC Sparta Praha;VS;HC Oceláři Třinec;22.01.2027;18:30
-;HC Škoda Plzeň;VS;HC VÍTKOVICE RIDERA;22.01.2027;17:30
-;HC Dynamo Pardubice;VS;HC Olomouc;22.01.2027;18:00
-;Banes Motor Č. Budějovice;VS;Rytíři Kladno;22.01.2027;17:30
-;HC Kometa Brno;VS;Bílí Tygři Liberec;22.01.2027;18:00
+;HC Energie Karlovy Vary;VS;HC VERVA Litvínov;;
+;BK Mladá Boleslav;VS;Mountfield HK;;
+;HC Sparta Praha;VS;HC Oceláři Třinec;;
+;HC Škoda Plzeň;VS;HC VÍTKOVICE RIDERA;;
+;HC Dynamo Pardubice;VS;HC Olomouc;;
+;Banes Motor Č. Budějovice;VS;Rytíři Kladno;;
+;HC Kometa Brno;VS;Bílí Tygři Liberec;;
 ;;;;;
 39.kolo;;;;;
-;HC Oceláři Třinec;VS;Banes Motor Č. Budějovice;24.01.2027;15:00
-;HC VERVA Litvínov;VS;HC Škoda Plzeň;24.01.2027;15:30
-;HC VÍTKOVICE RIDERA;VS;HC Kometa Brno;24.01.2027;16:00
-;Rytíři Kladno;VS;HC Dynamo Pardubice;24.01.2027;16:00
-;Bílí Tygři Liberec;VS;HC Sparta Praha;24.01.2027;16:00
-;HC Olomouc;VS;BK Mladá Boleslav;24.01.2027;17:00
-;Mountfield HK;VS;HC Energie Karlovy Vary;24.01.2027;16:00
+;HC Oceláři Třinec;VS;Banes Motor Č. Budějovice;;
+;HC VERVA Litvínov;VS;HC Škoda Plzeň;;
+;HC VÍTKOVICE RIDERA;VS;HC Kometa Brno;;
+;Rytíři Kladno;VS;HC Dynamo Pardubice;;
+;Bílí Tygři Liberec;VS;HC Sparta Praha;;
+;HC Olomouc;VS;BK Mladá Boleslav;;
+;Mountfield HK;VS;HC Energie Karlovy Vary;;
 ;;;;;
 40.kolo;;;;;
-;BK Mladá Boleslav;VS;Banes Motor Č. Budějovice;26.01.2027;17:30
-;Rytíři Kladno;VS;HC VÍTKOVICE RIDERA;26.01.2027;18:00
-;Bílí Tygři Liberec;VS;HC Škoda Plzeň;26.01.2027;18:00
-;Mountfield HK;VS;HC Dynamo Pardubice;26.01.2027;18:00
-;HC Olomouc;VS;HC Sparta Praha;26.01.2027;18:00
-;HC VERVA Litvínov;VS;HC Kometa Brno;26.01.2027;17:30
-;HC Oceláři Třinec;VS;HC Energie Karlovy Vary;26.01.2027;17:00
+;BK Mladá Boleslav;VS;Banes Motor Č. Budějovice;;
+;Rytíři Kladno;VS;HC VÍTKOVICE RIDERA;;
+;Bílí Tygři Liberec;VS;HC Škoda Plzeň;;
+;Mountfield HK;VS;HC Dynamo Pardubice;;
+;HC Sparta Praha;VS;HC Olomouc;;
+;HC VERVA Litvínov;VS;HC Kometa Brno;;
+;HC Oceláři Třinec;VS;HC Energie Karlovy Vary;;
 ;;;;;
 41.kolo;;;;;
-;HC Kometa Brno;VS;HC Oceláři Třinec;29.01.2027;18:00
-;HC Dynamo Pardubice;VS;HC VERVA Litvínov;29.01.2027;18:00
-;HC Energie Karlovy Vary;VS;BK Mladá Boleslav;29.01.2027;18:00
-;HC VÍTKOVICE RIDERA;VS;Bílí Tygři Liberec;29.01.2027;17:30
-;Banes Motor Č. Budějovice;VS;Mountfield HK;29.01.2027;17:30
-;HC Škoda Plzeň;VS;HC Olomouc;29.01.2027;17:30
-;HC Sparta Praha;VS;Rytíři Kladno;29.01.2027;18:30
+;HC Kometa Brno;VS;HC Oceláři Třinec;;
+;HC Dynamo Pardubice;VS;HC VERVA Litvínov;;
+;HC Energie Karlovy Vary;VS;BK Mladá Boleslav;;
+;HC VÍTKOVICE RIDERA;VS;Bílí Tygři Liberec;;
+;Banes Motor Č. Budějovice;VS;Mountfield HK;;
+;HC Škoda Plzeň;VS;HC Olomouc;;
+;HC Sparta Praha;VS;Rytíři Kladno;;
 ;;;;;
 42.kolo;;;;;
-;BK Mladá Boleslav;VS;HC Sparta Praha;31.01.2027;16:00
-;Rytíři Kladno;VS;Bílí Tygři Liberec;31.01.2027;16:00
-;HC Oceláři Třinec;VS;HC Škoda Plzeň;31.01.2027;15:00
-;Mountfield HK;VS;HC Kometa Brno;31.01.2027;16:00
-;HC Energie Karlovy Vary;VS;HC Dynamo Pardubice;31.01.2027;16:00
-;HC Olomouc;VS;Banes Motor Č. Budějovice;31.01.2027;17:00
-;HC VERVA Litvínov;VS;HC VÍTKOVICE RIDERA;31.01.2027;15:30
+;BK Mladá Boleslav;VS;HC Sparta Praha;;
+;Rytíři Kladno;VS;Bílí Tygři Liberec;;
+;HC Oceláři Třinec;VS;HC Škoda Plzeň;;
+;Mountfield HK;VS;HC Kometa Brno;;
+;HC Energie Karlovy Vary;VS;HC Dynamo Pardubice;;
+;HC Olomouc;VS;Banes Motor Č. Budějovice;;
+;HC VERVA Litvínov;VS;HC VÍTKOVICE RIDERA;;
 ;;;;;
 43.kolo;;;;;
-;HC VÍTKOVICE RIDERA;VS;HC Oceláři Třinec;02.02.2027;17:30
-;HC Dynamo Pardubice;VS;BK Mladá Boleslav;02.02.2027;18:00
-;HC Sparta Praha;VS;HC VERVA Litvínov;02.02.2027;18:30
-;HC Škoda Plzeň;VS;Rytíři Kladno;02.02.2027;17:30
-;Bílí Tygři Liberec;VS;Mountfield HK;02.02.2027;18:00
-;Banes Motor Č. Budějovice;VS;HC Energie Karlovy Vary;02.02.2027;17:30
-;HC Kometa Brno;VS;HC Olomouc;02.02.2027;18:00
+;HC VÍTKOVICE RIDERA;VS;HC Oceláři Třinec;;
+;HC Dynamo Pardubice;VS;BK Mladá Boleslav;;
+;HC Sparta Praha;VS;HC VERVA Litvínov;;
+;HC Škoda Plzeň;VS;Rytíři Kladno;;
+;Bílí Tygři Liberec;VS;Mountfield HK;;
+;Banes Motor Č. Budějovice;VS;HC Energie Karlovy Vary;;
+;HC Kometa Brno;VS;HC Olomouc;;
 ;;;;;
 44.kolo;;;;;
-;HC Olomouc;VS;Rytíři Kladno;05.02.2027;18:00
-;HC Energie Karlovy Vary;VS;HC Sparta Praha;05.02.2027;18:00
-;HC Oceláři Třinec;VS;Bílí Tygři Liberec;05.02.2027;17:00
-;Mountfield HK;VS;HC Škoda Plzeň;05.02.2027;18:00
-;HC Dynamo Pardubice;VS;HC Kometa Brno;05.02.2027;18:00
-;HC VERVA Litvínov;VS;Banes Motor Č. Budějovice;05.02.2027;17:30
-;BK Mladá Boleslav;VS;HC VÍTKOVICE RIDERA;05.02.2027;17:30
+;HC Olomouc;VS;Rytíři Kladno;;
+;HC Energie Karlovy Vary;VS;HC Sparta Praha;;
+;HC Oceláři Třinec;VS;Bílí Tygři Liberec;;
+;Mountfield HK;VS;HC Škoda Plzeň;;
+;HC Dynamo Pardubice;VS;HC Kometa Brno;;
+;HC VERVA Litvínov;VS;Banes Motor Č. Budějovice;;
+;BK Mladá Boleslav;VS;HC VÍTKOVICE RIDERA;;
 ;;;;;
 45.kolo;;;;;
-;Rytíři Kladno;VS;HC Oceláři Třinec;07.02.2027;16:00
-;Bílí Tygři Liberec;VS;HC VERVA Litvínov;07.02.2027;16:00
-;HC Škoda Plzeň;VS;BK Mladá Boleslav;07.02.2027;16:30
-;Banes Motor Č. Budějovice;VS;HC Dynamo Pardubice;07.02.2027;17:00
-;HC VÍTKOVICE RIDERA;VS;HC Olomouc;07.02.2027;16:00
-;HC Kometa Brno;VS;HC Energie Karlovy Vary;07.02.2027;17:00
-;HC Sparta Praha;VS;Mountfield HK;07.02.2027;16:00
+;Rytíři Kladno;VS;HC Oceláři Třinec;;
+;Bílí Tygři Liberec;VS;HC VERVA Litvínov;;
+;HC Škoda Plzeň;VS;BK Mladá Boleslav;;
+;Banes Motor Č. Budějovice;VS;HC Dynamo Pardubice;;
+;HC VÍTKOVICE RIDERA;VS;HC Olomouc;;
+;HC Kometa Brno;VS;HC Energie Karlovy Vary;;
+;HC Sparta Praha;VS;Mountfield HK;;
 ;;;;;
 46.kolo;;;;;
-;HC VERVA Litvínov;VS;HC Oceláři Třinec;17.02.2027;17:30
-;HC Dynamo Pardubice;VS;HC Škoda Plzeň;17.02.2027;18:00
-;HC Energie Karlovy Vary;VS;HC VÍTKOVICE RIDERA;17.02.2027;18:00
-;Mountfield HK;VS;Rytíři Kladno;17.02.2027;18:00
-;HC Olomouc;VS;Bílí Tygři Liberec;17.02.2027;18:00
-;BK Mladá Boleslav;VS;HC Kometa Brno;17.02.2027;17:30
-;Banes Motor Č. Budějovice;VS;HC Sparta Praha;17.02.2027;17:30
+;HC VERVA Litvínov;VS;HC Oceláři Třinec;;
+;HC Dynamo Pardubice;VS;HC Škoda Plzeň;;
+;HC Energie Karlovy Vary;VS;HC VÍTKOVICE RIDERA;;
+;Mountfield HK;VS;Rytíři Kladno;;
+;HC Olomouc;VS;Bílí Tygři Liberec;;
+;BK Mladá Boleslav;VS;HC Kometa Brno;;
+;Banes Motor Č. Budějovice;VS;HC Sparta Praha;;
 ;;;;;
 47.kolo;;;;;
-;Bílí Tygři Liberec;VS;BK Mladá Boleslav;19.02.2027;18:00
-;HC Škoda Plzeň;VS;HC Energie Karlovy Vary;19.02.2027;17:30
-;HC Oceláři Třinec;VS;HC Olomouc;19.02.2027;17:00
-;HC Sparta Praha;VS;HC Dynamo Pardubice;19.02.2027;18:30
-;HC VÍTKOVICE RIDERA;VS;Mountfield HK;19.02.2027;17:30
-;HC Kometa Brno;VS;Banes Motor Č. Budějovice;19.02.2027;18:00
-;Rytíři Kladno;VS;HC VERVA Litvínov;19.02.2027;18:00
+;Bílí Tygři Liberec;VS;BK Mladá Boleslav;;
+;HC Škoda Plzeň;VS;HC Energie Karlovy Vary;;
+;HC Oceláři Třinec;VS;HC Olomouc;;
+;HC Sparta Praha;VS;HC Dynamo Pardubice;;
+;HC VÍTKOVICE RIDERA;VS;Mountfield HK;;
+;HC Kometa Brno;VS;Banes Motor Č. Budějovice;;
+;Rytíři Kladno;VS;HC VERVA Litvínov;;
 ;;;;;
 48.kolo;;;;;
-;Mountfield HK;VS;HC Oceláři Třinec;21.02.2027;16:00
-;HC Olomouc;VS;HC VERVA Litvínov;21.02.2027;17:00
-;Banes Motor Č. Budějovice;VS;HC Škoda Plzeň;21.02.2027;17:00
-;HC Dynamo Pardubice;VS;HC VÍTKOVICE RIDERA;21.02.2027;17:00
-;HC Sparta Praha;VS;HC Kometa Brno;21.02.2027;16:00
-;BK Mladá Boleslav;VS;Rytíři Kladno;21.02.2027;16:00
-;HC Energie Karlovy Vary;VS;Bílí Tygři Liberec;21.02.2027;16:00
+;Mountfield HK;VS;HC Oceláři Třinec;;
+;HC Olomouc;VS;HC VERVA Litvínov;;
+;Banes Motor Č. Budějovice;VS;HC Škoda Plzeň;;
+;HC Dynamo Pardubice;VS;HC VÍTKOVICE RIDERA;;
+;HC Sparta Praha;VS;HC Kometa Brno;;
+;BK Mladá Boleslav;VS;Rytíři Kladno;;
+;HC Energie Karlovy Vary;VS;Bílí Tygři Liberec;;
 ;;;;;
 49.kolo;;;;;
-;HC VERVA Litvínov;VS;BK Mladá Boleslav;26.02.2027;17:30
-;HC VÍTKOVICE RIDERA;VS;HC Sparta Praha;26.02.2027;17:30
-;Rytíři Kladno;VS;HC Energie Karlovy Vary;26.02.2027;18:00
-;HC Oceláři Třinec;VS;HC Dynamo Pardubice;26.02.2027;17:00
-;Bílí Tygři Liberec;VS;Banes Motor Č. Budějovice;26.02.2027;18:00
-;HC Olomouc;VS;Mountfield HK;26.02.2027;18:00
-;HC Škoda Plzeň;VS;HC Kometa Brno;26.02.2027;17:30
+;HC VERVA Litvínov;VS;BK Mladá Boleslav;;
+;HC VÍTKOVICE RIDERA;VS;HC Sparta Praha;;
+;Rytíři Kladno;VS;HC Energie Karlovy Vary;;
+;HC Oceláři Třinec;VS;HC Dynamo Pardubice;;
+;Bílí Tygři Liberec;VS;Banes Motor Č. Budějovice;;
+;HC Olomouc;VS;Mountfield HK;;
+;HC Škoda Plzeň;VS;HC Kometa Brno;;
 ;;;;;
 50.kolo;;;;;
-;BK Mladá Boleslav;VS;HC Oceláři Třinec;28.02.2027;16:00
-;HC Sparta Praha;VS;HC Škoda Plzeň;28.02.2027;16:00
-;Banes Motor Č. Budějovice;VS;HC VÍTKOVICE RIDERA;28.02.2027;17:00
-;Mountfield HK;VS;HC VERVA Litvínov;28.02.2027;16:00
-;HC Energie Karlovy Vary;VS;HC Olomouc;28.02.2027;16:00
-;HC Dynamo Pardubice;VS;Bílí Tygři Liberec;28.02.2027;17:00
-;HC Kometa Brno;VS;Rytíři Kladno;28.02.2027;17:00
+;BK Mladá Boleslav;VS;HC Oceláři Třinec;;
+;HC Sparta Praha;VS;HC Škoda Plzeň;;
+;Banes Motor Č. Budějovice;VS;HC VÍTKOVICE RIDERA;;
+;Mountfield HK;VS;HC VERVA Litvínov;;
+;HC Energie Karlovy Vary;VS;HC Olomouc;;
+;HC Dynamo Pardubice;VS;Bílí Tygři Liberec;;
+;HC Kometa Brno;VS;Rytíři Kladno;;
 ;;;;;
 51.kolo;;;;;
-;HC VERVA Litvínov;VS;HC Energie Karlovy Vary;02.03.2027;17:30
-;Mountfield HK;VS;BK Mladá Boleslav;02.03.2027;17:30
-;HC Oceláři Třinec;VS;HC Sparta Praha;02.03.2027;17:30
-;HC VÍTKOVICE RIDERA;VS;HC Škoda Plzeň;02.03.2027;17:30
-;HC Olomouc;VS;HC Dynamo Pardubice;02.03.2027;17:30
-;Rytíři Kladno;VS;Banes Motor Č. Budějovice;02.03.2027;17:30
-;Bílí Tygři Liberec;VS;HC Kometa Brno;02.03.2027;17:30
+;HC VERVA Litvínov;VS;HC Energie Karlovy Vary;;
+;Mountfield HK;VS;BK Mladá Boleslav;;
+;HC Oceláři Třinec;VS;HC Sparta Praha;;
+;HC VÍTKOVICE RIDERA;VS;HC Škoda Plzeň;;
+;HC Olomouc;VS;HC Dynamo Pardubice;;
+;Rytíři Kladno;VS;Banes Motor Č. Budějovice;;
+;Bílí Tygři Liberec;VS;HC Kometa Brno;;
 ;;;;;
 52.kolo;;;;;
-;Banes Motor Č. Budějovice;VS;HC Oceláři Třinec;05.03.2027;17:30
-;HC Škoda Plzeň;VS;HC VERVA Litvínov;05.03.2027;17:30
-;HC Kometa Brno;VS;HC VÍTKOVICE RIDERA;05.03.2027;17:30
-;HC Dynamo Pardubice;VS;Rytíři Kladno;05.03.2027;17:30
-;HC Sparta Praha;VS;Bílí Tygři Liberec;05.03.2027;17:30
-;BK Mladá Boleslav;VS;HC Olomouc;05.03.2027;17:30
-;HC Energie Karlovy Vary;VS;Mountfield HK;05.03.2027;17:30
+;Banes Motor Č. Budějovice;VS;HC Oceláři Třinec;;
+;HC Škoda Plzeň;VS;HC VERVA Litvínov;;
+;HC Kometa Brno;VS;HC VÍTKOVICE RIDERA;;
+;HC Dynamo Pardubice;VS;Rytíři Kladno;;
+;HC Sparta Praha;VS;Bílí Tygři Liberec;;
+;BK Mladá Boleslav;VS;HC Olomouc;;
+;HC Energie Karlovy Vary;VS;Mountfield HK;;

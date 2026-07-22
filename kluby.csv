@@ -1,15 +1,15 @@
 ﻿NÁZEV TÝMU;LOGO;ROK ZALOŽENÍ;POČET TITULŮ;HLAVNÍ TRENÉR;SEZONA KDY NASTOUPIL;DNÍ JAKO HL.TRENÉR;POSLEDNÍ TITUL;PRŮMĚRNÁ NÁVŠTĚVNOST;KAPACITA;% ZAPLNĚNOST;NÁZEV STADIONU;2025/26 ZČ;2025/26 PLAYOFF;2024/25 ZČ;2024/25 PLAYOFF;2023/24 ZČ;2023/24 PLAYOFF;2022/23 ZČ;2022/23 PLAYOFF;2021/22 ZČ;2021/22 PLAYOFF;2020/21 ZČ;2020/21 PLAYOFF;Průměřná výška;Průměrná váha;Průměrný věk;Počet brankářů;Počet obránců;počet centrů;počet křídel
-CBU;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/CBU.png;1928;0;Robert Petrovický;01.05.2026;7;-;6230;6421;97,03%;Budvar Aréna;9;9;6;6;6;6;13;13;4;3;14;14;;;;;;;
-KLA;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/KLA.png;1924;0;Radim Rulík;01.05.2026;7;-;4100;5200;78,85%;ČEZ Stadion;10;10;13;13;14;14;14;14;14;14;-;-;;;;;;;
-KOM;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/KOM.png;1953;3;Libor Zábranský;01.05.2026;123;2024/25;7150;7700;92,86%;Winning Group Aréna;8;8;4;1;4;5;7;6;10;11;9;7;;;;;;;
-KVA;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/KVA.png;1932;1;Pavel Patera;01.06.2024;706;2008/09;3510;5874;59,75%;Mattoni Aréna;6;3;5;5;11;11;9;9;12;12;10;11;;;;;;;
-LIB;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/LIB.png;1950;1;Jiří Kudrna;01.06.2025;341;2015/16;6525;7500;87,00%;Home Credit Aréna;3;6;11;11;7;7;5;4;7;7;4;2;;;;;;;
-LIT;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/LIT.png;1945;1;Jiří Šlégr;01.05.2026;7;2014/15;4525;5944;76,13%;Zimní stadion Ivana Hlinky;14;14;7;9;5;4;11;11;13;13;11;12;;;;;;;
-MBL;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/MBL.png;1908;0;Petr Haken;01.05.2026;7;-;3025;4200;72,02%;ŠKO-ENERGO Aréna;13;13;9;7;13;13;10;10;11;4;3;4;;;;;;;
-MHK;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/MHK.png;1926;0;Tomáš Martinec;01.06.2021;1802;-;5250;6890;76,20%;ČPP Aréna;4;7;2;4;8;8;4;2;1;5;6;5;;;;;;;
-OLO;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/OLO.png;1950;1;Petr Fiala;01.05.2026;7;1993/94;4250;5500;77,27%;Zimní stadion Olomouc;12;12;14;14;10;10;8;7;9;10;12;8;;;;;;;
-PCE;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/PCE.png;1923;3;Filip Pešán;01.06.2025;341;2025/26;8515;10194;83,53%;Enteria Aréna;1;1;3;2;1;2;1;3;5;6;7;6;;;;;;;
-PLZ;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/PLZ.png;1929;1;Josef Jandač;01.06.2024;706;2012/13;5325;7232;73,63%;LOGSPEED CZ Aréna;2;5;8;10;12;12;12;12;6;9;5;9;;;;;;;
-SPA;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/SPA.png;1903;4;Patrik Augusta;01.05.2026;7;2006/07;14256;17360;82,12%;O2 Arena;7;4;1;3;2;3;3;5;3;2;1;3;;;;;;;
-VIT;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/VIT.png;1928;0;Yorick Treille;01.05.2026;7;-;4525;9833;46,02%; Ostravar Aréna;11;11;12;12;9;9;2;4;8;8;8;10;;;;;;;
-TRI;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/TRI.png;1929;6;Boris Žabka;27.12.2028;132;2023/24;5230;5400;96,85%;WERK Aréna;5;2;10;8;3;1;6;1;2;1;2;1;;;;;;;
+CBU;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/CBU.png;1928;0;Robert Petrovický;01.05.2026;7;-;6230;6421;97,03%;Budvar Aréna;9;9;6;6;6;6;13;13;4;3;14;14;;;26.88;3;6;6;10
+KLA;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/KLA.png;1924;0;Radim Rulík;01.05.2026;7;-;4100;5200;78,85%;ČEZ Stadion;10;10;13;13;14;14;14;14;14;14;-;-;;;26.42;2;8;4;12
+KOM;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/KOM.png;1953;3;Libor Zábranský;01.05.2026;123;2024/25;7150;7700;92,86%;Winning Group Aréna;8;8;4;1;4;5;7;6;10;11;9;7;;;27.9;3;10;12;12
+KVA;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/KVA.png;1932;1;Pavel Patera;01.06.2024;706;2008/09;3510;5874;59,75%;Mattoni Aréna;6;3;5;5;11;11;9;9;12;12;10;11;;;26.81;2;6;7;9
+LIB;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/LIB.png;1950;1;Jiří Kudrna;01.06.2025;341;2015/16;6525;7500;87,00%;Home Credit Aréna;3;6;11;11;7;7;5;4;7;7;4;2;;;26.17;2;8;7;12
+LIT;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/LIT.png;1945;1;Jiří Šlégr;01.05.2026;7;2014/15;4525;5944;76,13%;Zimní stadion Ivana Hlinky;14;14;7;9;5;4;11;11;13;13;11;12;;;26.38;1;6;4;7
+MBL;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/MBL.png;1908;0;Petr Haken;01.05.2026;7;-;3025;4200;72,02%;ŠKO-ENERGO Aréna;13;13;9;7;13;13;10;10;11;4;3;4;;;26.1;2;11;7;9
+MHK;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/MHK.png;1926;0;Tomáš Martinec;01.06.2021;1802;-;5250;6890;76,20%;ČPP Aréna;4;7;2;4;8;8;4;2;1;5;6;5;;;28.65;3;9;5;9
+OLO;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/OLO.png;1950;1;Petr Fiala;01.05.2026;7;1993/94;4250;5500;77,27%;Zimní stadion Olomouc;12;12;14;14;10;10;8;7;9;10;12;8;;;27.58;2;9;7;12
+PCE;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/PCE.png;1923;3;Filip Pešán;01.06.2025;341;2025/26;8515;10194;83,53%;Enteria Aréna;1;1;3;2;1;2;1;3;5;6;7;6;;;30.08;1;9;8;12
+PLZ;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/PLZ.png;1929;1;Josef Jandač;01.06.2024;706;2012/13;5325;7232;73,63%;LOGSPEED CZ Aréna;2;5;8;10;12;12;12;12;6;9;5;9;;;25.22;2;8;7;11
+SPA;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/SPA.png;1903;4;Patrik Augusta;01.05.2026;7;2006/07;14256;17360;82,12%;O2 Arena;7;4;1;3;2;3;3;5;3;2;1;3;;;28.5;2;10;6;10
+VIT;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/VIT.png;1928;0;Yorick Treille;01.05.2026;7;-;4525;9833;46,02%; Ostravar Aréna;11;11;12;12;9;9;2;4;8;8;8;10;;;28.78;2;9;10;14
+TRI;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/TRI.png;1929;6;Boris Žabka;27.12.2028;132;2023/24;5230;5400;96,85%;WERK Aréna;5;2;10;8;3;1;6;1;2;1;2;1;;;26.68;2;7;4;9
