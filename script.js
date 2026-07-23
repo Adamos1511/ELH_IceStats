@@ -309,6 +309,7 @@ function progressProcenta(key, hodnota) {
 
 if (hrac) {
   const skryteUdaje = [
+    "Foto",
     "Jméno",
     "Příjmení",
     "Smlouva",
@@ -613,7 +614,207 @@ document.querySelector(".team-line span")
     }
   });
 }
+async function zobrazDetailNovy(
+  jmeno,
+  prijmeni,
+  tym,
+  pozice,
+  vek,
+  smlouva,
+  drzeni,
+  narodnost,
+  foto,
+  zdroj = ""
+) {
+
+  const jeBrankar =
+  pozice &&
+  (
+    pozice.toLowerCase().includes("brank") ||
+    pozice.toLowerCase().includes("g") ||
+    pozice.toLowerCase() === "b"
+  );
+
+const csvUrl = jeBrankar
+  ? "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/brankari_detail.csv"
+  : "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/hraci_detail.csv";
+
+const detailData = await new Promise(resolve => {
+  Papa.parse(csvUrl, {
+    download: true,
+    header: true,
+    delimiter: ";",
+    skipEmptyLines: true,
+    complete: function(results) {
+      resolve(results.data);
+    }
+  });
+});
+
+function normalizujDetail(text) {
+  return String(text || "")
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+}
+
+const detailHrace = detailData.find(r =>
+  normalizujDetail(r["Jméno"]) === normalizujDetail(jmeno) &&
+  normalizujDetail(r["Příjmení"]) === normalizujDetail(prijmeni)
+);
+const skryteUdaje = [
+  "Jméno",
+  "Příjmení",
+  "Smlouva",
+  "Pozice",
+  "Tým",
+  "Věk",
+  "Držení hole",
+  "Národnost",
+  "Výška (cm)",
+  "Váha (kg)"
+];
+
+let statsHtml = "";
+
+if (detailHrace) {
+  Object.keys(detailHrace).forEach(key => {
+    const schovat = skryteUdaje.some(udaj =>
+      normalizujDetail(udaj) === normalizujDetail(key)
+    );
+
+    if (schovat || !detailHrace[key]) return;
+
+    const hodnota = parseFloat(String(detailHrace[key]).replace(",", "."));
+
+let progress = 0;
+
+if (!isNaN(hodnota)) {
+  const hodnoty = detailData
+    .map(hrac => parseFloat(String(hrac[key]).replace(",", ".")))
+    .filter(v => !isNaN(v));
+
+  const max = Math.max(...hodnoty);
+
+  if (max > 0) {
+    progress = Math.min((hodnota / max) * 100, 100);
+  }
+}
+
+statsHtml += `
+  <div class="stat">
+    <span>${key}</span>
+    <strong>${detailHrace[key]}</strong>
+
+    ${
+      progress > 0
+        ? `<div class="progress"><div class="progress-fill" style="width:${progress}%"></div></div>`
+        : ""
+    }
+  </div>
+`;
+  });
+} else {
+  statsHtml = "<p>Statistiky nenalezeny.</p>";
+}
+
+const vyska = detailHrace ? detailHrace["Výška (cm)"] || "-" : "-";
+const vaha = detailHrace ? detailHrace["Váha (kg)"] || "-" : "-";
+const sekceHrace = document.getElementById("strankaDetailHrace");
+  const obsahHrace = document.getElementById("detailHraceObsah");
+
+  if (!sekceHrace || !obsahHrace) return;
+
+  document.getElementById("strankaDetailKlubu")?.style.setProperty("display", "none");
+  document.getElementById("strankaHraci")?.style.setProperty("display", "none");
+  document.getElementById("strankaPrestupy")?.style.setProperty("display", "none");
+  document.getElementById("kluby")?.style.setProperty("display", "none");
+
+  sekceHrace.style.display = "block";
+
+  obsahHrace.innerHTML = `
+  <div class="player-page">
+    <section class="player-hero">
+
+      <div class="foto-wrapper">
+        <img src="${foto}" alt="${jmeno} ${prijmeni}" class="foto-hrace">
+
+        ${
+          zdroj
+            ? `<div class="foto-zdroj">© Fotka: ${zdroj}</div>`
+            : ""
+        }
+      </div>
+
+      <div class="player-info">
+        <h1 class="player-name">${jmeno} ${prijmeni}</h1>
+
+        <div class="team-line">
+  <span>${tym}</span>
+
+  <img
+    src="https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/${tym}.png"
+    alt="${tym}"
+    class="tym-logo"
+    onerror="this.style.display='none'"
+  >
+</div>
+
+        <div class="info-grid">
+          <div class="info-box">
+            <span>Pozice</span>
+            <strong>${pozice}</strong>
+          </div>
+
+          <div class="info-box">
+            <span>Věk</span>
+            <strong>${vek}</strong>
+          </div>
+          <div class="info-box">
+  <span>Výška</span>
+  <strong>${vyska} cm</strong>
+</div>
+
+<div class="info-box">
+  <span>Váha</span>
+  <strong>${vaha} kg</strong>
+</div>
+
+          <div class="info-box">
+            <span>Národnost</span>
+            <strong>${narodnost}</strong>
+          </div>
+          <div class="info-box">
+  <span>Držení hole</span>
+  <strong>${drzeni || "-"}</strong>
+</div>
+
+          <div class="info-box">
+            <span>Smlouva</span>
+            <strong>${smlouva}</strong>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+<h2 class="section-title">Statistiky hráče</h2>
+
+<div class="stat-box">
+  ${statsHtml}
+</div>
+
+  </div>
+`;
+
+  window.scrollTo(0, 0);
+}
+
+window.zobrazDetailNovy = zobrazDetailNovy;
 window.zobrazDetail = zobrazDetail;
+window.zobrazDetailStare = zobrazDetail;
 
 
 /* --- FUNKCE PRO FILTROVÁNÍ --- */
@@ -1081,7 +1282,7 @@ if (detailSekce) {
   ${
     hraciTymu.length
       ? hraciTymu.map((h, index) => `
-        <div class="player-card" onclick="zobrazDetail('${h.jmeno}', '${h.prijmeni}', '${h.tym}', '${h.pozice}', '${h.vek}', '${h.smlouva}', '${h.drzeni}', '${h.narodnost}', '${h.foto}', '${h.zdroj || ""}')">
+        <div class="player-card" onclick="zobrazDetailNovy('${h.jmeno}', '${h.prijmeni}', '${h.tym}', '${h.pozice}', '${h.vek}', '${h.smlouva}', '${h.drzeni}', '${h.narodnost}', '${h.foto}', '${h.zdroj || ""}')">
           <h3>${h.jmeno} ${h.prijmeni}</h3>
           <p><b>Pozice:</b> ${h.pozice || "-"}</p>
           <p><b>Věk:</b> ${h.vek || "-"}</p>
@@ -1500,7 +1701,7 @@ detailObsah.innerHTML = `
   ${
     hraciTymu.length
       ? hraciTymu.map((h) => `
-        <div class="player-card" onclick="zobrazDetail('${h.jmeno}', '${h.prijmeni}', '${h.tym}', '${h.pozice}', '${h.vek}', '${h.smlouva}', '${h.drzeni}', '${h.narodnost}', '${h.foto}', '${h.zdroj || ""}')">
+        <div class="player-card" onclick="zobrazDetailNovy('${h.jmeno}', '${h.prijmeni}', '${h.tym}', '${h.pozice}', '${h.vek}', '${h.smlouva}', '${h.drzeni}', '${h.narodnost}', '${h.foto}', '${h.zdroj || ""}')">
           <h3>${h.jmeno} ${h.prijmeni}</h3>
           <p><b>Pozice:</b> ${h.pozice || "-"}</p>
           <p><b>Věk:</b> ${h.vek || "-"}</p>
