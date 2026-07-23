@@ -945,11 +945,14 @@ function zobrazKluby() {
   sekceKluby.style.display = "block";
 
   container.innerHTML = kluby.map(k => `
-    <div class="klub-karta" onclick="otevriKlubNovy('${k.zkratka}')">
-      <img src="https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/${k.zkratka}.png" alt="${k.nazev}">
-      <h3>${k.nazev}</h3>
+    <div class="klub-karta" onclick="otevriKlub('${k.zkratka}')">
+        <img
+            src="https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/${k.zkratka}.png"
+            alt="${k.nazev}"
+        >
+        <h3>${k.nazev}</h3>
     </div>
-  `).join("");
+`).join("");
 
   window.scrollTo(0, 0);
 }
