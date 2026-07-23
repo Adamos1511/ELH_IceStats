@@ -957,14 +957,12 @@ function zobrazKluby() {
   window.scrollTo(0, 0);
 }
 async function otevriKlub(zkratka) {
-const detailSekce = document.getElementById("strankaDetailKlubu");
-const detailObsah = document.getElementById("detailKlubuObsah");
-
-const gameMenu = document.querySelector(".game-menu");
-const sekceKluby = document.getElementById("kluby");
-const strankaHraci = document.getElementById("strankaHraci");
-const strankaTabulka = document.getElementById("strankaTabulka");
-const strankaPrestupy = document.getElementById("strankaPrestupy");
+  const detailSekce = document.getElementById("strankaDetailKlubu");
+  const gameMenu = document.querySelector(".game-menu");
+  const sekceKluby = document.getElementById("kluby");
+  const strankaHraci = document.getElementById("strankaHraci");
+  const strankaTabulka = document.getElementById("strankaTabulka");
+  const strankaPrestupy = document.getElementById("strankaPrestupy");
 
   if (hraciData.length === 0) {
     await nactiData();
@@ -972,27 +970,27 @@ const strankaPrestupy = document.getElementById("strankaPrestupy");
 
   const nazevPodleZkratky = nazvyTymu[zkratka] || zkratka;
 
-const klub = dataKluby.find(k =>
-  normalizujGlobal(k["NÁZEV TÝMU"]) === normalizujGlobal(zkratka) ||
-  normalizujGlobal(k["NÁZEV TÝMU"]) === normalizujGlobal(nazevPodleZkratky)
-);
+  const klub = dataKluby.find(k =>
+    normalizujGlobal(k["NÁZEV TÝMU"]) === normalizujGlobal(zkratka) ||
+    normalizujGlobal(k["NÁZEV TÝMU"]) === normalizujGlobal(nazevPodleZkratky)
+  );
 
   if (!klub) {
     alert("⚠️ Klub nebyl nalezen v CSV souboru.");
     return;
   }
-  if (gameMenu) gameMenu.style.display = "none";
-if (sekceKluby) sekceKluby.style.display = "none";
-if (strankaHraci) strankaHraci.style.display = "none";
-if (strankaTabulka) strankaTabulka.style.display = "none";
-if (strankaPrestupy) strankaPrestupy.style.display = "none";
 
-if (detailSekce) {
-  detailSekce.style.display = "block";
-}
+  if (gameMenu) gameMenu.style.display = "none";
+  if (sekceKluby) sekceKluby.style.display = "none";
+  if (strankaHraci) strankaHraci.style.display = "none";
+  if (strankaTabulka) strankaTabulka.style.display = "none";
+  if (strankaPrestupy) strankaPrestupy.style.display = "none";
+
+  if (detailSekce) {
+    detailSekce.style.display = "block";
+  }
 
   const plnyNazevTymu = klub["NÁZEV TÝMU"];
-  
 
   function norm(text) {
     return String(text || "")
@@ -1002,13 +1000,6 @@ if (detailSekce) {
       .replace(/[\u0300-\u036f]/g, "");
   }
 
-  function esc(text) {
-    return String(text || "")
-      .replace(/\\/g, "\\\\")
-      .replace(/'/g, "\\'")
-      .replace(/\n/g, " ");
-  }
-
   const hraciTymu = hraciData.filter(h =>
     norm(h.tym) === norm(zkratka) ||
     norm(h.tym) === norm(nazevPodleZkratky) ||
@@ -1016,11 +1007,20 @@ if (detailSekce) {
     norm(nazvyTymu[h.tym]) === norm(nazevPodleZkratky)
   );
 
-  const logo = `https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/${zkratka}.png`;
-  const detailUrl = "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/hraci_detail.csv";
+  const logo =
+    `https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/${zkratka}.png`;
+
+  const detailUrl =
+    "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/hraci_detail.csv";
 
   function cislo(hodnota) {
-    return parseFloat(String(hodnota || "0").replace(",", "."));
+    const parsed = parseFloat(
+      String(hodnota || "0")
+        .replace(/\s/g, "")
+        .replace(",", ".")
+    );
+
+    return Number.isFinite(parsed) ? parsed : 0;
   }
 
   Papa.parse(detailUrl, {
@@ -1029,507 +1029,892 @@ if (detailSekce) {
     delimiter: ";",
     skipEmptyLines: true,
 
-    complete: function(results) {
-
-      const detailData = results.data;
+    complete: function (results) {
+      const detailData = results.data || [];
 
       const detailHraciTymu = detailData.filter(d =>
-        d["Tým"] === zkratka ||
-        d["Tým"] === plnyNazevTymu ||
-        d["Tým"] === nazevPodleZkratky
+        norm(d["Tým"]) === norm(zkratka) ||
+        norm(d["Tým"]) === norm(plnyNazevTymu) ||
+        norm(d["Tým"]) === norm(nazevPodleZkratky)
       );
 
       function topHrac(sloupec) {
-        return detailHraciTymu
+        return [...detailHraciTymu]
           .filter(h => h["Jméno"] && h["Příjmení"])
-          .sort((a, b) => cislo(b[sloupec]) - cislo(a[sloupec]))[0];
+          .sort(
+            (a, b) =>
+              cislo(b[sloupec]) - cislo(a[sloupec])
+          )[0];
       }
 
       function topText(hrac, sloupec) {
-        if (!hrac) return "-";
-        return `${hrac["Jméno"]} ${hrac["Příjmení"]} (${hrac[sloupec] || 0})`;
+        if (!hrac) {
+          return "-";
+        }
+
+        const hodnota = hrac[sloupec] || "0";
+
+        return `${hrac["Jméno"]} ${hrac["Příjmení"]} (${hodnota})`;
       }
 
       const topBody = topHrac("Body");
       const topGoly = topHrac("Goly");
       const topAsistence = topHrac("Asistence");
 
-      const okno = window.open("", "_blank") || window;
+      const okno = window.open("", "_blank");
 
-      okno.document.write(`
-        <html lang="cs">
-        <head>
-          <meta charset="UTF-8">
-          <title>${nazevPodleZkratky}</title>
-
-          <style>
-            body {
-              margin: 0;
-              min-height: 100vh;
-              background:
-                linear-gradient(90deg, rgba(150,0,0,0.65), rgba(0,17,71,0.92)),
-                #001147;
-              color: white;
-              font-family: 'Segoe UI', Tahoma, sans-serif;
-              padding: 40px;
-            }
-
-            .club-page {
-              max-width: 1250px;
-              margin: 0 auto;
-            }
-
-            .club-hero {
-              display: grid;
-              grid-template-columns: 220px 1fr;
-              gap: 35px;
-              align-items: center;
-              background: rgba(255,255,255,0.08);
-              border: 1px solid rgba(255,255,255,0.14);
-              border-radius: 24px;
-              padding: 30px;
-              box-shadow: 0 25px 60px rgba(0,0,0,0.35);
-            }
-
-            .club-logo {
-              width: 190px;
-              height: 190px;
-              object-fit: contain;
-              background: rgba(255,255,255,0.08);
-              border-radius: 22px;
-              padding: 18px;
-            }
-
-            .club-title {
-              font-size: 46px;
-              margin: 0 0 18px;
-              text-transform: uppercase;
-              line-height: 1;
-            }
-
-            .club-sub {
-              color: rgba(255,255,255,0.7);
-              font-size: 18px;
-              font-weight: 700;
-            }
-
-            .info-grid,
-            .top-players-grid {
-              display: grid;
-              grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-              gap: 12px;
-              margin-top: 28px;
-            }
-
-            .info-card,
-            .top-player-card,
-            .result-card,
-            .player-card {
-              background: rgba(255,255,255,0.08);
-              border: 1px solid rgba(255,255,255,0.12);
-              border-radius: 16px;
-              padding: 16px 18px;
-            }
-
-            .info-card span,
-            .top-player-card span,
-            .result-card span {
-              display: block;
-              font-size: 12px;
-              text-transform: uppercase;
-              color: rgba(255,255,255,0.55);
-              font-weight: 800;
-              margin-bottom: 8px;
-            }
-
-            .info-card strong,
-            .top-player-card strong,
-            .result-card strong {
-              font-size: 19px;
-              color: white;
-            }
-
-            .section-title {
-              margin: 42px 0 18px;
-              font-size: 28px;
-              text-transform: uppercase;
-            }
-
-            .results-grid {
-              display: grid;
-              grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-              gap: 12px;
-            }
-
-            .roster-grid {
-              display: grid;
-              grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-              gap: 16px;
-              margin-top: 18px;
-            }
-
-            .player-card {
-              transition: 0.2s ease;
-              cursor: pointer;
-            }
-
-            .player-card:hover {
-              transform: translateY(-4px);
-              background: rgba(255,255,255,0.13);
-            }
-
-            .player-card h3 {
-              margin: 8px 0 6px;
-              font-size: 18px;
-            }
-
-            .player-card p {
-  margin: 4px 0;
-  color: rgba(255,255,255,0.72);
-  font-size: 14px;
-}
-
-@media (max-width: 700px) {
-
-  body {
-    padding: 16px;
-  }
-
-  .club-hero {
-    grid-template-columns: 1fr;
-    text-align: center;
-    padding: 18px;
-  }
-
-  .club-logo {
-    width: 140px;
-    height: 140px;
-    margin: 0 auto;
-  }
-
-  .club-title {
-    font-size: 30px;
-  }
-
-  .club-sub {
-    font-size: 15px;
-  }
-
-  .info-grid,
-  .top-players-grid,
-  .results-grid,
-  .roster-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .section-title {
-    font-size: 24px;
-  }
-
-}
-          </style>
-        </head>
-
-        <body>
-          <div class="club-page">
-
-            <section class="club-hero">
-              <img src="${logo}" alt="${nazevPodleZkratky}" class="club-logo">
-
-              <div>
-                <h1 class="club-title">${nazevPodleZkratky}</h1>
-                <div class="club-sub">${klub["NÁZEV STADIONU"] || "Stadion neuveden"}</div>
-
-                <div class="info-grid">
-                  <div class="info-card"><span>Rok založení</span><strong>${klub["ROK ZALOŽENÍ"] || "-"}</strong></div>
-                  <div class="info-card"><span>Počet titulů</span><strong>${klub["POČET TITULŮ"] || "-"}</strong></div>
-                  <div class="info-card"><span>Poslední titul</span><strong>${klub["POSLEDNÍ TITUL"] || "-"}</strong></div>
-                  <div class="info-card"><span>Hlavní trenér</span><strong>${klub["HLAVNÍ TRENÉR"] || "-"}</strong></div>
-                  <div class="info-card"><span>Průměrná návštěvnost</span><strong>${klub["PRŮMĚRNÁ NÁVŠTĚVNOST"] || "-"}</strong></div>
-                  <div class="info-card"><span>Kapacita stadionu</span><strong>${klub["KAPACITA"] || "-"}</strong></div>
-                  <div class="info-card"><span>Zaplněnost</span><strong>${klub["% ZAPLNĚNOST"] || "-"}</strong></div>
-                </div>
-              </div>
-            </section>
-
-            <h2 class="section-title">Týmové průměry</h2>
-            <div class="info-grid">
-              <div class="info-card"><span>Průměrný věk</span><strong>${klub["Průměrný věk"] || "-"} let</strong></div>
-              <div class="info-card"><span>Průměrná výška</span><strong>${klub["Průměrná výška"] || "-"} cm</strong></div>
-              <div class="info-card"><span>Průměrná váha</span><strong>${klub["Průměrná váha"] || "-"} kg</strong></div>
-            </div>
-
-            <h2 class="section-title">Výsledky umístění</h2>
-            <div class="results-grid">
-              <div class="result-card"><span>2024/25 ZČ</span><strong>${klub["2024/25 ZČ"] || "-"}</strong></div>
-              <div class="result-card"><span>2024/25 Playoff</span><strong>${klub["2024/25 PLAYOFF"] || "-"}</strong></div>
-              <div class="result-card"><span>2023/24 ZČ</span><strong>${klub["2023/24 ZČ"] || "-"}</strong></div>
-              <div class="result-card"><span>2023/24 Playoff</span><strong>${klub["2023/24 PLAYOFF"] || "-"}</strong></div>
-              <div class="result-card"><span>2022/23 ZČ</span><strong>${klub["2022/23 ZČ"] || "-"}</strong></div>
-              <div class="result-card"><span>2022/23 Playoff</span><strong>${klub["2022/23 PLAYOFF"] || "-"}</strong></div>
-              <div class="result-card"><span>2021/22 ZČ</span><strong>${klub["2021/22 ZČ"] || "-"}</strong></div>
-              <div class="result-card"><span>2021/22 Playoff</span><strong>${klub["2021/22 PLAYOFF"] || "-"}</strong></div>
-              <div class="result-card"><span>2020/21 ZČ</span><strong>${klub["2020/21 ZČ"] || "-"}</strong></div>
-              <div class="result-card"><span>2020/21 Playoff</span><strong>${klub["2020/21 PLAYOFF"] || "-"}</strong></div>
-            </div>
-
-            <h2 class="section-title">TOP hráči týmu</h2>
-            <div class="top-players-grid">
-              <div class="top-player-card">
-                <span>Nejvíce bodů</span>
-                <strong>${topText(topBody, "Body")}</strong>
-              </div>
-            <h2 class="section-title">Soupiska týmu</h2>
-
-<div class="roster-grid">
-  ${
-    hraciTymu.length
-      ? hraciTymu.map((h, index) => `
-        <div class="player-card" onclick="zobrazDetailNovy('${h.jmeno}', '${h.prijmeni}', '${h.tym}', '${h.pozice}', '${h.vek}', '${h.smlouva}', '${h.drzeni}', '${h.narodnost}', '${h.foto}', '${h.zdroj || ""}')">
-          <h3>${h.jmeno} ${h.prijmeni}</h3>
-          <p><b>Pozice:</b> ${h.pozice || "-"}</p>
-          <p><b>Věk:</b> ${h.vek || "-"}</p>
-          <p><b>Národnost:</b> ${h.narodnost || "-"}</p>
-          <p><b>Smlouva:</b> ${h.smlouva || "-"}</p>
-        </div>
-      `).join("")
-      : `<div class="info-card"><strong>Soupiska nebyla nalezena.</strong></div>`
-  }
-</div>
-              <div class="top-player-card">
-                <span>Nejvíce gólů</span>
-                <strong>${topText(topGoly, "Goly")}</strong>
-              </div>
-
-              <div class="top-player-card">
-                <span>Nejvíce asistencí</span>
-                <strong>${topText(topAsistence, "Asistence")}</strong>
-              </div>
-            </div>
-
-            <h2 class="section-title">Soupiska týmu</h2>
-            <div class="roster-grid">
-              ${
-  hraciTymu.length
-    ? hraciTymu.map((h, index) => `
-      <div class="player-card" onclick="openPlayerDetailFromClub(${index})">
-        <h3>${h.jmeno} ${h.prijmeni}</h3>
-        <p><b>Pozice:</b> ${h.pozice || "-"}</p>
-        <p><b>Věk:</b> ${h.vek || "-"}</p>
-        <p><b>Národnost:</b> ${h.narodnost || "-"}</p>
-        <p><b>Smlouva:</b> ${h.smlouva || "-"}</p>
-      </div>
-    `).join("")
-    : `<div class="info-card"><strong>Soupiska nebyla nalezena.</strong></div>`
-}
-            </div>
-
-          </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"><\/script>
-
-<script>
-const hraciTymuKlub = ${JSON.stringify(hraciTymu)};
-const nazvyTymuKlub = ${JSON.stringify(nazvyTymu)};
-
-function normalizujKlub(text) {
-  return String(text || "")
-    .trim()
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\\u0300-\\u036f]/g, "");
-}
-
-function openPlayerDetailFromClub(index) {
-  const h = hraciTymuKlub[index];
-  if (!h) return;
-
-  const jeBrankar =
-  h.pozice &&
-  (
-    h.pozice.toLowerCase().includes("brank") ||
-    h.pozice.toLowerCase().includes("g") ||
-    h.pozice.toLowerCase() === "b"
-  );
-
-const csvUrl = jeBrankar
-  ? "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/brankari_detail.csv"
-  : "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/hraci_detail.csv";
-  const plnyNazev = nazvyTymuKlub[h.tym] || h.tym;
-  const logoUrl = "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/" + h.tym + ".png";
-
-  Papa.parse(csvUrl, {
-    download: true,
-    header: true,
-    delimiter: ";",
-    skipEmptyLines: true,
-    complete: function(results) {
-      const detail = results.data.find(r =>
-        normalizujKlub(r["Jméno"]) === normalizujKlub(h.jmeno) &&
-        normalizujKlub(r["Příjmení"]) === normalizujKlub(h.prijmeni)
-      );
-
-      let statsHtml = "";
-
-      if (detail) {
-        Object.keys(detail).forEach(function(key) {
-          const skryt = ["Jméno","Příjmení","Smlouva","Pozice","Tým","Věk","Držení hole","Národnost","Výška (cm)","Váha (kg)"]
-            .some(s => normalizujKlub(s) === normalizujKlub(key));
-
-          if (skryt || !detail[key]) return;
-
-          statsHtml +=
-            '<div class="stat">' +
-              '<span>' + key + '</span>' +
-              '<strong>' + detail[key] + '</strong>' +
-            '</div>';
-        });
-      } else {
-        statsHtml = "<p>Statistiky nenalezeny.</p>";
+      if (!okno) {
+        alert(
+          "Prohlížeč zablokoval otevření detailu klubu. Povol prosím vyskakovací okna."
+        );
+        return;
       }
 
-      const vyska = detail ? (detail["Výška (cm)"] || "-") : "-";
-      const vaha = detail ? (detail["Váha (kg)"] || "-") : "-";
+      okno.document.write(`
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-      const detailOkno = window.open("", "_blank");
+  <title>${nazevPodleZkratky}</title>
 
-      detailOkno.document.write(\`
-        <html lang="cs">
-        <head>
-          <meta charset="UTF-8">
-          <title>\${h.jmeno} \${h.prijmeni}</title>
-          <style>
-            body {
-              margin: 0;
-              min-height: 100vh;
-              background: linear-gradient(90deg, rgba(160,0,0,0.75), rgba(0,17,71,0.92)), #001147;
-              color: white;
-              font-family: 'Segoe UI', Tahoma, sans-serif;
-              padding: 40px;
-            }
-
-            .player-page {
-              max-width: 1200px;
-              margin: 0 auto;
-            }
-
-            .player-hero {
-              display: grid;
-              grid-template-columns: 360px 1fr;
-              gap: 35px;
-              background: rgba(255,255,255,0.08);
-              border: 1px solid rgba(255,255,255,0.14);
-              border-radius: 22px;
-              padding: 24px;
-              box-shadow: 0 25px 60px rgba(0,0,0,0.35);
-            }
-
-            .foto-hrace {
-              width: 100%;
-              height: 420px;
-              object-fit: cover;
-              object-position: top center;
-              border-radius: 18px;
-            }
-
-            .player-name {
-              font-size: 48px;
-              margin: 0 0 18px;
-              text-transform: uppercase;
-            }
-
-            .team-line {
-              display: flex;
-              align-items: center;
-              gap: 12px;
-              font-size: 20px;
-              font-weight: 800;
-              margin-bottom: 25px;
-            }
-
-            .tym-logo {
-              height: 36px;
-            }
-
-            .info-grid,
-            .stat-box {
-              display: grid;
-              grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-              gap: 12px;
-            }
-
-            .info-box,
-            .stat {
-              background: rgba(255,255,255,0.08);
-              border: 1px solid rgba(255,255,255,0.12);
-              border-radius: 14px;
-              padding: 14px 16px;
-            }
-
-            .info-box span,
-            .stat span {
-              display: block;
-              font-size: 12px;
-              text-transform: uppercase;
-              color: rgba(255,255,255,0.55);
-              font-weight: 800;
-              margin-bottom: 6px;
-            }
-
-            .info-box strong,
-            .stat strong {
-              font-size: 20px;
-              color: white;
-            }
-
-            .section-title {
-              margin: 38px 0 18px;
-              font-size: 28px;
-              text-transform: uppercase;
-            }
-          </style>
-        </head>
-
-        <body>
-          <div class="player-page">
-            <section class="player-hero">
-              <img src="\${h.foto}" class="foto-hrace" onerror="this.style.display='none'">
-
-              <div>
-                <h1 class="player-name">\${h.jmeno} \${h.prijmeni}</h1>
-
-                <div class="team-line">
-                  <span>\${plnyNazev}</span>
-                  <img src="\${logoUrl}" class="tym-logo" onerror="this.style.display='none'">
-                </div>
-
-                <div class="info-grid">
-                  <div class="info-box"><span>Pozice</span><strong>\${h.pozice || "-"}</strong></div>
-                  <div class="info-box"><span>Věk</span><strong>\${h.vek || "-"}</strong></div>
-                  <div class="info-box"><span>Výška</span><strong>\${vyska} cm</strong></div>
-                  <div class="info-box"><span>Váha</span><strong>\${vaha} kg</strong></div>
-                  <div class="info-box"><span>Držení hole</span><strong>\${h.drzeni || "-"}</strong></div>
-                  <div class="info-box"><span>Národnost</span><strong>\${h.narodnost || "-"}</strong></div>
-                  <div class="info-box"><span>Smlouva</span><strong>\${h.smlouva || "-"}</strong></div>
-                </div>
-              </div>
-            </section>
-
-            <h2 class="section-title">Statistiky hráče</h2>
-            <div class="stat-box">\${statsHtml}</div>
-          </div>
-        </body>
-        </html>
-      \`);
+  <style>
+    * {
+      box-sizing: border-box;
     }
-  });
-}
-<\/script>
-          </body>
-        </html>
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 40px;
+
+      background:
+        linear-gradient(
+          90deg,
+          rgba(150, 0, 0, 0.65),
+          rgba(0, 17, 71, 0.92)
+        ),
+        #001147;
+
+      color: white;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+    }
+
+    .club-page {
+      width: 100%;
+      max-width: 1250px;
+      margin: 0 auto;
+    }
+
+    .club-hero {
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 35px;
+      align-items: center;
+
+      padding: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 24px;
+
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+    }
+
+    .club-logo {
+      width: 190px;
+      height: 190px;
+      padding: 18px;
+
+      object-fit: contain;
+
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 22px;
+    }
+
+    .club-title {
+      margin: 0 0 18px;
+
+      font-size: clamp(32px, 5vw, 46px);
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .club-sub {
+      margin-bottom: 26px;
+
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .section-title {
+      margin: 46px 0 18px;
+
+      font-size: clamp(24px, 3vw, 30px);
+      text-transform: uppercase;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+    }
+
+    .hero-info-grid {
+      margin-top: 28px;
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+    }
+
+    .top-players-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .roster-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(225px, 1fr));
+      gap: 16px;
+    }
+
+    .info-card,
+    .result-card,
+    .top-player-card,
+    .player-card {
+      min-width: 0;
+
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .info-card span,
+    .result-card span,
+    .top-player-card span {
+      display: block;
+      margin-bottom: 8px;
+
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .info-card strong,
+    .result-card strong,
+    .top-player-card strong {
+      color: white;
+      font-size: 19px;
+      line-height: 1.35;
+    }
+
+    .top-player-card {
+      display: flex;
+      min-height: 125px;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .player-card {
+      min-height: 175px;
+      cursor: pointer;
+
+      transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease;
+    }
+
+    .player-card:hover {
+      transform: translateY(-4px);
+
+      background: rgba(255, 255, 255, 0.14);
+      border-color: rgba(255, 255, 255, 0.24);
+    }
+
+    .player-card h3 {
+      margin: 0 0 14px;
+
+      font-size: 20px;
+      line-height: 1.25;
+    }
+
+    .player-card p {
+      margin: 6px 0;
+
+      color: rgba(255, 255, 255, 0.74);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .player-card b {
+      color: white;
+    }
+
+    .empty-card {
+      grid-column: 1 / -1;
+    }
+
+    @media (max-width: 950px) {
+      body {
+        padding: 24px;
+      }
+
+      .club-hero {
+        grid-template-columns: 170px minmax(0, 1fr);
+        gap: 24px;
+        padding: 24px;
+      }
+
+      .club-logo {
+        width: 150px;
+        height: 150px;
+      }
+
+      .top-players-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .roster-grid {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 650px) {
+      body {
+        padding: 14px;
+      }
+
+      .club-hero {
+        grid-template-columns: 1fr;
+
+        padding: 18px;
+        text-align: center;
+      }
+
+      .club-logo {
+        width: 140px;
+        height: 140px;
+        margin: 0 auto;
+      }
+
+      .club-sub {
+        font-size: 15px;
+      }
+
+      .info-grid,
+      .results-grid,
+      .top-players-grid,
+      .roster-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title {
+        margin-top: 34px;
+      }
+
+      .top-player-card,
+      .player-card {
+        min-height: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="club-page">
+    <section class="club-hero">
+      <img
+        src="${logo}"
+        alt="${nazevPodleZkratky}"
+        class="club-logo"
+      >
+
+      <div>
+        <h1 class="club-title">
+          ${nazevPodleZkratky}
+        </h1>
+
+        <div class="club-sub">
+          ${klub["NÁZEV STADIONU"] || "Stadion neuveden"}
+        </div>
+
+        <div class="info-grid hero-info-grid">
+          <div class="info-card">
+            <span>Rok založení</span>
+            <strong>${klub["ROK ZALOŽENÍ"] || "-"}</strong>
+          </div>
+
+          <div class="info-card">
+            <span>Počet titulů</span>
+            <strong>${klub["POČET TITULŮ"] || "-"}</strong>
+          </div>
+
+          <div class="info-card">
+            <span>Poslední titul</span>
+            <strong>${klub["POSLEDNÍ TITUL"] || "-"}</strong>
+          </div>
+
+          <div class="info-card">
+            <span>Hlavní trenér</span>
+            <strong>${klub["HLAVNÍ TRENÉR"] || "-"}</strong>
+          </div>
+
+          <div class="info-card">
+            <span>Průměrná návštěvnost</span>
+            <strong>${klub["PRŮMĚRNÁ NÁVŠTĚVNOST"] || "-"}</strong>
+          </div>
+
+          <div class="info-card">
+            <span>Kapacita stadionu</span>
+            <strong>${klub["KAPACITA"] || "-"}</strong>
+          </div>
+
+          <div class="info-card">
+            <span>Zaplněnost</span>
+            <strong>${klub["% ZAPLNĚNOST"] || "-"}</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <h2 class="section-title">Týmové průměry</h2>
+
+    <section class="info-grid">
+      <div class="info-card">
+        <span>Průměrný věk</span>
+        <strong>${klub["Průměrný věk"] || "-"} let</strong>
+      </div>
+
+      <div class="info-card">
+        <span>Průměrná výška</span>
+        <strong>${klub["Průměrná výška"] || "-"} cm</strong>
+      </div>
+
+      <div class="info-card">
+        <span>Průměrná váha</span>
+        <strong>${klub["Průměrná váha"] || "-"} kg</strong>
+      </div>
+    </section>
+
+    <h2 class="section-title">Výsledky umístění</h2>
+
+    <section class="results-grid">
+      <div class="result-card">
+        <span>2024/25 ZČ</span>
+        <strong>${klub["2024/25 ZČ"] || "-"}</strong>
+      </div>
+
+      <div class="result-card">
+        <span>2024/25 Playoff</span>
+        <strong>${klub["2024/25 PLAYOFF"] || "-"}</strong>
+      </div>
+
+      <div class="result-card">
+        <span>2023/24 ZČ</span>
+        <strong>${klub["2023/24 ZČ"] || "-"}</strong>
+      </div>
+
+      <div class="result-card">
+        <span>2023/24 Playoff</span>
+        <strong>${klub["2023/24 PLAYOFF"] || "-"}</strong>
+      </div>
+
+      <div class="result-card">
+        <span>2022/23 ZČ</span>
+        <strong>${klub["2022/23 ZČ"] || "-"}</strong>
+      </div>
+
+      <div class="result-card">
+        <span>2022/23 Playoff</span>
+        <strong>${klub["2022/23 PLAYOFF"] || "-"}</strong>
+      </div>
+
+      <div class="result-card">
+        <span>2021/22 ZČ</span>
+        <strong>${klub["2021/22 ZČ"] || "-"}</strong>
+      </div>
+
+      <div class="result-card">
+        <span>2021/22 Playoff</span>
+        <strong>${klub["2021/22 PLAYOFF"] || "-"}</strong>
+      </div>
+
+      <div class="result-card">
+        <span>2020/21 ZČ</span>
+        <strong>${klub["2020/21 ZČ"] || "-"}</strong>
+      </div>
+
+      <div class="result-card">
+        <span>2020/21 Playoff</span>
+        <strong>${klub["2020/21 PLAYOFF"] || "-"}</strong>
+      </div>
+    </section>
+
+    <h2 class="section-title">TOP hráči týmu</h2>
+
+    <section class="top-players-grid">
+      <article class="top-player-card">
+        <span>Nejvíce bodů</span>
+        <strong>${topText(topBody, "Body")}</strong>
+      </article>
+
+      <article class="top-player-card">
+        <span>Nejvíce gólů</span>
+        <strong>${topText(topGoly, "Goly")}</strong>
+      </article>
+
+      <article class="top-player-card">
+        <span>Nejvíce asistencí</span>
+        <strong>${topText(topAsistence, "Asistence")}</strong>
+      </article>
+    </section>
+
+    <h2 class="section-title">Soupiska týmu</h2>
+
+    <section class="roster-grid">
+      ${
+        hraciTymu.length
+          ? hraciTymu
+              .map(
+                (h, index) => `
+                  <article
+                    class="player-card"
+                    onclick="openPlayerDetailFromClub(${index})"
+                  >
+                    <h3>${h.jmeno} ${h.prijmeni}</h3>
+
+                    <p>
+                      <b>Pozice:</b>
+                      ${h.pozice || "-"}
+                    </p>
+
+                    <p>
+                      <b>Věk:</b>
+                      ${h.vek || "-"}
+                    </p>
+
+                    <p>
+                      <b>Národnost:</b>
+                      ${h.narodnost || "-"}
+                    </p>
+
+                    <p>
+                      <b>Smlouva:</b>
+                      ${h.smlouva || "-"}
+                    </p>
+                  </article>
+                `
+              )
+              .join("")
+          : `
+              <div class="info-card empty-card">
+                <strong>Soupiska nebyla nalezena.</strong>
+              </div>
+            `
+      }
+    </section>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"><\/script>
+
+  <script>
+    const hraciTymuKlub = ${JSON.stringify(hraciTymu)};
+    const nazvyTymuKlub = ${JSON.stringify(nazvyTymu)};
+
+    function normalizujKlub(text) {
+      return String(text || "")
+        .trim()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\\u0300-\\u036f]/g, "");
+    }
+
+    function openPlayerDetailFromClub(index) {
+      const h = hraciTymuKlub[index];
+
+      if (!h) {
+        return;
+      }
+
+      const pozice = String(h.pozice || "").toLowerCase();
+
+      const jeBrankar =
+        pozice.includes("brank") ||
+        pozice === "b" ||
+        pozice === "g" ||
+        pozice === "gk";
+
+      const csvUrl = jeBrankar
+        ? "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/brankari_detail.csv"
+        : "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/hraci_detail.csv";
+
+      const plnyNazev = nazvyTymuKlub[h.tym] || h.tym;
+
+      const logoUrl =
+        "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/" +
+        h.tym +
+        ".png";
+
+      Papa.parse(csvUrl, {
+        download: true,
+        header: true,
+        delimiter: ";",
+        skipEmptyLines: true,
+
+        complete: function (results) {
+          const detail = (results.data || []).find(r =>
+            normalizujKlub(r["Jméno"]) ===
+              normalizujKlub(h.jmeno) &&
+            normalizujKlub(r["Příjmení"]) ===
+              normalizujKlub(h.prijmeni)
+          );
+
+          let statsHtml = "";
+
+          if (detail) {
+            const skryteUdaje = [
+              "Foto",
+              "Jméno",
+              "Příjmení",
+              "Smlouva",
+              "Pozice",
+              "Tým",
+              "Věk",
+              "Držení hole",
+              "Národnost",
+              "Výška (cm)",
+              "Váha (kg)"
+            ];
+
+            Object.keys(detail).forEach(function (key) {
+              const jeSkryty = skryteUdaje.some(
+                skryty =>
+                  normalizujKlub(skryty) ===
+                  normalizujKlub(key)
+              );
+
+              const hodnota = detail[key];
+
+              if (
+                jeSkryty ||
+                hodnota === undefined ||
+                hodnota === null ||
+                String(hodnota).trim() === ""
+              ) {
+                return;
+              }
+
+              statsHtml +=
+                '<div class="stat">' +
+                  '<span>' + key + '</span>' +
+                  '<strong>' + hodnota + '</strong>' +
+                '</div>';
+            });
+          } else {
+            statsHtml =
+              '<div class="stat">' +
+                '<strong>Statistiky nenalezeny.</strong>' +
+              '</div>';
+          }
+
+          const vyska = detail
+            ? detail["Výška (cm)"] || "-"
+            : "-";
+
+          const vaha = detail
+            ? detail["Váha (kg)"] || "-"
+            : "-";
+
+          const detailOkno = window.open("", "_blank");
+
+          if (!detailOkno) {
+            alert(
+              "Prohlížeč zablokoval otevření detailu hráče."
+            );
+            return;
+          }
+
+          detailOkno.document.write(\`
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>\${h.jmeno} \${h.prijmeni}</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 40px;
+
+      background:
+        linear-gradient(
+          90deg,
+          rgba(160, 0, 0, 0.75),
+          rgba(0, 17, 71, 0.92)
+        ),
+        #001147;
+
+      color: white;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+    }
+
+    .player-page {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .player-hero {
+      display: grid;
+      grid-template-columns: 360px minmax(0, 1fr);
+      gap: 35px;
+
+      padding: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 22px;
+
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+    }
+
+    .foto-hrace {
+      width: 100%;
+      height: 420px;
+
+      object-fit: cover;
+      object-position: top center;
+
+      border-radius: 18px;
+    }
+
+    .player-name {
+      margin: 0 0 18px;
+
+      font-size: clamp(34px, 5vw, 48px);
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .team-line {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      margin-bottom: 25px;
+
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .tym-logo {
+      height: 36px;
+    }
+
+    .info-grid,
+    .stat-box {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+    }
+
+    .info-box,
+    .stat {
+      min-width: 0;
+
+      padding: 14px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .info-box span,
+    .stat span {
+      display: block;
+      margin-bottom: 6px;
+
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .info-box strong,
+    .stat strong {
+      color: white;
+      font-size: 20px;
+    }
+
+    .section-title {
+      margin: 38px 0 18px;
+
+      font-size: 28px;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 800px) {
+      body {
+        padding: 18px;
+      }
+
+      .player-hero {
+        grid-template-columns: 1fr;
+      }
+
+      .foto-hrace {
+        max-width: 420px;
+        margin: 0 auto;
+      }
+    }
+
+    @media (max-width: 520px) {
+      body {
+        padding: 12px;
+      }
+
+      .player-hero {
+        padding: 16px;
+      }
+
+      .foto-hrace {
+        height: 360px;
+      }
+
+      .info-grid,
+      .stat-box {
+        grid-template-columns: 1fr;
+      }
+
+      .team-line {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="player-page">
+    <section class="player-hero">
+      <img
+        src="\${h.foto || ""}"
+        class="foto-hrace"
+        alt="\${h.jmeno} \${h.prijmeni}"
+        onerror="this.style.display='none'"
+      >
+
+      <div>
+        <h1 class="player-name">
+          \${h.jmeno} \${h.prijmeni}
+        </h1>
+
+        <div class="team-line">
+          <span>\${plnyNazev}</span>
+
+          <img
+            src="\${logoUrl}"
+            class="tym-logo"
+            alt="\${plnyNazev}"
+            onerror="this.style.display='none'"
+          >
+        </div>
+
+        <div class="info-grid">
+          <div class="info-box">
+            <span>Pozice</span>
+            <strong>\${h.pozice || "-"}</strong>
+          </div>
+
+          <div class="info-box">
+            <span>Věk</span>
+            <strong>\${h.vek || "-"}</strong>
+          </div>
+
+          <div class="info-box">
+            <span>Výška</span>
+            <strong>\${vyska} cm</strong>
+          </div>
+
+          <div class="info-box">
+            <span>Váha</span>
+            <strong>\${vaha} kg</strong>
+          </div>
+
+          <div class="info-box">
+            <span>Držení hole</span>
+            <strong>\${h.drzeni || "-"}</strong>
+          </div>
+
+          <div class="info-box">
+            <span>Národnost</span>
+            <strong>\${h.narodnost || "-"}</strong>
+          </div>
+
+          <div class="info-box">
+            <span>Smlouva</span>
+            <strong>\${h.smlouva || "-"}</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <h2 class="section-title">
+      Statistiky hráče
+    </h2>
+
+    <section class="stat-box">
+      \${statsHtml}
+    </section>
+  </main>
+</body>
+</html>
+          \`);
+
+          detailOkno.document.close();
+        }
+      });
+    }
+  <\/script>
+</body>
+</html>
       `);
 
       okno.document.close();
+    },
 
+    error: function (error) {
+      console.error(
+        "Nepodařilo se načíst detailní statistiky klubu:",
+        error
+      );
+
+      alert(
+        "Nepodařilo se načíst detailní statistiky hráčů."
+      );
     }
   });
 }
