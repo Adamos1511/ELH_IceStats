@@ -4,161 +4,674 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>ELH IceStats | ELH 2026</title>
+  <title>ELH IceStats | ELH 2026/27</title>
 
-  <meta name="description" content="Kompletní databáze hráčů, statistik, klubů a přestupů Tipsport extraligy. ELH IceStats.">
+  <meta
+    name="description"
+    content="Kompletní databáze hráčů, statistik, klubů, tabulky, rozpisu a přestupů Tipsport extraligy. ELH IceStats."
+  >
 
   <link rel="icon" type="image/png" href="logo_web.png">
-
   <link rel="stylesheet" href="style.css">
 
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script
+    defer
+    src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"
+  ></script>
+
+  <script defer src="script.js"></script>
 </head>
 
 <body>
 
-  <!-- ÚVODNÍ MENU -->
-  <header class="game-menu">
+  <!-- =========================================================
+       HLAVNÍ MENU
+  ========================================================== -->
+  <header id="strankaMenu" class="game-menu app-page">
     <div class="top-bar">
-      <div class="logo-title">
-  <img src="logo_web.png" alt="ELH IceStats Logo">
-  <span>ELH IceStats</span>
-</div>
 
-      <nav class="top-nav">
-        <a href="#">Statistiky</a>
-        <a href="#">Návštěvnost</a>
-        <a href="#">Historie</a>
-        <a href="#">Rozpis</a>
-        <span class="top-copy">© 2026 Czech Players Database | Vytvořeno ve VS Code</span>
-      </nav>
-    </div>
+      <button
+        type="button"
+        class="logo-title logo-button"
+        data-nav="home"
+        aria-label="ELH IceStats – domů"
+      >
+        <img src="logo_web.png" alt="ELH IceStats">
+        <span>ELH IceStats</span>
+      </button>
+
+      
+        <span class="top-copy">
+          © 2026 ELH IceStats
+        </span>
+      
+      </div>
 
     <div class="hero-menu">
-    
-  <div class="left-stats">
 
-  <div class="side-panel" id="posledniPrestupy">
-    <h2>POSLEDNÍ PŘESTUPY</h2>
-    <div class="live-stats">Načítám...</div>
-  </div>
+      <div class="left-stats">
 
-  <div class="side-panel" id="aktualniKolo">
-    <h2>AKTUÁLNÍ KOLO</h2>
-    <div class="live-stats">
-      <div class="live-row">
-        <span class="live-name">PCE vs SPA</span>
-        <span class="live-value">17:30</span>
+        <div class="side-panel" id="posledniPrestupy">
+          <h2>POSLEDNÍ PŘESTUPY</h2>
+
+          <div class="live-stats">
+            Načítám...
+          </div>
+        </div>
+
+        <button
+          type="button"
+          class="side-panel side-panel-button"
+          id="aktualniKolo"
+          data-nav="schedule"
+        >
+          <h2 id="aktualniKoloTitulek">
+            AKTUÁLNÍ KOLO
+          </h2>
+
+          <div class="live-stats">
+            Načítám rozpis...
+          </div>
+        </button>
+
       </div>
-      <div class="live-row">
-        <span class="live-name">TRI vs KOM</span>
-        <span class="live-value">18:00</span>
+
+      <div class="menu-panel">
+        <button
+          type="button"
+          class="menu-item active"
+          data-nav="players"
+        >
+          Hráči
+        </button>
+
+        <button
+          type="button"
+          class="menu-item"
+          data-nav="clubs"
+        >
+          Kluby
+        </button>
+
+        <button
+          type="button"
+          class="menu-item"
+          data-nav="table"
+        >
+          Tabulka
+        </button>
+
+        <button
+          type="button"
+          class="menu-item"
+          data-nav="transfers"
+        >
+          Přestupy
+        </button>
+
+        <button
+          type="button"
+          class="menu-item"
+          data-nav="schedule"
+        >
+          Rozpis
+        </button>
       </div>
-      <div class="live-row">
-        <span class="live-name">CBU vs LIB</span>
-        <span class="live-value">18:00</span>
+
+      <div class="right-stats">
+
+        <div class="side-panel" id="topBody">
+          <h2>TOP BODY</h2>
+
+          <div class="live-stats">
+            Načítám...
+          </div>
+        </div>
+
+        <div class="side-panel" id="topGoly">
+          <h2>TOP STŘELCI</h2>
+
+          <div class="live-stats">
+            Načítám...
+          </div>
+        </div>
+
       </div>
-    </div>
-  </div>
 
-</div>
-
-
-  
-  <div class="menu-panel">
-    <a href="#" id="btnHraci" class="menu-item active">Hráči</a>
-    <a href="#" id="odkazKluby" class="menu-item">Kluby</a>
-    <a href="#" id="odkazTabulka" class="menu-item">Tabulka</a>
-    <a href="#" id="odkazPrestupy" class="menu-item">Přestupy</a>
-  </div>
-
-  <div class="right-stats">
-
-  <div class="side-panel" id="topBody">
-    <h2>TOP BODY</h2>
-    <div class="live-stats">Načítám...</div>
-  </div>
-
-  <div class="side-panel" id="topGoly">
-    <h2>TOP STŘELCI</h2>
-    <div class="live-stats">Načítám...</div>
-  </div>
-
-</div>
-
-</div>
-      
     </div>
   </header>
-  
 
-  <!-- STRÁNKA HRÁČŮ -->
-  <section id="strankaHraci" class="page-hraci" style="display:none;">
-    <div class="hraci-header">
-      <button id="zpetMenu" class="back-btn">← Zpět do menu</button>
-      <h2>Hráči ELH</h2>
+
+  <!-- =========================================================
+       JEDNOTNÁ NAVIGACE VNITŘNÍCH STRÁNEK
+  ========================================================== -->
+  <nav
+    id="appNav"
+    class="app-nav"
+    aria-label="Navigace ELH IceStats"
+    hidden
+  >
+    <button
+      type="button"
+      class="app-brand"
+      data-nav="home"
+    >
+      <img src="logo_web.png" alt="">
+      <span>ELH IceStats</span>
+    </button>
+
+    <div class="app-nav-links">
+      <button type="button" data-nav="players">
+        Hráči
+      </button>
+
+      <button type="button" data-nav="clubs">
+        Kluby
+      </button>
+
+      <button type="button" data-nav="table">
+        Tabulka
+      </button>
+
+      <button type="button" data-nav="transfers">
+        Přestupy
+      </button>
+
+      <button type="button" data-nav="schedule">
+        Rozpis
+      </button>
     </div>
+  </nav>
 
-    <div class="filtry">
-      <input type="text" id="vyhledavani" placeholder="Hledat hráče...">
-      <select id="filtrTymu"></select>
-      <select id="filtrPozice"></select>
-      <select id="filtrDrzeni"></select>
-      <select id="filtrNarodnost"></select>
-      <select id="filtrSmlouva"></select>
 
-      <select id="razeni">
-        <option value="">Řadit podle...</option>
-        <option value="prijmeni_az">Příjmení A–Z</option>
-        <option value="prijmeni_za">Příjmení Z–A</option>
-        <option value="vek_asc">Věk mladší → starší</option>
-        <option value="vek_desc">Věk starší → mladší</option>
-        <option value="tym_az">Tým A–Z</option>
-        <option value="tym_za">Tým Z–A</option>
-        <option value="pozice_az">Pozice A–Z</option>
-        <option value="pozice_za">Pozice Z–A</option>
-        <option value="narodnost_az">Národnost A–Z</option>
-        <option value="narodnost_za">Národnost Z–A</option>
-        <option value="smlouva_asc">Smlouva nejkratší → nejdelší</option>
-        <option value="smlouva_desc">Smlouva nejdelší → nejkratší</option>
-      </select>
+  <!-- =========================================================
+       HRÁČI
+  ========================================================== -->
+  <section
+    id="strankaHraci"
+    class="page-hraci app-page"
+    hidden
+  >
+    <div class="content-container">
+
+      <div class="hraci-header">
+        <button
+          type="button"
+          class="back-btn"
+          data-back
+        >
+          ← Zpět
+        </button>
+
+        <div>
+          <span class="section-kicker">
+            Tipsport extraliga
+          </span>
+
+          <h1>Hráči ELH</h1>
+        </div>
+      </div>
+
+
+      <div class="filtry players-filters">
+
+        <input
+          type="search"
+          id="vyhledavani"
+          placeholder="Hledat hráče..."
+          autocomplete="off"
+        >
+
+        <select
+          id="filtrTymu"
+          aria-label="Filtrovat podle týmu"
+        >
+          <option value="">
+            Všechny týmy
+          </option>
+        </select>
+
+        <select
+          id="filtrPozice"
+          aria-label="Filtrovat podle pozice"
+        >
+          <option value="">
+            Všechny pozice
+          </option>
+        </select>
+
+        <select
+          id="filtrDrzeni"
+          aria-label="Filtrovat podle držení hole"
+        >
+          <option value="">
+            Všechna držení
+          </option>
+        </select>
+
+        <select
+          id="filtrNarodnost"
+          aria-label="Filtrovat podle národnosti"
+        >
+          <option value="">
+            Všechny národnosti
+          </option>
+        </select>
+
+        <select
+          id="filtrSmlouva"
+          aria-label="Filtrovat podle smlouvy"
+        >
+          <option value="">
+            Všechny smlouvy
+          </option>
+        </select>
+
+        <select
+          id="razeni"
+          aria-label="Řazení hráčů"
+        >
+          <option value="">
+            Řadit podle...
+          </option>
+
+          <option value="prijmeni_az">
+            Příjmení A–Z
+          </option>
+
+          <option value="prijmeni_za">
+            Příjmení Z–A
+          </option>
+
+          <option value="vek_asc">
+            Věk mladší → starší
+          </option>
+
+          <option value="vek_desc">
+            Věk starší → mladší
+          </option>
+
+          <option value="tym_az">
+            Tým A–Z
+          </option>
+
+          <option value="tym_za">
+            Tým Z–A
+          </option>
+
+          <option value="pozice_az">
+            Pozice A–Z
+          </option>
+
+          <option value="pozice_za">
+            Pozice Z–A
+          </option>
+
+          <option value="narodnost_az">
+            Národnost A–Z
+          </option>
+
+          <option value="narodnost_za">
+            Národnost Z–A
+          </option>
+
+          <option value="smlouva_asc">
+            Smlouva nejkratší → nejdelší
+          </option>
+
+          <option value="smlouva_desc">
+            Smlouva nejdelší → nejkratší
+          </option>
+        </select>
+
+        <button
+          type="button"
+          id="resetHraci"
+          class="filter-reset"
+        >
+          Reset
+        </button>
+
+      </div>
+
+
+      <div class="results-toolbar">
+        <span id="pocetHracu">
+          Načítám hráče...
+        </span>
+      </div>
+
+      <main id="hraci">
+        <div class="loading-card">
+          Načítám hráče...
+        </div>
+      </main>
+
     </div>
-
-    <main id="hraci">Načítám hráče...</main>
   </section>
 
-<!-- TABULKA ELH -->
-<section id="strankaTabulka" class="stranka-tabulka" style="display:none;">
 
-  <div class="hraci-header">
-    <button id="zpetZTabulky" class="back-btn">← Zpět do menu</button>
-    <h2>Tabulka ELH</h2>
-  </div>
+  <!-- =========================================================
+       DETAIL HRÁČE / BRANKÁŘE
+  ========================================================== -->
+  <section
+    id="strankaDetailHrace"
+    class="page-hraci detail-player-page app-page"
+    hidden
+  >
+    <div class="content-container">
 
-  <div id="tabulkaELH" class="tabulka-elh-wrap">
-    Načítám tabulku...
-  </div>
+      <div class="hraci-header">
+        <button
+          type="button"
+          class="back-btn"
+          data-back
+        >
+          ← Zpět
+        </button>
 
-</section>
+        <div>
+          <span
+            id="detailHraceKicker"
+            class="section-kicker"
+          >
+            Profil hráče
+          </span>
 
-<!-- KLUBY -->
-<section id="kluby" class="page-hraci" style="display:none;">
-  <div class="hraci-header">
-    <button id="zpetZKlubu" class="back-btn">← Zpět do menu</button>
-    <h2>Přehled klubů</h2>
-  </div>
+          <h1 id="detailHraceTitle">
+            Detail hráče
+          </h1>
+        </div>
+      </div>
 
-  <div id="seznam-klubu" class="kluby-grid"></div>
-</section>
-<section id="strankaPrestupy" class="page-hraci" style="display:none;">
-  <div class="hraci-header">
-    <button id="zpetZPrestupu" class="back-btn">← Zpět do menu</button>
-    <h2>Přestupy ELH</h2>
-  </div>
+      <div id="detailHraceObsah">
+        <div class="loading-card">
+          Načítám profil...
+        </div>
+      </div>
 
-  <div id="prestupyObsah"></div>
-</section>
+    </div>
+  </section>
 
-<script src="script.js"></script>
+
+  <!-- =========================================================
+       KLUBY
+  ========================================================== -->
+  <section
+    id="kluby"
+    class="page-hraci app-page"
+    hidden
+  >
+    <div class="content-container">
+
+      <div class="hraci-header">
+        <button
+          type="button"
+          class="back-btn"
+          data-back
+        >
+          ← Zpět
+        </button>
+
+        <div>
+          <span class="section-kicker">
+            Tipsport extraliga
+          </span>
+
+          <h1>Přehled klubů</h1>
+        </div>
+      </div>
+
+      <div
+        id="seznam-klubu"
+        class="kluby-grid"
+      ></div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================
+       DETAIL KLUBU
+  ========================================================== -->
+  <section
+    id="strankaDetailKlubu"
+    class="page-hraci detail-club-page app-page"
+    hidden
+  >
+    <div class="content-container">
+
+      <div class="hraci-header">
+        <button
+          type="button"
+          class="back-btn"
+          data-back
+        >
+          ← Zpět
+        </button>
+
+        <div>
+          <span class="section-kicker">
+            Klub ELH
+          </span>
+
+          <h1>Detail klubu</h1>
+        </div>
+      </div>
+
+      <div id="detailKlubuObsah">
+        <div class="loading-card">
+          Načítám klub...
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================
+       TABULKA
+  ========================================================== -->
+  <section
+    id="strankaTabulka"
+    class="page-hraci stranka-tabulka app-page"
+    hidden
+  >
+    <div class="content-container">
+
+      <div class="hraci-header">
+        <button
+          type="button"
+          class="back-btn"
+          data-back
+        >
+          ← Zpět
+        </button>
+
+        <div>
+          <span class="section-kicker">
+            Základní část
+          </span>
+
+          <h1>Tabulka ELH</h1>
+        </div>
+      </div>
+
+      <div
+        id="tabulkaELH"
+        class="tabulka-elh-wrap"
+      >
+        <div class="loading-card">
+          Načítám tabulku...
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================
+       PŘESTUPY
+  ========================================================== -->
+  <section
+    id="strankaPrestupy"
+    class="page-hraci app-page"
+    hidden
+  >
+    <div class="content-container">
+
+      <div class="hraci-header">
+        <button
+          type="button"
+          class="back-btn"
+          data-back
+        >
+          ← Zpět
+        </button>
+
+        <div>
+          <span class="section-kicker">
+            Pohyb hráčů
+          </span>
+
+          <h1>Přestupy ELH</h1>
+        </div>
+      </div>
+
+
+      <div class="filtry transfer-filters">
+
+        <input
+          type="search"
+          id="vyhledavaniPrestupy"
+          placeholder="Hledat hráče..."
+          autocomplete="off"
+        >
+
+        <select
+          id="filtrSezonaPrestupy"
+          aria-label="Filtrovat podle sezony"
+        >
+          <option value="">
+            Všechny sezony
+          </option>
+        </select>
+
+        <select
+          id="filtrOdkudPrestupy"
+          aria-label="Filtrovat odkud"
+        >
+          <option value="">
+            Odkud
+          </option>
+        </select>
+
+        <select
+          id="filtrKamPrestupy"
+          aria-label="Filtrovat kam"
+        >
+          <option value="">
+            Kam
+          </option>
+        </select>
+
+        <button
+          type="button"
+          id="resetPrestupy"
+          class="filter-reset"
+        >
+          Reset
+        </button>
+
+      </div>
+
+
+      <div class="results-toolbar">
+        <span id="pocetPrestupu">
+          Načítám přestupy...
+        </span>
+      </div>
+
+      <div id="prestupyObsah">
+        <div class="loading-card">
+          Načítám přestupy...
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================
+       ROZPIS
+  ========================================================== -->
+  <section
+    id="strankaRozpis"
+    class="page-hraci schedule-page app-page"
+    hidden
+  >
+    <div class="content-container">
+
+      <div class="hraci-header">
+        <button
+          type="button"
+          class="back-btn"
+          data-back
+        >
+          ← Zpět
+        </button>
+
+        <div>
+          <span class="section-kicker">
+            Sezona 2026/27
+          </span>
+
+          <h1>Rozpis ELH</h1>
+        </div>
+      </div>
+
+
+      <div class="filtry schedule-filters">
+
+        <select
+          id="filtrKoloRozpis"
+          aria-label="Filtrovat podle kola"
+        >
+          <option value="">
+            Všechna kola
+          </option>
+        </select>
+
+        <select
+          id="filtrTymRozpis"
+          aria-label="Filtrovat podle týmu"
+        >
+          <option value="">
+            Všechny týmy
+          </option>
+        </select>
+
+        <button
+          type="button"
+          id="resetRozpis"
+          class="filter-reset"
+        >
+          Reset
+        </button>
+
+      </div>
+
+      <div
+        id="rozpisObsah"
+        class="schedule-content"
+      >
+        <div class="loading-card">
+          Načítám rozpis...
+        </div>
+      </div>
+
+    </div>
+  </section>
+
 </body>
 </html>

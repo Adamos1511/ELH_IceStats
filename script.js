@@ -1,2817 +1,3351 @@
-let hraciData = [];
-function normalizujGlobal(text) {
-  return String(text || "")
-    .trim()
+"use strict";
+
+/* =========================================================
+   ELH ICESTATS
+   Kompletní frontendový řídicí modul
+========================================================= */
+
+
+/* =========================================================
+   KONFIGURACE DAT
+========================================================= */
+
+const GITHUB_RAW =
+  "https://raw.githubusercontent.com/Adamos1511/ELH_web/refs/heads/main/";
+
+const DATA_URLS = {
+  players: `${GITHUB_RAW}hraciELH.csv`,
+  playerDetails: `${GITHUB_RAW}hraci_detail.csv`,
+  goalieDetails: `${GITHUB_RAW}brankari_detail.csv`,
+  clubs: `${GITHUB_RAW}kluby.csv`,
+  transfers: `${GITHUB_RAW}prestupy.csv`,
+  standings: `${GITHUB_RAW}TabulkaELH.csv`,
+  schedule: `${GITHUB_RAW}rozpis.csv`
+};
+
+
+/* =========================================================
+   TÝMY ELH
+========================================================= */
+
+const TEAMS = [
+  {
+    code: "PCE",
+    name: "HC Dynamo Pardubice",
+    aliases: [
+      "HC Dynamo Pardubice"
+    ]
+  },
+  {
+    code: "SPA",
+    name: "HC Sparta Praha",
+    aliases: [
+      "HC Sparta Praha"
+    ]
+  },
+  {
+    code: "TRI",
+    name: "HC Oceláři Třinec",
+    aliases: [
+      "HC Oceláři Třinec"
+    ]
+  },
+  {
+    code: "KOM",
+    name: "HC Kometa Brno",
+    aliases: [
+      "HC Kometa Brno"
+    ]
+  },
+  {
+    code: "PLZ",
+    name: "HC Škoda Plzeň",
+    aliases: [
+      "HC Škoda Plzeň"
+    ]
+  },
+  {
+    code: "MHK",
+    name: "Mountfield HK",
+    aliases: [
+      "Mountfield HK",
+      "HRA"
+    ]
+  },
+  {
+    code: "VIT",
+    name: "HC Vítkovice Ridera",
+    aliases: [
+      "HC Vítkovice Ridera",
+      "HC VÍTKOVICE RIDERA"
+    ]
+  },
+  {
+    code: "OLO",
+    name: "HC Olomouc",
+    aliases: [
+      "HC Olomouc"
+    ]
+  },
+  {
+    code: "MBL",
+    name: "BK Mladá Boleslav",
+    aliases: [
+      "BK Mladá Boleslav"
+    ]
+  },
+  {
+    code: "KVA",
+    name: "HC Energie Karlovy Vary",
+    aliases: [
+      "HC Energie Karlovy Vary"
+    ]
+  },
+  {
+    code: "CBU",
+    name: "Banes Motor České Budějovice",
+    aliases: [
+      "Banes Motor České Budějovice",
+      "Banes Motor Č. Budějovice"
+    ]
+  },
+  {
+    code: "LIT",
+    name: "HC Verva Litvínov",
+    aliases: [
+      "HC Litvínov",
+      "HC Verva Litvínov",
+      "HC VERVA Litvínov"
+    ]
+  },
+  {
+    code: "LIB",
+    name: "Bílí Tygři Liberec",
+    aliases: [
+      "Bílí Tygři Liberec"
+    ]
+  },
+  {
+    code: "KLA",
+    name: "Rytíři Kladno",
+    aliases: [
+      "Rytíři Kladno"
+    ]
+  }
+];
+
+
+/* =========================================================
+   STAV APLIKACE
+========================================================= */
+
+const state = {
+  currentPage: "home",
+  history: [],
+
+  players: [],
+  playerMap: new Map(),
+
+  clubs: [],
+  transfers: [],
+  standings: [],
+  schedule: [],
+
+  skaterDetails: null,
+  goalieDetails: null,
+
+  selectedPlayer: null,
+  selectedClub: null,
+
+  transferSlideIndex: 0
+};
+
+
+const PAGE_IDS = {
+  home: "strankaMenu",
+  players: "strankaHraci",
+  playerDetail: "strankaDetailHrace",
+  clubs: "kluby",
+  clubDetail: "strankaDetailKlubu",
+  table: "strankaTabulka",
+  transfers: "strankaPrestupy",
+  schedule: "strankaRozpis"
+};
+
+
+const collator = new Intl.Collator(
+  "cs",
+  {
+    sensitivity: "base",
+    numeric: true
+  }
+);
+
+
+/* =========================================================
+   OBECNÉ UTILITY
+========================================================= */
+
+function cleanCell(value) {
+  return String(value ?? "")
+    .replace(/^\uFEFF/, "")
+    .replace(/\r/g, "")
+    .trim();
+}
+
+
+function normalize(value) {
+  return cleanCell(value)
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
 }
-/* === PŘEHLED KLUBŮ === */
-const kluby = [
-  { nazev: "HC Dynamo Pardubice", zkratka: "PCE" },
-  { nazev: "HC Sparta Praha", zkratka: "SPA" },
-  { nazev: "HC Oceláři Třinec", zkratka: "TRI" },
-  { nazev: "HC Kometa Brno", zkratka: "KOM" },
-  { nazev: "HC Škoda Plzeň", zkratka: "PLZ" },
-  { nazev: "Mountfield HK", zkratka: "MHK" },
-  { nazev: "HC Vítkovice Ridera", zkratka: "VIT" },
-  { nazev: "HC Olomouc", zkratka: "OLO" },
-  { nazev: "BK Mladá Boleslav", zkratka: "MBL" },
-  { nazev: "HC Energie Karlovy Vary", zkratka: "KVA" },
-  { nazev: "Banes Motor České Budějovice", zkratka: "CBU" },
-  { nazev: "HC Litvínov", zkratka: "LIT" },
-  { nazev: "Bílí Tygři Liberec", zkratka: "LIB" },
-  { nazev: "Rytíři Kladno", zkratka: "KLA" }
-];
-// --- MAPA ZKRATEK TÝMŮ ELH ---
-const zkratkyTymu = {
-  "HC Dynamo Pardubice": "PCE",
-  "HC Sparta Praha": "SPA",
-  "HC Oceláři Třinec": "TRI",
-  "HC Kometa Brno": "KOM",
-  "HC Škoda Plzeň": "PLZ",
-  "Mountfield HK": "MHK",
-  "HC Vítkovice Ridera": "VIT",
-  "HC Olomouc": "OLO",
-  "BK Mladá Boleslav": "MBL",
-  "HC Energie Karlovy Vary": "KVA",
-  "Banes Motor České Budějovice": "CBU",
-  "HC Litvínov": "LIT",
-  "HC Verva Litvínov": "LIT",
-  "Bílí Tygři Liberec": "LIB",
-  "Rytíři Kladno": "KLA"
-};
-const nazvyTymu = {
-  CBU: "Banes Motor České Budějovice",
-  PLZ: "HC Škoda Plzeň",
-  SPA: "HC Sparta Praha",
-  TRI: "HC Oceláři Třinec",
-  KOM: "HC Kometa Brno",
-  MBL: "BK Mladá Boleslav",
-  LIT: "HC Verva Litvínov",
-  KVA: "HC Energie Karlovy Vary",
-  OLO: "HC Olomouc",
-  LIB: "Bílí Tygři Liberec",
-  MHK: "Mountfield HK",
-  PCE: "HC Dynamo Pardubice",
-  KLA: "Rytíři Kladno",
-  VIT: "HC Vítkovice Ridera",
-};
 
-// --- FUNKCE PRO ZOBRAZENÍ LOGA TÝMU ---
-function logoTymu(nazev) {
-  if (!nazev) return "";
-  const zkratka = zkratkyTymu[nazev] || nazev;
-  const path = `https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/${zkratka}.png`;
-  return `<img src="${path}" alt="${zkratka}" class="logoMale">`;
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
-// --- NAČTENÍ DAT Z CSV ---
-async function nactiData() {
-  const response = await fetch("https://raw.githubusercontent.com/Adamos1511/ELH_web/refs/heads/main/hraciELH.csv");
-  const text = await response.text();
-  const radky = text.trim().split("\n").slice(1);
 
-  hraciData = radky.map(r => {
-    const [jmeno, prijmeni, smlouva, pozice, tym, vek, drzeni, narodnost, foto, zdroj] = r.split(";");
-    return {
-      jmeno: jmeno?.trim(),
-      prijmeni: prijmeni?.trim(),
-      smlouva: smlouva?.trim(),
-      pozice: pozice?.trim(),
-      tym: tym?.trim(),
-      vek: parseInt(vek?.trim()) || "",
-      drzeni: drzeni?.trim(),
-      narodnost: narodnost?.trim(),
-      foto: String(foto || "")
-  .trim()
-  .replace(/\r/g, "")
-  .replace(/\n/g, "")
-  .replace(/"/g, "")
-  .replace(/\uFEFF/g, ""),
+function toNumber(value) {
+  const parsed = Number.parseFloat(
+    cleanCell(value)
+      .replace(/\s/g, "")
+      .replace(",", ".")
+      .replace("%", "")
+  );
 
-zdroj: String(zdroj || "")
-  .trim()
-  .replace(/\r/g, "")
-  .replace(/\n/g, "")
-  .replace(/"/g, "")
-
-    };
-  });
-
-  naplnitFiltry();
-  zobrazHrace(hraciData);
+  return Number.isFinite(parsed)
+    ? parsed
+    : NaN;
 }
-let dataKluby = [];
 
-Papa.parse("https://raw.githubusercontent.com/Adamos1511/ELH_web/refs/heads/main/kluby.csv", {
-  download: true,
-  header: true,
-  complete: function(results) {
-    dataKluby = results.data;
+
+function getValue(object, wantedKey) {
+  if (!object) {
+    return "";
   }
+
+  const normalizedKey = normalize(wantedKey);
+
+  const realKey = Object.keys(object).find(
+    key => normalize(key) === normalizedKey
+  );
+
+  return realKey
+    ? cleanCell(object[realKey])
+    : "";
+}
+
+
+function uniqueSorted(values) {
+  const map = new Map();
+
+  values
+    .map(cleanCell)
+    .filter(Boolean)
+    .forEach(value => {
+      const key = normalize(value);
+
+      if (!map.has(key)) {
+        map.set(key, value);
+      }
+    });
+
+  return [...map.values()]
+    .sort((a, b) => collator.compare(a, b));
+}
+
+
+function errorHtml(message) {
+  return `
+    <div class="error-card">
+      <strong>Nepodařilo se načíst data.</strong>
+      <span>${escapeHtml(message)}</span>
+    </div>
+  `;
+}
+
+
+/* =========================================================
+   MAPOVÁNÍ TÝMŮ
+========================================================= */
+
+const teamLookup = new Map();
+
+TEAMS.forEach(team => {
+  [
+    team.code,
+    team.name,
+    ...team.aliases
+  ].forEach(alias => {
+    teamLookup.set(
+      normalize(alias),
+      team
+    );
+  });
 });
 
-// --- ZOBRAZENÍ HRÁČŮ ---
-function zobrazHrace(data) {
-  const container = document.getElementById("hraci");
-  if (!container) return;
 
-  if (data.length === 0) {
-    container.innerHTML = "<p class='zadni-hraci'>Žádní hráči nenalezeni.</p>";
-    return;
+function getTeam(value) {
+  return teamLookup.get(
+    normalize(value)
+  ) || null;
+}
+
+
+function getTeamCode(value) {
+  const team = getTeam(value);
+
+  if (team) {
+    return team.code;
   }
 
-  container.innerHTML = data.map(h => `
-    <div class="hrac-radek" onclick="zobrazDetail('${h.jmeno}', '${h.prijmeni}', '${h.tym}', '${h.pozice}', '${h.vek}', '${h.smlouva}', '${h.drzeni}', '${h.narodnost}', '${h.foto}', '${h.zdroj}')">
-      
-      <div class="hrac-foto-mini">
-        ${
-          h.foto
-            ? `<img src="${h.foto}" alt="${h.jmeno} ${h.prijmeni}">`
-            : `<div class="foto-mini-placeholder"></div>`
-        }
-      </div>
-
-      <div class="hrac-jmeno">
-        <strong>${h.jmeno} ${h.prijmeni}</strong>
-        <span>${h.narodnost || "-"}</span>
-      </div>
-
-      <div class="hrac-tym">
-        ${logoTymu(h.tym)}
-        <span>${zkratkyTymu[h.tym] || h.tym}</span>
-      </div>
-
-      <div class="hrac-pozice">${h.pozice || "-"}</div>
-      <div class="hrac-vek">${h.vek || "-"} let</div>
-      <div class="hrac-smlouva">${h.smlouva || "-"}</div>
-    </div>
-  `).join("");
+  return cleanCell(value);
 }
 
 
-// --- DETAIL HRÁČE ---
-function zobrazDetail(jmeno, prijmeni, tym, pozice, vek, smlouva, drzeni, narodnost, foto, zdroj = "") {
-const jeBrankar =
-  pozice &&
-  (
-    pozice.toLowerCase().includes("brank") ||
-    pozice.toLowerCase().includes("g") ||
-    pozice.toLowerCase() === "b"
-  );
+function getTeamName(value) {
+  const team = getTeam(value);
 
-const csvUrl = jeBrankar
-  ? "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/brankari_detail.csv"
-  : "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/hraci_detail.csv";  const logoUrl = `https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/${tym}.png`;
-  const zkratkaProKlik = zkratkyTymu[tym] || tym;
-  const plnyNazev = nazvyTymu[tym] || tym;
-
-  function normalizuj(text) {
-    return String(text || "")
-      .trim()
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
+  if (team) {
+    return team.name;
   }
 
-  function getHodnota(obj, key) {
-    const hledanyKey = normalizuj(key);
-    const realKey = Object.keys(obj).find(k => normalizuj(k) === hledanyKey);
-    return realKey ? obj[realKey] : "";
+  return cleanCell(value);
+}
+
+
+function logoUrl(value) {
+  const code = getTeamCode(value);
+
+  if (!code) {
+    return "";
   }
 
-  Papa.parse(csvUrl, {
-    download: true,
-    header: true,
-    delimiter: ";",
-    skipEmptyLines: true,
-    complete: function (results) {
-      const hrac = results.data.find(r =>
-        normalizuj(r["Jméno"]) === normalizuj(jmeno) &&
-        normalizuj(r["Příjmení"]) === normalizuj(prijmeni)
-      );
-      console.log("NALEZENÝ HRÁČ:", hrac);
-      console.log("SLOUPCE CSV:", hrac ? Object.keys(hrac) : "hráč nenalezen");
-      const statistiky = jeBrankar
-  ? [
-      ["Odchytané zápasy", "Odchytané zápasy"],
-      ["Odchytané minuty", "Odchytané minuty"],
-      ["Výhry", "Výhry"],
-      ["Průměr obdržených branek", "průměr obdržených branek"],
-      ["Úspěšnost zákroků", "% zákroků", " %"],
-      ["Čistá konta", "Čistá konta"],
-      ["Zákroky", "Zákroky"],
-      ["Střel proti", "Střel proti"],
-      ["Průměr střel na zápas", "Průměr střel na zápas"],
-      ["Profil hráče", "Profil Hráče"],
-    ]
-  : [
-      ["Odehrané zápasy", "Odehrané zápasy"],
-      ["Góly", "Goly"],
-      ["Asistence", "Asistence"],
-      ["Body", "Body"],
-      ["ØČasu na ledě", "Ø Času na ledě"],
-      ["Body z přesilovek", "Body z přesilovek"],
-      ["+/-", "+/-"],
-      ["Trestné minuty", "Trestné minuty"],
-      ["Hity", "Hity"],
-      ["Bloky", "Bloky"],
-      ["Úspěšnost vhazování", "Úspěšnost vhazování %", " %"],
-      ["Úspěšnost střelby", "Úspěšnost střelby %", " %"],
-      ["Body na zápas", "Body na zápas"],
-      ["Hity na zápas", "Hity na zápas"],
-      ["Bloky na zápas", "Bloky na zápas"],
-      ["Pořadí podle bodů v týmu", "Pořadí podle bodu v tymu"],
-      ["Pořadí podle času na ledě", "Poradi prumerneho casu na lede"],
-      ["Podíl na ofenzivě týmu", "Podíl na ofenzivě týmu"],
-      ["Profil hráče", "Profil Hráče"],
-      
-    ];
-
-      let statsHtml = "";
-
-function cislo(hodnota) {
-  return parseFloat(String(hodnota).replace(",", "."));
+  return `${GITHUB_RAW}loga_tymu/${encodeURIComponent(code)}.png`;
 }
 
-function statTyp(key, hodnota) {
-  const val = cislo(hodnota);
 
-  if (key === "Body" || key === "Goly" || key === "Góly") return "stat-star";
-  if (key === "TOI_min" || key === "Ø Času na ledě") return "stat-toi";
-  if (key === "Hity" || key === "Bloky") return "stat-physical";
+function teamButtonHtml(value, className = "") {
+  const team = getTeam(value);
 
-  if (!isNaN(val)) {
-    if (key.includes("Body na zápas") && val >= 0.7) return "stat-elite";
-    if (key.includes("Úspěšnost střelby") && val >= 12) return "stat-elite";
-    if (key.includes("Úspěšnost") && val < 45) return "stat-bad";
-    if (key.includes("+/-") && val < 0) return "stat-bad";
+  if (!team) {
+    return `
+      <span class="${escapeHtml(className)}">
+        ${escapeHtml(value || "-")}
+      </span>
+    `;
   }
 
-  return "";
+  return `
+    <button
+      type="button"
+      class="team-link-button ${escapeHtml(className)}"
+      data-team-code="${escapeHtml(team.code)}"
+    >
+      ${escapeHtml(team.name)}
+    </button>
+  `;
 }
 
-function progressProcenta(key, hodnota) {
-  const val = cislo(hodnota);
 
-  if (isNaN(val)) return 0;
+/* =========================================================
+   CSV
+========================================================= */
 
-  // statistiky kde chceme bary
-  const povoleneStaty = jeBrankar
-  ? [
-      "Odchytané zápasy",
-      "Odchytané minuty",
-      "Výhry",
-      "% zákroků",
-      "Čistá konta",
-      "Zákroky",
-      "Střel proti",
-      "Průměr střel na zápas",
-      "průměr obdržených branek",
-     ]
-  : [
-      "Body",
-      "Goly",
-      "Góly",
-      "Asistence",
-      "Hity",
-      "Bloky",
-      "Body na zápas",
-      "Úspěšnost střelby %",
-      "Úspěšnost vhazování %"
-    ];
-
-  const povoleno = povoleneStaty.some(s =>
-    normalizuj(key).includes(normalizuj(s))
-  );
-
-  if (!povoleno) return 0;
-
-  // najde všechny hodnoty stejné statistiky
-  const hodnoty = results.data
-    .map(hrac => cislo(getHodnota(hrac, key)))
-    .filter(v => !isNaN(v));
-
-  const max = Math.max(...hodnoty);
-
-  if (!max || max <= 0) return 0;
-
-  if (normalizuj(key).includes(normalizuj("průměr obdržených branek"))) {
-  const min = Math.min(...hodnoty);
-
-  if (!val || !min) return 0;
-
-  return Math.min((min / val) * 100, 100);
-}
-  return Math.min((val / max) * 100, 100);
-}
-
-if (hrac) {
-  const skryteUdaje = [
-    "Foto",
-    "Jméno",
-    "Příjmení",
-    "Smlouva",
-    "Pozice",
-    "Tým",
-    "Věk",
-    "Držení hole",
-    "Národnost",
-    "Výška (cm)",
-    "Váha (kg)"
-  ];
-
-  Object.keys(hrac).forEach(key => {
-    const schovat = skryteUdaje.some(udaj => normalizuj(udaj) === normalizuj(key));
-    if (schovat) return;
-
-    let hodnota = getHodnota(hrac, key);
-    if (!hodnota) return;
-
-    let jednotka = "";
-    if (key.includes("%")) jednotka = " %";
-
-    const typ = statTyp(key, hodnota);
-    const progress = progressProcenta(key, hodnota);
-
-    statsHtml +=
-      '<div class="stat ' + typ + '">' +
-        '<span>' + key + '</span>' +
-        '<strong>' + hodnota + jednotka + '</strong>';
-
-    if (progress > 0) {
-      statsHtml +=
-        '<div class="progress">' +
-          '<div class="progress-fill" style="width:' + progress + '%"></div>' +
-        '</div>';
+async function fetchText(url) {
+  const response = await fetch(
+    url,
+    {
+      cache: "no-store"
     }
+  );
 
-    statsHtml += '</div>';
-  });
-} else {
-  statsHtml = "<p>Statistiky nenalezeny.</p>";
+  if (!response.ok) {
+    throw new Error(
+      `${url}: HTTP ${response.status}`
+    );
+  }
+
+  return response.text();
 }
 
-      const vyska = hrac ? getHodnota(hrac, "Výška (cm)") : "-";
-      const vaha = hrac ? getHodnota(hrac, "Váha (kg)") : "-";
 
-      const okno = window.open("", "_blank");
+function parseObjectCsv(text) {
+  const result = Papa.parse(
+    text,
+    {
+      header: true,
+      delimiter: ";",
+      skipEmptyLines: "greedy",
 
-      okno.document.write(`
-        <html lang="cs">
-        <head>
-          <meta charset="UTF-8">
-          <title>${jmeno} ${prijmeni}</title>
-          <style>
-  body {
-    margin: 0;
-    min-height: 100vh;
-    background:
-      linear-gradient(90deg, rgba(160,0,0,0.75), rgba(0,17,71,0.92)),
-      #001147;
-    color: white;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    padding: 40px;
+      transformHeader(header) {
+        return cleanCell(header);
+      }
+    }
+  );
+
+  if (result.errors?.length) {
+    console.warn(
+      "CSV upozornění:",
+      result.errors
+    );
   }
 
-  .player-page {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
+  return (result.data || [])
+    .map(row => {
+      const cleaned = {};
 
-  .player-hero {
-    display: grid;
-    grid-template-columns: 360px 1fr;
-    gap: 35px;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.14);
-    border-radius: 22px;
-    padding: 24px;
-    box-shadow: 0 25px 60px rgba(0,0,0,0.35);
-  }
+      Object.entries(row).forEach(
+        ([key, value]) => {
+          cleaned[cleanCell(key)] =
+            cleanCell(value);
+        }
+      );
 
-  .foto-hrace {
-    width: 100%;
-    height: 420px;
-    object-fit: cover;
-    object-position: top center;
-    border-radius: 18px;
-    box-shadow: 0 18px 40px rgba(0,0,0,0.45);
-  }
-
-  .player-name {
-    font-size: 48px;
-    line-height: 1;
-    margin: 0 0 18px;
-    text-transform: uppercase;
-  }
-
-  .team-line {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 20px;
-    font-weight: 800;
-    margin-bottom: 25px;
-  }
-
-  .tym-logo {
-    height: 36px;
-  }
-
-  .info-grid,
-  .stat-box {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 12px;
-  }
-
-  .info-box,
-  .stat {
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 14px;
-    padding: 14px 16px;
-  }
-  .progress {
-  width: 100%;
-  height: 6px;
-  background: rgba(255,255,255,0.15);
-  border-radius: 999px;
-  margin-top: 12px;
-  overflow: hidden;
+      return cleaned;
+    });
 }
 
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(to right, rgba(120,180,255,0.7), rgba(180,220,255,0.95));
-  border-radius: 999px;
-}
-  .info-box span,
-  .stat span:first-child {
-    display: block;
-    font-size: 12px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.55);
-    font-weight: 800;
-    margin-bottom: 6px;
-  }
-    .stat {
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.10);
-  border-radius: 14px;
-  padding: 14px 16px;
-  transition: 0.2s ease;
+
+async function loadObjectCsv(url) {
+  const text = await fetchText(url);
+
+  return parseObjectCsv(text);
 }
 
-.stat:hover {
-  transform: translateY(-3px);
-  background: rgba(255,255,255,0.11);
-  border-color: rgba(255,255,255,0.18);
-}
-  .info-box strong,
-  .stat span:last-child {
-    font-size: 20px;
-    font-weight: 800;
-    color: #ffffff;
-  }
 
-  .section-title {
-    margin: 38px 0 18px;
-    font-size: 28px;
-    text-transform: uppercase;
-  }
+/* =========================================================
+   NAVIGACE
+========================================================= */
 
-  .stat {
-    min-height: 72px;
-    transition: 0.2s ease;
-  }
+function navigate(
+  page,
+  {
+    push = true
+  } = {}
+) {
+  const targetId = PAGE_IDS[page];
 
-  .stat:hover {
-  transform: translateY(-3px);
-  background: rgba(255,255,255,0.16);
-}
-
-@media (max-width: 700px) {
-  body {
-    padding: 16px;
-  }
-
-  .player-hero {
-    grid-template-columns: 1fr;
-    gap: 18px;
-    padding: 16px;
-  }
-
-  .foto-hrace {
-    height: auto;
-    max-height: 420px;
-  }
-
-  .player-name {
-    font-size: 34px;
-  }
-
-  .team-line {
-    font-size: 16px;
-    flex-wrap: wrap;
-  }
-
-  .info-grid,
-  .stat-box {
-    grid-template-columns: 1fr;
-  }
-
-  .section-title {
-    font-size: 24px;
-  }
-}
-</style>
-        </head>
-
-        <body>
-  <div class="player-page">
-
-    <section class="player-hero">
-      <div class="foto-wrapper">
-  <img src="${foto}" alt="Foto ${jmeno} ${prijmeni}" class="foto-hrace" onerror="this.style.display='none'">
-
-  ${
-    zdroj
-      ? `<div class="foto-zdroj">© Fotka: ${zdroj}</div>`
-      : ""
-  }
-</div>
-
-      <div class="player-info">
-        <h1 class="player-name">${jmeno} ${prijmeni}</h1>
-
-        <div class="team-line">
-          <span>${plnyNazev}</span>
-          <img 
-  src="${logoUrl}" 
-  alt="Logo ${plnyNazev}" 
-  class="tym-logo" 
-  style="cursor:pointer;"
-onclick="window.open('${location.href.split("index.html")[0]}index.html?klub=${zkratkaProKlik}', '_blank')"  onerror="this.style.display='none'"
->
-        </div>
-
-        <div class="info-grid">
-          <div class="info-box"><span>Pozice</span><strong>${pozice}</strong></div>
-          <div class="info-box"><span>Věk</span><strong>${vek}</strong></div>
-          <div class="info-box"><span>Výška</span><strong>${vyska || "-"} cm</strong></div>
-          <div class="info-box"><span>Váha</span><strong>${vaha || "-"} kg</strong></div>
-          <div class="info-box"><span>Držení hole</span><strong>${drzeni}</strong></div>
-          <div class="info-box"><span>Národnost</span><strong>${narodnost}</strong></div>
-          <div class="info-box"><span>Smlouva</span><strong>${smlouva}</strong></div>
-          
-        </div>
-      </div>
-    </section>
-
-    <h2 class="section-title">Statistiky hráče</h2>
-
-    <div class="stat-box">
-      ${statsHtml}
-    </div>
-
-  </div>
-<script>
-function otevriKlubZDetailu() {
-
-  if (window.opener && typeof window.opener.otevriKlub === "function") {
-    window.opener.otevriKlub("${tym}");
+  if (!targetId) {
     return;
   }
 
   if (
-    window.opener &&
-    window.opener.opener &&
-    typeof window.opener.opener.otevriKlub === "function"
+    push &&
+    state.currentPage &&
+    state.currentPage !== page
   ) {
-    window.opener.opener.otevriKlub("${tym}");
-    return;
-  }
-
-  alert("Klub se nepodařilo otevřít.");
-}
-
-document.querySelector(".tym-logo").style.cursor = "pointer";
-document.querySelector(".team-line span").style.cursor = "pointer";
-
-document.querySelector(".tym-logo")
-  .addEventListener("click", otevriKlubZDetailu);
-
-document.querySelector(".team-line span")
-  .addEventListener("click", otevriKlubZDetailu);
-<\/script>
-
-</body>
-</html>
-`);
-    }
-  });
-}
-async function zobrazDetailNovy(
-  jmeno,
-  prijmeni,
-  tym,
-  pozice,
-  vek,
-  smlouva,
-  drzeni,
-  narodnost,
-  foto,
-  zdroj = ""
-) {
-
-  const jeBrankar =
-  pozice &&
-  (
-    pozice.toLowerCase().includes("brank") ||
-    pozice.toLowerCase().includes("g") ||
-    pozice.toLowerCase() === "b"
-  );
-
-const csvUrl = jeBrankar
-  ? "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/brankari_detail.csv"
-  : "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/hraci_detail.csv";
-
-const detailData = await new Promise(resolve => {
-  Papa.parse(csvUrl, {
-    download: true,
-    header: true,
-    delimiter: ";",
-    skipEmptyLines: true,
-    complete: function(results) {
-      resolve(results.data);
-    }
-  });
-});
-
-function normalizujDetail(text) {
-  return String(text || "")
-    .trim()
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
-}
-
-const detailHrace = detailData.find(r =>
-  normalizujDetail(r["Jméno"]) === normalizujDetail(jmeno) &&
-  normalizujDetail(r["Příjmení"]) === normalizujDetail(prijmeni)
-);
-const skryteUdaje = [
-  "Jméno",
-  "Příjmení",
-  "Smlouva",
-  "Pozice",
-  "Tým",
-  "Věk",
-  "Držení hole",
-  "Národnost",
-  "Výška (cm)",
-  "Váha (kg)"
-];
-
-let statsHtml = "";
-
-if (detailHrace) {
-  Object.keys(detailHrace).forEach(key => {
-    const schovat = skryteUdaje.some(udaj =>
-      normalizujDetail(udaj) === normalizujDetail(key)
+    state.history.push(
+      state.currentPage
     );
+  }
 
-    if (schovat || !detailHrace[key]) return;
+  document
+    .querySelectorAll(".app-page")
+    .forEach(element => {
+      element.hidden =
+        element.id !== targetId;
+    });
 
-    const hodnota = parseFloat(String(detailHrace[key]).replace(",", "."));
+  const appNav =
+    document.getElementById("appNav");
 
-let progress = 0;
+  if (appNav) {
+    appNav.hidden =
+      page === "home";
+  }
 
-if (!isNaN(hodnota)) {
-  const hodnoty = detailData
-    .map(hrac => parseFloat(String(hrac[key]).replace(",", ".")))
-    .filter(v => !isNaN(v));
+  state.currentPage = page;
 
-  const max = Math.max(...hodnoty);
+  updateActiveNavigation();
 
-  if (max > 0) {
-    progress = Math.min((hodnota / max) * 100, 100);
+  window.scrollTo({
+    top: 0,
+    behavior: "auto"
+  });
+}
+
+
+function goBack() {
+  const previous =
+    state.history.pop() || "home";
+
+  navigate(
+    previous,
+    {
+      push: false
+    }
+  );
+}
+
+
+function activeNavigationPage() {
+  switch (state.currentPage) {
+    case "playerDetail":
+      return "players";
+
+    case "clubDetail":
+      return "clubs";
+
+    default:
+      return state.currentPage;
   }
 }
 
-statsHtml += `
-  <div class="stat">
-    <span>${key}</span>
-    <strong>${detailHrace[key]}</strong>
 
-    ${
-      progress > 0
-        ? `<div class="progress"><div class="progress-fill" style="width:${progress}%"></div></div>`
-        : ""
-    }
-  </div>
-`;
-  });
-} else {
-  statsHtml = "<p>Statistiky nenalezeny.</p>";
+function updateActiveNavigation() {
+  const active =
+    activeNavigationPage();
+
+  document
+    .querySelectorAll("[data-nav]")
+    .forEach(button => {
+      button.classList.toggle(
+        "active",
+        button.dataset.nav === active
+      );
+    });
 }
 
-const vyska = detailHrace ? detailHrace["Výška (cm)"] || "-" : "-";
-const vaha = detailHrace ? detailHrace["Váha (kg)"] || "-" : "-";
-const sekceHrace = document.getElementById("strankaDetailHrace");
-  const obsahHrace = document.getElementById("detailHraceObsah");
 
-  if (!sekceHrace || !obsahHrace) return;
+async function handleNavigation(target) {
+  switch (target) {
+    case "home":
+      state.history = [];
 
-  document.getElementById("strankaDetailKlubu")?.style.setProperty("display", "none");
-  document.getElementById("strankaHraci")?.style.setProperty("display", "none");
-  document.getElementById("strankaPrestupy")?.style.setProperty("display", "none");
-  document.getElementById("kluby")?.style.setProperty("display", "none");
-
-  sekceHrace.style.display = "block";
-
-  obsahHrace.innerHTML = `
-  <div class="player-page">
-    <section class="player-hero">
-
-      <div class="foto-wrapper">
-        <img src="${foto}" alt="${jmeno} ${prijmeni}" class="foto-hrace">
-
-        ${
-          zdroj
-            ? `<div class="foto-zdroj">© Fotka: ${zdroj}</div>`
-            : ""
+      navigate(
+        "home",
+        {
+          push: false
         }
-      </div>
-
-      <div class="player-info">
-        <h1 class="player-name">${jmeno} ${prijmeni}</h1>
-
-        <div class="team-line">
-  <span>${tym}</span>
-
-  <img
-    src="https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/${tym}.png"
-    alt="${tym}"
-    class="tym-logo"
-    onerror="this.style.display='none'"
-  >
-</div>
-
-        <div class="info-grid">
-          <div class="info-box">
-            <span>Pozice</span>
-            <strong>${pozice}</strong>
-          </div>
-
-          <div class="info-box">
-            <span>Věk</span>
-            <strong>${vek}</strong>
-          </div>
-          <div class="info-box">
-  <span>Výška</span>
-  <strong>${vyska} cm</strong>
-</div>
-
-<div class="info-box">
-  <span>Váha</span>
-  <strong>${vaha} kg</strong>
-</div>
-
-          <div class="info-box">
-            <span>Národnost</span>
-            <strong>${narodnost}</strong>
-          </div>
-          <div class="info-box">
-  <span>Držení hole</span>
-  <strong>${drzeni || "-"}</strong>
-</div>
-
-          <div class="info-box">
-            <span>Smlouva</span>
-            <strong>${smlouva}</strong>
-          </div>
-        </div>
-
-      </div>
-
-    </section>
-
-<h2 class="section-title">Statistiky hráče</h2>
-
-<div class="stat-box">
-  ${statsHtml}
-</div>
-
-  </div>
-`;
-
-  window.scrollTo(0, 0);
-}
-
-window.zobrazDetailNovy = zobrazDetailNovy;
-window.zobrazDetail = zobrazDetail;
-window.zobrazDetailStare = zobrazDetail;
-
-
-/* --- FUNKCE PRO FILTROVÁNÍ --- */
-function naplnitFiltry() {
-  const tymy = [...new Set(hraciData.map(h => h.tym))].sort();
-  const pozice = [...new Set(hraciData.map(h => h.pozice))].sort();
-  const drzeni = [...new Set(hraciData.map(h => h.drzeni))].sort();
-  const narody = [...new Set(hraciData.map(h => h.narodnost))].sort();
-  const smlouvy = [...new Set(hraciData.map(h => h.smlouva))].sort();
-
-  function naplnSelect(id, pole, popisek) {
-    const select = document.getElementById(id);
-    if (!select) return;
-    select.innerHTML = `<option value="">${popisek}</option>`;
-    pole.forEach(val => {
-      if (val) {
-        const option = document.createElement("option");
-        option.value = val;
-        option.textContent = val;
-        select.appendChild(option);
-      }
-    });
-    select.addEventListener("change", filtruj);
-  }
-
-  naplnSelect("filtrTymu", tymy, "Všechny týmy");
-  naplnSelect("filtrPozice", pozice, "Všechny pozice");
-  naplnSelect("filtrDrzeni", drzeni, "Všechna držení");
-  naplnSelect("filtrNarodnost", narody, "Všechny národnosti");
-  naplnSelect("filtrSmlouva", smlouvy, "Všechny smlouvy");
-
-  const vyhledavani = document.getElementById("vyhledavani");
-  if (vyhledavani) vyhledavani.addEventListener("input", filtruj);
-
-  const razeni = document.getElementById("razeni");
-  if (razeni) razeni.addEventListener("change", filtruj);
-}
-
-function filtruj() {
-  const hledani = document.getElementById("vyhledavani")?.value.toLowerCase() || "";
-  const tym = document.getElementById("filtrTymu")?.value || "";
-  const pozice = document.getElementById("filtrPozice")?.value || "";
-  const drzeni = document.getElementById("filtrDrzeni")?.value || "";
-  const narodnost = document.getElementById("filtrNarodnost")?.value || "";
-  const smlouva = document.getElementById("filtrSmlouva")?.value || "";
-  const razeni = document.getElementById("razeni")?.value || "";
-
-  let filtrovani = hraciData.filter(h =>
-    (!tym || h.tym === tym) &&
-    (!pozice || h.pozice === pozice) &&
-    (!drzeni || h.drzeni === drzeni) &&
-    (!narodnost || h.narodnost === narodnost) &&
-    (!smlouva || h.smlouva === smlouva) &&
-    (`${h.jmeno} ${h.prijmeni}`.toLowerCase().includes(hledani))
-  );
-
-
-  if (razeni) {
-  filtrovani.sort((a, b) => {
-    switch (razeni) {
-      case "prijmeni_az":
-        return a.prijmeni.localeCompare(b.prijmeni, "cs");
-      case "prijmeni_za":
-        return b.prijmeni.localeCompare(a.prijmeni, "cs");
-
-      case "vek_asc":
-        return (a.vek || 0) - (b.vek || 0);
-      case "vek_desc":
-        return (b.vek || 0) - (a.vek || 0);
-
-      case "tym_az":
-        return a.tym.localeCompare(b.tym, "cs");
-      case "tym_za":
-        return b.tym.localeCompare(a.tym, "cs");
-
-      case "pozice_az":
-        return a.pozice.localeCompare(b.pozice, "cs");
-      case "pozice_za":
-        return b.pozice.localeCompare(a.pozice, "cs");
-
-      case "narodnost_az":
-        return a.narodnost.localeCompare(b.narodnost, "cs");
-      case "narodnost_za":
-        return b.narodnost.localeCompare(a.narodnost, "cs");
-
-      case "smlouva_asc":
-        return a.smlouva.localeCompare(b.smlouva, "cs");
-      case "smlouva_desc":
-        return b.smlouva.localeCompare(a.smlouva, "cs");
-
-      default:
-        return 0;
-    }
-  });
-}
-
-
-  zobrazHrace(filtrovani);
-}
-/* === FUNKCE PRO ZOBRAZENÍ KLUBŮ === */
-
-
-// Po kliknutí na "Kluby" v menu
-document.addEventListener("DOMContentLoaded", () => {
-  const odkazKluby = document.getElementById("odkazKluby");
-  if (odkazKluby) {
-    odkazKluby.addEventListener("click", (e) => {
-      e.preventDefault();
-      zobrazKluby();
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-  }
-});
-
-function zobrazKluby() {
-  const container = document.getElementById("seznam-klubu");
-  const sekceKluby = document.getElementById("kluby");
-  const gameMenu = document.querySelector(".game-menu");
-  const strankaHraci = document.getElementById("strankaHraci");
-  const strankaTabulka = document.getElementById("strankaTabulka");
-
-  if (!container || !sekceKluby) return;
-
-  if (gameMenu) gameMenu.style.display = "none";
-  if (strankaHraci) strankaHraci.style.display = "none";
-  if (strankaTabulka) strankaTabulka.style.display = "none";
-
-  sekceKluby.style.display = "block";
-
-  container.innerHTML = kluby.map(k => `
-    <div class="klub-karta" onclick="otevriKlub('${k.zkratka}')">
-        <img
-            src="https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/${k.zkratka}.png"
-            alt="${k.nazev}"
-        >
-        <h3>${k.nazev}</h3>
-    </div>
-`).join("");
-
-  window.scrollTo(0, 0);
-}
-async function otevriKlub(zkratka) {
-  const detailSekce = document.getElementById("strankaDetailKlubu");
-  const gameMenu = document.querySelector(".game-menu");
-  const sekceKluby = document.getElementById("kluby");
-  const strankaHraci = document.getElementById("strankaHraci");
-  const strankaTabulka = document.getElementById("strankaTabulka");
-  const strankaPrestupy = document.getElementById("strankaPrestupy");
-
-  if (hraciData.length === 0) {
-    await nactiData();
-  }
-
-  const nazevPodleZkratky = nazvyTymu[zkratka] || zkratka;
-
-  const klub = dataKluby.find(k =>
-    normalizujGlobal(k["NÁZEV TÝMU"]) === normalizujGlobal(zkratka) ||
-    normalizujGlobal(k["NÁZEV TÝMU"]) === normalizujGlobal(nazevPodleZkratky)
-  );
-
-  if (!klub) {
-    alert("⚠️ Klub nebyl nalezen v CSV souboru.");
-    return;
-  }
-
-  if (gameMenu) gameMenu.style.display = "none";
-  if (sekceKluby) sekceKluby.style.display = "none";
-  if (strankaHraci) strankaHraci.style.display = "none";
-  if (strankaTabulka) strankaTabulka.style.display = "none";
-  if (strankaPrestupy) strankaPrestupy.style.display = "none";
-
-  if (detailSekce) {
-    detailSekce.style.display = "block";
-  }
-
-  const plnyNazevTymu = klub["NÁZEV TÝMU"];
-
-  function norm(text) {
-    return String(text || "")
-      .trim()
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
-  }
-
-  const hraciTymu = hraciData.filter(h =>
-    norm(h.tym) === norm(zkratka) ||
-    norm(h.tym) === norm(nazevPodleZkratky) ||
-    norm(zkratkyTymu[h.tym]) === norm(zkratka) ||
-    norm(nazvyTymu[h.tym]) === norm(nazevPodleZkratky)
-  );
-
-  const logo =
-    `https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/${zkratka}.png`;
-
-  const detailUrl =
-    "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/hraci_detail.csv";
-
-  function cislo(hodnota) {
-    const parsed = parseFloat(
-      String(hodnota || "0")
-        .replace(/\s/g, "")
-        .replace(",", ".")
-    );
-
-    return Number.isFinite(parsed) ? parsed : 0;
-  }
-
-  Papa.parse(detailUrl, {
-    download: true,
-    header: true,
-    delimiter: ";",
-    skipEmptyLines: true,
-
-    complete: function (results) {
-      const detailData = results.data || [];
-
-      const detailHraciTymu = detailData.filter(d =>
-        norm(d["Tým"]) === norm(zkratka) ||
-        norm(d["Tým"]) === norm(plnyNazevTymu) ||
-        norm(d["Tým"]) === norm(nazevPodleZkratky)
       );
 
-      function topHrac(sloupec) {
-        return [...detailHraciTymu]
-          .filter(h => h["Jméno"] && h["Příjmení"])
-          .sort(
-            (a, b) =>
-              cislo(b[sloupec]) - cislo(a[sloupec])
-          )[0];
+      break;
+
+
+    case "players":
+      navigate("players");
+
+      if (!state.players.length) {
+        await loadPlayers();
       }
 
-      function topText(hrac, sloupec) {
-        if (!hrac) {
-          return "-";
-        }
+      renderPlayers();
 
-        const hodnota = hrac[sloupec] || "0";
+      break;
 
-        return `${hrac["Jméno"]} ${hrac["Příjmení"]} (${hodnota})`;
+
+    case "clubs":
+      navigate("clubs");
+
+      renderClubs();
+
+      break;
+
+
+    case "table":
+      navigate("table");
+
+      if (!state.standings.length) {
+        await loadStandings();
       }
 
-      const topBody = topHrac("Body");
-      const topGoly = topHrac("Goly");
-      const topAsistence = topHrac("Asistence");
+      renderStandings();
 
-      const okno = window.open("", "_blank");
+      break;
 
-      if (!okno) {
-        alert(
-          "Prohlížeč zablokoval otevření detailu klubu. Povol prosím vyskakovací okna."
+
+    case "transfers":
+      navigate("transfers");
+
+      if (!state.transfers.length) {
+        await loadTransfers();
+      }
+
+      renderTransfers();
+
+      break;
+
+
+    case "schedule":
+      navigate("schedule");
+
+      if (!state.schedule.length) {
+        await loadSchedule();
+      }
+
+      renderSchedule();
+
+      break;
+  }
+}
+
+
+/* =========================================================
+   HRÁČI – NAČTENÍ
+========================================================= */
+
+async function loadPlayers() {
+  const text =
+    await fetchText(
+      DATA_URLS.players
+    );
+
+  const parsed = Papa.parse(
+    text,
+    {
+      delimiter: ";",
+      skipEmptyLines: "greedy"
+    }
+  );
+
+  const rows =
+    parsed.data || [];
+
+  let startIndex = 0;
+
+  if (
+    rows.length &&
+    normalize(rows[0]?.[0]).includes("jmeno")
+  ) {
+    startIndex = 1;
+  }
+
+  state.players =
+    rows
+      .slice(startIndex)
+      .filter(row =>
+        cleanCell(row?.[0]) &&
+        cleanCell(row?.[1])
+      )
+      .map(row => ({
+        jmeno: cleanCell(row[0]),
+        prijmeni: cleanCell(row[1]),
+        smlouva: cleanCell(row[2]),
+        pozice: cleanCell(row[3]),
+        tym: cleanCell(row[4]),
+        vek: cleanCell(row[5]),
+        drzeni: cleanCell(row[6]),
+        narodnost: cleanCell(row[7]),
+        foto: cleanCell(row[8]),
+        zdroj: cleanCell(row[9])
+      }));
+
+
+  state.playerMap.clear();
+
+  state.players.forEach(player => {
+    state.playerMap.set(
+      playerKey(player),
+      player
+    );
+  });
+
+
+  populatePlayerFilters();
+
+  renderPlayers();
+}
+
+
+function playerKey(player) {
+  return [
+    normalize(player.jmeno),
+    normalize(player.prijmeni),
+    normalize(getTeamCode(player.tym))
+  ].join("|");
+}
+
+
+/* =========================================================
+   HRÁČI – FILTRY
+========================================================= */
+
+function populateSelect(
+  select,
+  items,
+  placeholder
+) {
+  if (!select) {
+    return;
+  }
+
+  const selected =
+    select.value;
+
+  select.innerHTML = `
+    <option value="">
+      ${escapeHtml(placeholder)}
+    </option>
+  `;
+
+
+  items.forEach(item => {
+    const value =
+      typeof item === "string"
+        ? item
+        : item.value;
+
+    const label =
+      typeof item === "string"
+        ? item
+        : item.label;
+
+    const option =
+      document.createElement("option");
+
+    option.value = value;
+    option.textContent = label;
+
+    select.appendChild(option);
+  });
+
+
+  if (
+    [...select.options].some(
+      option =>
+        option.value === selected
+    )
+  ) {
+    select.value = selected;
+  }
+}
+
+
+function populatePlayerFilters() {
+  const teamOptions =
+    TEAMS.map(team => ({
+      value: team.code,
+      label: team.name
+    }));
+
+
+  populateSelect(
+    document.getElementById("filtrTymu"),
+    teamOptions,
+    "Všechny týmy"
+  );
+
+
+  populateSelect(
+    document.getElementById("filtrPozice"),
+    uniqueSorted(
+      state.players.map(
+        player => player.pozice
+      )
+    ),
+    "Všechny pozice"
+  );
+
+
+  populateSelect(
+    document.getElementById("filtrDrzeni"),
+    uniqueSorted(
+      state.players.map(
+        player => player.drzeni
+      )
+    ),
+    "Všechna držení"
+  );
+
+
+  populateSelect(
+    document.getElementById("filtrNarodnost"),
+    uniqueSorted(
+      state.players.map(
+        player => player.narodnost
+      )
+    ),
+    "Všechny národnosti"
+  );
+
+
+  populateSelect(
+    document.getElementById("filtrSmlouva"),
+    uniqueSorted(
+      state.players.map(
+        player => player.smlouva
+      )
+    ),
+    "Všechny smlouvy"
+  );
+}
+
+
+function contractRank(contract) {
+  const text =
+    cleanCell(contract);
+
+  if (!text) {
+    return Number.POSITIVE_INFINITY;
+  }
+
+  const match =
+    text.match(
+      /(\d{2,4})\s*\/\s*(\d{2,4})(?:\s*\+\s*(\d+))?/
+    );
+
+  if (!match) {
+    return Number.POSITIVE_INFINITY;
+  }
+
+  let endYear =
+    Number(match[2]);
+
+  if (endYear < 100) {
+    endYear += 2000;
+  }
+
+  const extension =
+    Number(match[3] || 0);
+
+  return endYear + extension;
+}
+
+
+function renderPlayers() {
+  const container =
+    document.getElementById("hraci");
+
+  const counter =
+    document.getElementById("pocetHracu");
+
+  if (!container) {
+    return;
+  }
+
+
+  const search =
+    normalize(
+      document.getElementById("vyhledavani")
+        ?.value
+    );
+
+
+  const team =
+    cleanCell(
+      document.getElementById("filtrTymu")
+        ?.value
+    );
+
+
+  const position =
+    normalize(
+      document.getElementById("filtrPozice")
+        ?.value
+    );
+
+
+  const stick =
+    normalize(
+      document.getElementById("filtrDrzeni")
+        ?.value
+    );
+
+
+  const nationality =
+    normalize(
+      document.getElementById("filtrNarodnost")
+        ?.value
+    );
+
+
+  const contract =
+    normalize(
+      document.getElementById("filtrSmlouva")
+        ?.value
+    );
+
+
+  const sort =
+    cleanCell(
+      document.getElementById("razeni")
+        ?.value
+    );
+
+
+  let data =
+    state.players.filter(player => {
+      const searchTarget =
+        normalize(
+          [
+            player.jmeno,
+            player.prijmeni,
+            player.tym,
+            getTeamName(player.tym),
+            player.pozice,
+            player.narodnost
+          ].join(" ")
         );
-        return;
-      }
 
-      okno.document.write(`
-<!DOCTYPE html>
-<html lang="cs">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>${nazevPodleZkratky}</title>
+      return (
+        (!search ||
+          searchTarget.includes(search)) &&
 
-  <style>
-    * {
-      box-sizing: border-box;
+        (!team ||
+          getTeamCode(player.tym) === team) &&
+
+        (!position ||
+          normalize(player.pozice) === position) &&
+
+        (!stick ||
+          normalize(player.drzeni) === stick) &&
+
+        (!nationality ||
+          normalize(player.narodnost) === nationality) &&
+
+        (!contract ||
+          normalize(player.smlouva) === contract)
+      );
+    });
+
+
+  data = [...data];
+
+
+  data.sort((a, b) => {
+    switch (sort) {
+      case "prijmeni_az":
+        return collator.compare(
+          a.prijmeni,
+          b.prijmeni
+        );
+
+
+      case "prijmeni_za":
+        return collator.compare(
+          b.prijmeni,
+          a.prijmeni
+        );
+
+
+      case "vek_asc":
+        return (
+          (toNumber(a.vek) || 999) -
+          (toNumber(b.vek) || 999)
+        );
+
+
+      case "vek_desc":
+        return (
+          (toNumber(b.vek) || -1) -
+          (toNumber(a.vek) || -1)
+        );
+
+
+      case "tym_az":
+        return collator.compare(
+          getTeamName(a.tym),
+          getTeamName(b.tym)
+        );
+
+
+      case "tym_za":
+        return collator.compare(
+          getTeamName(b.tym),
+          getTeamName(a.tym)
+        );
+
+
+      case "pozice_az":
+        return collator.compare(
+          a.pozice,
+          b.pozice
+        );
+
+
+      case "pozice_za":
+        return collator.compare(
+          b.pozice,
+          a.pozice
+        );
+
+
+      case "narodnost_az":
+        return collator.compare(
+          a.narodnost,
+          b.narodnost
+        );
+
+
+      case "narodnost_za":
+        return collator.compare(
+          b.narodnost,
+          a.narodnost
+        );
+
+
+      case "smlouva_asc":
+        return (
+          contractRank(a.smlouva) -
+          contractRank(b.smlouva)
+        );
+
+
+      case "smlouva_desc":
+        return (
+          contractRank(b.smlouva) -
+          contractRank(a.smlouva)
+        );
+
+
+      default:
+        return collator.compare(
+          a.prijmeni,
+          b.prijmeni
+        );
     }
+  });
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      padding: 40px;
 
-      background:
-        linear-gradient(
-          90deg,
-          rgba(150, 0, 0, 0.65),
-          rgba(0, 17, 71, 0.92)
-        ),
-        #001147;
+  if (counter) {
+    counter.textContent =
+      `${data.length} hráčů`;
+  }
 
-      color: white;
-      font-family: "Segoe UI", Tahoma, sans-serif;
-    }
 
-    .club-page {
-      width: 100%;
-      max-width: 1250px;
-      margin: 0 auto;
-    }
-
-    .club-hero {
-      display: grid;
-      grid-template-columns: 220px minmax(0, 1fr);
-      gap: 35px;
-      align-items: center;
-
-      padding: 30px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 24px;
-
-      background: rgba(255, 255, 255, 0.08);
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
-    }
-
-    .club-logo {
-      width: 190px;
-      height: 190px;
-      padding: 18px;
-
-      object-fit: contain;
-
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 22px;
-    }
-
-    .club-title {
-      margin: 0 0 18px;
-
-      font-size: clamp(32px, 5vw, 46px);
-      line-height: 1;
-      text-transform: uppercase;
-    }
-
-    .club-sub {
-      margin-bottom: 26px;
-
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 18px;
-      font-weight: 700;
-    }
-
-    .section-title {
-      margin: 46px 0 18px;
-
-      font-size: clamp(24px, 3vw, 30px);
-      text-transform: uppercase;
-    }
-
-    .info-grid {
-      display: grid;
-      grid-template-columns:
-        repeat(auto-fit, minmax(210px, 1fr));
-      gap: 12px;
-    }
-
-    .hero-info-grid {
-      margin-top: 28px;
-    }
-
-    .results-grid {
-      display: grid;
-      grid-template-columns:
-        repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px;
-    }
-
-    .top-players-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .roster-grid {
-      display: grid;
-      grid-template-columns:
-        repeat(auto-fit, minmax(225px, 1fr));
-      gap: 16px;
-    }
-
-    .info-card,
-    .result-card,
-    .top-player-card,
-    .player-card {
-      min-width: 0;
-
-      padding: 18px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 16px;
-
-      background: rgba(255, 255, 255, 0.08);
-    }
-
-    .info-card span,
-    .result-card span,
-    .top-player-card span {
-      display: block;
-      margin-bottom: 8px;
-
-      color: rgba(255, 255, 255, 0.55);
-      font-size: 12px;
-      font-weight: 800;
-      text-transform: uppercase;
-    }
-
-    .info-card strong,
-    .result-card strong,
-    .top-player-card strong {
-      color: white;
-      font-size: 19px;
-      line-height: 1.35;
-    }
-
-    .top-player-card {
-      display: flex;
-      min-height: 125px;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .player-card {
-      min-height: 175px;
-      cursor: pointer;
-
-      transition:
-        transform 0.2s ease,
-        background 0.2s ease,
-        border-color 0.2s ease;
-    }
-
-    .player-card:hover {
-      transform: translateY(-4px);
-
-      background: rgba(255, 255, 255, 0.14);
-      border-color: rgba(255, 255, 255, 0.24);
-    }
-
-    .player-card h3 {
-      margin: 0 0 14px;
-
-      font-size: 20px;
-      line-height: 1.25;
-    }
-
-    .player-card p {
-      margin: 6px 0;
-
-      color: rgba(255, 255, 255, 0.74);
-      font-size: 14px;
-      line-height: 1.4;
-    }
-
-    .player-card b {
-      color: white;
-    }
-
-    .empty-card {
-      grid-column: 1 / -1;
-    }
-
-    @media (max-width: 950px) {
-      body {
-        padding: 24px;
-      }
-
-      .club-hero {
-        grid-template-columns: 170px minmax(0, 1fr);
-        gap: 24px;
-        padding: 24px;
-      }
-
-      .club-logo {
-        width: 150px;
-        height: 150px;
-      }
-
-      .top-players-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .roster-grid {
-        grid-template-columns:
-          repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 650px) {
-      body {
-        padding: 14px;
-      }
-
-      .club-hero {
-        grid-template-columns: 1fr;
-
-        padding: 18px;
-        text-align: center;
-      }
-
-      .club-logo {
-        width: 140px;
-        height: 140px;
-        margin: 0 auto;
-      }
-
-      .club-sub {
-        font-size: 15px;
-      }
-
-      .info-grid,
-      .results-grid,
-      .top-players-grid,
-      .roster-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .section-title {
-        margin-top: 34px;
-      }
-
-      .top-player-card,
-      .player-card {
-        min-height: auto;
-      }
-    }
-  </style>
-</head>
-
-<body>
-  <main class="club-page">
-    <section class="club-hero">
-      <img
-        src="${logo}"
-        alt="${nazevPodleZkratky}"
-        class="club-logo"
-      >
-
-      <div>
-        <h1 class="club-title">
-          ${nazevPodleZkratky}
-        </h1>
-
-        <div class="club-sub">
-          ${klub["NÁZEV STADIONU"] || "Stadion neuveden"}
-        </div>
-
-        <div class="info-grid hero-info-grid">
-          <div class="info-card">
-            <span>Rok založení</span>
-            <strong>${klub["ROK ZALOŽENÍ"] || "-"}</strong>
-          </div>
-
-          <div class="info-card">
-            <span>Počet titulů</span>
-            <strong>${klub["POČET TITULŮ"] || "-"}</strong>
-          </div>
-
-          <div class="info-card">
-            <span>Poslední titul</span>
-            <strong>${klub["POSLEDNÍ TITUL"] || "-"}</strong>
-          </div>
-
-          <div class="info-card">
-            <span>Hlavní trenér</span>
-            <strong>${klub["HLAVNÍ TRENÉR"] || "-"}</strong>
-          </div>
-
-          <div class="info-card">
-            <span>Průměrná návštěvnost</span>
-            <strong>${klub["PRŮMĚRNÁ NÁVŠTĚVNOST"] || "-"}</strong>
-          </div>
-
-          <div class="info-card">
-            <span>Kapacita stadionu</span>
-            <strong>${klub["KAPACITA"] || "-"}</strong>
-          </div>
-
-          <div class="info-card">
-            <span>Zaplněnost</span>
-            <strong>${klub["% ZAPLNĚNOST"] || "-"}</strong>
-          </div>
-        </div>
+  if (!data.length) {
+    container.innerHTML = `
+      <div class="empty-state">
+        Žádní hráči neodpovídají zvoleným filtrům.
       </div>
-    </section>
+    `;
 
-    <h2 class="section-title">Týmové průměry</h2>
+    return;
+  }
 
-    <section class="info-grid">
-      <div class="info-card">
-        <span>Průměrný věk</span>
-        <strong>${klub["Průměrný věk"] || "-"} let</strong>
-      </div>
 
-      <div class="info-card">
-        <span>Průměrná výška</span>
-        <strong>${klub["Průměrná výška"] || "-"} cm</strong>
-      </div>
+  container.innerHTML =
+    data
+      .map(player => {
+        const key =
+          playerKey(player);
 
-      <div class="info-card">
-        <span>Průměrná váha</span>
-        <strong>${klub["Průměrná váha"] || "-"} kg</strong>
-      </div>
-    </section>
+        const code =
+          getTeamCode(player.tym);
 
-    <h2 class="section-title">Výsledky umístění</h2>
+        return `
+          <button
+            type="button"
+            class="hrac-radek"
+            data-player-key="${escapeHtml(key)}"
+          >
 
-    <section class="results-grid">
-      <div class="result-card">
-        <span>2024/25 ZČ</span>
-        <strong>${klub["2024/25 ZČ"] || "-"}</strong>
-      </div>
+            <span class="hrac-foto-mini">
+              ${
+                player.foto
+                  ? `
+                    <img
+                      src="${escapeHtml(player.foto)}"
+                      alt="${escapeHtml(
+                        `${player.jmeno} ${player.prijmeni}`
+                      )}"
+                      loading="lazy"
+                      data-hide-on-error
+                    >
+                  `
+                  : `
+                    <span class="foto-mini-placeholder"></span>
+                  `
+              }
+            </span>
 
-      <div class="result-card">
-        <span>2024/25 Playoff</span>
-        <strong>${klub["2024/25 PLAYOFF"] || "-"}</strong>
-      </div>
 
-      <div class="result-card">
-        <span>2023/24 ZČ</span>
-        <strong>${klub["2023/24 ZČ"] || "-"}</strong>
-      </div>
+            <span class="hrac-jmeno">
+              <strong>
+                ${escapeHtml(player.jmeno)}
+                ${escapeHtml(player.prijmeni)}
+              </strong>
 
-      <div class="result-card">
-        <span>2023/24 Playoff</span>
-        <strong>${klub["2023/24 PLAYOFF"] || "-"}</strong>
-      </div>
+              <small>
+                ${escapeHtml(
+                  player.narodnost || "-"
+                )}
+              </small>
+            </span>
 
-      <div class="result-card">
-        <span>2022/23 ZČ</span>
-        <strong>${klub["2022/23 ZČ"] || "-"}</strong>
-      </div>
 
-      <div class="result-card">
-        <span>2022/23 Playoff</span>
-        <strong>${klub["2022/23 PLAYOFF"] || "-"}</strong>
-      </div>
-
-      <div class="result-card">
-        <span>2021/22 ZČ</span>
-        <strong>${klub["2021/22 ZČ"] || "-"}</strong>
-      </div>
-
-      <div class="result-card">
-        <span>2021/22 Playoff</span>
-        <strong>${klub["2021/22 PLAYOFF"] || "-"}</strong>
-      </div>
-
-      <div class="result-card">
-        <span>2020/21 ZČ</span>
-        <strong>${klub["2020/21 ZČ"] || "-"}</strong>
-      </div>
-
-      <div class="result-card">
-        <span>2020/21 Playoff</span>
-        <strong>${klub["2020/21 PLAYOFF"] || "-"}</strong>
-      </div>
-    </section>
-
-    <h2 class="section-title">TOP hráči týmu</h2>
-
-    <section class="top-players-grid">
-      <article class="top-player-card">
-        <span>Nejvíce bodů</span>
-        <strong>${topText(topBody, "Body")}</strong>
-      </article>
-
-      <article class="top-player-card">
-        <span>Nejvíce gólů</span>
-        <strong>${topText(topGoly, "Goly")}</strong>
-      </article>
-
-      <article class="top-player-card">
-        <span>Nejvíce asistencí</span>
-        <strong>${topText(topAsistence, "Asistence")}</strong>
-      </article>
-    </section>
-
-    <h2 class="section-title">Soupiska týmu</h2>
-
-    <section class="roster-grid">
-      ${
-        hraciTymu.length
-          ? hraciTymu
-              .map(
-                (h, index) => `
-                  <article
-                    class="player-card"
-                    onclick="openPlayerDetailFromClub(${index})"
-                  >
-                    <h3>${h.jmeno} ${h.prijmeni}</h3>
-
-                    <p>
-                      <b>Pozice:</b>
-                      ${h.pozice || "-"}
-                    </p>
-
-                    <p>
-                      <b>Věk:</b>
-                      ${h.vek || "-"}
-                    </p>
-
-                    <p>
-                      <b>Národnost:</b>
-                      ${h.narodnost || "-"}
-                    </p>
-
-                    <p>
-                      <b>Smlouva:</b>
-                      ${h.smlouva || "-"}
-                    </p>
-                  </article>
-                `
-              )
-              .join("")
-          : `
-              <div class="info-card empty-card">
-                <strong>Soupiska nebyla nalezena.</strong>
-              </div>
-            `
-      }
-    </section>
-  </main>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"><\/script>
-
-  <script>
-    const hraciTymuKlub = ${JSON.stringify(hraciTymu)};
-    const nazvyTymuKlub = ${JSON.stringify(nazvyTymu)};
-
-    function normalizujKlub(text) {
-      return String(text || "")
-        .trim()
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\\u0300-\\u036f]/g, "");
-    }
-
-    function openPlayerDetailFromClub(index) {
-      const h = hraciTymuKlub[index];
-
-      if (!h) {
-        return;
-      }
-
-      const pozice = String(h.pozice || "").toLowerCase();
-
-      const jeBrankar =
-        pozice.includes("brank") ||
-        pozice === "b" ||
-        pozice === "g" ||
-        pozice === "gk";
-
-      const csvUrl = jeBrankar
-        ? "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/brankari_detail.csv"
-        : "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/hraci_detail.csv";
-
-      const plnyNazev = nazvyTymuKlub[h.tym] || h.tym;
-
-      const logoUrl =
-        "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/" +
-        h.tym +
-        ".png";
-
-      Papa.parse(csvUrl, {
-        download: true,
-        header: true,
-        delimiter: ";",
-        skipEmptyLines: true,
-
-        complete: function (results) {
-          const detail = (results.data || []).find(r =>
-            normalizujKlub(r["Jméno"]) ===
-              normalizujKlub(h.jmeno) &&
-            normalizujKlub(r["Příjmení"]) ===
-              normalizujKlub(h.prijmeni)
-          );
-
-          let statsHtml = "";
-
-          if (detail) {
-            const skryteUdaje = [
-              "Foto",
-              "Jméno",
-              "Příjmení",
-              "Smlouva",
-              "Pozice",
-              "Tým",
-              "Věk",
-              "Držení hole",
-              "Národnost",
-              "Výška (cm)",
-              "Váha (kg)"
-            ];
-
-            Object.keys(detail).forEach(function (key) {
-              const jeSkryty = skryteUdaje.some(
-                skryty =>
-                  normalizujKlub(skryty) ===
-                  normalizujKlub(key)
-              );
-
-              const hodnota = detail[key];
-
-              if (
-                jeSkryty ||
-                hodnota === undefined ||
-                hodnota === null ||
-                String(hodnota).trim() === ""
-              ) {
-                return;
+            <span class="hrac-tym">
+              ${
+                code
+                  ? `
+                    <img
+                      src="${escapeHtml(logoUrl(code))}"
+                      alt=""
+                      class="logoMale"
+                      data-hide-on-error
+                    >
+                  `
+                  : ""
               }
 
-              statsHtml +=
-                '<div class="stat">' +
-                  '<span>' + key + '</span>' +
-                  '<strong>' + hodnota + '</strong>' +
-                '</div>';
-            });
-          } else {
-            statsHtml =
-              '<div class="stat">' +
-                '<strong>Statistiky nenalezeny.</strong>' +
-              '</div>';
+              <strong>
+                ${escapeHtml(code || "-")}
+              </strong>
+            </span>
+
+
+            <span class="hrac-pozice">
+              ${escapeHtml(
+                player.pozice || "-"
+              )}
+            </span>
+
+
+            <span class="hrac-vek">
+              ${
+                player.vek
+                  ? `${escapeHtml(player.vek)} let`
+                  : "-"
+              }
+            </span>
+
+
+            <span class="hrac-smlouva">
+              ${escapeHtml(
+                player.smlouva || "-"
+              )}
+            </span>
+
+          </button>
+        `;
+      })
+      .join("");
+}
+
+
+/* =========================================================
+   DETAIL HRÁČE / BRANKÁŘE
+========================================================= */
+
+function isGoaliePosition(value) {
+  const position =
+    normalize(value);
+
+  return [
+    "b",
+    "g",
+    "gk",
+    "brankar",
+    "brankac",
+    "goalie",
+    "goaltender"
+  ].includes(position);
+}
+
+
+async function loadDetailData(type) {
+  if (
+    type === "goalie" &&
+    state.goalieDetails
+  ) {
+    return state.goalieDetails;
+  }
+
+
+  if (
+    type === "skater" &&
+    state.skaterDetails
+  ) {
+    return state.skaterDetails;
+  }
+
+
+  const url =
+    type === "goalie"
+      ? DATA_URLS.goalieDetails
+      : DATA_URLS.playerDetails;
+
+
+  const data =
+    await loadObjectCsv(url);
+
+
+  if (type === "goalie") {
+    state.goalieDetails = data;
+  } else {
+    state.skaterDetails = data;
+  }
+
+
+  return data;
+}
+
+
+function findDetailRecord(
+  dataset,
+  player
+) {
+  const candidates =
+    dataset.filter(record =>
+      normalize(getValue(record, "Jméno")) ===
+        normalize(player.jmeno) &&
+
+      normalize(getValue(record, "Příjmení")) ===
+        normalize(player.prijmeni)
+    );
+
+
+  if (!candidates.length) {
+    return null;
+  }
+
+
+  if (candidates.length === 1) {
+    return candidates[0];
+  }
+
+
+  const wantedTeam =
+    getTeamCode(player.tym);
+
+
+  return (
+    candidates.find(record =>
+      getTeamCode(
+        getValue(record, "Tým")
+      ) === wantedTeam
+    ) ||
+    candidates[0]
+  );
+}
+
+
+async function openPlayer(player) {
+  if (!player) {
+    return;
+  }
+
+  state.selectedPlayer = player;
+
+  navigate("playerDetail");
+
+  const container =
+    document.getElementById(
+      "detailHraceObsah"
+    );
+
+  if (container) {
+    container.innerHTML = `
+      <div class="loading-card">
+        Načítám profil...
+      </div>
+    `;
+  }
+
+
+  try {
+    await renderPlayerDetail(player);
+  } catch (error) {
+    console.error(error);
+
+    if (container) {
+      container.innerHTML =
+        errorHtml(error.message);
+    }
+  }
+}
+
+
+async function openPlayerByName(
+  firstName,
+  surname
+) {
+  const basePlayer =
+    state.players.find(player =>
+      normalize(player.jmeno) ===
+        normalize(firstName) &&
+
+      normalize(player.prijmeni) ===
+        normalize(surname)
+    );
+
+
+  if (basePlayer) {
+    await openPlayer(basePlayer);
+    return;
+  }
+
+
+  const [
+    skaters,
+    goalies
+  ] =
+    await Promise.all([
+      loadDetailData("skater"),
+      loadDetailData("goalie")
+    ]);
+
+
+  const skater =
+    skaters.find(record =>
+      normalize(getValue(record, "Jméno")) ===
+        normalize(firstName) &&
+
+      normalize(getValue(record, "Příjmení")) ===
+        normalize(surname)
+    );
+
+
+  const goalie =
+    goalies.find(record =>
+      normalize(getValue(record, "Jméno")) ===
+        normalize(firstName) &&
+
+      normalize(getValue(record, "Příjmení")) ===
+        normalize(surname)
+    );
+
+
+  const detail =
+    skater || goalie;
+
+
+  if (!detail) {
+    alert(
+      "Profil tohoto hráče zatím není v databázi."
+    );
+
+    return;
+  }
+
+
+  const isGoalie =
+    Boolean(goalie);
+
+
+  const player = {
+    jmeno:
+      getValue(detail, "Jméno") ||
+      firstName,
+
+    prijmeni:
+      getValue(detail, "Příjmení") ||
+      surname,
+
+    smlouva:
+      getValue(detail, "Smlouva"),
+
+    pozice:
+      isGoalie
+        ? "Brankář"
+        : getValue(detail, "Pozice"),
+
+    tym:
+      getValue(detail, "Tým"),
+
+    vek:
+      getValue(detail, "Věk"),
+
+    drzeni:
+      getValue(detail, "Držení hole"),
+
+    narodnost:
+      getValue(detail, "Národnost"),
+
+    foto:
+      getValue(detail, "Foto"),
+
+    zdroj: "",
+
+    __detailType:
+      isGoalie
+        ? "goalie"
+        : "skater"
+  };
+
+
+  await openPlayer(player);
+}
+
+
+function hiddenPlayerFields() {
+  return new Set(
+    [
+      "foto",
+      "jmeno",
+      "prijmeni",
+      "smlouva",
+      "pozice",
+      "tym",
+      "vek",
+      "drzeni hole",
+      "narodnost",
+      "vyska (cm)",
+      "vaha (kg)",
+      "profil hrace"
+    ].map(normalize)
+  );
+}
+
+
+function playerStatType(
+  key,
+  value
+) {
+  const normalizedKey =
+    normalize(key);
+
+  const number =
+    toNumber(value);
+
+
+  if (
+    [
+      "body",
+      "goly",
+      "góly"
+    ]
+      .map(normalize)
+      .includes(normalizedKey)
+  ) {
+    return "stat-star";
+  }
+
+
+  if (
+    normalizedKey.includes(
+      normalize("času na ledě")
+    )
+  ) {
+    return "stat-toi";
+  }
+
+
+  if (
+    normalizedKey === normalize("hity") ||
+    normalizedKey === normalize("bloky")
+  ) {
+    return "stat-physical";
+  }
+
+
+  if (Number.isFinite(number)) {
+    if (
+      normalizedKey.includes(
+        normalize("body na zápas")
+      ) &&
+      number >= 0.7
+    ) {
+      return "stat-elite";
+    }
+
+
+    if (
+      normalizedKey.includes(
+        normalize("úspěšnost střelby")
+      ) &&
+      number >= 12
+    ) {
+      return "stat-elite";
+    }
+
+
+    if (
+      normalizedKey.includes("+/-") &&
+      number < 0
+    ) {
+      return "stat-bad";
+    }
+  }
+
+
+  return "";
+}
+
+
+function statSupportsProgress(
+  key,
+  type
+) {
+  const normalizedKey =
+    normalize(key);
+
+
+  const goalieStats = [
+    "odchytane zapasy",
+    "odchytane minuty",
+    "vyhry",
+    "% zakroku",
+    "uspesnost zakroku",
+    "cista konta",
+    "zakroky",
+    "strel proti",
+    "prumer strel na zapas",
+    "prumer obdrzenych branek"
+  ];
+
+
+  const playerStats = [
+    "body",
+    "goly",
+    "asistence",
+    "hity",
+    "bloky",
+    "body na zapas",
+    "uspesnost strelby",
+    "uspesnost vhazovani"
+  ];
+
+
+  const list =
+    type === "goalie"
+      ? goalieStats
+      : playerStats;
+
+
+  return list.some(item =>
+    normalizedKey.includes(
+      normalize(item)
+    )
+  );
+}
+
+
+function statProgress(
+  dataset,
+  key,
+  value,
+  type
+) {
+  if (
+    !statSupportsProgress(
+      key,
+      type
+    )
+  ) {
+    return 0;
+  }
+
+
+  const current =
+    toNumber(value);
+
+  if (!Number.isFinite(current)) {
+    return 0;
+  }
+
+
+  const values =
+    dataset
+      .map(record =>
+        toNumber(
+          getValue(record, key)
+        )
+      )
+      .filter(Number.isFinite);
+
+
+  if (!values.length) {
+    return 0;
+  }
+
+
+  const normalizedKey =
+    normalize(key);
+
+
+  if (
+    normalizedKey.includes(
+      normalize(
+        "průměr obdržených branek"
+      )
+    )
+  ) {
+    const positives =
+      values.filter(
+        number => number > 0
+      );
+
+
+    if (
+      !positives.length ||
+      current <= 0
+    ) {
+      return 0;
+    }
+
+
+    const best =
+      Math.min(...positives);
+
+
+    return Math.min(
+      100,
+      (best / current) * 100
+    );
+  }
+
+
+  const maximum =
+    Math.max(...values);
+
+
+  if (maximum <= 0) {
+    return 0;
+  }
+
+
+  return Math.min(
+    100,
+    (current / maximum) * 100
+  );
+}
+
+
+function formatStatValue(
+  key,
+  value
+) {
+  const text =
+    cleanCell(value);
+
+
+  if (
+    key.includes("%") &&
+    !text.includes("%")
+  ) {
+    return `${text} %`;
+  }
+
+
+  return text;
+}
+
+
+async function renderPlayerDetail(player) {
+  const type =
+    player.__detailType ||
+    (
+      isGoaliePosition(
+        player.pozice
+      )
+        ? "goalie"
+        : "skater"
+    );
+
+
+  const dataset =
+    await loadDetailData(type);
+
+
+  const detail =
+    findDetailRecord(
+      dataset,
+      player
+    );
+
+
+  const team =
+    getTeam(
+      getValue(detail, "Tým") ||
+      player.tym
+    );
+
+
+  const teamCode =
+    team?.code ||
+    getTeamCode(player.tym);
+
+
+  const teamName =
+    team?.name ||
+    getTeamName(player.tym) ||
+    "-";
+
+
+  const firstName =
+    getValue(detail, "Jméno") ||
+    player.jmeno;
+
+
+  const surname =
+    getValue(detail, "Příjmení") ||
+    player.prijmeni;
+
+
+  const position =
+    type === "goalie"
+      ? "Brankář"
+      : (
+          getValue(
+            detail,
+            "Pozice"
+          ) ||
+          player.pozice ||
+          "-"
+        );
+
+
+  const age =
+    getValue(detail, "Věk") ||
+    player.vek ||
+    "-";
+
+
+  const height =
+    getValue(
+      detail,
+      "Výška (cm)"
+    ) || "-";
+
+
+  const weight =
+    getValue(
+      detail,
+      "Váha (kg)"
+    ) || "-";
+
+
+  const stick =
+    getValue(
+      detail,
+      "Držení hole"
+    ) ||
+    player.drzeni ||
+    "-";
+
+
+  const nationality =
+    getValue(
+      detail,
+      "Národnost"
+    ) ||
+    player.narodnost ||
+    "-";
+
+
+  const contract =
+    getValue(
+      detail,
+      "Smlouva"
+    ) ||
+    player.smlouva ||
+    "-";
+
+
+  const photo =
+    getValue(
+      detail,
+      "Foto"
+    ) ||
+    player.foto ||
+    "";
+
+
+  const profileText =
+    getValue(
+      detail,
+      "Profil Hráče"
+    );
+
+
+  const hidden =
+    hiddenPlayerFields();
+
+
+  let statsHtml = "";
+
+
+  if (detail) {
+    Object.keys(detail)
+      .forEach(key => {
+        if (
+          hidden.has(
+            normalize(key)
+          )
+        ) {
+          return;
+        }
+
+
+        const value =
+          getValue(
+            detail,
+            key
+          );
+
+
+        if (!value) {
+          return;
+        }
+
+
+        const progress =
+          statProgress(
+            dataset,
+            key,
+            value,
+            type
+          );
+
+
+        statsHtml += `
+          <article
+            class="
+              stat
+              ${playerStatType(key, value)}
+            "
+          >
+            <span>
+              ${escapeHtml(key)}
+            </span>
+
+            <strong>
+              ${escapeHtml(
+                formatStatValue(
+                  key,
+                  value
+                )
+              )}
+            </strong>
+
+            ${
+              progress > 0
+                ? `
+                  <div
+                    class="progress"
+                    aria-hidden="true"
+                  >
+                    <div
+                      class="progress-fill"
+                      style="width:${progress.toFixed(1)}%"
+                    ></div>
+                  </div>
+                `
+                : ""
+            }
+          </article>
+        `;
+      });
+  }
+
+
+  if (!statsHtml) {
+    statsHtml = `
+      <div class="empty-state">
+        Statistiky hráče zatím nejsou k dispozici.
+      </div>
+    `;
+  }
+
+
+  const title =
+    document.getElementById(
+      "detailHraceTitle"
+    );
+
+
+  const kicker =
+    document.getElementById(
+      "detailHraceKicker"
+    );
+
+
+  if (title) {
+    title.textContent =
+      `${firstName} ${surname}`;
+  }
+
+
+  if (kicker) {
+    kicker.textContent =
+      type === "goalie"
+        ? "Profil brankáře"
+        : "Profil hráče";
+  }
+
+
+  const container =
+    document.getElementById(
+      "detailHraceObsah"
+    );
+
+
+  if (!container) {
+    return;
+  }
+
+
+  container.innerHTML = `
+    <main class="player-page">
+
+      <section class="player-hero">
+
+        <div class="foto-wrapper player-photo-wrapper">
+
+          ${
+            photo
+              ? `
+                <img
+                  src="${escapeHtml(photo)}"
+                  alt="Foto ${escapeHtml(
+                    `${firstName} ${surname}`
+                  )}"
+                  class="foto-hrace"
+                  data-hide-on-error
+                >
+              `
+              : `
+                <div class="player-photo-placeholder">
+                  <span>
+                    ${escapeHtml(
+                      firstName.charAt(0)
+                    )}
+                    ${escapeHtml(
+                      surname.charAt(0)
+                    )}
+                  </span>
+                </div>
+              `
           }
 
-          const vyska = detail
-            ? detail["Výška (cm)"] || "-"
-            : "-";
-
-          const vaha = detail
-            ? detail["Váha (kg)"] || "-"
-            : "-";
-
-          const detailOkno = window.open("", "_blank");
-
-          if (!detailOkno) {
-            alert(
-              "Prohlížeč zablokoval otevření detailu hráče."
-            );
-            return;
+          ${
+            player.zdroj
+              ? `
+                <div class="foto-zdroj">
+                  © Fotka:
+                  ${escapeHtml(player.zdroj)}
+                </div>
+              `
+              : ""
           }
 
-          detailOkno.document.write(\`
-<!DOCTYPE html>
-<html lang="cs">
-<head>
-  <meta charset="UTF-8">
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+        </div>
 
-  <title>\${h.jmeno} \${h.prijmeni}</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+        <div class="player-info">
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      padding: 40px;
+          <span class="profile-type">
+            ${
+              type === "goalie"
+                ? "BRANKÁŘ"
+                : "HRÁČ"
+            }
+          </span>
 
-      background:
-        linear-gradient(
-          90deg,
-          rgba(160, 0, 0, 0.75),
-          rgba(0, 17, 71, 0.92)
-        ),
-        #001147;
 
-      color: white;
-      font-family: "Segoe UI", Tahoma, sans-serif;
-    }
+          <h2 class="player-name">
+            ${escapeHtml(firstName)}
+            ${escapeHtml(surname)}
+          </h2>
 
-    .player-page {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
 
-    .player-hero {
-      display: grid;
-      grid-template-columns: 360px minmax(0, 1fr);
-      gap: 35px;
+          <div class="team-line">
 
-      padding: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 22px;
+            ${
+              teamCode
+                ? `
+                  <button
+                    type="button"
+                    class="player-team-link"
+                    data-team-code="${escapeHtml(teamCode)}"
+                  >
+                    <img
+                      src="${escapeHtml(
+                        logoUrl(teamCode)
+                      )}"
+                      alt=""
+                      class="tym-logo"
+                      data-hide-on-error
+                    >
 
-      background: rgba(255, 255, 255, 0.08);
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
-    }
+                    <span>
+                      ${escapeHtml(teamName)}
+                    </span>
+                  </button>
+                `
+                : `
+                  <span>
+                    ${escapeHtml(teamName)}
+                  </span>
+                `
+            }
 
-    .foto-hrace {
-      width: 100%;
-      height: 420px;
+          </div>
 
-      object-fit: cover;
-      object-position: top center;
 
-      border-radius: 18px;
-    }
+          <div class="info-grid">
 
-    .player-name {
-      margin: 0 0 18px;
+            <div class="info-box">
+              <span>Pozice</span>
+              <strong>
+                ${escapeHtml(position)}
+              </strong>
+            </div>
 
-      font-size: clamp(34px, 5vw, 48px);
-      line-height: 1;
-      text-transform: uppercase;
-    }
+            <div class="info-box">
+              <span>Věk</span>
+              <strong>
+                ${escapeHtml(age)}
+              </strong>
+            </div>
 
-    .team-line {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+            <div class="info-box">
+              <span>Výška</span>
+              <strong>
+                ${
+                  height === "-"
+                    ? "-"
+                    : `${escapeHtml(height)} cm`
+                }
+              </strong>
+            </div>
 
-      margin-bottom: 25px;
+            <div class="info-box">
+              <span>Váha</span>
+              <strong>
+                ${
+                  weight === "-"
+                    ? "-"
+                    : `${escapeHtml(weight)} kg`
+                }
+              </strong>
+            </div>
 
-      font-size: 20px;
-      font-weight: 800;
-    }
+            <div class="info-box">
+              <span>Držení hole</span>
+              <strong>
+                ${escapeHtml(stick)}
+              </strong>
+            </div>
 
-    .tym-logo {
-      height: 36px;
-    }
+            <div class="info-box">
+              <span>Národnost</span>
+              <strong>
+                ${escapeHtml(nationality)}
+              </strong>
+            </div>
 
-    .info-grid,
-    .stat-box {
-      display: grid;
-      grid-template-columns:
-        repeat(auto-fit, minmax(210px, 1fr));
-      gap: 12px;
-    }
+            <div class="info-box">
+              <span>Smlouva</span>
+              <strong>
+                ${escapeHtml(contract)}
+              </strong>
+            </div>
 
-    .info-box,
-    .stat {
-      min-width: 0;
+          </div>
 
-      padding: 14px 16px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 14px;
+        </div>
+      </section>
 
-      background: rgba(255, 255, 255, 0.08);
-    }
 
-    .info-box span,
-    .stat span {
-      display: block;
-      margin-bottom: 6px;
+      ${
+        profileText
+          ? `
+            <section class="profile-note">
+              <span>Profil hráče</span>
 
-      color: rgba(255, 255, 255, 0.55);
-      font-size: 12px;
-      font-weight: 800;
-      text-transform: uppercase;
-    }
-
-    .info-box strong,
-    .stat strong {
-      color: white;
-      font-size: 20px;
-    }
-
-    .section-title {
-      margin: 38px 0 18px;
-
-      font-size: 28px;
-      text-transform: uppercase;
-    }
-
-    @media (max-width: 800px) {
-      body {
-        padding: 18px;
+              <p>
+                ${escapeHtml(profileText)}
+              </p>
+            </section>
+          `
+          : ""
       }
 
-      .player-hero {
-        grid-template-columns: 1fr;
-      }
 
-      .foto-hrace {
-        max-width: 420px;
-        margin: 0 auto;
-      }
-    }
+      <h2 class="section-title">
+        ${
+          type === "goalie"
+            ? "Statistiky brankáře"
+            : "Statistiky hráče"
+        }
+      </h2>
 
-    @media (max-width: 520px) {
-      body {
-        padding: 12px;
-      }
 
-      .player-hero {
-        padding: 16px;
-      }
+      <section class="stat-box">
+        ${statsHtml}
+      </section>
 
-      .foto-hrace {
-        height: 360px;
-      }
+    </main>
+  `;
+}
 
-      .info-grid,
-      .stat-box {
-        grid-template-columns: 1fr;
-      }
 
-      .team-line {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-    }
-  </style>
-</head>
+/* =========================================================
+   KLUBY
+========================================================= */
 
-<body>
-  <main class="player-page">
-    <section class="player-hero">
-      <img
-        src="\${h.foto || ""}"
-        class="foto-hrace"
-        alt="\${h.jmeno} \${h.prijmeni}"
-        onerror="this.style.display='none'"
-      >
+async function loadClubs() {
+  state.clubs =
+    await loadObjectCsv(
+      DATA_URLS.clubs
+    );
+}
 
-      <div>
-        <h1 class="player-name">
-          \${h.jmeno} \${h.prijmeni}
-        </h1>
 
-        <div class="team-line">
-          <span>\${plnyNazev}</span>
+function renderClubs() {
+  const container =
+    document.getElementById(
+      "seznam-klubu"
+    );
 
+
+  if (!container) {
+    return;
+  }
+
+
+  container.innerHTML =
+    TEAMS
+      .map(team => `
+        <button
+          type="button"
+          class="klub-karta"
+          data-team-code="${escapeHtml(team.code)}"
+        >
           <img
-            src="\${logoUrl}"
-            class="tym-logo"
-            alt="\${plnyNazev}"
-            onerror="this.style.display='none'"
+            src="${escapeHtml(
+              logoUrl(team.code)
+            )}"
+            alt="${escapeHtml(team.name)}"
+            loading="lazy"
+            data-hide-on-error
+          >
+
+          <h2>
+            ${escapeHtml(team.name)}
+          </h2>
+
+          <span>
+            ${escapeHtml(team.code)}
+          </span>
+        </button>
+      `)
+      .join("");
+}
+
+
+function findClubRecord(code) {
+  return state.clubs.find(record => {
+    const value =
+      getValue(
+        record,
+        "NÁZEV TÝMU"
+      );
+
+    return (
+      getTeamCode(value) === code ||
+      normalize(value) ===
+        normalize(code)
+    );
+  });
+}
+
+
+function topTeamPlayer(
+  details,
+  teamCode,
+  statistic
+) {
+  return [...details]
+    .filter(record =>
+      getTeamCode(
+        getValue(record, "Tým")
+      ) === teamCode &&
+      getValue(record, "Jméno") &&
+      getValue(record, "Příjmení")
+    )
+    .sort(
+      (a, b) =>
+        (
+          toNumber(
+            getValue(
+              b,
+              statistic
+            )
+          ) || 0
+        ) -
+        (
+          toNumber(
+            getValue(
+              a,
+              statistic
+            )
+          ) || 0
+        )
+    )[0];
+}
+
+
+function topPlayerText(
+  player,
+  statistic
+) {
+  if (!player) {
+    return "-";
+  }
+
+
+  return `
+    ${escapeHtml(
+      getValue(
+        player,
+        "Jméno"
+      )
+    )}
+    ${escapeHtml(
+      getValue(
+        player,
+        "Příjmení"
+      )
+    )}
+    <small>
+      ${escapeHtml(
+        getValue(
+          player,
+          statistic
+        ) || "0"
+      )}
+    </small>
+  `;
+}
+
+
+async function openClub(value) {
+  const code =
+    getTeamCode(value);
+
+  if (!getTeam(code)) {
+    return;
+  }
+
+
+  state.selectedClub =
+    code;
+
+  navigate("clubDetail");
+
+
+  const container =
+    document.getElementById(
+      "detailKlubuObsah"
+    );
+
+
+  if (container) {
+    container.innerHTML = `
+      <div class="loading-card">
+        Načítám klub...
+      </div>
+    `;
+  }
+
+
+  try {
+    if (!state.clubs.length) {
+      await loadClubs();
+    }
+
+
+    if (!state.players.length) {
+      await loadPlayers();
+    }
+
+
+    await renderClubDetail(code);
+  } catch (error) {
+    console.error(error);
+
+    if (container) {
+      container.innerHTML =
+        errorHtml(error.message);
+    }
+  }
+}
+
+
+async function renderClubDetail(code) {
+  const club =
+    findClubRecord(code);
+
+
+  const team =
+    getTeam(code);
+
+
+  if (!club || !team) {
+    throw new Error(
+      "Klub nebyl nalezen v kluby.csv."
+    );
+  }
+
+
+  const details =
+    await loadDetailData("skater");
+
+
+  const roster =
+    state.players
+      .filter(player =>
+        getTeamCode(player.tym) === code
+      )
+      .sort((a, b) =>
+        collator.compare(
+          a.prijmeni,
+          b.prijmeni
+        )
+      );
+
+
+  const topPoints =
+    topTeamPlayer(
+      details,
+      code,
+      "Body"
+    );
+
+
+  const topGoals =
+    topTeamPlayer(
+      details,
+      code,
+      "Goly"
+    );
+
+
+  const topAssists =
+    topTeamPlayer(
+      details,
+      code,
+      "Asistence"
+    );
+
+
+  const seasonPairs = [
+    "2025/26",
+    "2024/25",
+    "2023/24",
+    "2022/23",
+    "2021/22",
+    "2020/21"
+  ];
+
+
+  const resultsHtml =
+    seasonPairs
+      .map(season => `
+        <article class="result-card">
+          <span>${season} ZČ</span>
+          <strong>
+            ${escapeHtml(
+              getValue(
+                club,
+                `${season} ZČ`
+              ) || "-"
+            )}
+          </strong>
+        </article>
+
+        <article class="result-card">
+          <span>${season} Playoff</span>
+          <strong>
+            ${escapeHtml(
+              getValue(
+                club,
+                `${season} PLAYOFF`
+              ) || "-"
+            )}
+          </strong>
+        </article>
+      `)
+      .join("");
+
+
+  const rosterHtml =
+    roster.length
+      ? roster
+          .map(player => `
+            <button
+              type="button"
+              class="player-card"
+              data-player-key="${escapeHtml(
+                playerKey(player)
+              )}"
+            >
+              <strong>
+                ${escapeHtml(player.jmeno)}
+                ${escapeHtml(player.prijmeni)}
+              </strong>
+
+              <span>
+                ${escapeHtml(
+                  player.pozice || "-"
+                )}
+              </span>
+
+              <dl>
+                <div>
+                  <dt>Věk</dt>
+                  <dd>
+                    ${escapeHtml(
+                      player.vek || "-"
+                    )}
+                  </dd>
+                </div>
+
+                <div>
+                  <dt>Národnost</dt>
+                  <dd>
+                    ${escapeHtml(
+                      player.narodnost || "-"
+                    )}
+                  </dd>
+                </div>
+
+                <div>
+                  <dt>Smlouva</dt>
+                  <dd>
+                    ${escapeHtml(
+                      player.smlouva || "-"
+                    )}
+                  </dd>
+                </div>
+              </dl>
+            </button>
+          `)
+          .join("")
+      : `
+          <div class="empty-state">
+            Soupiska nebyla nalezena.
+          </div>
+        `;
+
+
+  const container =
+    document.getElementById(
+      "detailKlubuObsah"
+    );
+
+
+  if (!container) {
+    return;
+  }
+
+
+  container.innerHTML = `
+    <main class="club-page">
+
+      <section class="club-hero">
+
+        <div class="club-logo-box">
+          <img
+            src="${escapeHtml(
+              logoUrl(code)
+            )}"
+            alt="${escapeHtml(team.name)}"
+            class="club-logo"
+            data-hide-on-error
           >
         </div>
 
-        <div class="info-grid">
-          <div class="info-box">
-            <span>Pozice</span>
-            <strong>\${h.pozice || "-"}</strong>
-          </div>
 
-          <div class="info-box">
-            <span>Věk</span>
-            <strong>\${h.vek || "-"}</strong>
-          </div>
+        <div>
+          <span class="club-code">
+            ${escapeHtml(code)}
+          </span>
 
-          <div class="info-box">
-            <span>Výška</span>
-            <strong>\${vyska} cm</strong>
-          </div>
+          <h2 class="club-title">
+            ${escapeHtml(team.name)}
+          </h2>
 
-          <div class="info-box">
-            <span>Váha</span>
-            <strong>\${vaha} kg</strong>
-          </div>
-
-          <div class="info-box">
-            <span>Držení hole</span>
-            <strong>\${h.drzeni || "-"}</strong>
-          </div>
-
-          <div class="info-box">
-            <span>Národnost</span>
-            <strong>\${h.narodnost || "-"}</strong>
-          </div>
-
-          <div class="info-box">
-            <span>Smlouva</span>
-            <strong>\${h.smlouva || "-"}</strong>
+          <div class="club-sub">
+            ${
+              escapeHtml(
+                getValue(
+                  club,
+                  "NÁZEV STADIONU"
+                ) || "Tipsport extraliga"
+              )
+            }
           </div>
         </div>
+
+      </section>
+
+
+      <div class="info-grid club-info-grid">
+
+        <article class="info-card">
+          <span>Rok založení</span>
+          <strong>
+            ${escapeHtml(
+              getValue(
+                club,
+                "ROK ZALOŽENÍ"
+              ) || "-"
+            )}
+          </strong>
+        </article>
+
+
+        <article class="info-card">
+          <span>Počet titulů</span>
+          <strong>
+            ${escapeHtml(
+              getValue(
+                club,
+                "POČET TITULŮ"
+              ) || "-"
+            )}
+          </strong>
+        </article>
+
+
+        <article class="info-card">
+          <span>Hlavní trenér</span>
+          <strong>
+            ${escapeHtml(
+              getValue(
+                club,
+                "HLAVNÍ TRENÉR"
+              ) || "-"
+            )}
+          </strong>
+        </article>
+
+
+        <article class="info-card">
+          <span>Poslední titul</span>
+          <strong>
+            ${escapeHtml(
+              getValue(
+                club,
+                "POSLEDNÍ TITUL"
+              ) || "-"
+            )}
+          </strong>
+        </article>
+
+
+        <article class="info-card">
+          <span>Stadion</span>
+          <strong>
+            ${escapeHtml(
+              getValue(
+                club,
+                "NÁZEV STADIONU"
+              ) || "-"
+            )}
+          </strong>
+        </article>
+
+
+        <article class="info-card">
+          <span>Kapacita</span>
+          <strong>
+            ${escapeHtml(
+              getValue(
+                club,
+                "KAPACITA"
+              ) || "-"
+            )}
+          </strong>
+        </article>
+
+
+        <article class="info-card">
+          <span>Průměrná návštěvnost</span>
+          <strong>
+            ${escapeHtml(
+              getValue(
+                club,
+                "PRŮMĚRNÁ NÁVŠTĚVNOST"
+              ) || "-"
+            )}
+          </strong>
+        </article>
+
+
+        <article class="info-card">
+          <span>Zaplněnost</span>
+          <strong>
+            ${escapeHtml(
+              getValue(
+                club,
+                "% ZAPLNĚNOST"
+              ) || "-"
+            )}
+          </strong>
+        </article>
+
+
+        <article class="info-card">
+          <span>Průměrný věk</span>
+          <strong>
+            ${escapeHtml(
+              getValue(
+                club,
+                "Průměrný věk"
+              ) || "-"
+            )}
+          </strong>
+        </article>
+
       </div>
-    </section>
-
-    <h2 class="section-title">
-      Statistiky hráče
-    </h2>
-
-    <section class="stat-box">
-      \${statsHtml}
-    </section>
-  </main>
-</body>
-</html>
-          \`);
-
-          detailOkno.document.close();
-        }
-      });
-    }
-  <\/script>
-</body>
-</html>
-      `);
-
-      okno.document.close();
-    },
-
-    error: function (error) {
-      console.error(
-        "Nepodařilo se načíst detailní statistiky klubu:",
-        error
-      );
-
-      alert(
-        "Nepodařilo se načíst detailní statistiky hráčů."
-      );
-    }
-  });
-}
-async function otevriKlubNovy(zkratka) {
-  const nazevPodleZkratky = nazvyTymu[zkratka] || zkratka;
-
-  const detailSekce = document.getElementById("strankaDetailKlubu");
-  const detailObsah = document.getElementById("detailKlubuObsah");
-
-  const gameMenu = document.querySelector(".game-menu");
-  const sekceKluby = document.getElementById("kluby");
-  const strankaHraci = document.getElementById("strankaHraci");
-  const strankaTabulka = document.getElementById("strankaTabulka");
-  const strankaPrestupy = document.getElementById("strankaPrestupy");
-
-  if (!detailSekce || !detailObsah) return;
-
-  if (gameMenu) gameMenu.style.display = "none";
-  if (sekceKluby) sekceKluby.style.display = "none";
-  if (strankaHraci) strankaHraci.style.display = "none";
-  if (strankaTabulka) strankaTabulka.style.display = "none";
-  if (strankaPrestupy) strankaPrestupy.style.display = "none";
-
-  detailSekce.style.display = "block";
-  if (hraciData.length === 0) {
-  await nactiData();
-}
-
-function cislo(hodnota) {
-  return parseFloat(String(hodnota || "0").replace(",", "."));
-}
-
-const hraciTymu = hraciData.filter(h => {
-  const tymHrace = h.tym;
-  const zkratkaHrace = zkratkyTymu[tymHrace] || tymHrace;
-  const plnyNazevHrace = nazvyTymu[tymHrace] || tymHrace;
-
-  return (
-    normalizujGlobal(tymHrace) === normalizujGlobal(zkratka) ||
-    normalizujGlobal(tymHrace) === normalizujGlobal(nazevPodleZkratky) ||
-    normalizujGlobal(zkratkaHrace) === normalizujGlobal(zkratka) ||
-    normalizujGlobal(plnyNazevHrace) === normalizujGlobal(nazevPodleZkratky)
-  );
-});
-console.log("DETAIL KLUBU:", zkratka, nazevPodleZkratky);
-console.log("POČET HRÁČŮ CELKEM:", hraciData.length);
-console.log("HRÁČI TÝMU:", hraciTymu);
-console.log("UKÁZKA TÝMŮ V HRACIDATA:", [...new Set(hraciData.map(h => h.tym))]);
-const detailData = await new Promise(resolve => {
-  Papa.parse("https://raw.githubusercontent.com/Adamos1511/ELH_web/main/hraci_detail.csv", {
-    download: true,
-    header: true,
-    delimiter: ";",
-    skipEmptyLines: true,
-    complete: function(results) {
-      resolve(results.data);
-    }
-  });
-});
-
-const detailHraciTymu = detailData.filter(d =>
-  normalizujGlobal(d["Tým"]) === normalizujGlobal(zkratka) ||
-  normalizujGlobal(d["Tým"]) === normalizujGlobal(nazevPodleZkratky)
-);
-
-function topHrac(sloupec) {
-  return detailHraciTymu
-    .filter(h => h["Jméno"] && h["Příjmení"])
-    .sort((a, b) => cislo(b[sloupec]) - cislo(a[sloupec]))[0];
-}
-
-function topText(hrac, sloupec) {
-  if (!hrac) return "-";
-  return `${hrac["Jméno"]} ${hrac["Příjmení"]} (${hrac[sloupec] || 0})`;
-}
-
-const topBody = topHrac("Body");
-const topGoly = topHrac("Goly");
-const topAsistence = topHrac("Asistence");
-  detailObsah.innerHTML = `<p>Načítám klub ${zkratka}...</p>`;
-
-  window.scrollTo(0, 0);
-  if (dataKluby.length === 0) {
-  await new Promise(resolve => {
-    const cekej = setInterval(() => {
-      if (dataKluby.length > 0) {
-        clearInterval(cekej);
-        resolve();
-      }
-    }, 100);
-  });
-}
 
 
-const klub = dataKluby.find(k =>
-  normalizujGlobal(k["NÁZEV TÝMU"]) === normalizujGlobal(zkratka) ||
-  normalizujGlobal(k["NÁZEV TÝMU"]) === normalizujGlobal(nazevPodleZkratky)
-);
+      <h2 class="section-title">
+        TOP hráči týmu
+      </h2>
 
-if (!klub) {
-  detailObsah.innerHTML = `<p>Klub nebyl nalezen.</p>`;
-  return;
-}
 
-const logo = `https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/${zkratka}.png`;
+      <div class="top-players-grid">
 
-detailObsah.innerHTML = `
-  <div class="club-page">
+        <article class="top-player-card">
+          <span>Nejvíce bodů</span>
+          <strong>
+            ${topPlayerText(
+              topPoints,
+              "Body"
+            )}
+          </strong>
+        </article>
 
-    <section class="club-hero">
-      <img src="${logo}" alt="${nazevPodleZkratky}" class="club-logo">
 
-      <div>
-        <h1 class="club-title">${nazevPodleZkratky}</h1>
-        <div class="club-sub">${klub["NÁZEV STADIONU"] || "Stadion neuveden"}</div>
+        <article class="top-player-card">
+          <span>Nejvíce gólů</span>
+          <strong>
+            ${topPlayerText(
+              topGoals,
+              "Goly"
+            )}
+          </strong>
+        </article>
 
-        <div class="info-grid">
-          <div class="info-card"><span>Rok založení</span><strong>${klub["ROK ZALOŽENÍ"] || "-"}</strong></div>
-          <div class="info-card"><span>Počet titulů</span><strong>${klub["POČET TITULŮ"] || "-"}</strong></div>
-          <div class="info-card"><span>Poslední titul</span><strong>${klub["POSLEDNÍ TITUL"] || "-"}</strong></div>
-          <div class="info-card"><span>Hlavní trenér</span><strong>${klub["HLAVNÍ TRENÉR"] || "-"}</strong></div>
-          <div class="info-card"><span>Průměrná návštěvnost</span><strong>${klub["PRŮMĚRNÁ NÁVŠTĚVNOST"] || "-"}</strong></div>
-          <div class="info-card"><span>Kapacita stadionu</span><strong>${klub["KAPACITA"] || "-"}</strong></div>
-          <div class="info-card"><span>Zaplněnost</span><strong>${klub["% ZAPLNĚNOST"] || "-"}</strong></div>
-        </div>
+
+        <article class="top-player-card">
+          <span>Nejvíce asistencí</span>
+          <strong>
+            ${topPlayerText(
+              topAssists,
+              "Asistence"
+            )}
+          </strong>
+        </article>
+
       </div>
-    </section>
-    <h2 class="section-title">Týmové průměry</h2>
 
-<div class="info-grid">
-  <div class="info-card"><span>Průměrný věk</span><strong>${klub["Průměrný věk"] || "-"} let</strong></div>
-  <div class="info-card"><span>Průměrná výška</span><strong>${klub["Průměrná výška"] || "-"} cm</strong></div>
-  <div class="info-card"><span>Průměrná váha</span><strong>${klub["Průměrná váha"] || "-"} kg</strong></div>
-</div>
-<h2 class="section-title">Výsledky umístění</h2>
 
-<div class="results-grid">
-  <div class="result-card"><span>2025/26 ZČ</span><strong>${klub["2025/26 ZČ"] || "-"}</strong></div>
-  <div class="result-card"><span>2025/26 Playoff</span><strong>${klub["2025/26 PLAYOFF"] || "-"}</strong></div>
-  <div class="result-card"><span>2024/25 ZČ</span><strong>${klub["2024/25 ZČ"] || "-"}</strong></div>
-  <div class="result-card"><span>2024/25 Playoff</span><strong>${klub["2024/25 PLAYOFF"] || "-"}</strong></div>
-  <div class="result-card"><span>2023/24 ZČ</span><strong>${klub["2023/24 ZČ"] || "-"}</strong></div>
-  <div class="result-card"><span>2023/24 Playoff</span><strong>${klub["2023/24 PLAYOFF"] || "-"}</strong></div>
-  <div class="result-card"><span>2022/23 ZČ</span><strong>${klub["2022/23 ZČ"] || "-"}</strong></div>
-  <div class="result-card"><span>2022/23 Playoff</span><strong>${klub["2022/23 PLAYOFF"] || "-"}</strong></div>
-  <div class="result-card"><span>2021/22 ZČ</span><strong>${klub["2021/22 ZČ"] || "-"}</strong></div>
-  <div class="result-card"><span>2021/22 Playoff</span><strong>${klub["2021/22 PLAYOFF"] || "-"}</strong></div>
-  <div class="result-card"><span>2020/21 ZČ</span><strong>${klub["2020/21 ZČ"] || "-"}</strong></div>
-  <div class="result-card"><span>2020/21 Playoff</span><strong>${klub["2020/21 PLAYOFF"] || "-"}</strong></div>
-</div>
-<h2 class="section-title">TOP hráči týmu</h2>
+      <h2 class="section-title">
+        Výsledky klubu
+      </h2>
 
-<div class="top-players-grid">
-  <div class="top-player-card">
-    <span>Nejvíce bodů</span>
-    <strong>${topText(topBody, "Body")}</strong>
-  </div>
+      <div class="club-results-grid">
+        ${resultsHtml}
+      </div>
 
-  <div class="top-player-card">
-    <span>Nejvíce gólů</span>
-    <strong>${topText(topGoly, "Goly")}</strong>
-  </div>
 
-  <div class="top-player-card">
-    <span>Nejvíce asistencí</span>
-    <strong>${topText(topAsistence, "Asistence")}</strong>
-  </div>
-</div>
-<h2 class="section-title">Soupiska týmu</h2>
+      <h2 class="section-title">
+        Soupiska týmu
+      </h2>
 
-<div class="roster-grid">
-  ${
-    hraciTymu.length
-      ? hraciTymu.map((h) => `
-        <div class="player-card" onclick="zobrazDetailNovy('${h.jmeno}', '${h.prijmeni}', '${h.tym}', '${h.pozice}', '${h.vek}', '${h.smlouva}', '${h.drzeni}', '${h.narodnost}', '${h.foto}', '${h.zdroj || ""}')">
-          <h3>${h.jmeno} ${h.prijmeni}</h3>
-          <p><b>Pozice:</b> ${h.pozice || "-"}</p>
-          <p><b>Věk:</b> ${h.vek || "-"}</p>
-          <p><b>Národnost:</b> ${h.narodnost || "-"}</p>
-          <p><b>Smlouva:</b> ${h.smlouva || "-"}</p>
-        </div>
-      `).join("")
-      : `<div class="info-card"><strong>Soupiska nebyla nalezena.</strong></div>`
-  }
-</div>
-  </div>
-`;
+      <div class="roster-grid">
+        ${rosterHtml}
+      </div>
 
-  // zatím fallback, dalším krokem ho odstraníme
-  // otevriKlubStare(zkratka);
+    </main>
+  `;
 }
 
-window.otevriKlubNovy = otevriKlubNovy;
-window.otevriKlubStare = otevriKlub;
-window.otevriKlub = otevriKlub;
-function zobrazDetailHrace(h) {
-  const csvUrl = "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/hraci_detail.csv";
 
-  // odstraníme diakritiku z příjmení kvůli názvům fotek
-  const prijmeniBezDiakritiky = h.prijmeni
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(" ", "_");
+/* =========================================================
+   PŘESTUPY
+========================================================= */
 
-  // fotka hráče
-  const fotoUrl = `https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/${prijmeniBezDiakritiky}.png`;
-
-  // mapa zkratek týmů -> plné názvy
-  const nazvyTymu = {
-    CBU: "Banes Motor České Budějovice",
-    PLZ: "HC Škoda Plzeň",
-    SPA: "HC Sparta Praha",
-    TRI: "HC Oceláři Třinec",
-    KOM: "HC Kometa Brno",
-    MBL: "BK Mladá Boleslav",
-    LIT: "HC Verva Litvínov",
-    KVA: "HC Energie Karlovy Vary",
-    OLO: "HC Olomouc",
-    LIB: "Bílí Tygři Liberec",
-    HRA: "Mountfield HK",
-    PCE: "HC Dynamo Pardubice",
-    KLA: "Rytíři Kladno"
-  };
-
-  const plnyNazev = nazvyTymu[h.tym] || h.tym;
-  const logoUrl = `https://raw.githubusercontent.com/Adamos1511/ELH_web/main/loga_tymu/${h.tym}.png`;
-
-  // otevře novou kartu
-  const okno = window.open("", "_blank");
-
-okno.document.write(`
-    <html lang="cs">
-      <head>
-        <meta charset="UTF-8">
-        <title>${h.jmeno} ${h.prijmeni}</title>
-        <link rel="stylesheet" href="style.css">
-        <style>
-          body {
-            background: linear-gradient(to bottom, #001147, #002b80);
-            color: white;
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            padding: 40px;
-            text-align: center;
-          }
-          .hrac-header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 25px;
-            margin-bottom: 30px;
-          }
-          .hrac-header img {
-            width: 180px;
-            height: auto;
-            border-radius: 12px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.4);
-          }
-          .info {
-            background: rgba(255,255,255,0.08);
-            padding: 20px 35px;
-            border-radius: 12px;
-            display: inline-block;
-            text-align: left;
-            margin-top: 20px;
-          }
-          .info p {
-            margin: 6px 0;
-            font-size: 16px;
-          }
-          table {
-            width: 90%;
-            margin: 40px auto 0 auto;
-            border-collapse: collapse;
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-            overflow: hidden;
-          }
-          th, td {
-            padding: 10px;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
-          }
-          th {
-            background: rgba(255,255,255,0.15);
-            text-transform: uppercase;
-          }
-          td {
-            font-size: 15px;
-          }
-          .tym-logo {
-            height: 22px;
-            vertical-align: middle;
-            margin-left: 8px;
-          }
-        </style>
-      </head>
-      <body>
-        <div class="hrac-header">
-          <img src="${fotoUrl}" alt="Foto ${h.jmeno} ${h.prijmeni}" onerror="this.style.display='none'">
-        </div>
-
-        <div class="info">
-          <p><b>Jméno:</b> ${h.jmeno} ${h.prijmeni}</p>
-          <p><b>Tým:</b> 
-            ${plnyNazev}
-            <img 
-  src="${logoUrl}" 
-  alt="Logo ${plnyNazev}" 
-  class="tym-logo" 
-  style="cursor:pointer;"
-  onclick="alert('Tým: ${zkratkaProKlik}')"
-  onerror="this.style.display='none'"
->
-          </p>
-          <p><b>Pozice:</b> ${h.pozice}</p>
-          <p><b>Věk:</b> ${h.vek}</p>
-          <p><b>Výška:</b> ${h["Výška (cm)"] || "-"} cm</p>
-          <p><b>Váha:</b> ${h["Váha (kg)"] || "-"} kg</p>
-          <p><b>Držení hole:</b> ${h["Držení hole"] || "-"}</p>
-          <p><b>Národnost:</b> ${h.narodnost}</p>
-          <p><b>Smlouva:</b> ${h.smlouva}</p>
-        </div>
-
-        <h2>Statistiky hráče</h2>
-        <div id="statistiky">Načítám data...</div>
-      <script>
-document.querySelector(".tym-logo").style.cursor = "pointer";
-
-document.querySelector(".tym-logo").addEventListener("click", function() {
-  window.opener.otevriKlub("${tym}");
-});
-
-document.querySelector(".team-line span").style.cursor = "pointer";
-
-document.querySelector(".team-line span").addEventListener("click", function() {
-  window.opener.otevriKlub("${tym}");
-});
-</script>
-
-</body>
-</html>
-`);
-
-  // načti statistiky z CSV
-Papa.parse("${csvUrl}", {
-  download: true,
-  header: true,
-  delimiter: ";",
-  skipEmptyLines: true,
-  complete: function (results) {
-    const data = results.data.filter(r =>
-      r["Jméno"] === h.jmeno && r["Příjmení"] === h.prijmeni
+async function loadTransfers() {
+  const rows =
+    await loadObjectCsv(
+      DATA_URLS.transfers
     );
 
-    if (data.length === 0) {
-      okno.document.getElementById("statistiky").innerHTML = "<p>Statistiky nenalezeny.</p>";
-      return;
-    }
 
-    const hrac = data[0];
-    function normalizeKey(text) {
-  return text
-    .toString()
-    .trim()
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
-}
+  state.transfers =
+    rows.filter(row =>
+      getValue(row, "JMÉNO") &&
+      getValue(row, "PŘÍJMENÍ")
+    );
 
-function getHodnota(obj, key) {
-  const hledanyKey = normalizeKey(key);
-  const realKey = Object.keys(obj).find(k => normalizeKey(k) === hledanyKey);
-  return realKey ? obj[realKey] : "";
-}
-    const statistiky = [
-      ["Jméno", "Jméno"],
-      ["Příjmení", "Příjmení"],
-      ["Smlouva", "Smlouva"],
-      ["Pozice", "Pozice"],
-      ["Tým", "Tým"],
-      ["Věk", "Věk"],
-      ["Držení hole", "Držení hole"],
-      ["Národnost", "Národnost"],
-      ["Výška", "Výška (cm)", " cm"],
-      ["Váha", "Váha (kg)", " kg"],
-      ["Odehrané zápasy", "Odehrané zápasy"],
-      ["Góly", "Goly"],
-      ["Asistence", "Asistence"],
-      ["Body", "Body"],
-      ["Ø času na ledě", "Ø Času na ledě"],
-      ["Body z přesilovek", "Body z přesilovek"],
-      ["+/-", "+/-"],
-      ["Trestné minuty", "Trestné minuty"],
-      ["Hity", "Hity"],
-      ["Bloky", "Bloky"],
-      ["Úspěšnost vhazování", "Úspěšnost vhazování %",],
-      ["Úspěšnost střelby", "Úspěšnost střelby %",],
-      ["Body na zápas", "Body na zápas"],
-      ["Hity na zápas", "Hity na zápas"],
-      ["Bloky na zápas", "Bloky na zápas"],
-      ["Pořadí podle bodů v týmu", "Pořadí podle bodu v tymu"],
-      ["Pořadí podle času na ledě", "Poradi prumerneho casu na lede"],
-      ["Podíl na ofenzivě týmu", "Podíl na ofenzivě týmu"],
-      ["Profil hráče", "Profil Hráče"],
-      ["TOI min", "TOI_min"],
-      ["Podíl num", "Podíl_num"],
-       ];
 
-    let html = "";
+  populateTransferFilters();
 
-    statistiky.forEach(stat => {
-      const label = stat[0];
-      const key = stat[1];
-      const suffix = stat[2] || "";
-      const hodnota = hrac[key];
+  renderTransfers();
 
-      html += `
-        <div class="stat">
-          <span>${label}</span>
-          <span>${hodnota ? hodnota + suffix : "-"}</span>
-        </div>
-      `;
-    });
-
-        okno.document.getElementById("statistiky").classList.add("stat-box");
-    okno.document.getElementById("statistiky").innerHTML = html;
-  }
-});
+  renderTransferSlider();
 }
 
 
+function populateTransferFilters() {
+  populateSelect(
+    document.getElementById(
+      "filtrSezonaPrestupy"
+    ),
 
-/* ===============================
-   PŘESTUPY
-================================ */
+    uniqueSorted(
+      state.transfers.map(
+        transfer =>
+          getValue(
+            transfer,
+            "SEZONA"
+          )
+      )
+    ),
 
-// klik v menu na "Přestupy"
-document.addEventListener("DOMContentLoaded", () => {
-  const odkazPrestupy = document.getElementById("odkazPrestupy");
-  if (odkazPrestupy) {
-    odkazPrestupy.addEventListener("click", (e) => {
-  e.preventDefault();
-
-  const gameMenu = document.querySelector(".game-menu");
-  const strankaPrestupy = document.getElementById("strankaPrestupy");
-  const strankaHraci = document.getElementById("strankaHraci");
-  const strankaTabulka = document.getElementById("strankaTabulka");
-  const kluby = document.getElementById("kluby");
-
-  if (gameMenu) gameMenu.style.display = "none";
-  if (strankaHraci) strankaHraci.style.display = "none";
-  if (strankaTabulka) strankaTabulka.style.display = "none";
-  if (kluby) kluby.style.display = "none";
-
-  if (strankaPrestupy) strankaPrestupy.style.display = "block";
-
-  zobrazPrestupy();
-
-  window.scrollTo(0, 0);
-});
-  }
-});
-
-function zobrazPrestupy() {
-  const csvUrl = "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/prestupy.csv";
-  const container = document.getElementById("prestupyObsah");
-
-  if (!container) return;
-
-  container.innerHTML = "Načítám přestupy...";
-
-  Papa.parse(csvUrl, {
-    download: true,
-    header: true,
-    delimiter: ";",
-    skipEmptyLines: true,
-
-    complete: function (results) {
-      const data = results.data.filter(r => r["JMÉNO"]);
-
-      const elhTymy = [
-        "PCE", "SPA", "TRI", "KOM", "PLZ", "MHK", "VIT", "OLO", "MBL", "KVA", "CBU", "LIT", "LIB", "KLA",
-        "HC Dynamo Pardubice", "HC Sparta Praha", "HC Oceláři Třinec", "HC Kometa Brno", "HC Škoda Plzeň",
-        "Mountfield HK", "HC Vítkovice Ridera", "HC Olomouc", "BK Mladá Boleslav", "HC Energie Karlovy Vary",
-        "Banes Motor České Budějovice", "HC Verva Litvínov", "HC Litvínov", "Bílí Tygři Liberec", "Rytíři Kladno"
-      ];
-
-      const sezony = [...new Set(data.map(r => r["SEZONA"]).filter(Boolean))].sort();
-
-      const odkud = [...new Set(
-        data.map(r => r["ODKUD"]?.trim()).filter(t => elhTymy.includes(t))
-      )].sort();
-
-      const kam = [...new Set(
-        data.map(r => r["KAM"]?.trim()).filter(t => elhTymy.includes(t))
-      )].sort();
-
-      container.innerHTML = `
-        <div class="prestupy-page">
-          <div class="filtry">
-            <select id="filtrSezonaPrestupy">
-              <option value="">Všechny sezony</option>
-              ${sezony.map(s => `<option value="${s}">${s}</option>`).join("")}
-            </select>
-
-            <select id="filtrOdkudPrestupy">
-              <option value="">Odkud</option>
-              ${odkud.map(t => `<option value="${t}">${t}</option>`).join("")}
-            </select>
-
-            <select id="filtrKamPrestupy">
-              <option value="">Kam</option>
-              ${kam.map(t => `<option value="${t}">${t}</option>`).join("")}
-            </select>
-          </div>
-
-          <div id="prestupyTabulka"></div>
-        </div>
-      `;
-
-      const filtrSezona = document.getElementById("filtrSezonaPrestupy");
-      const filtrOdkud = document.getElementById("filtrOdkudPrestupy");
-      const filtrKam = document.getElementById("filtrKamPrestupy");
-      const tabulka = document.getElementById("prestupyTabulka");
-
-      function normalizujPrestup(text) {
-        return String(text || "")
-          .trim()
-          .toLowerCase()
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "");
-      }
-
-      function vykresli(radky) {
-        tabulka.innerHTML = `
-          <table class="prestupy-tabulka">
-            <thead>
-              <tr>
-                <th>Jméno</th>
-                <th>Příjmení</th>
-                <th>Odkud</th>
-                <th>Kam</th>
-                <th>Pozice</th>
-                <th>Sezona</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${radky.map(r => `
-                <tr>
-                  <td class="prestup-hrac" onclick="otevriHraceZPrestupu('${r["JMÉNO"]}', '${r["PŘÍJMENÍ"]}')">${r["JMÉNO"]}</td>
-                  <td class="prestup-hrac" onclick="otevriHraceZPrestupu('${r["JMÉNO"]}', '${r["PŘÍJMENÍ"]}')">${r["PŘÍJMENÍ"]}</td>
-                  <td>${vypisTymPrestupu(r["ODKUD"])}</td>
-<td>${vypisTymPrestupu(r["KAM"])}</td>
-                  <td>${r["POZICE"] || "-"}</td>
-                  <td>${r["SEZONA"] || "-"}</td>
-                </tr>
-              `).join("")}
-            </tbody>
-          </table>
-        `;
-      }
-
-      function filtrujPrestupy() {
-        const filtrovane = data.filter(r =>
-          (!filtrSezona.value || normalizujPrestup(r["SEZONA"]) === normalizujPrestup(filtrSezona.value)) &&
-          (!filtrOdkud.value || normalizujPrestup(r["ODKUD"]) === normalizujPrestup(filtrOdkud.value)) &&
-          (!filtrKam.value || normalizujPrestup(r["KAM"]) === normalizujPrestup(filtrKam.value))
-        );
-
-        vykresli(filtrovane);
-      }
-
-      filtrSezona.addEventListener("change", filtrujPrestupy);
-      filtrOdkud.addEventListener("change", filtrujPrestupy);
-      filtrKam.addEventListener("change", filtrujPrestupy);
-
-      vykresli(data);
-    }
-  });
-}
-async function otevriHraceZPrestupu(jmeno, prijmeni) {
-
-  if (hraciData.length === 0) {
-    await nactiData();
-  }
-
-  function norm(text) {
-    return String(text || "")
-      .trim()
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
-  }
-
-  const hrac = hraciData.find(h =>
-    norm(h.jmeno) === norm(jmeno) &&
-    norm(h.prijmeni) === norm(prijmeni)
+    "Všechny sezony"
   );
 
-  if (!hrac) {
-    alert("Hráč nebyl nalezen.");
+
+  populateSelect(
+    document.getElementById(
+      "filtrOdkudPrestupy"
+    ),
+
+    uniqueSorted(
+      state.transfers
+        .map(
+          transfer =>
+            getValue(
+              transfer,
+              "ODKUD"
+            )
+        )
+        .filter(
+          value =>
+            value &&
+            value !== "-"
+        )
+    ),
+
+    "Odkud"
+  );
+
+
+  populateSelect(
+    document.getElementById(
+      "filtrKamPrestupy"
+    ),
+
+    uniqueSorted(
+      state.transfers
+        .map(
+          transfer =>
+            getValue(
+              transfer,
+              "KAM"
+            )
+        )
+        .filter(
+          value =>
+            value &&
+            value !== "-"
+        )
+    ),
+
+    "Kam"
+  );
+}
+
+
+function transferTeamHtml(value) {
+  const text =
+    cleanCell(value) || "-";
+
+  const team =
+    getTeam(text);
+
+
+  if (!team) {
+    return escapeHtml(text);
+  }
+
+
+  return `
+    <button
+      type="button"
+      class="prestup-tym"
+      data-team-code="${escapeHtml(team.code)}"
+    >
+      ${escapeHtml(team.name)}
+    </button>
+  `;
+}
+
+
+function renderTransfers() {
+  const container =
+    document.getElementById(
+      "prestupyObsah"
+    );
+
+
+  const counter =
+    document.getElementById(
+      "pocetPrestupu"
+    );
+
+
+  if (!container) {
     return;
   }
 
-  zobrazDetail(
-    hrac.jmeno,
-    hrac.prijmeni,
-    hrac.tym,
-    hrac.pozice,
-    hrac.vek,
-    hrac.smlouva,
-    hrac.drzeni,
-    hrac.narodnost,
-    hrac.foto
-  );
-}
-function najdiZkratkuELH(tym) {
-  if (!tym) return null;
 
-  function norm(text) {
-    return String(text || "")
-      .trim()
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
-  }
+  const search =
+    normalize(
+      document.getElementById(
+        "vyhledavaniPrestupy"
+      )?.value
+    );
 
-  const vsechnyTymy = {
-    PCE: ["PCE", "HC Dynamo Pardubice", "Dynamo Pardubice", "Pardubice"],
-    SPA: ["SPA", "HC Sparta Praha", "Sparta Praha", "Sparta"],
-    TRI: ["TRI", "HC Oceláři Třinec", "Oceláři Třinec", "Třinec", "Trinec"],
-    KOM: ["KOM", "HC Kometa Brno", "Kometa Brno", "Brno"],
-    PLZ: ["PLZ", "HC Škoda Plzeň", "Škoda Plzeň", "Plzeň", "Plzen"],
-    MHK: ["MHK", "Mountfield HK", "Hradec Králové", "Hradec Kralove"],
-    VIT: ["VIT", "HC Vítkovice Ridera", "Vítkovice", "Vitkovice"],
-    OLO: ["OLO", "HC Olomouc", "Olomouc"],
-    MBL: ["MBL", "BK Mladá Boleslav", "Mladá Boleslav", "Mlada Boleslav"],
-    KVA: ["KVA", "HC Energie Karlovy Vary", "Energie Karlovy Vary", "Karlovy Vary"],
-    CBU: ["CBU", "Banes Motor České Budějovice", "Motor České Budějovice", "České Budějovice", "Ceske Budejovice", "Motor"],
-    LIT: ["LIT", "HC Verva Litvínov", "HC Litvínov", "Verva Litvínov", "Litvínov", "Litvinov"],
-    LIB: ["LIB", "Bílí Tygři Liberec", "Liberec"],
-    KLA: ["KLA", "Rytíři Kladno", "Kladno"]
-  };
 
-  const hledany = norm(tym);
+  const season =
+    normalize(
+      document.getElementById(
+        "filtrSezonaPrestupy"
+      )?.value
+    );
 
-  const nalezeny = Object.entries(vsechnyTymy).find(([_, varianty]) =>
-    varianty.some(v => norm(v) === hledany)
-  );
 
-  return nalezeny ? nalezeny[0] : null;
-}
+  const from =
+    normalize(
+      document.getElementById(
+        "filtrOdkudPrestupy"
+      )?.value
+    );
 
-function vypisTymPrestupu(tym) {
-  const zkratka = najdiZkratkuELH(tym);
-  const text = tym || "-";
 
-  if (!zkratka) {
-    return text;
-  }
+  const to =
+    normalize(
+      document.getElementById(
+        "filtrKamPrestupy"
+      )?.value
+    );
 
-  return `<span class="prestup-tym" onclick="otevriTymZPrestupu('${zkratka}')">${text}</span>`;
-}
-function otevriTymZPrestupu(tym) {
-  if (!tym) return;
-  otevriKlub(tym);
-}
 
-window.otevriTymZPrestupu = otevriTymZPrestupu;
-document.addEventListener("DOMContentLoaded", () => {
-  const btnHraci = document.getElementById("btnHraci");
-  const zpetMenu = document.getElementById("zpetMenu");
-  const gameMenu = document.querySelector(".game-menu");
-  const strankaHraci = document.getElementById("strankaHraci");
+  const data =
+    state.transfers.filter(transfer => {
+      const firstName =
+        getValue(
+          transfer,
+          "JMÉNO"
+        );
 
-  if (btnHraci && gameMenu && strankaHraci) {
-    btnHraci.addEventListener("click", (e) => {
-      e.preventDefault();
+      const surname =
+        getValue(
+          transfer,
+          "PŘÍJMENÍ"
+        );
 
-      gameMenu.style.display = "none";
-      strankaHraci.style.display = "block";
-      document.body.style.overflow = "auto";
 
-      if (hraciData.length === 0) {
-        nactiData();
-      } else {
-        zobrazHrace(hraciData);
-      }
+      return (
+        (
+          !search ||
+          normalize(
+            `${firstName} ${surname}`
+          ).includes(search)
+        ) &&
 
-      window.scrollTo(0, 0);
+        (
+          !season ||
+          normalize(
+            getValue(
+              transfer,
+              "SEZONA"
+            )
+          ) === season
+        ) &&
+
+        (
+          !from ||
+          normalize(
+            getValue(
+              transfer,
+              "ODKUD"
+            )
+          ) === from
+        ) &&
+
+        (
+          !to ||
+          normalize(
+            getValue(
+              transfer,
+              "KAM"
+            )
+          ) === to
+        )
+      );
     });
+
+
+  if (counter) {
+    counter.textContent =
+      `${data.length} přestupů`;
   }
 
-  if (zpetMenu && gameMenu && strankaHraci) {
-    zpetMenu.addEventListener("click", () => {
-      strankaHraci.style.display = "none";
-      gameMenu.style.display = "block";
-      document.body.style.overflow = "hidden";
-      window.scrollTo(0, 0);
-    });
-  }
-});
-document.addEventListener("DOMContentLoaded", async () => {
-  const params = new URLSearchParams(window.location.search);
-  const klubParam = params.get("klub");
 
-  if (!klubParam) return;
-
-  const gameMenu = document.querySelector(".game-menu");
-  const strankaHraci = document.getElementById("strankaHraci");
-  const sekceKluby = document.getElementById("kluby");
-
-  if (gameMenu) gameMenu.style.display = "none";
-  if (strankaHraci) strankaHraci.style.display = "none";
-  if (sekceKluby) sekceKluby.style.display = "block";
-
-  if (hraciData.length === 0) {
-    await nactiData();
-  }
-
-  let pokusy = 0;
-
-  const cekej = setInterval(() => {
-    pokusy++;
-
-    if (dataKluby.length > 0) {
-      clearInterval(cekej);
-      otevriKlub(klubParam);
-    }
-
-    if (pokusy > 50) {
-      clearInterval(cekej);
-      alert("Klubová data se nenačetla.");
-    }
-  }, 100);
-});
-async function nactiLiveStatistiky() {
-
-  const csvUrl = "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/hraci_detail.csv";
-
-  Papa.parse(csvUrl, {
-    download: true,
-    header: true,
-    delimiter: ";",
-
-    complete: function(results) {
-
-      const data = results.data.filter(h => h["Jméno"]);
-
-      // TOP BODY
-      const topBody = [...data]
-        .sort((a, b) => Number(b["Body"]) - Number(a["Body"]))
-        .slice(0, 5);
-
-      // TOP GOLY
-      const topGoly = [...data]
-        .sort((a, b) => Number(b["Goly"]) - Number(a["Goly"]))
-        .slice(0, 5);
-
-      const bodyContainer = document.querySelector("#topBody .live-stats");
-      const golyContainer = document.querySelector("#topGoly .live-stats");
-
-      bodyContainer.innerHTML = topBody.map(h => `
-        <div class="live-row">
-          <span class="live-name">${h["Jméno"]} ${h["Příjmení"]}</span>
-          <span class="live-value">${h["Body"]}</span>
-        </div>
-      `).join("");
-
-      golyContainer.innerHTML = topGoly.map(h => `
-        <div class="live-row">
-          <span class="live-name">${h["Jméno"]} ${h["Příjmení"]}</span>
-          <span class="live-value">${h["Goly"]}</span>
-        </div>
-      `).join("");
-
-    }
-  });
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  nactiLiveStatistiky();
-});
-function nactiPosledniPrestupy() {
-  const csvUrl = "https://raw.githubusercontent.com/Adamos1511/ELH_web/main/prestupy.csv";
-
-  Papa.parse(csvUrl, {
-    download: true,
-    header: true,
-    delimiter: ";",
-    skipEmptyLines: true,
-
-    complete: function(results) {
-      const data = results.data
-        .filter(r => r["JMÉNO"] && r["PŘÍJMENÍ"])
-        .slice(-8)
-        .reverse();
-
-      const container = document.querySelector("#posledniPrestupy .live-stats");
-
-      if (!container) return;
-
-      container.innerHTML = `
-  <div class="transfer-slider">
-    ${data.map((r, index) => `
-      <div class="transfer-slide ${index === 0 ? "active" : ""}">
-        <div class="transfer-label">Nový přestup</div>
-
-        <div class="transfer-player">
-          ${r["JMÉNO"]} ${r["PŘÍJMENÍ"]}
-        </div>
-
-        <div class="transfer-position">
-          ${r["POZICE"] || "-"}
-        </div>
-
-        <div class="transfer-route">
-          <span>${r["ODKUD"] || "-"}</span>
-          <strong>→</strong>
-          <span>${r["KAM"] || "-"}</span>
-        </div>
-
-        <div class="transfer-season">
-          ${r["SEZONA"] || ""}
-        </div>
+  if (!data.length) {
+    container.innerHTML = `
+      <div class="empty-state">
+        Žádné přestupy neodpovídají zvoleným filtrům.
       </div>
-    `).join("")}
+    `;
 
-    <div class="transfer-controls">
-      <button id="prevTransfer">‹</button>
-      <button id="nextTransfer">›</button>
+    return;
+  }
+
+
+  container.innerHTML = `
+    <div class="table-scroll">
+      <table class="prestupy-tabulka">
+
+        <thead>
+          <tr>
+            <th>Jméno</th>
+            <th>Příjmení</th>
+            <th>Odkud</th>
+            <th>Kam</th>
+            <th>Pozice</th>
+            <th>Sezona</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          ${data.map(transfer => {
+            const firstName =
+              getValue(
+                transfer,
+                "JMÉNO"
+              );
+
+            const surname =
+              getValue(
+                transfer,
+                "PŘÍJMENÍ"
+              );
+
+
+            return `
+              <tr>
+
+                <td>
+                  <button
+                    type="button"
+                    class="prestup-hrac"
+                    data-player-first="${escapeHtml(firstName)}"
+                    data-player-last="${escapeHtml(surname)}"
+                  >
+                    ${escapeHtml(firstName)}
+                  </button>
+                </td>
+
+                <td>
+                  <button
+                    type="button"
+                    class="prestup-hrac"
+                    data-player-first="${escapeHtml(firstName)}"
+                    data-player-last="${escapeHtml(surname)}"
+                  >
+                    ${escapeHtml(surname)}
+                  </button>
+                </td>
+
+                <td>
+                  ${transferTeamHtml(
+                    getValue(
+                      transfer,
+                      "ODKUD"
+                    )
+                  )}
+                </td>
+
+                <td>
+                  ${transferTeamHtml(
+                    getValue(
+                      transfer,
+                      "KAM"
+                    )
+                  )}
+                </td>
+
+                <td>
+                  ${escapeHtml(
+                    getValue(
+                      transfer,
+                      "POZICE"
+                    ) || "-"
+                  )}
+                </td>
+
+                <td>
+                  ${escapeHtml(
+                    getValue(
+                      transfer,
+                      "SEZONA"
+                    ) || "-"
+                  )}
+                </td>
+
+              </tr>
+            `;
+          }).join("")}
+
+        </tbody>
+      </table>
     </div>
-  </div>
-`;
-
-      let aktualniPrestup = 0;
-      const slides = container.querySelectorAll(".transfer-slide");
-
-      function zobrazPrestup(index) {
-        slides.forEach(slide => slide.classList.remove("active"));
-        slides[index].classList.add("active");
-      }
-
-      container.querySelector("#nextTransfer").addEventListener("click", () => {
-        aktualniPrestup = (aktualniPrestup + 1) % slides.length;
-        zobrazPrestup(aktualniPrestup);
-      });
-
-      container.querySelector("#prevTransfer").addEventListener("click", () => {
-        aktualniPrestup = (aktualniPrestup - 1 + slides.length) % slides.length;
-        zobrazPrestup(aktualniPrestup);
-      });
-    }
-  });
+  `;
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  nactiPosledniPrestupy();
-});
-async function nactiTabulkuELH() {
-  const container = document.getElementById("tabulkaELH");
-  if (!container) return;
 
-  const response = await fetch("TabulkaELH.csv");
-  const text = await response.text();
+/* =========================================================
+   SLIDER PŘESTUPŮ NA ÚVODU
+========================================================= */
 
-  const radky = text
-    .trim()
-    .split(/\r?\n/)
-    .filter(r => r.trim() !== "");
+function renderTransferSlider() {
+  const container =
+    document.querySelector(
+      "#posledniPrestupy .live-stats"
+    );
 
-  const oddelovac = radky[0].includes(";") ? ";" : radky[0].includes("\t") ? "\t" : ",";
 
-  const hlavickaIndex = radky.findIndex(r => r.includes("TÝM"));
-  const hlavicka = radky[hlavickaIndex]
-    .split(oddelovac)
-    .map(h => h.trim().replace(/^\uFEFF/, ""));
+  if (!container) {
+    return;
+  }
 
-  const dataRadky = radky.slice(hlavickaIndex + 1);
 
-  const data = dataRadky.map(radek => {
-    const hodnoty = radek.split(oddelovac).map(h => h.trim());
-    const obj = {};
+  const latest =
+    state.transfers
+      .slice(-8)
+      .reverse();
 
-    hlavicka.forEach((sloupec, i) => {
-      obj[sloupec] = hodnoty[i] || "";
-    });
 
-    return obj;
-  }).filter(r => r["TÝM"]);
+  if (!latest.length) {
+    container.innerHTML = `
+      <div class="live-empty">
+        Žádné přestupy.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  state.transferSlideIndex = 0;
+
+
+  container.innerHTML = `
+    <div class="transfer-slider">
+
+      ${latest.map(
+        (transfer, index) => `
+          <div
+            class="transfer-slide ${
+              index === 0
+                ? "active"
+                : ""
+            }"
+          >
+
+            <div class="transfer-label">
+              Nový přestup
+            </div>
+
+            <button
+              type="button"
+              class="transfer-player"
+              data-player-first="${escapeHtml(
+                getValue(
+                  transfer,
+                  "JMÉNO"
+                )
+              )}"
+              data-player-last="${escapeHtml(
+                getValue(
+                  transfer,
+                  "PŘÍJMENÍ"
+                )
+              )}"
+            >
+              ${escapeHtml(
+                getValue(
+                  transfer,
+                  "JMÉNO"
+                )
+              )}
+
+              ${escapeHtml(
+                getValue(
+                  transfer,
+                  "PŘÍJMENÍ"
+                )
+              )}
+            </button>
+
+            <div class="transfer-position">
+              ${escapeHtml(
+                getValue(
+                  transfer,
+                  "POZICE"
+                ) || "-"
+              )}
+            </div>
+
+            <div class="transfer-route">
+              <span>
+                ${escapeHtml(
+                  getValue(
+                    transfer,
+                    "ODKUD"
+                  ) || "-"
+                )}
+              </span>
+
+              <strong>→</strong>
+
+              <span>
+                ${escapeHtml(
+                  getValue(
+                    transfer,
+                    "KAM"
+                  ) || "-"
+                )}
+              </span>
+            </div>
+
+            <div class="transfer-season">
+              ${escapeHtml(
+                getValue(
+                  transfer,
+                  "SEZONA"
+                ) || ""
+              )}
+            </div>
+
+          </div>
+        `
+      ).join("")}
+
+
+      <div class="transfer-controls">
+        <button
+          type="button"
+          data-transfer-prev
+          aria-label="Předchozí přestup"
+        >
+          ‹
+        </button>
+
+        <button
+          type="button"
+          data-transfer-next
+          aria-label="Další přestup"
+        >
+          ›
+        </button>
+      </div>
+
+    </div>
+  `;
+}
+
+
+function changeTransferSlide(direction) {
+  const slides =
+    document.querySelectorAll(
+      "#posledniPrestupy .transfer-slide"
+    );
+
+
+  if (!slides.length) {
+    return;
+  }
+
+
+  state.transferSlideIndex =
+    (
+      state.transferSlideIndex +
+      direction +
+      slides.length
+    ) % slides.length;
+
+
+  slides.forEach(
+    (slide, index) => {
+      slide.classList.toggle(
+        "active",
+        index ===
+          state.transferSlideIndex
+      );
+    }
+  );
+}
+
+
+/* =========================================================
+   TABULKA ELH
+========================================================= */
+
+async function loadStandings() {
+  state.standings =
+    (
+      await loadObjectCsv(
+        DATA_URLS.standings
+      )
+    )
+      .filter(row =>
+        getValue(
+          row,
+          "TÝM"
+        )
+      );
+
+
+  renderStandings();
+}
+
+
+function parseForm(value) {
+  const raw =
+    cleanCell(value)
+      .toUpperCase();
+
+
+  if (!raw) {
+    return {
+      raw: "",
+      tokens: [],
+      valid: true
+    };
+  }
+
+
+  const normalized =
+    raw.replace(
+      /\s+/g,
+      ""
+    );
+
+
+  const tokens =
+    normalized.match(
+      /VP|PP|V|P/g
+    ) || [];
+
+
+  const residue =
+    normalized
+      .replace(
+        /VP|PP|V|P/g,
+        ""
+      )
+      .replace(
+        /[,;|/\\-]/g,
+        ""
+      );
+
+
+  return {
+    raw,
+    tokens,
+    valid:
+      tokens.length > 0 &&
+      residue === ""
+  };
+}
+
+
+function renderForm(value) {
+  const form =
+    parseForm(value);
+
+
+  if (!form.raw) {
+    return `
+      <span class="forma-empty">
+        –
+      </span>
+    `;
+  }
+
+
+  if (!form.valid) {
+    return `
+      <span
+        class="forma-raw"
+        title="Hodnota FORMA z CSV"
+      >
+        ${escapeHtml(form.raw)}
+      </span>
+    `;
+  }
+
+
+  return form.tokens
+    .map(result => {
+      const className =
+        result === "V"
+          ? "forma-v"
+          : result === "VP"
+            ? "forma-vp"
+            : result === "PP"
+              ? "forma-pp"
+              : "forma-p";
+
+
+      return `
+        <span
+          class="
+            forma-vysledek
+            ${className}
+          "
+        >
+          ${result}
+        </span>
+      `;
+    })
+    .join("");
+}
+
+
+function renderStandings() {
+  const container =
+    document.getElementById(
+      "tabulkaELH"
+    );
+
+
+  if (!container) {
+    return;
+  }
+
+
+  if (!state.standings.length) {
+    container.innerHTML = `
+      <div class="empty-state">
+        Tabulka zatím není k dispozici.
+      </div>
+    `;
+
+    return;
+  }
+
 
   container.innerHTML = `
     <div class="elh-tabulka">
 
       <div class="elh-hlavicka">
-        <div>Pořadí</div>
+        <div>#</div>
         <div>Tým</div>
-        <div>Zápasy</div>
+        <div>Z</div>
         <div>V</div>
         <div>VP</div>
         <div>PP</div>
@@ -2821,129 +3355,1239 @@ async function nactiTabulkuELH() {
         <div>Forma</div>
       </div>
 
-      ${data.map(radek => `
-        <div class="elh-radek 
-  ${Number(radek["POŘADÍ"]) <= 4 ? "top4" : ""}
-  ${Number(radek["POŘADÍ"]) >= 5 && Number(radek["POŘADÍ"]) <= 12 ? "predkolo" : ""}
-  ${Number(radek["POŘADÍ"]) === 14 ? "baraz" : ""}
-">
-          <div>${radek["POŘADÍ"] || "-"}</div>
-          <div class="tym-nazev tabulka-tym">
-  ${logoTymu(radek["TÝM"])}
-  <span>${radek["TÝM"] || "-"}</span>
-</div>
-          <div>${radek["ZÁPASY"] || "-"}</div>
-          <div>${radek["V"] || "-"}</div>
-          <div>${radek["VP"] || "-"}</div>
-          <div>${radek["PP"] || "-"}</div>
-          <div>${radek["P"] || "-"}</div>
-          <div>${radek["SKÓRE"] || "-"}</div>
-          <div class="body-cell">${radek["BODY"] || "-"}</div>
-          <div class="forma-cell">
-  ${(radek["FORMA"] || "")
-    .split(",")
-    .map(vysledek => {
-      const v = vysledek.trim();
 
-      return `
-        <span class="
-          forma-vysledek
-          ${v === "V" ? "forma-v" : ""}
-          ${v === "P" ? "forma-p" : ""}
-          ${v === "VP" ? "forma-vp" : ""}
-          ${v === "PP" ? "forma-pp" : ""}
-        ">
-          ${v}
-        </span>
-      `;
-    }).join("")}
-</div>
-        </div>
-      `).join("")}
+      ${state.standings.map(row => {
+        const position =
+          Number(
+            getValue(
+              row,
+              "POŘADÍ"
+            )
+          );
+
+
+        const teamValue =
+          getValue(
+            row,
+            "TÝM"
+          );
+
+
+        const team =
+          getTeam(teamValue);
+
+
+        const rowClass =
+          position <= 4
+            ? "top4"
+            : position >= 5 &&
+              position <= 12
+              ? "predkolo"
+              : position === 14
+                ? "baraz"
+                : "";
+
+
+        return `
+          <div
+            class="
+              elh-radek
+              ${rowClass}
+            "
+          >
+
+            <div class="position-cell">
+              ${escapeHtml(
+                getValue(
+                  row,
+                  "POŘADÍ"
+                ) || "-"
+              )}
+            </div>
+
+
+            <div class="tym-nazev tabulka-tym">
+
+              ${
+                team
+                  ? `
+                    <img
+                      src="${escapeHtml(
+                        logoUrl(team.code)
+                      )}"
+                      alt=""
+                      class="logoMale"
+                      data-hide-on-error
+                    >
+
+                    <button
+                      type="button"
+                      data-team-code="${escapeHtml(team.code)}"
+                    >
+                      ${escapeHtml(team.name)}
+                    </button>
+                  `
+                  : `
+                    <span>
+                      ${escapeHtml(
+                        teamValue || "-"
+                      )}
+                    </span>
+                  `
+              }
+
+            </div>
+
+
+            <div>
+              ${escapeHtml(
+                getValue(
+                  row,
+                  "ZÁPASY"
+                ) || "-"
+              )}
+            </div>
+
+
+            <div>
+              ${escapeHtml(
+                getValue(
+                  row,
+                  "V"
+                ) || "-"
+              )}
+            </div>
+
+
+            <div>
+              ${escapeHtml(
+                getValue(
+                  row,
+                  "VP"
+                ) || "-"
+              )}
+            </div>
+
+
+            <div>
+              ${escapeHtml(
+                getValue(
+                  row,
+                  "PP"
+                ) || "-"
+              )}
+            </div>
+
+
+            <div>
+              ${escapeHtml(
+                getValue(
+                  row,
+                  "P"
+                ) || "-"
+              )}
+            </div>
+
+
+            <div>
+              ${escapeHtml(
+                getValue(
+                  row,
+                  "SKÓRE"
+                ) || "-"
+              )}
+            </div>
+
+
+            <div class="body-cell">
+              ${escapeHtml(
+                getValue(
+                  row,
+                  "BODY"
+                ) || "-"
+              )}
+            </div>
+
+
+            <div class="forma-cell">
+              ${renderForm(
+                getValue(
+                  row,
+                  "FORMA"
+                )
+              )}
+            </div>
+
+          </div>
+        `;
+      }).join("")}
 
     </div>
   `;
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const odkazTabulka = document.getElementById("odkazTabulka");
-  const zpetZTabulky = document.getElementById("zpetZTabulky");
-  const zpetZPrestupu = document.getElementById("zpetZPrestupu");
-  const zpetZDetailuKlubu = document.getElementById("zpetZDetailuKlubu");
 
-  const gameMenu = document.querySelector(".game-menu");
-  const strankaHraci = document.getElementById("strankaHraci");
-  const strankaTabulka = document.getElementById("strankaTabulka");
-  const strankaPrestupy = document.getElementById("strankaPrestupy");
-  const strankaDetailKlubu = document.getElementById("strankaDetailKlubu");
-const sekceKluby = document.getElementById("kluby");
-  const kluby = document.getElementById("kluby");
+/* =========================================================
+   ROZPIS
+========================================================= */
 
-  if (odkazTabulka) {
-    odkazTabulka.addEventListener("click", (e) => {
-      e.preventDefault();
+async function loadSchedule() {
+  const text =
+    await fetchText(
+      DATA_URLS.schedule
+    );
 
-      if (gameMenu) gameMenu.style.display = "none";
-      if (strankaHraci) strankaHraci.style.display = "none";
-      if (kluby) kluby.style.display = "none";
 
-      if (strankaTabulka) strankaTabulka.style.display = "block";
+  const parsed =
+    Papa.parse(
+      text,
+      {
+        delimiter: ";",
+        skipEmptyLines: false
+      }
+    );
 
-      nactiTabulkuELH();
-      window.scrollTo(0, 0);
+
+  const matches = [];
+
+  let currentRound = 0;
+
+
+  (parsed.data || [])
+    .forEach(row => {
+      const first =
+        cleanCell(row?.[0]);
+
+
+      const roundMatch =
+        first.match(
+          /^(\d+)\s*\.\s*kolo/i
+        );
+
+
+      if (roundMatch) {
+        currentRound =
+          Number(roundMatch[1]);
+
+        return;
+      }
+
+
+      const home =
+        cleanCell(row?.[1]);
+
+      const versus =
+        normalize(row?.[2]);
+
+      const away =
+        cleanCell(row?.[3]);
+
+
+      if (
+        !currentRound ||
+        !home ||
+        !away ||
+        versus !== "vs"
+      ) {
+        return;
+      }
+
+
+      matches.push({
+        round: currentRound,
+        home,
+        away,
+        date: cleanCell(row?.[4]),
+        time: cleanCell(row?.[5])
+      });
     });
+
+
+  state.schedule =
+    matches;
+
+
+  populateScheduleFilters();
+
+  renderSchedule();
+
+  renderCurrentRound();
+}
+
+
+function scheduleDate(
+  dateValue,
+  timeValue = "00:00"
+) {
+  const date =
+    cleanCell(dateValue);
+
+
+  if (!date) {
+    return null;
   }
 
-  if (zpetZTabulky) {
-    zpetZTabulky.addEventListener("click", () => {
-      if (strankaTabulka) strankaTabulka.style.display = "none";
-      if (gameMenu) gameMenu.style.display = "block";
 
-      window.scrollTo(0, 0);
-    });
+  const parts =
+    date
+      .split(".")
+      .map(Number);
+
+
+  if (
+    parts.length < 3 ||
+    parts.some(
+      number =>
+        !Number.isFinite(number)
+    )
+  ) {
+    return null;
   }
-  if (zpetZPrestupu) {
-  zpetZPrestupu.addEventListener("click", () => {
 
-    if (strankaPrestupy) {
-      strankaPrestupy.style.display = "none";
+
+  const timeParts =
+    cleanCell(timeValue || "00:00")
+      .split(":")
+      .map(Number);
+
+
+  return new Date(
+    parts[2],
+    parts[1] - 1,
+    parts[0],
+    timeParts[0] || 0,
+    timeParts[1] || 0,
+    0,
+    0
+  );
+}
+
+
+function populateScheduleFilters() {
+  const rounds =
+    [
+      ...new Set(
+        state.schedule.map(
+          match => match.round
+        )
+      )
+    ]
+      .sort(
+        (a, b) => a - b
+      )
+      .map(round => ({
+        value: String(round),
+        label: `${round}. kolo`
+      }));
+
+
+  populateSelect(
+    document.getElementById(
+      "filtrKoloRozpis"
+    ),
+    rounds,
+    "Všechna kola"
+  );
+
+
+  populateSelect(
+    document.getElementById(
+      "filtrTymRozpis"
+    ),
+
+    TEAMS.map(team => ({
+      value: team.code,
+      label: team.name
+    })),
+
+    "Všechny týmy"
+  );
+}
+
+
+function formatScheduleDate(
+  date,
+  time
+) {
+  if (!date) {
+    return `
+      <span class="match-date pending">
+        Termín bude doplněn
+      </span>
+    `;
+  }
+
+
+  return `
+    <span class="match-date">
+      ${escapeHtml(date)}
+    </span>
+
+    <strong class="match-time">
+      ${escapeHtml(time || "–")}
+    </strong>
+  `;
+}
+
+
+function scheduleTeamHtml(
+  value,
+  side
+) {
+  const team =
+    getTeam(value);
+
+
+  if (!team) {
+    return `
+      <div class="schedule-team ${side}">
+        <span>
+          ${escapeHtml(value)}
+        </span>
+      </div>
+    `;
+  }
+
+
+  return `
+    <button
+      type="button"
+      class="schedule-team ${side}"
+      data-team-code="${escapeHtml(team.code)}"
+    >
+      ${
+        side === "home"
+          ? `
+            <span>
+              ${escapeHtml(team.name)}
+            </span>
+
+            <img
+              src="${escapeHtml(
+                logoUrl(team.code)
+              )}"
+              alt=""
+              data-hide-on-error
+            >
+          `
+          : `
+            <img
+              src="${escapeHtml(
+                logoUrl(team.code)
+              )}"
+              alt=""
+              data-hide-on-error
+            >
+
+            <span>
+              ${escapeHtml(team.name)}
+            </span>
+          `
+      }
+    </button>
+  `;
+}
+
+
+function renderSchedule() {
+  const container =
+    document.getElementById(
+      "rozpisObsah"
+    );
+
+
+  if (!container) {
+    return;
+  }
+
+
+  const roundFilter =
+    Number(
+      document.getElementById(
+        "filtrKoloRozpis"
+      )?.value || 0
+    );
+
+
+  const teamFilter =
+    cleanCell(
+      document.getElementById(
+        "filtrTymRozpis"
+      )?.value
+    );
+
+
+  let matches =
+    state.schedule.filter(match => {
+      return (
+        (
+          !roundFilter ||
+          match.round === roundFilter
+        ) &&
+
+        (
+          !teamFilter ||
+          getTeamCode(match.home) ===
+            teamFilter ||
+          getTeamCode(match.away) ===
+            teamFilter
+        )
+      );
+    });
+
+
+  if (!matches.length) {
+    container.innerHTML = `
+      <div class="empty-state">
+        Žádné zápasy neodpovídají zvolenému filtru.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  const rounds =
+    [
+      ...new Set(
+        matches.map(
+          match => match.round
+        )
+      )
+    ].sort(
+      (a, b) => a - b
+    );
+
+
+  container.innerHTML =
+    rounds
+      .map(round => {
+        const roundMatches =
+          matches.filter(
+            match =>
+              match.round === round
+          );
+
+
+        return `
+          <section class="round-block">
+
+            <header class="round-header">
+              <div>
+                <span>
+                  Tipsport extraliga
+                </span>
+
+                <h2>
+                  ${round}. kolo
+                </h2>
+              </div>
+
+              <strong>
+                ${roundMatches.length}
+                zápasů
+              </strong>
+            </header>
+
+
+            <div class="matches-list">
+
+              ${roundMatches.map(match => `
+                <article class="match-card">
+
+                  ${scheduleTeamHtml(
+                    match.home,
+                    "home"
+                  )}
+
+                  <div class="match-center">
+
+                    <span class="match-vs">
+                      VS
+                    </span>
+
+                    ${formatScheduleDate(
+                      match.date,
+                      match.time
+                    )}
+
+                  </div>
+
+                  ${scheduleTeamHtml(
+                    match.away,
+                    "away"
+                  )}
+
+                </article>
+              `).join("")}
+
+            </div>
+
+          </section>
+        `;
+      })
+      .join("");
+}
+
+
+/* =========================================================
+   AKTUÁLNÍ KOLO NA ÚVODU
+========================================================= */
+
+function findCurrentScheduleRound() {
+  if (!state.schedule.length) {
+    return null;
+  }
+
+
+  const now =
+    new Date();
+
+
+  const dated =
+    state.schedule
+      .map(match => ({
+        match,
+        date:
+          scheduleDate(
+            match.date,
+            match.time
+          )
+      }))
+      .filter(item =>
+        item.date
+      )
+      .sort(
+        (a, b) =>
+          a.date - b.date
+      );
+
+
+  const next =
+    dated.find(
+      item =>
+        item.date >= now
+    );
+
+
+  if (next) {
+    return next.match.round;
+  }
+
+
+  if (dated.length) {
+    const lastDatedRound =
+      Math.max(
+        ...dated.map(
+          item =>
+            item.match.round
+        )
+      );
+
+
+    const nextUnknown =
+      state.schedule.find(
+        match =>
+          match.round >
+            lastDatedRound
+      );
+
+
+    if (nextUnknown) {
+      return nextUnknown.round;
     }
 
-    if (gameMenu) {
-      gameMenu.style.display = "block";
-    }
 
-    window.scrollTo(0, 0);
-  });
-}
-if (zpetZDetailuKlubu) {
-  zpetZDetailuKlubu.addEventListener("click", () => {
-
-    if (strankaDetailKlubu) strankaDetailKlubu.style.display = "none";
-
-    if (sekceKluby) sekceKluby.style.display = "block";
-
-    const gameMenu = document.querySelector(".game-menu");
-    if (gameMenu) gameMenu.style.display = "none";
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  });
-}
-});
-document.addEventListener("DOMContentLoaded", () => {
-  const zpetZKlubu = document.getElementById("zpetZKlubu");
-  const gameMenu = document.querySelector(".game-menu");
-  const sekceKluby = document.getElementById("kluby");
-
-  if (zpetZKlubu) {
-    zpetZKlubu.addEventListener("click", () => {
-      if (sekceKluby) sekceKluby.style.display = "none";
-      if (gameMenu) gameMenu.style.display = "block";
-
-      window.scrollTo(0, 0);
-    });
+    return lastDatedRound;
   }
-});
+
+
+  return state.schedule[0].round;
+}
+
+
+function renderCurrentRound() {
+  const container =
+    document.querySelector(
+      "#aktualniKolo .live-stats"
+    );
+
+
+  const title =
+    document.getElementById(
+      "aktualniKoloTitulek"
+    );
+
+
+  if (!container) {
+    return;
+  }
+
+
+  const round =
+    findCurrentScheduleRound();
+
+
+  if (!round) {
+    container.innerHTML = `
+      <div class="live-empty">
+        Rozpis není k dispozici.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  const matches =
+    state.schedule.filter(
+      match =>
+        match.round === round
+    );
+
+
+  if (title) {
+    title.textContent =
+      `${round}. KOLO`;
+  }
+
+
+  container.innerHTML =
+    matches
+      .map(match => {
+        const home =
+          getTeamCode(
+            match.home
+          );
+
+        const away =
+          getTeamCode(
+            match.away
+          );
+
+
+        return `
+          <div class="live-row">
+
+            <span class="live-name">
+              ${escapeHtml(home)}
+              vs
+              ${escapeHtml(away)}
+            </span>
+
+            <span class="live-value">
+              ${
+                match.time
+                  ? escapeHtml(match.time)
+                  : (
+                      match.date
+                        ? escapeHtml(match.date)
+                        : "TBD"
+                    )
+              }
+            </span>
+
+          </div>
+        `;
+      })
+      .join("");
+}
+
+
+/* =========================================================
+   TOP BODY / GÓLY
+========================================================= */
+
+async function renderHomeStatistics() {
+  const data =
+    await loadDetailData(
+      "skater"
+    );
+
+
+  const valid =
+    data.filter(record =>
+      getValue(record, "Jméno") &&
+      getValue(record, "Příjmení")
+    );
+
+
+  const topPoints =
+    [...valid]
+      .sort(
+        (a, b) =>
+          (
+            toNumber(
+              getValue(
+                b,
+                "Body"
+              )
+            ) || 0
+          ) -
+          (
+            toNumber(
+              getValue(
+                a,
+                "Body"
+              )
+            ) || 0
+          )
+      )
+      .slice(0, 5);
+
+
+  const topGoals =
+    [...valid]
+      .sort(
+        (a, b) =>
+          (
+            toNumber(
+              getValue(
+                b,
+                "Goly"
+              )
+            ) || 0
+          ) -
+          (
+            toNumber(
+              getValue(
+                a,
+                "Goly"
+              )
+            ) || 0
+          )
+      )
+      .slice(0, 5);
+
+
+  renderHomeTopList(
+    "#topBody .live-stats",
+    topPoints,
+    "Body"
+  );
+
+
+  renderHomeTopList(
+    "#topGoly .live-stats",
+    topGoals,
+    "Goly"
+  );
+}
+
+
+function renderHomeTopList(
+  selector,
+  data,
+  statistic
+) {
+  const container =
+    document.querySelector(
+      selector
+    );
+
+
+  if (!container) {
+    return;
+  }
+
+
+  container.innerHTML =
+    data
+      .map(record => {
+        const firstName =
+          getValue(
+            record,
+            "Jméno"
+          );
+
+        const surname =
+          getValue(
+            record,
+            "Příjmení"
+          );
+
+
+        return `
+          <div class="live-row">
+
+            <button
+              type="button"
+              class="live-name live-player-link"
+              data-player-first="${escapeHtml(firstName)}"
+              data-player-last="${escapeHtml(surname)}"
+            >
+              ${escapeHtml(firstName)}
+              ${escapeHtml(surname)}
+            </button>
+
+            <span class="live-value">
+              ${escapeHtml(
+                getValue(
+                  record,
+                  statistic
+                ) || "0"
+              )}
+            </span>
+
+          </div>
+        `;
+      })
+      .join("");
+}
+
+
+/* =========================================================
+   RESET FILTRŮ
+========================================================= */
+
+function resetPlayerFilters() {
+  [
+    "vyhledavani",
+    "filtrTymu",
+    "filtrPozice",
+    "filtrDrzeni",
+    "filtrNarodnost",
+    "filtrSmlouva",
+    "razeni"
+  ].forEach(id => {
+    const element =
+      document.getElementById(id);
+
+    if (element) {
+      element.value = "";
+    }
+  });
+
+
+  renderPlayers();
+}
+
+
+function resetTransferFilters() {
+  [
+    "vyhledavaniPrestupy",
+    "filtrSezonaPrestupy",
+    "filtrOdkudPrestupy",
+    "filtrKamPrestupy"
+  ].forEach(id => {
+    const element =
+      document.getElementById(id);
+
+    if (element) {
+      element.value = "";
+    }
+  });
+
+
+  renderTransfers();
+}
+
+
+function resetScheduleFilters() {
+  [
+    "filtrKoloRozpis",
+    "filtrTymRozpis"
+  ].forEach(id => {
+    const element =
+      document.getElementById(id);
+
+    if (element) {
+      element.value = "";
+    }
+  });
+
+
+  renderSchedule();
+}
+
+
+/* =========================================================
+   UDÁLOSTI
+========================================================= */
+
+function bindEvents() {
+  document.addEventListener(
+    "click",
+    async event => {
+
+      const navButton =
+        event.target.closest(
+          "[data-nav]"
+        );
+
+
+      if (navButton) {
+        event.preventDefault();
+
+        await handleNavigation(
+          navButton.dataset.nav
+        );
+
+        return;
+      }
+
+
+      const backButton =
+        event.target.closest(
+          "[data-back]"
+        );
+
+
+      if (backButton) {
+        event.preventDefault();
+
+        goBack();
+
+        return;
+      }
+
+
+      const playerButton =
+        event.target.closest(
+          "[data-player-key]"
+        );
+
+
+      if (playerButton) {
+        const player =
+          state.playerMap.get(
+            playerButton.dataset.playerKey
+          );
+
+
+        if (player) {
+          await openPlayer(player);
+        }
+
+        return;
+      }
+
+
+      const namedPlayer =
+        event.target.closest(
+          "[data-player-first][data-player-last]"
+        );
+
+
+      if (namedPlayer) {
+        await openPlayerByName(
+          namedPlayer.dataset.playerFirst,
+          namedPlayer.dataset.playerLast
+        );
+
+        return;
+      }
+
+
+      const teamButton =
+        event.target.closest(
+          "[data-team-code]"
+        );
+
+
+      if (teamButton) {
+        await openClub(
+          teamButton.dataset.teamCode
+        );
+
+        return;
+      }
+
+
+      if (
+        event.target.closest(
+          "[data-transfer-prev]"
+        )
+      ) {
+        changeTransferSlide(-1);
+
+        return;
+      }
+
+
+      if (
+        event.target.closest(
+          "[data-transfer-next]"
+        )
+      ) {
+        changeTransferSlide(1);
+      }
+    }
+  );
+
+
+  document.addEventListener(
+    "error",
+    event => {
+      const target =
+        event.target;
+
+      if (
+        target instanceof HTMLImageElement &&
+        target.hasAttribute(
+          "data-hide-on-error"
+        )
+      ) {
+        target.style.display =
+          "none";
+      }
+    },
+    true
+  );
+
+
+  [
+    "filtrTymu",
+    "filtrPozice",
+    "filtrDrzeni",
+    "filtrNarodnost",
+    "filtrSmlouva",
+    "razeni"
+  ].forEach(id => {
+    document
+      .getElementById(id)
+      ?.addEventListener(
+        "change",
+        renderPlayers
+      );
+  });
+
+
+  document
+    .getElementById(
+      "vyhledavani"
+    )
+    ?.addEventListener(
+      "input",
+      renderPlayers
+    );
+
+
+  document
+    .getElementById(
+      "resetHraci"
+    )
+    ?.addEventListener(
+      "click",
+      resetPlayerFilters
+    );
+
+
+  [
+    "filtrSezonaPrestupy",
+    "filtrOdkudPrestupy",
+    "filtrKamPrestupy"
+  ].forEach(id => {
+    document
+      .getElementById(id)
+      ?.addEventListener(
+        "change",
+        renderTransfers
+      );
+  });
+
+
+  document
+    .getElementById(
+      "vyhledavaniPrestupy"
+    )
+    ?.addEventListener(
+      "input",
+      renderTransfers
+    );
+
+
+  document
+    .getElementById(
+      "resetPrestupy"
+    )
+    ?.addEventListener(
+      "click",
+      resetTransferFilters
+    );
+
+
+  [
+    "filtrKoloRozpis",
+    "filtrTymRozpis"
+  ].forEach(id => {
+    document
+      .getElementById(id)
+      ?.addEventListener(
+        "change",
+        renderSchedule
+      );
+  });
+
+
+  document
+    .getElementById(
+      "resetRozpis"
+    )
+    ?.addEventListener(
+      "click",
+      resetScheduleFilters
+    );
+}
+
+
+/* =========================================================
+   START APLIKACE
+========================================================= */
+
+async function init() {
+  bindEvents();
+
+  renderClubs();
+
+
+  const jobs = [
+    loadPlayers(),
+    loadClubs(),
+    loadTransfers(),
+    loadStandings(),
+    loadSchedule(),
+    renderHomeStatistics()
+  ];
+
+
+  const results =
+    await Promise.allSettled(
+      jobs
+    );
+
+
+  results.forEach(result => {
+    if (
+      result.status === "rejected"
+    ) {
+      console.error(
+        "ELH IceStats:",
+        result.reason
+      );
+    }
+  });
+
+
+  const parameters =
+    new URLSearchParams(
+      window.location.search
+    );
+
+
+  const club =
+    parameters.get("klub");
+
+
+  if (club && getTeam(club)) {
+    state.history = ["home"];
+
+    await openClub(club);
+  }
+}
+
+
+document.addEventListener(
+  "DOMContentLoaded",
+  init
+);
