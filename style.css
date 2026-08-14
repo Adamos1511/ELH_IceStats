@@ -361,47 +361,50 @@ img {
   min-height: 100vh;
 
   padding:
-    22px
-    38px;
+    24px
+    clamp(22px, 4vw, 64px)
+    36px;
 
   overflow: hidden;
 
   background:
     linear-gradient(
-      30deg,
-      rgba(
-        255,
-        255,
-        255,
-        0.72
-      ) 0%,
-      rgba(
-        0,
-        17,
-        71,
-        0.82
-      ) 43%,
-      rgba(
-        0,
-        0,
-        0,
-        0.34
-      ) 100%
+      120deg,
+      rgba(2, 7, 25, 0.78) 0%,
+      rgba(4, 13, 48, 0.52) 42%,
+      rgba(2, 7, 25, 0.76) 100%
     ),
     url(
       "https://images.unsplash.com/photo-1515703407324-5f753afd8be8?auto=format&fit=crop&w=1800&q=82"
     );
 
-  background-position:
-    center;
-
-  background-size:
-    cover;
+  background-position: center;
+  background-size: cover;
 
   color: white;
 }
 
 
+/* jemné světlo uprostřed obrazovky */
+.game-menu::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle at 50% 43%,
+      rgba(40, 79, 170, 0.22) 0%,
+      rgba(13, 32, 91, 0.08) 34%,
+      transparent 62%
+    );
+}
+
+
+/* tmavší spodní přechod */
 .game-menu::after {
   content: "";
 
@@ -413,18 +416,9 @@ img {
   background:
     linear-gradient(
       180deg,
-      rgba(
-        0,
-        0,
-        0,
-        0.04
-      ),
-      rgba(
-        0,
-        7,
-        35,
-        0.24
-      )
+      rgba(0, 0, 0, 0.04) 0%,
+      rgba(0, 7, 35, 0.05) 45%,
+      rgba(0, 4, 22, 0.52) 100%
     );
 }
 
@@ -436,28 +430,39 @@ img {
 }
 
 
+/* =========================================================
+   LOGO NA HOMEPAGE
+========================================================= */
+
 .top-bar {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+
   gap: 28px;
+
+  width: 100%;
 }
 
 
 .logo-title {
   display: flex;
   align-items: center;
-  gap: 12px;
+
+  gap: 13px;
 
   color: white;
 
   font-size:
     clamp(
-      30px,
-      4vw,
-      42px
+      25px,
+      3vw,
+      38px
     );
 
   font-weight: 950;
+
+  letter-spacing: -1px;
 }
 
 
@@ -477,127 +482,208 @@ img {
   height: 58px;
 
   object-fit: contain;
-}
 
-
-.top-nav {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-
-  margin-left: auto;
-}
-
-
-.top-nav button {
-  padding:
-    7px
-    11px;
-
-  border: 0;
-  border-radius: 6px;
-
-  background: transparent;
-
-  color:
-    rgba(
-      255,
-      255,
-      255,
-      0.72
+  filter:
+    drop-shadow(
+      0 8px 15px rgba(0, 0, 0, 0.30)
     );
-
-  font-size: 11px;
-  font-weight: 850;
-
-  cursor: pointer;
-
-  text-transform: uppercase;
-
-  transition:
-    color 0.2s ease,
-    background 0.2s ease;
-}
-
-
-.top-nav button:hover,
-.top-nav button.active {
-  background:
-    rgba(
-      255,
-      255,
-      255,
-      0.10
-    );
-
-  color: white;
 }
 
 
 .top-copy {
-  margin-left: 12px;
+  margin-left: auto;
 
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.35
-    );
+    rgba(255, 255, 255, 0.35);
 
   font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.7px;
 }
 
 
+/* =========================================================
+   HLAVNÍ TŘÍSLOUPCOVÁ KOMPOZICE
+========================================================= */
+
 .hero-menu {
-  display: flex;
-  align-items: flex-start;
+  display: grid;
+
+  grid-template-columns:
+    minmax(220px, 280px)
+    minmax(360px, 500px)
+    minmax(220px, 280px);
+
+  grid-template-areas:
+    "left menu right";
+
+  align-items: center;
   justify-content: center;
+
+  gap:
+    clamp(
+      28px,
+      5vw,
+      72px
+    );
+
+  width: min(1280px, 100%);
 
   min-height:
     calc(
-      100vh - 100px
+      100vh - 105px
     );
 
-  padding-top: 80px;
+  margin: 0 auto;
+
+  padding:
+    45px
+    0
+    75px;
 }
 
 
+/* =========================================================
+   PROSTŘEDNÍ HLAVNÍ MENU
+========================================================= */
+
 .menu-panel {
+  grid-area: menu;
+
+  position: relative;
+
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
 
-  min-width: 340px;
+  width: 100%;
 
-  gap: 18px;
+  padding:
+    23px
+    22px
+    25px;
+
+  gap: 5px;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.13);
+
+  border-radius: 25px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(10, 25, 74, 0.62),
+      rgba(2, 9, 34, 0.52)
+    );
+
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+  backdrop-filter:
+    blur(18px);
+
+  -webkit-backdrop-filter:
+    blur(18px);
+}
+
+
+/* červený detail nahoře */
+.menu-panel::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 28px;
+
+  width: 62px;
+  height: 3px;
+
+  border-radius:
+    0
+    0
+    4px
+    4px;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--red),
+      var(--red-light)
+    );
+
+  box-shadow:
+    0 0 18px rgba(220, 38, 60, 0.40);
+}
+
+
+/* jemná textura */
+.menu-panel::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  opacity: 0.35;
+
+  background:
+    linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0.025),
+      transparent 40%
+    );
 }
 
 
 .menu-item {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  align-items: center;
+
   width: 100%;
+  min-height: 69px;
 
   padding:
-    7px
-    18px;
+    10px
+    52px
+    10px
+    64px;
+
+  overflow: hidden;
 
   border: 0;
-  border-left:
-    4px solid
-    transparent;
+  border-bottom:
+    1px solid
+    rgba(255, 255, 255, 0.075);
+
+  border-radius: 11px;
 
   background: transparent;
 
-  color: white;
+  color:
+    rgba(255, 255, 255, 0.92);
 
   font-size:
     clamp(
-      35px,
-      4.3vw,
-      50px
+      25px,
+      3vw,
+      34px
     );
 
   font-weight: 950;
+
+  line-height: 1;
+
+  letter-spacing: -0.8px;
 
   cursor: pointer;
 
@@ -605,95 +691,238 @@ img {
   text-transform: uppercase;
 
   transition:
-    transform 0.2s ease,
-    background 0.2s ease,
-    border-color 0.2s ease;
+    transform 0.22s ease,
+    background 0.22s ease,
+    color 0.22s ease,
+    padding-left 0.22s ease;
+}
+
+
+.menu-item:last-child {
+  border-bottom: 0;
+}
+
+
+/* čísla vlevo */
+.menu-item:nth-child(1)::before {
+  content: "01";
+}
+
+.menu-item:nth-child(2)::before {
+  content: "02";
+}
+
+.menu-item:nth-child(3)::before {
+  content: "03";
+}
+
+.menu-item:nth-child(4)::before {
+  content: "04";
+}
+
+.menu-item:nth-child(5)::before {
+  content: "05";
+}
+
+
+.menu-item::before {
+  position: absolute;
+
+  left: 18px;
+  top: 50%;
+
+  transform:
+    translateY(-50%);
+
+  color:
+    rgba(255, 255, 255, 0.24);
+
+  font-size: 10px;
+  font-weight: 900;
+
+  letter-spacing: 1px;
+
+  transition:
+    color 0.22s ease;
+}
+
+
+/* šipka doprava */
+.menu-item::after {
+  content: "→";
+
+  position: absolute;
+
+  right: 19px;
+  top: 50%;
+
+  transform:
+    translate(
+      -8px,
+      -50%
+    );
+
+  opacity: 0;
+
+  color: white;
+
+  font-size: 21px;
+  font-weight: 600;
+
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease;
 }
 
 
 .menu-item:hover,
 .menu-item.active {
   transform:
-    translateX(10px);
+    translateX(3px);
 
-  border-left-color:
-    white;
+  padding-left: 70px;
 
   background:
-    rgba(
-      255,
-      255,
-      255,
-      0.08
+    linear-gradient(
+      90deg,
+      rgba(165, 0, 24, 0.42),
+      rgba(255, 255, 255, 0.075)
+    );
+
+  color: white;
+}
+
+
+.menu-item:hover::before,
+.menu-item.active::before {
+  color:
+    rgba(255, 255, 255, 0.60);
+}
+
+
+.menu-item:hover::after,
+.menu-item.active::after {
+  opacity: 1;
+
+  transform:
+    translate(
+      0,
+      -50%
     );
 }
 
 
+/* tenká červená čára při hoveru */
+.menu-item:hover {
+  box-shadow:
+    inset
+    3px
+    0
+    0
+    var(--red-light);
+}
+
+
+/* =========================================================
+   BOČNÍ STATISTIKY
+========================================================= */
+
 .left-stats,
 .right-stats {
-  position: absolute;
-  top: 38%;
+  position: static;
 
   display: flex;
   flex-direction: column;
-  gap: 22px;
 
-  width: 235px;
+  gap: 16px;
 
-  transform:
-    translateY(-50%);
+  width: 100%;
+
+  transform: none;
 }
 
 
 .left-stats {
-  left: 50px;
+  grid-area: left;
 }
 
 
 .right-stats {
-  right: 50px;
+  grid-area: right;
 }
 
 
 .side-panel {
+  position: relative;
+
   width: 100%;
 
   padding:
-    13px
-    18px;
+    16px
+    18px
+    17px;
+
+  overflow: hidden;
 
   border:
     1px solid
-    rgba(
-      255,
-      255,
-      255,
-      0.11
-    );
+    rgba(255, 255, 255, 0.11);
 
-  border-radius: 18px;
+  border-radius: 17px;
 
   background:
-    rgba(
-      0,
-      17,
-      71,
-      0.12
+    linear-gradient(
+      145deg,
+      rgba(7, 20, 62, 0.52),
+      rgba(2, 9, 34, 0.38)
     );
 
   box-shadow:
-    0
-    12px
-    28px
-    rgba(
-      0,
-      0,
-      0,
-      0.28
-    );
+    0 18px 45px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 
   backdrop-filter:
-    blur(6px);
+    blur(14px);
+
+  -webkit-backdrop-filter:
+    blur(14px);
+
+  transition:
+    transform 0.22s ease,
+    border-color 0.22s ease,
+    background 0.22s ease;
+}
+
+
+.side-panel::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 18px;
+
+  width: 34px;
+  height: 2px;
+
+  background:
+    rgba(255, 255, 255, 0.28);
+}
+
+
+.side-panel:hover {
+  transform:
+    translateY(-3px);
+
+  border-color:
+    rgba(255, 255, 255, 0.19);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(12, 29, 82, 0.63),
+      rgba(3, 12, 43, 0.48)
+    );
 }
 
 
@@ -703,24 +932,12 @@ img {
   text-align: initial;
 
   cursor: pointer;
-
-  transition:
-    transform 0.2s ease,
-    background 0.2s ease;
 }
 
 
 .side-panel-button:hover {
   transform:
     translateY(-3px);
-
-  background:
-    rgba(
-      255,
-      255,
-      255,
-      0.08
-    );
 }
 
 
@@ -728,14 +945,17 @@ img {
   margin:
     0
     0
-    8px;
+    11px;
 
-  color: white;
+  color:
+    rgba(255, 255, 255, 0.84);
 
-  font-size: 20px;
+  font-size: 13px;
   font-weight: 950;
 
-  text-align: center;
+  letter-spacing: 0.9px;
+
+  text-align: left;
   text-transform: uppercase;
 }
 
@@ -747,11 +967,20 @@ img {
 
   gap: 10px;
 
-  min-height: 32px;
+  min-height: 31px;
 
   padding:
-    6px
+    5px
     0;
+
+  border-bottom:
+    1px solid
+    rgba(255, 255, 255, 0.045);
+}
+
+
+.live-row:last-child {
+  border-bottom: 0;
 }
 
 
@@ -760,9 +989,10 @@ img {
 
   overflow: hidden;
 
-  color: white;
+  color:
+    rgba(255, 255, 255, 0.88);
 
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 800;
 
   text-overflow: ellipsis;
@@ -773,10 +1003,14 @@ img {
 .live-value {
   flex: 0 0 auto;
 
+  min-width: 26px;
+
   color: white;
 
   font-size: 13px;
   font-weight: 950;
+
+  text-align: right;
 }
 
 
@@ -794,6 +1028,8 @@ img {
 
 
 .live-player-link:hover {
+  color: white;
+
   text-decoration: underline;
 }
 
@@ -812,6 +1048,159 @@ img {
 }
 
 
+/* =========================================================
+   RESPONSIVE – HLAVNÍ MENU
+========================================================= */
+
+@media (max-width: 1120px) {
+
+  .hero-menu {
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(0, 1fr);
+
+    grid-template-areas:
+      "menu menu"
+      "left right";
+
+    align-items: stretch;
+
+    width: min(820px, 100%);
+
+    gap: 22px;
+
+    padding-top: 55px;
+  }
+
+
+  .menu-panel {
+    width: min(520px, 100%);
+
+    margin:
+      0
+      auto
+      10px;
+  }
+
+
+  .left-stats,
+  .right-stats {
+    width: 100%;
+  }
+
+}
+
+
+@media (max-width: 700px) {
+
+  .game-menu {
+    min-height: 100vh;
+
+    padding:
+      18px
+      16px
+      28px;
+  }
+
+
+  .top-bar {
+    gap: 12px;
+  }
+
+
+  .logo-title {
+    gap: 9px;
+
+    font-size: 23px;
+  }
+
+
+  .logo-title img {
+    width: 43px;
+    height: 43px;
+  }
+
+
+  .top-copy {
+    display: none;
+  }
+
+
+  .hero-menu {
+    grid-template-columns: 1fr;
+
+    grid-template-areas:
+      "menu"
+      "left"
+      "right";
+
+    min-height: auto;
+
+    gap: 16px;
+
+    padding:
+      42px
+      0
+      30px;
+  }
+
+
+  .menu-panel {
+    padding:
+      18px
+      15px;
+
+    border-radius: 20px;
+  }
+
+
+  .menu-item {
+    min-height: 58px;
+
+    padding:
+      8px
+      45px
+      8px
+      52px;
+
+    font-size:
+      clamp(
+        23px,
+        8vw,
+        30px
+      );
+  }
+
+
+  .menu-item::before {
+    left: 15px;
+  }
+
+
+  .menu-item::after {
+    right: 15px;
+  }
+
+
+  .menu-item:hover,
+  .menu-item.active {
+    padding-left: 57px;
+  }
+
+
+  .left-stats,
+  .right-stats {
+    gap: 14px;
+  }
+
+
+  .side-panel {
+    padding:
+      15px
+      16px;
+  }
+
+}
 /* =========================================================
    TRANSFER SLIDER
 ========================================================= */
