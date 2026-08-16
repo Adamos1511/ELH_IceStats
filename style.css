@@ -2427,7 +2427,928 @@ img {
   line-height: 1.65;
 }
 
+/* =========================================================
+   KARIÉRA HRÁČE / BRANKÁŘE
+========================================================= */
 
+.career-section {
+  margin-top: 38px;
+}
+
+
+.career-shell {
+  overflow: hidden;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.12);
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(11, 27, 78, 0.72),
+      rgba(3, 11, 39, 0.66)
+    );
+
+  box-shadow:
+    0 24px 55px
+    rgba(0, 0, 0, 0.24);
+
+  backdrop-filter:
+    blur(14px);
+
+  -webkit-backdrop-filter:
+    blur(14px);
+}
+
+
+/* =========================================================
+   HLAVIČKA KARIÉRY
+========================================================= */
+
+.career-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 24px;
+
+  padding:
+    21px
+    24px
+    18px;
+
+  border-bottom:
+    1px solid
+    rgba(255, 255, 255, 0.08);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(165, 0, 24, 0.12),
+      transparent 42%
+    );
+}
+
+
+.career-title-wrap {
+  min-width: 0;
+}
+
+
+.career-kicker {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color:
+    rgba(255, 255, 255, 0.43);
+
+  font-size: 9px;
+  font-weight: 900;
+
+  letter-spacing: 1.5px;
+
+  text-transform: uppercase;
+}
+
+
+.career-title-wrap h2 {
+  margin: 0;
+
+  color: white;
+
+  font-size:
+    clamp(
+      25px,
+      3vw,
+      31px
+    );
+
+  font-weight: 950;
+
+  line-height: 1;
+
+  text-transform: uppercase;
+}
+
+
+.career-title-wrap p {
+  margin:
+    7px
+    0
+    0;
+
+  color:
+    rgba(255, 255, 255, 0.48);
+
+  font-size: 11px;
+  font-weight: 750;
+}
+
+
+.career-source {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 6px;
+
+  flex: 0 0 auto;
+
+  padding:
+    7px
+    11px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.12);
+
+  border-radius: 8px;
+
+  background:
+    rgba(255, 255, 255, 0.055);
+
+  color:
+    rgba(255, 255, 255, 0.55);
+
+  font-size: 10px;
+  font-weight: 850;
+
+  text-decoration: none;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+
+.career-source:hover {
+  color: white;
+
+  background:
+    rgba(255, 255, 255, 0.10);
+
+  border-color:
+    rgba(255, 255, 255, 0.20);
+}
+
+
+/* =========================================================
+   PŘEPÍNÁNÍ KLUB / REPRE
+========================================================= */
+
+.career-tabs {
+  display: flex;
+
+  gap: 5px;
+
+  padding:
+    14px
+    20px
+    0;
+}
+
+
+.career-tab {
+  padding:
+    8px
+    12px;
+
+  border:
+    1px solid
+    transparent;
+
+  border-radius: 8px;
+
+  background: transparent;
+
+  color:
+    rgba(255, 255, 255, 0.47);
+
+  font-size: 10px;
+  font-weight: 900;
+
+  letter-spacing: 0.5px;
+
+  cursor: pointer;
+
+  text-transform: uppercase;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+
+.career-tab:hover {
+  color:
+    rgba(255, 255, 255, 0.82);
+
+  background:
+    rgba(255, 255, 255, 0.055);
+}
+
+
+.career-tab.active {
+  border-color:
+    rgba(220, 38, 60, 0.28);
+
+  background:
+    rgba(165, 0, 24, 0.22);
+
+  color: white;
+}
+
+
+/* =========================================================
+   OBSAH KARIÉRY
+========================================================= */
+
+.career-content {
+  padding:
+    18px
+    20px
+    21px;
+}
+
+
+.career-summary-heading,
+.career-table-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 14px;
+
+  margin-bottom: 10px;
+}
+
+
+.career-summary-heading span,
+.career-table-heading span {
+  color:
+    rgba(255, 255, 255, 0.75);
+
+  font-size: 10px;
+  font-weight: 900;
+
+  letter-spacing: 0.8px;
+
+  text-transform: uppercase;
+}
+
+
+.career-summary-heading small,
+.career-table-heading small {
+  color:
+    rgba(255, 255, 255, 0.32);
+
+  font-size: 9px;
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   PŘEHLED LIG
+========================================================= */
+
+.career-league-strip {
+  display: grid;
+
+  grid-auto-flow: column;
+
+  grid-auto-columns:
+    minmax(
+      205px,
+      230px
+    );
+
+  gap: 9px;
+
+  width: 100%;
+
+  padding-bottom: 7px;
+
+  overflow-x: auto;
+
+  overscroll-behavior-inline:
+    contain;
+
+  scroll-snap-type:
+    inline proximity;
+}
+
+
+.career-league-strip::-webkit-scrollbar {
+  height: 4px;
+}
+
+
+.career-league-strip::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+
+.career-league-strip::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+
+  background:
+    rgba(255, 255, 255, 0.16);
+}
+
+
+.career-league-card {
+  position: relative;
+
+  min-width: 0;
+
+  padding:
+    13px
+    14px;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.09);
+
+  border-radius: 13px;
+
+  background:
+    rgba(255, 255, 255, 0.052);
+
+  scroll-snap-align: start;
+
+  transition:
+    transform 0.18s ease,
+    background 0.18s ease,
+    border-color 0.18s ease;
+}
+
+
+.career-league-card:hover {
+  transform:
+    translateY(-2px);
+
+  border-color:
+    rgba(255, 255, 255, 0.16);
+
+  background:
+    rgba(255, 255, 255, 0.08);
+}
+
+
+.career-league-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 14px;
+
+  width: 28px;
+  height: 2px;
+
+  background:
+    var(--red-light);
+
+  opacity: 0.72;
+}
+
+
+.career-league-name {
+  display: block;
+
+  min-height: 28px;
+
+  margin-bottom: 7px;
+
+  overflow: hidden;
+
+  color:
+    rgba(255, 255, 255, 0.72);
+
+  font-size: 10px;
+  font-weight: 900;
+
+  line-height: 1.35;
+
+  text-overflow: ellipsis;
+
+  text-transform: uppercase;
+}
+
+
+.career-league-clubs {
+  display: flex;
+  align-items: baseline;
+
+  gap: 5px;
+
+  margin-bottom: 10px;
+}
+
+
+.career-league-clubs strong {
+  color: white;
+
+  font-size: 23px;
+  font-weight: 950;
+
+  line-height: 1;
+}
+
+
+.career-league-clubs span {
+  color:
+    rgba(255, 255, 255, 0.39);
+
+  font-size: 9px;
+  font-weight: 800;
+
+  text-transform: uppercase;
+}
+
+
+.career-league-metrics {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      4,
+      minmax(0, 1fr)
+    );
+
+  gap: 5px;
+}
+
+
+.career-league-metric {
+  min-width: 0;
+
+  padding-top: 7px;
+
+  border-top:
+    1px solid
+    rgba(255, 255, 255, 0.06);
+
+  text-align: center;
+}
+
+
+.career-league-metric strong {
+  display: block;
+
+  overflow: hidden;
+
+  color:
+    rgba(255, 255, 255, 0.90);
+
+  font-size: 12px;
+  font-weight: 950;
+
+  text-overflow: ellipsis;
+}
+
+
+.career-league-metric small {
+  display: block;
+
+  margin-top: 2px;
+
+  color:
+    rgba(255, 255, 255, 0.30);
+
+  font-size: 8px;
+  font-weight: 900;
+
+  text-transform: uppercase;
+}
+
+
+/* =========================================================
+   TABULKA KARIÉRY
+========================================================= */
+
+.career-table-heading {
+  margin-top: 18px;
+}
+
+
+.career-table-scroll {
+  width: 100%;
+
+  overflow-x: auto;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.08);
+
+  border-radius: 12px;
+
+  background:
+    rgba(0, 5, 24, 0.18);
+}
+
+
+.career-table-scroll.expanded {
+  max-height: 560px;
+
+  overflow: auto;
+}
+
+
+.career-table-scroll::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+
+.career-table-scroll::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+
+  background:
+    rgba(255, 255, 255, 0.16);
+}
+
+
+.career-table {
+  width: 100%;
+
+  min-width: 980px;
+
+  border-collapse: collapse;
+
+  color: white;
+
+  font-size: 10px;
+}
+
+
+.career-table-goalie {
+  min-width: 1180px;
+}
+
+
+.career-table th {
+  position: sticky;
+  top: 0;
+
+  z-index: 2;
+
+  padding:
+    9px
+    10px;
+
+  border-bottom:
+    1px solid
+    rgba(255, 255, 255, 0.10);
+
+  background:
+    rgba(5, 15, 51, 0.97);
+
+  color:
+    rgba(255, 255, 255, 0.42);
+
+  font-size: 8px;
+  font-weight: 950;
+
+  letter-spacing: 0.5px;
+
+  text-align: center;
+  text-transform: uppercase;
+
+  white-space: nowrap;
+}
+
+
+.career-table td {
+  padding:
+    8px
+    10px;
+
+  border-bottom:
+    1px solid
+    rgba(255, 255, 255, 0.045);
+
+  color:
+    rgba(255, 255, 255, 0.67);
+
+  font-weight: 700;
+
+  text-align: center;
+
+  white-space: nowrap;
+}
+
+
+.career-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+
+.career-table tbody tr {
+  transition:
+    background 0.16s ease;
+}
+
+
+.career-table tbody tr:hover {
+  background:
+    rgba(255, 255, 255, 0.045);
+}
+
+
+.career-table .career-cell-sezona {
+  color:
+    rgba(255, 255, 255, 0.82);
+
+  font-weight: 900;
+}
+
+
+.career-table .career-cell-soutez,
+.career-table .career-cell-klub {
+  max-width: 220px;
+
+  overflow: hidden;
+
+  text-align: left;
+
+  text-overflow: ellipsis;
+}
+
+
+.career-table .career-cell-klub {
+  color: white;
+
+  font-weight: 850;
+}
+
+
+.career-latest-row {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(165, 0, 24, 0.11),
+      transparent 30%
+    );
+}
+
+
+/* =========================================================
+   ROZBALENÍ KARIÉRY
+========================================================= */
+
+.career-actions {
+  display: flex;
+  justify-content: center;
+
+  padding-top: 13px;
+}
+
+
+.career-toggle {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 8px;
+
+  padding:
+    8px
+    13px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.11);
+
+  border-radius: 8px;
+
+  background:
+    rgba(255, 255, 255, 0.055);
+
+  color:
+    rgba(255, 255, 255, 0.58);
+
+  font-size: 9px;
+  font-weight: 900;
+
+  cursor: pointer;
+
+  letter-spacing: 0.4px;
+
+  text-transform: uppercase;
+
+  transition:
+    color 0.18s ease,
+    background 0.18s ease,
+    border-color 0.18s ease;
+}
+
+
+.career-toggle:hover {
+  color: white;
+
+  border-color:
+    rgba(255, 255, 255, 0.20);
+
+  background:
+    rgba(255, 255, 255, 0.095);
+}
+
+
+/* =========================================================
+   LOADING / EMPTY
+========================================================= */
+
+.career-loading,
+.career-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  min-height: 75px;
+
+  padding: 20px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.09);
+
+  border-radius: 14px;
+
+  background:
+    rgba(255, 255, 255, 0.045);
+
+  color:
+    rgba(255, 255, 255, 0.42);
+
+  font-size: 10px;
+  font-weight: 800;
+
+  text-align: center;
+}
+
+
+.career-loading-dot {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background:
+    var(--red-light);
+
+  box-shadow:
+    0 0 0
+    0
+    rgba(220, 38, 60, 0.45);
+
+  animation:
+    careerPulse
+    1.4s
+    infinite;
+}
+
+
+@keyframes careerPulse {
+
+  0% {
+    box-shadow:
+      0
+      0
+      0
+      0
+      rgba(220, 38, 60, 0.42);
+  }
+
+  70% {
+    box-shadow:
+      0
+      0
+      0
+      7px
+      rgba(220, 38, 60, 0);
+  }
+
+  100% {
+    box-shadow:
+      0
+      0
+      0
+      0
+      rgba(220, 38, 60, 0);
+  }
+
+}
+
+
+/* =========================================================
+   KARIÉRA – MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .career-section {
+    margin-top: 28px;
+  }
+
+
+  .career-header {
+    align-items: flex-start;
+
+    padding:
+      18px
+      17px
+      15px;
+  }
+
+
+  .career-title-wrap h2 {
+    font-size: 24px;
+  }
+
+
+  .career-title-wrap p {
+    font-size: 10px;
+  }
+
+
+  .career-source {
+    padding:
+      6px
+      8px;
+
+    font-size: 9px;
+  }
+
+
+  .career-tabs {
+    padding:
+      12px
+      14px
+      0;
+  }
+
+
+  .career-tab {
+    flex: 1;
+
+    padding:
+      8px
+      7px;
+
+    font-size: 9px;
+  }
+
+
+  .career-content {
+    padding:
+      15px
+      14px
+      17px;
+  }
+
+
+  .career-league-strip {
+    grid-auto-columns:
+      minmax(
+        200px,
+        80vw
+      );
+  }
+
+
+  .career-table {
+    font-size: 9px;
+  }
+
+
+  .career-table th {
+    padding:
+      8px
+      9px;
+  }
+
+
+  .career-table td {
+    padding:
+      8px
+      9px;
+  }
+
+
+  .career-table-scroll.expanded {
+    max-height: 470px;
+  }
+
+}
 /* =========================================================
    KLUBY
 ========================================================= */
