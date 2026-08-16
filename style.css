@@ -2428,15 +2428,17 @@ img {
 }
 
 /* =========================================================
-   KARIÉRA HRÁČE / BRANKÁŘE
+   KARIÉRA – CAREER STATS
 ========================================================= */
 
 .career-section {
+  width: 100%;
+
   margin-top: 38px;
 }
 
 
-.career-shell {
+.career-pro {
   overflow: hidden;
 
   border:
@@ -2448,117 +2450,250 @@ img {
   background:
     linear-gradient(
       145deg,
-      rgba(11, 27, 78, 0.72),
-      rgba(3, 11, 39, 0.66)
+      rgba(10, 25, 74, 0.82),
+      rgba(3, 10, 35, 0.90)
     );
 
   box-shadow:
-    0 24px 55px
+    0 24px 60px
     rgba(0, 0, 0, 0.24);
-
-  backdrop-filter:
-    blur(14px);
-
-  -webkit-backdrop-filter:
-    blur(14px);
 }
 
 
 /* =========================================================
-   HLAVIČKA KARIÉRY
+   HLAVIČKA
 ========================================================= */
 
-.career-header {
+.career-pro-header {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
 
   gap: 24px;
 
   padding:
-    21px
+    22px
     24px
-    18px;
+    0;
 
   border-bottom:
     1px solid
     rgba(255, 255, 255, 0.08);
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(165, 0, 24, 0.12),
-      transparent 42%
-    );
 }
 
 
-.career-title-wrap {
-  min-width: 0;
+.career-pro-title {
+  padding-bottom: 17px;
 }
 
 
-.career-kicker {
+.career-pro-title > span {
   display: block;
 
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 
   color:
-    rgba(255, 255, 255, 0.43);
+    rgba(255, 255, 255, 0.40);
 
   font-size: 9px;
   font-weight: 900;
 
-  letter-spacing: 1.5px;
-
+  letter-spacing: 1.3px;
   text-transform: uppercase;
 }
 
 
-.career-title-wrap h2 {
+.career-pro-title h2 {
   margin: 0;
 
   color: white;
 
-  font-size:
-    clamp(
-      25px,
-      3vw,
-      31px
-    );
-
+  font-size: 27px;
   font-weight: 950;
 
   line-height: 1;
-
   text-transform: uppercase;
 }
 
 
-.career-title-wrap p {
-  margin:
-    7px
-    0
-    0;
+/* =========================================================
+   KLUB / REPRE
+========================================================= */
 
-  color:
-    rgba(255, 255, 255, 0.48);
+.career-pro-tabs {
+  display: flex;
+  align-items: flex-end;
 
-  font-size: 11px;
-  font-weight: 750;
+  gap: 4px;
 }
 
 
-.career-source {
-  display: inline-flex;
-  align-items: center;
-
-  gap: 6px;
-
-  flex: 0 0 auto;
+.career-pro-tab {
+  position: relative;
 
   padding:
-    7px
+    11px
+    15px
+    14px;
+
+  border: 0;
+
+  background: transparent;
+
+  color:
+    rgba(255, 255, 255, 0.44);
+
+  font-size: 10px;
+  font-weight: 900;
+
+  cursor: pointer;
+
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+
+  transition:
+    color 0.18s ease,
+    background 0.18s ease;
+}
+
+
+.career-pro-tab:hover {
+  color:
+    rgba(255, 255, 255, 0.82);
+}
+
+
+.career-pro-tab.active {
+  color: white;
+}
+
+
+.career-pro-tab.active::after {
+  content: "";
+
+  position: absolute;
+
+  right: 10px;
+  bottom: -1px;
+  left: 10px;
+
+  height: 2px;
+
+  border-radius:
+    3px
+    3px
+    0
+    0;
+
+  background:
+    var(--red-light);
+
+  box-shadow:
+    0 0 13px
+    rgba(220, 38, 60, 0.42);
+}
+
+
+/* =========================================================
+   OBSAH
+========================================================= */
+
+.career-pro-body {
+  padding:
+    20px
+    24px
+    24px;
+}
+
+
+/* =========================================================
+   FILTRY
+========================================================= */
+
+.career-pro-toolbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 22px;
+
+  margin-bottom: 14px;
+}
+
+
+.career-pro-league-title {
+  min-width: 0;
+}
+
+
+.career-pro-league-title span {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color:
+    rgba(255, 255, 255, 0.38);
+
+  font-size: 8px;
+  font-weight: 900;
+
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+}
+
+
+.career-pro-league-title strong {
+  display: block;
+
+  overflow: hidden;
+
+  color: white;
+
+  font-size: 17px;
+  font-weight: 950;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+.career-pro-filters {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+}
+
+
+.career-pro-filters label {
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+
+.career-pro-filters label > span {
+  padding-left: 2px;
+
+  color:
+    rgba(255, 255, 255, 0.34);
+
+  font-size: 7px;
+  font-weight: 900;
+
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+}
+
+
+.career-pro-filters select {
+  min-width: 145px;
+
+  padding:
+    8px
+    30px
+    8px
     11px;
 
   border:
@@ -2567,209 +2702,41 @@ img {
 
   border-radius: 8px;
 
-  background:
-    rgba(255, 255, 255, 0.055);
-
-  color:
-    rgba(255, 255, 255, 0.55);
-
-  font-size: 10px;
-  font-weight: 850;
-
-  text-decoration: none;
-
-  transition:
-    color 0.2s ease,
-    background 0.2s ease,
-    border-color 0.2s ease;
-}
-
-
-.career-source:hover {
-  color: white;
+  outline: none;
 
   background:
-    rgba(255, 255, 255, 0.10);
-
-  border-color:
-    rgba(255, 255, 255, 0.20);
-}
-
-
-/* =========================================================
-   PŘEPÍNÁNÍ KLUB / REPRE
-========================================================= */
-
-.career-tabs {
-  display: flex;
-
-  gap: 5px;
-
-  padding:
-    14px
-    20px
-    0;
-}
-
-
-.career-tab {
-  padding:
-    8px
-    12px;
-
-  border:
-    1px solid
-    transparent;
-
-  border-radius: 8px;
-
-  background: transparent;
+    rgba(2, 10, 39, 0.90);
 
   color:
-    rgba(255, 255, 255, 0.47);
+    rgba(255, 255, 255, 0.84);
 
   font-size: 10px;
-  font-weight: 900;
-
-  letter-spacing: 0.5px;
+  font-weight: 800;
 
   cursor: pointer;
-
-  text-transform: uppercase;
-
-  transition:
-    color 0.2s ease,
-    background 0.2s ease,
-    border-color 0.2s ease;
 }
 
 
-.career-tab:hover {
-  color:
-    rgba(255, 255, 255, 0.82);
-
-  background:
-    rgba(255, 255, 255, 0.055);
-}
-
-
-.career-tab.active {
+.career-pro-filters select:hover,
+.career-pro-filters select:focus {
   border-color:
-    rgba(220, 38, 60, 0.28);
+    rgba(255, 255, 255, 0.26);
+}
 
+
+.career-pro-filters option {
   background:
-    rgba(165, 0, 24, 0.22);
+    #07133f;
 
   color: white;
 }
 
 
 /* =========================================================
-   OBSAH KARIÉRY
+   TABULKA
 ========================================================= */
 
-.career-content {
-  padding:
-    18px
-    20px
-    21px;
-}
-
-
-.career-summary-heading,
-.career-table-heading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  gap: 14px;
-
-  margin-bottom: 10px;
-}
-
-
-.career-summary-heading span,
-.career-table-heading span {
-  color:
-    rgba(255, 255, 255, 0.75);
-
-  font-size: 10px;
-  font-weight: 900;
-
-  letter-spacing: 0.8px;
-
-  text-transform: uppercase;
-}
-
-
-.career-summary-heading small,
-.career-table-heading small {
-  color:
-    rgba(255, 255, 255, 0.32);
-
-  font-size: 9px;
-  font-weight: 800;
-}
-
-
-/* =========================================================
-   PŘEHLED LIG
-========================================================= */
-
-.career-league-strip {
-  display: grid;
-
-  grid-auto-flow: column;
-
-  grid-auto-columns:
-    minmax(
-      205px,
-      230px
-    );
-
-  gap: 9px;
-
-  width: 100%;
-
-  padding-bottom: 7px;
-
-  overflow-x: auto;
-
-  overscroll-behavior-inline:
-    contain;
-
-  scroll-snap-type:
-    inline proximity;
-}
-
-
-.career-league-strip::-webkit-scrollbar {
-  height: 4px;
-}
-
-
-.career-league-strip::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-
-.career-league-strip::-webkit-scrollbar-thumb {
-  border-radius: 999px;
-
-  background:
-    rgba(255, 255, 255, 0.16);
-}
-
-
-.career-league-card {
-  position: relative;
-
-  min-width: 0;
-
-  padding:
-    13px
-    14px;
-
+.career-pro-table-shell {
   overflow: hidden;
 
   border:
@@ -2779,207 +2746,20 @@ img {
   border-radius: 13px;
 
   background:
-    rgba(255, 255, 255, 0.052);
-
-  scroll-snap-align: start;
-
-  transition:
-    transform 0.18s ease,
-    background 0.18s ease,
-    border-color 0.18s ease;
+    rgba(2, 9, 33, 0.48);
 }
 
 
-.career-league-card:hover {
-  transform:
-    translateY(-2px);
-
-  border-color:
-    rgba(255, 255, 255, 0.16);
-
-  background:
-    rgba(255, 255, 255, 0.08);
-}
-
-
-.career-league-card::before {
-  content: "";
-
-  position: absolute;
-
-  top: 0;
-  left: 14px;
-
-  width: 28px;
-  height: 2px;
-
-  background:
-    var(--red-light);
-
-  opacity: 0.72;
-}
-
-
-.career-league-name {
-  display: block;
-
-  min-height: 28px;
-
-  margin-bottom: 7px;
-
-  overflow: hidden;
-
-  color:
-    rgba(255, 255, 255, 0.72);
-
-  font-size: 10px;
-  font-weight: 900;
-
-  line-height: 1.35;
-
-  text-overflow: ellipsis;
-
-  text-transform: uppercase;
-}
-
-
-.career-league-clubs {
-  display: flex;
-  align-items: baseline;
-
-  gap: 5px;
-
-  margin-bottom: 10px;
-}
-
-
-.career-league-clubs strong {
-  color: white;
-
-  font-size: 23px;
-  font-weight: 950;
-
-  line-height: 1;
-}
-
-
-.career-league-clubs span {
-  color:
-    rgba(255, 255, 255, 0.39);
-
-  font-size: 9px;
-  font-weight: 800;
-
-  text-transform: uppercase;
-}
-
-
-.career-league-metrics {
-  display: grid;
-
-  grid-template-columns:
-    repeat(
-      4,
-      minmax(0, 1fr)
-    );
-
-  gap: 5px;
-}
-
-
-.career-league-metric {
-  min-width: 0;
-
-  padding-top: 7px;
-
-  border-top:
-    1px solid
-    rgba(255, 255, 255, 0.06);
-
-  text-align: center;
-}
-
-
-.career-league-metric strong {
-  display: block;
-
-  overflow: hidden;
-
-  color:
-    rgba(255, 255, 255, 0.90);
-
-  font-size: 12px;
-  font-weight: 950;
-
-  text-overflow: ellipsis;
-}
-
-
-.career-league-metric small {
-  display: block;
-
-  margin-top: 2px;
-
-  color:
-    rgba(255, 255, 255, 0.30);
-
-  font-size: 8px;
-  font-weight: 900;
-
-  text-transform: uppercase;
-}
-
-
-/* =========================================================
-   TABULKA KARIÉRY
-========================================================= */
-
-.career-table-heading {
-  margin-top: 18px;
-}
-
-
-.career-table-scroll {
-  width: 100%;
-
-  overflow-x: auto;
-
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.08);
-
-  border-radius: 12px;
-
-  background:
-    rgba(0, 5, 24, 0.18);
-}
-
-
-.career-table-scroll.expanded {
-  max-height: 560px;
+.career-pro-table-scroll {
+  max-height: 360px;
 
   overflow: auto;
 }
 
 
-.career-table-scroll::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-
-
-.career-table-scroll::-webkit-scrollbar-thumb {
-  border-radius: 999px;
-
-  background:
-    rgba(255, 255, 255, 0.16);
-}
-
-
-.career-table {
+.career-pro-table {
   width: 100%;
-
-  min-width: 980px;
+  min-width: 690px;
 
   border-collapse: collapse;
 
@@ -2989,35 +2769,33 @@ img {
 }
 
 
-.career-table-goalie {
-  min-width: 1180px;
-}
-
-
-.career-table th {
+.career-pro-table thead {
   position: sticky;
   top: 0;
 
-  z-index: 2;
+  z-index: 4;
+}
 
+
+.career-pro-table th {
   padding:
-    9px
-    10px;
+    10px
+    11px;
 
   border-bottom:
     1px solid
-    rgba(255, 255, 255, 0.10);
+    rgba(255, 255, 255, 0.09);
 
   background:
-    rgba(5, 15, 51, 0.97);
+    rgba(5, 15, 51, 0.98);
 
   color:
-    rgba(255, 255, 255, 0.42);
+    rgba(255, 255, 255, 0.40);
 
   font-size: 8px;
   font-weight: 950;
 
-  letter-spacing: 0.5px;
+  letter-spacing: 0.45px;
 
   text-align: center;
   text-transform: uppercase;
@@ -3026,17 +2804,17 @@ img {
 }
 
 
-.career-table td {
+.career-pro-table td {
   padding:
-    8px
-    10px;
+    9px
+    11px;
 
   border-bottom:
     1px solid
     rgba(255, 255, 255, 0.045);
 
   color:
-    rgba(255, 255, 255, 0.67);
+    rgba(255, 255, 255, 0.68);
 
   font-weight: 700;
 
@@ -3046,118 +2824,242 @@ img {
 }
 
 
-.career-table tbody tr:last-child td {
-  border-bottom: 0;
-}
-
-
-.career-table tbody tr {
+.career-pro-table tbody tr {
   transition:
     background 0.16s ease;
 }
 
 
-.career-table tbody tr:hover {
+.career-pro-table tbody tr:hover {
   background:
     rgba(255, 255, 255, 0.045);
 }
 
 
-.career-table .career-cell-sezona {
+.career-pro-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+
+.career-pro-table .career-column-season {
   color:
-    rgba(255, 255, 255, 0.82);
+    rgba(255, 255, 255, 0.86);
 
   font-weight: 900;
 }
 
 
-.career-table .career-cell-soutez,
-.career-table .career-cell-klub {
-  max-width: 220px;
+.career-pro-table .career-column-club {
+  min-width: 175px;
 
-  overflow: hidden;
-
-  text-align: left;
-
-  text-overflow: ellipsis;
-}
-
-
-.career-table .career-cell-klub {
   color: white;
 
   font-weight: 850;
+
+  text-align: left;
 }
 
 
-.career-latest-row {
+.career-pro-table th.career-column-club {
+  text-align: left;
+}
+
+
+.career-pro-table .career-column-phase {
+  color:
+    rgba(255, 255, 255, 0.46);
+
+  font-size: 9px;
+}
+
+
+.career-current-row {
   background:
     linear-gradient(
       90deg,
-      rgba(165, 0, 24, 0.11),
-      transparent 30%
+      rgba(165, 0, 24, 0.13),
+      transparent 42%
     );
 }
 
 
-/* =========================================================
-   ROZBALENÍ KARIÉRY
-========================================================= */
-
-.career-actions {
-  display: flex;
-  justify-content: center;
-
-  padding-top: 13px;
+.career-current-row td:first-child {
+  box-shadow:
+    inset
+    2px
+    0
+    0
+    var(--red-light);
 }
 
 
-.career-toggle {
-  display: inline-flex;
-  align-items: center;
-
-  gap: 8px;
-
-  padding:
-    8px
-    13px;
-
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.11);
-
-  border-radius: 8px;
-
-  background:
-    rgba(255, 255, 255, 0.055);
+.career-pro-no-results {
+  height: 90px;
 
   color:
-    rgba(255, 255, 255, 0.58);
+    rgba(255, 255, 255, 0.35)
+    !important;
 
-  font-size: 9px;
-  font-weight: 900;
-
-  cursor: pointer;
-
-  letter-spacing: 0.4px;
-
-  text-transform: uppercase;
-
-  transition:
-    color 0.18s ease,
-    background 0.18s ease,
-    border-color 0.18s ease;
+  text-align: center
+    !important;
 }
 
 
-.career-toggle:hover {
-  color: white;
+/* scrollbar */
 
-  border-color:
-    rgba(255, 255, 255, 0.20);
+.career-pro-table-scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+
+.career-pro-table-scroll::-webkit-scrollbar-track {
+  background:
+    rgba(255, 255, 255, 0.025);
+}
+
+
+.career-pro-table-scroll::-webkit-scrollbar-thumb {
+  border-radius: 999px;
 
   background:
-    rgba(255, 255, 255, 0.095);
+    rgba(255, 255, 255, 0.18);
+}
+
+
+.career-pro-table-scroll::-webkit-scrollbar-thumb:hover {
+  background:
+    rgba(255, 255, 255, 0.28);
+}
+
+
+/* =========================================================
+   SOUHRN LIGY
+========================================================= */
+
+.career-pro-total {
+  display: grid;
+
+  grid-template-columns:
+    minmax(170px, 1fr)
+    auto;
+
+  align-items: center;
+
+  gap: 20px;
+
+  padding:
+    14px
+    16px;
+
+  border-top:
+    1px solid
+    rgba(255, 255, 255, 0.10);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(165, 0, 24, 0.13),
+      rgba(8, 20, 62, 0.88) 35%,
+      rgba(5, 14, 45, 0.95)
+    );
+}
+
+
+.career-pro-total-copy {
+  min-width: 0;
+}
+
+
+.career-pro-total-copy > span {
+  display: block;
+
+  margin-bottom: 2px;
+
+  color:
+    rgba(255, 255, 255, 0.35);
+
+  font-size: 8px;
+  font-weight: 900;
+
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+
+.career-pro-total-copy > strong {
+  display: block;
+
+  overflow: hidden;
+
+  color: white;
+
+  font-size: 14px;
+  font-weight: 950;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+.career-pro-total-copy > small {
+  display: block;
+
+  margin-top: 2px;
+
+  color:
+    rgba(255, 255, 255, 0.45);
+
+  font-size: 9px;
+  font-weight: 700;
+}
+
+
+.career-pro-total-stats {
+  display: flex;
+  align-items: center;
+
+  gap: 5px;
+}
+
+
+.career-pro-total-stat {
+  min-width: 52px;
+
+  padding:
+    6px
+    8px;
+
+  border-left:
+    1px solid
+    rgba(255, 255, 255, 0.075);
+
+  text-align: center;
+}
+
+
+.career-pro-total-stat span {
+  display: block;
+
+  margin-bottom: 1px;
+
+  color:
+    rgba(255, 255, 255, 0.32);
+
+  font-size: 7px;
+  font-weight: 900;
+
+  text-transform: uppercase;
+}
+
+
+.career-pro-total-stat strong {
+  display: block;
+
+  color: white;
+
+  font-size: 13px;
+  font-weight: 950;
 }
 
 
@@ -3173,9 +3075,9 @@ img {
 
   gap: 9px;
 
-  min-height: 75px;
+  min-height: 90px;
 
-  padding: 20px;
+  padding: 22px;
 
   border:
     1px solid
@@ -3205,11 +3107,6 @@ img {
   background:
     var(--red-light);
 
-  box-shadow:
-    0 0 0
-    0
-    rgba(220, 38, 60, 0.45);
-
   animation:
     careerPulse
     1.4s
@@ -3221,28 +3118,19 @@ img {
 
   0% {
     box-shadow:
-      0
-      0
-      0
-      0
+      0 0 0 0
       rgba(220, 38, 60, 0.42);
   }
 
   70% {
     box-shadow:
-      0
-      0
-      0
-      7px
+      0 0 0 7px
       rgba(220, 38, 60, 0);
   }
 
   100% {
     box-shadow:
-      0
-      0
-      0
-      0
+      0 0 0 0
       rgba(220, 38, 60, 0);
   }
 
@@ -3250,102 +3138,151 @@ img {
 
 
 /* =========================================================
-   KARIÉRA – MOBILE
+   KARIÉRA – RESPONSIVE
 ========================================================= */
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
+
+  .career-pro-header {
+    align-items: flex-start;
+    flex-direction: column;
+
+    gap: 4px;
+
+    padding:
+      18px
+      16px
+      0;
+  }
+
+
+  .career-pro-title {
+    padding-bottom: 8px;
+  }
+
+
+  .career-pro-tabs {
+    width: 100%;
+  }
+
+
+  .career-pro-tab {
+    flex: 1;
+
+    text-align: center;
+  }
+
+
+  .career-pro-body {
+    padding:
+      16px;
+  }
+
+
+  .career-pro-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+
+    gap: 12px;
+  }
+
+
+  .career-pro-filters {
+    width: 100%;
+  }
+
+
+  .career-pro-filters label {
+    flex: 1;
+  }
+
+
+  .career-pro-filters select {
+    width: 100%;
+    min-width: 0;
+  }
+
+
+  .career-pro-total {
+    grid-template-columns: 1fr;
+
+    gap: 12px;
+  }
+
+
+  .career-pro-total-stats {
+    overflow-x: auto;
+
+    padding-bottom: 2px;
+  }
+
+
+  .career-pro-total-stat {
+    flex:
+      0
+      0
+      52px;
+  }
+
+}
+
+
+@media (max-width: 520px) {
 
   .career-section {
     margin-top: 28px;
   }
 
 
-  .career-header {
-    align-items: flex-start;
+  .career-pro {
+    border-radius: 15px;
+  }
 
+
+  .career-pro-title h2 {
+    font-size: 23px;
+  }
+
+
+  .career-pro-tab {
     padding:
-      18px
-      17px
-      15px;
+      9px
+      7px
+      11px;
+
+    font-size: 8px;
   }
 
 
-  .career-title-wrap h2 {
-    font-size: 24px;
-  }
-
-
-  .career-title-wrap p {
-    font-size: 10px;
-  }
-
-
-  .career-source {
+  .career-pro-body {
     padding:
-      6px
-      8px;
+      13px
+      11px
+      14px;
+  }
 
+
+  .career-pro-filters {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+
+  .career-pro-table-scroll {
+    max-height: 420px;
+  }
+
+
+  .career-pro-table {
     font-size: 9px;
   }
 
 
-  .career-tabs {
-    padding:
-      12px
-      14px
-      0;
-  }
-
-
-  .career-tab {
-    flex: 1;
-
-    padding:
-      8px
-      7px;
-
-    font-size: 9px;
-  }
-
-
-  .career-content {
-    padding:
-      15px
-      14px
-      17px;
-  }
-
-
-  .career-league-strip {
-    grid-auto-columns:
-      minmax(
-        200px,
-        80vw
-      );
-  }
-
-
-  .career-table {
-    font-size: 9px;
-  }
-
-
-  .career-table th {
+  .career-pro-table th,
+  .career-pro-table td {
     padding:
       8px
       9px;
-  }
-
-
-  .career-table td {
-    padding:
-      8px
-      9px;
-  }
-
-
-  .career-table-scroll.expanded {
-    max-height: 470px;
   }
 
 }

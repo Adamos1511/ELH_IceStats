@@ -164,7 +164,8 @@ careerView: {
   rows: [],
   type: "skater",
   section: "KLUBOVA",
-  expanded: false
+  league: "",
+  phase: "ALL"
 },
 
   selectedPlayer: null,
@@ -1637,9 +1638,6 @@ function formatStatValue(
    KARIÉRA HRÁČE / BRANKÁŘE
 ========================================================= */
 
-const CAREER_COLLAPSED_ROWS = 7;
-
-
 function careerPlayerKey(
   firstName,
   surname
@@ -1657,28 +1655,20 @@ function normalizeCareerRecord(row) {
       getValue(row, "Sekce")
     );
 
-
   const rowTypeRaw =
     normalize(
       getValue(row, "Typ řádku")
     );
 
-
-  /*
-   * Kompatibilita i se starým kariery.csv.
-   * Starý formát neměl Sekce / Typ řádku.
-   */
   const section =
     sectionRaw.includes("repre")
       ? "REPREZENTACE"
       : "KLUBOVA";
 
-
   const rowType =
     rowTypeRaw.includes("souhrn")
       ? "SOUHRN"
       : "DETAIL";
-
 
   return {
     ...row,
@@ -1737,7 +1727,6 @@ function careerFingerprint(row) {
     "T"
   ];
 
-
   return keys
     .map(key =>
       normalize(
@@ -1753,12 +1742,10 @@ async function loadCareers() {
     return state.careers;
   }
 
-
   const rows =
     await loadObjectCsv(
       DATA_URLS.careers
     );
-
 
   state.careers =
     rows
@@ -1770,10 +1757,8 @@ async function loadCareers() {
         normalizeCareerRecord
       );
 
-
   state.careerIndex =
     new Map();
-
 
   state.careers.forEach(row => {
     const key =
@@ -1781,7 +1766,6 @@ async function loadCareers() {
         getValue(row, "Jméno"),
         getValue(row, "Příjmení")
       );
-
 
     if (
       !state.careerIndex.has(key)
@@ -1792,12 +1776,10 @@ async function loadCareers() {
       );
     }
 
-
     state.careerIndex
       .get(key)
       .push(row);
   });
-
 
   return state.careers;
 }
@@ -1810,13 +1792,11 @@ async function getPlayerCareerRows(
 ) {
   await loadCareers();
 
-
   const key =
     careerPlayerKey(
       firstName,
       surname
     );
-
 
   let rows =
     [
@@ -1827,19 +1807,16 @@ async function getPlayerCareerRows(
       )
     ];
 
-
   if (!rows.length) {
     return [];
   }
 
-
   /*
-   * Kdyby existovali dva hráči stejného jména,
-   * pokusíme se je rozlišit podle současného ELH týmu.
+   * Ochrana v případě dvou hráčů
+   * se stejným jménem.
    */
   const wantedTeam =
     getTeamCode(team);
-
 
   if (wantedTeam) {
     const teamRows =
@@ -1852,25 +1829,20 @@ async function getPlayerCareerRows(
         ) === wantedTeam
       );
 
-
     if (teamRows.length) {
       rows = teamRows;
     }
   }
 
-
   /*
-   * Frontendová ochrana proti případným
-   * přesně duplicitním řádkům scraperu.
+   * Odstranění přesných duplicit.
    */
   const unique =
     new Map();
 
-
   rows.forEach(row => {
     const fingerprint =
       careerFingerprint(row);
-
 
     if (
       !unique.has(fingerprint)
@@ -1882,14 +1854,11 @@ async function getPlayerCareerRows(
     }
   });
 
-
   rows =
     [...unique.values()];
 
-
   /*
-   * Pořadí generuje kariérní scraper podle
-   * pořadí na Hokej.cz.
+   * Zachování pořadí ze scraperu.
    */
   rows.sort((a, b) => {
     const aOrder =
@@ -1897,12 +1866,10 @@ async function getPlayerCareerRows(
         getValue(a, "Pořadí")
       );
 
-
     const bOrder =
       toNumber(
         getValue(b, "Pořadí")
       );
-
 
     if (
       Number.isFinite(aOrder) &&
@@ -1911,10 +1878,15 @@ async function getPlayerCareerRows(
       return aOrder - bOrder;
     }
 
-
-    return 0;
+    return (
+      careerSeasonRank(
+        getValue(b, "Sezona")
+      ) -
+      careerSeasonRank(
+        getValue(a, "Sezona")
+      )
+    );
   });
-
 
   return rows;
 }
@@ -1931,7 +1903,6 @@ function careerGetValue(
     );
   }
 
-
   if (key === "Klub") {
     return (
       row.__careerClub ||
@@ -1939,10 +1910,8 @@ function careerGetValue(
     );
   }
 
-
   const value =
     getValue(row, key);
-
 
   if (
     key === "Z%" &&
@@ -1952,81 +1921,7 @@ function careerGetValue(
     return `${value} %`;
   }
 
-
   return value || "-";
-}
-
-
-function careerColumns(
-  type,
-  summary = false
-) {
-  if (type === "goalie") {
-    if (summary) {
-      return [
-        "Soutěž",
-        "Počet klubů",
-        "Z",
-        "V",
-        "P",
-        "Pr.",
-        "SO",
-        "Z%"
-      ];
-    }
-
-
-    return [
-      "Sezona",
-      "Soutěž",
-      "Klub",
-      "Č",
-      "GOb",
-      "Zás",
-      "SP",
-      "Z",
-      "ZZ",
-      "V",
-      "P",
-      "R",
-      "Pr.",
-      "SO",
-      "Z%",
-      "T"
-    ];
-  }
-
-
-  if (summary) {
-    return [
-      "Soutěž",
-      "Počet klubů",
-      "Z",
-      "G",
-      "A",
-      "B",
-      "+/-",
-      "TM"
-    ];
-  }
-
-
-  return [
-    "Sezona",
-    "Soutěž",
-    "Klub",
-    "Z",
-    "G",
-    "A",
-    "B",
-    "+/-",
-    "+",
-    "-",
-    "TM",
-    "GV",
-    "GP",
-    "GO"
-  ];
 }
 
 
@@ -2042,403 +1937,538 @@ function careerSectionRows(
 }
 
 
-function careerClubWord(value) {
-  const number =
-    Math.round(
-      toNumber(value)
+/* =========================================================
+   LIGY / FÁZE
+========================================================= */
+
+function careerSeasonRank(value) {
+  const match =
+    cleanCell(value)
+      .match(/(\d{4})/);
+
+  return match
+    ? Number(match[1])
+    : 0;
+}
+
+
+function careerPhase(row) {
+  const text =
+    normalize(
+      row.__careerCompetition
     );
 
-
-  if (!Number.isFinite(number)) {
-    return "klubů";
+  if (
+    text.includes("play off") ||
+    text.includes("playoff") ||
+    text.includes("play-off")
+  ) {
+    return "PLAYOFF";
   }
 
+  return "REGULAR";
+}
 
-  if (number === 1) {
+
+function careerBaseLeagueName(value) {
+  return cleanCell(value)
+    .replace(
+      /\bplay[\s-]*off\b/gi,
+      ""
+    )
+    .replace(
+      /\bzákladní část\b/gi,
+      ""
+    )
+    .replace(
+      /\bregular season\b/gi,
+      ""
+    )
+    .replace(
+      /\bnadstavba\b/gi,
+      ""
+    )
+    .replace(
+      /\s*[–—-]\s*$/g,
+      ""
+    )
+    .replace(
+      /\s{2,}/g,
+      " "
+    )
+    .trim();
+}
+
+
+function careerLeagueKey(value) {
+  const text =
+    normalize(
+      careerBaseLeagueName(
+        value
+      )
+    );
+
+  if (!text) {
+    return "";
+  }
+
+  if (
+    text.includes("extralig")
+  ) {
+    return "extraliga";
+  }
+
+  if (/\bnhl\b/.test(text)) {
+    return "nhl";
+  }
+
+  if (/\bahl\b/.test(text)) {
+    return "ahl";
+  }
+
+  if (/\bkhl\b/.test(text)) {
+    return "khl";
+  }
+
+  if (/\bshl\b/.test(text)) {
+    return "shl";
+  }
+
+  if (
+    text.includes("liiga")
+  ) {
+    return "liiga";
+  }
+
+  if (
+    text.includes("maxa liga") ||
+    text.includes("chance liga") ||
+    text === "1. liga" ||
+    text === "1 liga"
+  ) {
+    return "1-liga";
+  }
+
+  return text;
+}
+
+
+function careerLeagueLabel(
+  key,
+  rows
+) {
+  const known = {
+    extraliga: "Extraliga",
+    nhl: "NHL",
+    ahl: "AHL",
+    khl: "KHL",
+    shl: "SHL",
+    liiga: "Liiga",
+    "1-liga": "1. liga"
+  };
+
+  if (known[key]) {
+    return known[key];
+  }
+
+  const row =
+    rows.find(item =>
+      careerLeagueKey(
+        item.__careerCompetition
+      ) === key
+    );
+
+  return (
+    careerBaseLeagueName(
+      row?.__careerCompetition
+    ) ||
+    key
+  );
+}
+
+
+function careerLeagueOptions(rows) {
+  const leagues =
+    new Map();
+
+  rows.forEach(row => {
+    const key =
+      careerLeagueKey(
+        row.__careerCompetition
+      );
+
+    if (!key) {
+      return;
+    }
+
+    const season =
+      careerSeasonRank(
+        getValue(
+          row,
+          "Sezona"
+        )
+      );
+
+    if (!leagues.has(key)) {
+      leagues.set(
+        key,
+        {
+          key,
+          latestSeason: season
+        }
+      );
+    } else {
+      const existing =
+        leagues.get(key);
+
+      existing.latestSeason =
+        Math.max(
+          existing.latestSeason,
+          season
+        );
+    }
+  });
+
+  return [...leagues.values()]
+    .map(item => ({
+      ...item,
+
+      label:
+        careerLeagueLabel(
+          item.key,
+          rows
+        )
+    }))
+    .sort((a, b) => {
+      const seasonDiff =
+        b.latestSeason -
+        a.latestSeason;
+
+      if (seasonDiff) {
+        return seasonDiff;
+      }
+
+      return collator.compare(
+        a.label,
+        b.label
+      );
+    });
+}
+
+
+function careerLeagueRows(
+  rows,
+  leagueKey
+) {
+  return rows.filter(row =>
+    careerLeagueKey(
+      row.__careerCompetition
+    ) === leagueKey
+  );
+}
+
+
+function careerFindSummaryRow(
+  rows,
+  leagueKey
+) {
+  return (
+    rows.find(row =>
+      careerLeagueKey(
+        row.__careerCompetition
+      ) === leagueKey
+    ) ||
+    null
+  );
+}
+
+
+/* =========================================================
+   SOUHRNY
+========================================================= */
+
+function careerAdditiveValue(
+  rows,
+  key
+) {
+  const values =
+    rows
+      .map(row =>
+        toNumber(
+          getValue(row, key)
+        )
+      )
+      .filter(Number.isFinite);
+
+  if (!values.length) {
+    return "-";
+  }
+
+  const total =
+    values.reduce(
+      (sum, value) =>
+        sum + value,
+      0
+    );
+
+  if (
+    Number.isInteger(total)
+  ) {
+    return String(total);
+  }
+
+  return String(
+    Math.round(
+      total * 100
+    ) / 100
+  ).replace(".", ",");
+}
+
+
+function careerSummaryValue(
+  summaryRow,
+  detailRows,
+  key
+) {
+  const summaryValue =
+    summaryRow
+      ? getValue(
+          summaryRow,
+          key
+        )
+      : "";
+
+  if (
+    summaryValue &&
+    summaryValue !== "-"
+  ) {
+    if (
+      key === "Z%" &&
+      !summaryValue.includes("%")
+    ) {
+      return `${summaryValue} %`;
+    }
+
+    return summaryValue;
+  }
+
+  const additiveKeys =
+    new Set([
+      "Z",
+      "G",
+      "A",
+      "B",
+      "+/-",
+      "+",
+      "-",
+      "TM",
+      "GV",
+      "GP",
+      "GO",
+
+      "Č",
+      "GOb",
+      "Zás",
+      "SP",
+      "ZZ",
+      "V",
+      "P",
+      "R",
+      "SO",
+      "T"
+    ]);
+
+  if (
+    additiveKeys.has(key)
+  ) {
+    return careerAdditiveValue(
+      detailRows,
+      key
+    );
+  }
+
+  return "-";
+}
+
+
+function careerSeasonCount(rows) {
+  return new Set(
+    rows
+      .map(row =>
+        getValue(
+          row,
+          "Sezona"
+        )
+      )
+      .filter(Boolean)
+  ).size;
+}
+
+
+function careerClubCount(rows) {
+  return new Set(
+    rows
+      .map(row =>
+        cleanCell(
+          row.__careerClub
+        )
+      )
+      .filter(
+        value =>
+          value &&
+          value !== "-"
+      )
+      .map(normalize)
+  ).size;
+}
+
+
+function careerSeasonWord(count) {
+  if (count === 1) {
+    return "sezona";
+  }
+
+  if (
+    count >= 2 &&
+    count <= 4
+  ) {
+    return "sezony";
+  }
+
+  return "sezon";
+}
+
+
+function careerClubWord(count) {
+  if (count === 1) {
     return "klub";
   }
 
-
   if (
-    number >= 2 &&
-    number <= 4
+    count >= 2 &&
+    count <= 4
   ) {
     return "kluby";
   }
-
 
   return "klubů";
 }
 
 
-function careerMetricHtml(
-  label,
-  value
+/* =========================================================
+   TABULKA
+========================================================= */
+
+function careerTableColumns(
+  type,
+  showPhase
 ) {
-  const cleanValue =
-    cleanCell(value) || "-";
-
-
-  return `
-    <span class="career-league-metric">
-      <strong>
-        ${escapeHtml(cleanValue)}
-      </strong>
-
-      <small>
-        ${escapeHtml(label)}
-      </small>
-    </span>
-  `;
-}
-
-
-function careerSummaryCards(
-  rows,
-  type
-) {
-  if (!rows.length) {
-    return "";
-  }
-
-
-  return `
-    <div class="career-summary-heading">
-      <span>
-        Přehled podle soutěží
-      </span>
-
-      <small>
-        ${rows.length}
-        ${
-          rows.length === 1
-            ? "soutěž"
-            : "soutěží"
-        }
-      </small>
-    </div>
-
-
-    <div class="career-league-strip">
-
-      ${rows.map(row => {
-        const league =
-          careerGetValue(
-            row,
-            "Soutěž"
-          );
-
-
-        const clubs =
-          careerGetValue(
-            row,
-            "Počet klubů"
-          );
-
-
-        let metrics = "";
-
-
-        if (type === "goalie") {
-          metrics = [
-            careerMetricHtml(
-              "Z",
-              careerGetValue(
-                row,
-                "Z"
-              )
-            ),
-
-            careerMetricHtml(
-              "V",
-              careerGetValue(
-                row,
-                "V"
-              )
-            ),
-
-            careerMetricHtml(
-              "Pr.",
-              careerGetValue(
-                row,
-                "Pr."
-              )
-            ),
-
-            careerMetricHtml(
-              "Z%",
-              careerGetValue(
-                row,
-                "Z%"
-              )
-            )
-          ].join("");
-        } else {
-          metrics = [
-            careerMetricHtml(
-              "Z",
-              careerGetValue(
-                row,
-                "Z"
-              )
-            ),
-
-            careerMetricHtml(
-              "G",
-              careerGetValue(
-                row,
-                "G"
-              )
-            ),
-
-            careerMetricHtml(
-              "A",
-              careerGetValue(
-                row,
-                "A"
-              )
-            ),
-
-            careerMetricHtml(
-              "B",
-              careerGetValue(
-                row,
-                "B"
-              )
-            )
-          ].join("");
-        }
-
-
-        return `
-          <article class="career-league-card">
-
-            <span class="career-league-name">
-              ${escapeHtml(league)}
-            </span>
-
-
-            <div class="career-league-clubs">
-              <strong>
-                ${escapeHtml(clubs)}
-              </strong>
-
-              <span>
-                ${careerClubWord(clubs)}
-              </span>
-            </div>
-
-
-            <div class="career-league-metrics">
-              ${metrics}
-            </div>
-
-          </article>
-        `;
-      }).join("")}
-
-    </div>
-  `;
-}
-
-
-function careerTableHtml(
-  rows,
-  type
-) {
-  if (!rows.length) {
-    return `
-      <div class="career-empty">
-        Pro tuto část kariéry nejsou k dispozici data.
-      </div>
-    `;
-  }
-
-
-  const columns =
-    careerColumns(
-      type,
-      false
-    );
-
-
-  const visibleRows =
-    state.careerView.expanded
-      ? rows
-      : rows.slice(
-          0,
-          CAREER_COLLAPSED_ROWS
-        );
-
-
-  const needsToggle =
-    rows.length >
-    CAREER_COLLAPSED_ROWS;
-
-
-  return `
-    <div class="career-table-heading">
-      <span>
-        Sezony a soutěže
-      </span>
-
-      <small>
-        ${rows.length}
-        ${
-          rows.length === 1
-            ? "záznam"
-            : "záznamů"
-        }
-      </small>
-    </div>
-
-
-    <div
-      class="
-        career-table-scroll
-        ${
-          state.careerView.expanded
-            ? "expanded"
-            : ""
-        }
-      "
-    >
-      <table
-        class="
-          career-table
-          ${
-            type === "goalie"
-              ? "career-table-goalie"
-              : "career-table-skater"
-          }
-        "
-      >
-
-        <thead>
-          <tr>
-            ${columns
-              .map(column => `
-                <th>
-                  ${escapeHtml(column)}
-                </th>
-              `)
-              .join("")}
-          </tr>
-        </thead>
-
-
-        <tbody>
-
-          ${visibleRows
-            .map((row, index) => `
-              <tr
-                class="${
-                  index === 0
-                    ? "career-latest-row"
-                    : ""
-                }"
-              >
-                ${columns
-                  .map(column => `
-                    <td
-                      class="
-                        career-cell-${normalize(column)
-                          .replace(/[^a-z0-9]/g, "-")}
-                      "
-                    >
-                      ${escapeHtml(
-                        careerGetValue(
-                          row,
-                          column
-                        )
-                      )}
-                    </td>
-                  `)
-                  .join("")}
-              </tr>
-            `)
-            .join("")}
-
-        </tbody>
-
-      </table>
-    </div>
-
-
-    ${
-      needsToggle
-        ? `
-          <div class="career-actions">
-
-            <button
-              type="button"
-              class="career-toggle"
-              data-career-toggle
-            >
-              ${
-                state.careerView.expanded
-                  ? "Skrýt starší sezony"
-                  : `Zobrazit celou kariéru (${rows.length})`
-              }
-
-              <span aria-hidden="true">
-                ${
-                  state.careerView.expanded
-                    ? "↑"
-                    : "↓"
-                }
-              </span>
-            </button>
-
-          </div>
-        `
-        : ""
+  const common = [
+    {
+      key: "Sezona",
+      label: "Sezona",
+      className: "season"
+    },
+    {
+      key: "Klub",
+      label: "Klub",
+      className: "club"
     }
-  `;
-}
+  ];
 
-
-function safeCareerSourceUrl(
-  rows
-) {
-  const raw =
-    rows
-      .map(row =>
-        getValue(
-          row,
-          "Kariéra URL"
-        )
-      )
-      .find(Boolean);
-
-
-  if (!raw) {
-    return "";
+  if (showPhase) {
+    common.push({
+      key: "__phase",
+      label: "Část",
+      className: "phase"
+    });
   }
 
+  if (type === "goalie") {
+    return [
+      ...common,
 
-  try {
-    const url =
-      new URL(raw);
+      {
+        key: "Z",
+        label: "Z"
+      },
+      {
+        key: "V",
+        label: "V"
+      },
+      {
+        key: "P",
+        label: "P"
+      },
+      {
+        key: "Pr.",
+        label: "Pr."
+      },
+      {
+        key: "Z%",
+        label: "Z%"
+      },
+      {
+        key: "SO",
+        label: "SO"
+      }
+    ];
+  }
 
+  return [
+    ...common,
 
-    if (
-      url.protocol !== "https:" ||
-      !url.hostname.endsWith(
-        "hokej.cz"
-      )
-    ) {
-      return "";
+    {
+      key: "Z",
+      label: "Z"
+    },
+    {
+      key: "G",
+      label: "G"
+    },
+    {
+      key: "A",
+      label: "A"
+    },
+    {
+      key: "B",
+      label: "B"
+    },
+    {
+      key: "+/-",
+      label: "+/-"
+    },
+    {
+      key: "TM",
+      label: "TM"
     }
-
-
-    return url.href;
-
-  } catch {
-    return "";
-  }
+  ];
 }
 
+
+function careerCellValue(
+  row,
+  column
+) {
+  if (
+    column.key === "__phase"
+  ) {
+    return careerPhase(row) ===
+      "PLAYOFF"
+      ? "Play off"
+      : "Základní část";
+  }
+
+  return careerGetValue(
+    row,
+    column.key
+  );
+}
+
+
+/* =========================================================
+   VYKRESLENÍ KARIÉRY
+========================================================= */
 
 function renderCareerView() {
   const container =
@@ -2446,15 +2476,12 @@ function renderCareerView() {
       "careerSection"
     );
 
-
   if (!container) {
     return;
   }
 
-
   const rows =
     state.careerView.rows;
-
 
   if (!rows.length) {
     container.innerHTML = `
@@ -2465,7 +2492,6 @@ function renderCareerView() {
 
     return;
   }
-
 
   const availableSections =
     [
@@ -2479,13 +2505,11 @@ function renderCareerView() {
       }
     ]
       .filter(section =>
-        rows.some(
-          row =>
-            row.__careerSection ===
-            section.key
+        rows.some(row =>
+          row.__careerSection ===
+          section.key
         )
       );
-
 
   if (
     !availableSections.some(
@@ -2499,10 +2523,8 @@ function renderCareerView() {
       "KLUBOVA";
   }
 
-
   const section =
     state.careerView.section;
-
 
   const detailRows =
     careerSectionRows(
@@ -2510,91 +2532,224 @@ function renderCareerView() {
       "DETAIL"
     );
 
-
   const summaryRows =
     careerSectionRows(
       section,
       "SOUHRN"
     );
 
+  if (!detailRows.length) {
+    container.innerHTML = `
+      <div class="career-empty">
+        Pro tuto část kariéry nejsou k dispozici data.
+      </div>
+    `;
 
-  const seasons =
-    new Set(
+    return;
+  }
+
+  const leagues =
+    careerLeagueOptions(
       detailRows
-        .map(row =>
+    );
+
+  if (!leagues.length) {
+    container.innerHTML = `
+      <div class="career-empty">
+        Nepodařilo se rozpoznat soutěže hráče.
+      </div>
+    `;
+
+    return;
+  }
+
+  if (
+    !leagues.some(
+      league =>
+        league.key ===
+        state.careerView.league
+    )
+  ) {
+    state.careerView.league =
+      leagues[0].key;
+
+    state.careerView.phase =
+      "ALL";
+  }
+
+  const leagueKey =
+    state.careerView.league;
+
+  const leagueLabel =
+    leagues.find(
+      league =>
+        league.key ===
+        leagueKey
+    )?.label ||
+    "Vybraná soutěž";
+
+  const allLeagueRows =
+    careerLeagueRows(
+      detailRows,
+      leagueKey
+    );
+
+  const phases =
+    new Set(
+      allLeagueRows.map(
+        careerPhase
+      )
+    );
+
+  if (
+    state.careerView.phase !==
+      "ALL" &&
+    !phases.has(
+      state.careerView.phase
+    )
+  ) {
+    state.careerView.phase =
+      "ALL";
+  }
+
+  let visibleRows =
+    state.careerView.phase ===
+      "ALL"
+      ? [...allLeagueRows]
+      : allLeagueRows.filter(
+          row =>
+            careerPhase(row) ===
+            state.careerView.phase
+        );
+
+  visibleRows.sort(
+    (a, b) => {
+      const seasonDiff =
+        careerSeasonRank(
           getValue(
-            row,
+            b,
             "Sezona"
           )
-        )
-        .filter(Boolean)
+        ) -
+        careerSeasonRank(
+          getValue(
+            a,
+            "Sezona"
+          )
+        );
+
+      if (seasonDiff) {
+        return seasonDiff;
+      }
+
+      const aOrder =
+        toNumber(
+          getValue(a, "Pořadí")
+        );
+
+      const bOrder =
+        toNumber(
+          getValue(b, "Pořadí")
+        );
+
+      if (
+        Number.isFinite(aOrder) &&
+        Number.isFinite(bOrder)
+      ) {
+        return aOrder - bOrder;
+      }
+
+      return 0;
+    }
+  );
+
+  const summaryRow =
+    careerFindSummaryRow(
+      summaryRows,
+      leagueKey
     );
 
+  const showPhase =
+    phases.size > 1;
+
+  const columns =
+    careerTableColumns(
+      state.careerView.type,
+      showPhase
+    );
+
+  const seasons =
+    careerSeasonCount(
+      allLeagueRows
+    );
 
   const clubs =
-    new Set(
-      detailRows
-        .map(row =>
-          row.__careerClub
-        )
-        .filter(Boolean)
-        .map(normalize)
+    careerClubCount(
+      allLeagueRows
     );
 
-
-  const sourceUrl =
-    safeCareerSourceUrl(
-      rows
-    );
-
+  const totalKeys =
+    state.careerView.type ===
+      "goalie"
+      ? [
+          ["Z", "Z"],
+          ["V", "V"],
+          ["P", "P"],
+          ["Pr.", "Pr."],
+          ["Z%", "Z%"],
+          ["SO", "SO"]
+        ]
+      : [
+          ["Z", "Z"],
+          ["G", "G"],
+          ["A", "A"],
+          ["B", "B"],
+          ["+/-", "+/-"],
+          ["TM", "TM"]
+        ];
 
   container.innerHTML = `
-    <div class="career-shell">
+    <section class="career-pro">
 
-      <header class="career-header">
+      <header class="career-pro-header">
 
-        <div class="career-title-wrap">
-
-          <span class="career-kicker">
+        <div class="career-pro-title">
+          <span>
             Kompletní historie
           </span>
 
           <h2>
             Kariéra
           </h2>
-
-          <p>
-            ${
-              seasons.size
-                ? `${seasons.size} sezon`
-                : "Kompletní přehled"
-            }
-
-            ${
-              section === "KLUBOVA" &&
-              clubs.size
-                ? ` · ${clubs.size} klubů`
-                : ""
-            }
-          </p>
-
         </div>
 
 
         ${
-          sourceUrl
+          availableSections.length > 1
             ? `
-              <a
-                href="${escapeHtml(sourceUrl)}"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="career-source"
+              <div
+                class="career-pro-tabs"
+                role="tablist"
               >
-                Hokej.cz
-                <span aria-hidden="true">
-                  ↗
-                </span>
-              </a>
+                ${availableSections
+                  .map(item => `
+                    <button
+                      type="button"
+                      class="
+                        career-pro-tab
+                        ${
+                          item.key === section
+                            ? "active"
+                            : ""
+                        }
+                      "
+                      data-career-tab="${item.key}"
+                    >
+                      ${escapeHtml(item.label)}
+                    </button>
+                  `)
+                  .join("")}
+              </div>
             `
             : ""
         }
@@ -2602,66 +2757,270 @@ function renderCareerView() {
       </header>
 
 
-      ${
-        availableSections.length > 1
-          ? `
-            <div
-              class="career-tabs"
-              role="tablist"
-              aria-label="Typ kariéry"
-            >
+      <div class="career-pro-body">
 
-              ${availableSections
-                .map(item => `
-                  <button
-                    type="button"
-                    class="
-                      career-tab
+        <div class="career-pro-toolbar">
+
+          <div class="career-pro-league-title">
+
+            <span>
+              Vybraná soutěž
+            </span>
+
+            <strong>
+              ${escapeHtml(leagueLabel)}
+            </strong>
+
+          </div>
+
+
+          <div class="career-pro-filters">
+
+            <label>
+              <span>Liga</span>
+
+              <select
+                data-career-league
+                aria-label="Vybrat soutěž"
+              >
+                ${leagues
+                  .map(league => `
+                    <option
+                      value="${escapeHtml(league.key)}"
                       ${
-                        item.key === section
-                          ? "active"
+                        league.key === leagueKey
+                          ? "selected"
                           : ""
                       }
-                    "
-                    data-career-tab="${item.key}"
-                    role="tab"
-                    aria-selected="${
-                      item.key === section
-                        ? "true"
-                        : "false"
-                    }"
-                  >
-                    ${escapeHtml(item.label)}
-                  </button>
-                `)
+                    >
+                      ${escapeHtml(league.label)}
+                    </option>
+                  `)
+                  .join("")}
+              </select>
+            </label>
+
+
+            ${
+              showPhase
+                ? `
+                  <label>
+                    <span>Část</span>
+
+                    <select
+                      data-career-phase
+                      aria-label="Vybrat část soutěže"
+                    >
+                      <option
+                        value="ALL"
+                        ${
+                          state.careerView.phase ===
+                            "ALL"
+                            ? "selected"
+                            : ""
+                        }
+                      >
+                        Vše
+                      </option>
+
+                      ${
+                        phases.has(
+                          "REGULAR"
+                        )
+                          ? `
+                            <option
+                              value="REGULAR"
+                              ${
+                                state.careerView.phase ===
+                                  "REGULAR"
+                                  ? "selected"
+                                  : ""
+                              }
+                            >
+                              Základní část
+                            </option>
+                          `
+                          : ""
+                      }
+
+                      ${
+                        phases.has(
+                          "PLAYOFF"
+                        )
+                          ? `
+                            <option
+                              value="PLAYOFF"
+                              ${
+                                state.careerView.phase ===
+                                  "PLAYOFF"
+                                  ? "selected"
+                                  : ""
+                              }
+                            >
+                              Play off
+                            </option>
+                          `
+                          : ""
+                      }
+
+                    </select>
+                  </label>
+                `
+                : ""
+            }
+
+          </div>
+
+        </div>
+
+
+        <div class="career-pro-table-shell">
+
+          <div class="career-pro-table-scroll">
+
+            <table class="career-pro-table">
+
+              <thead>
+                <tr>
+                  ${columns
+                    .map(column => `
+                      <th
+                        class="${
+                          column.className
+                            ? `career-column-${column.className}`
+                            : ""
+                        }"
+                      >
+                        ${escapeHtml(column.label)}
+                      </th>
+                    `)
+                    .join("")}
+                </tr>
+              </thead>
+
+
+              <tbody>
+
+                ${
+                  visibleRows.length
+                    ? visibleRows
+                        .map(
+                          (
+                            row,
+                            index
+                          ) => `
+                            <tr
+                              class="${
+                                index === 0
+                                  ? "career-current-row"
+                                  : ""
+                              }"
+                            >
+                              ${columns
+                                .map(column => `
+                                  <td
+                                    class="${
+                                      column.className
+                                        ? `career-column-${column.className}`
+                                        : ""
+                                    }"
+                                  >
+                                    ${escapeHtml(
+                                      careerCellValue(
+                                        row,
+                                        column
+                                      )
+                                    )}
+                                  </td>
+                                `)
+                                .join("")}
+                            </tr>
+                          `
+                        )
+                        .join("")
+                    : `
+                      <tr>
+                        <td
+                          colspan="${columns.length}"
+                          class="career-pro-no-results"
+                        >
+                          Pro zvolený filtr nejsou žádné záznamy.
+                        </td>
+                      </tr>
+                    `
+                }
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+
+          <footer class="career-pro-total">
+
+            <div class="career-pro-total-copy">
+
+              <span>
+                Celkem v lize
+              </span>
+
+              <strong>
+                ${escapeHtml(leagueLabel)}
+              </strong>
+
+              <small>
+                ${seasons}
+                ${careerSeasonWord(seasons)}
+
+                ${
+                  clubs
+                    ? `
+                      · ${clubs}
+                      ${careerClubWord(clubs)}
+                    `
+                    : ""
+                }
+              </small>
+
+            </div>
+
+
+            <div class="career-pro-total-stats">
+
+              ${totalKeys
+                .map(
+                  ([key, label]) => `
+                    <div class="career-pro-total-stat">
+
+                      <span>
+                        ${escapeHtml(label)}
+                      </span>
+
+                      <strong>
+                        ${escapeHtml(
+                          careerSummaryValue(
+                            summaryRow,
+                            allLeagueRows,
+                            key
+                          )
+                        )}
+                      </strong>
+
+                    </div>
+                  `
+                )
                 .join("")}
 
             </div>
-          `
-          : ""
-      }
 
+          </footer>
 
-      <div class="career-content">
-
-        ${
-          careerSummaryCards(
-            summaryRows,
-            state.careerView.type
-          )
-        }
-
-
-        ${
-          careerTableHtml(
-            detailRows,
-            state.careerView.type
-          )
-        }
+        </div>
 
       </div>
 
-    </div>
+    </section>
   `;
 }
 
@@ -2677,11 +3036,9 @@ async function renderPlayerCareer({
       "careerSection"
     );
 
-
   if (!container) {
     return;
   }
-
 
   container.innerHTML = `
     <div class="career-loading">
@@ -2689,7 +3046,6 @@ async function renderPlayerCareer({
       Načítám kompletní kariéru...
     </div>
   `;
-
 
   try {
     const rows =
@@ -2699,10 +3055,10 @@ async function renderPlayerCareer({
         team
       );
 
-
     state.careerView = {
       rows,
       type,
+
       section:
         rows.some(
           row =>
@@ -2712,9 +3068,9 @@ async function renderPlayerCareer({
           ? "KLUBOVA"
           : "REPREZENTACE",
 
-      expanded: false
+      league: "",
+      phase: "ALL"
     };
-
 
     renderCareerView();
 
@@ -2723,7 +3079,6 @@ async function renderPlayerCareer({
       "Kariéra hráče:",
       error
     );
-
 
     container.innerHTML = `
       <div class="career-empty">
@@ -5511,45 +5866,23 @@ function bindEvents() {
         return;
       }
 
-      const careerTab =
-  event.target.closest(
-    "[data-career-tab]"
-  );
-
-
-if (careerTab) {
-  state.careerView.section =
-    careerTab.dataset.careerTab;
-
-  state.careerView.expanded =
-    false;
-
-  renderCareerView();
-
-  return;
-}
-
-
-const careerToggle =
-  event.target.closest(
-    "[data-career-toggle]"
-  );
-
-
-if (careerToggle) {
-  state.careerView.expanded =
-    !state.careerView.expanded;
-
-  renderCareerView();
-
-  return;
-}
-      const teamButton =
+        const careerTab =
         event.target.closest(
-          "[data-team-code]"
+          "[data-career-tab]"
         );
 
 
+      if (careerTab) {
+        state.careerView.section =
+          careerTab.dataset.careerTab;
+
+        state.careerView.league = "";
+        state.careerView.phase = "ALL";
+
+        renderCareerView();
+
+        return;
+      }
       if (teamButton) {
         await openClub(
           teamButton.dataset.teamCode
@@ -5580,7 +5913,44 @@ if (careerToggle) {
     }
   );
 
+    document.addEventListener(
+    "change",
+    event => {
 
+      const leagueSelect =
+        event.target.closest(
+          "[data-career-league]"
+        );
+
+
+      if (leagueSelect) {
+        state.careerView.league =
+          leagueSelect.value;
+
+        state.careerView.phase =
+          "ALL";
+
+        renderCareerView();
+
+        return;
+      }
+
+
+      const phaseSelect =
+        event.target.closest(
+          "[data-career-phase]"
+        );
+
+
+      if (phaseSelect) {
+        state.careerView.phase =
+          phaseSelect.value;
+
+        renderCareerView();
+      }
+    }
+  );
+  
   document.addEventListener(
     "error",
     event => {
