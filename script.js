@@ -11,7 +11,7 @@
 ========================================================= */
 
 const GITHUB_RAW =
-  "https://raw.githubusercontent.com/Adamos1511/ELH_web/refs/heads/main/";
+  "https://raw.githubusercontent.com/Adamos1511/ELH_IceStats/refs/heads/main/";
 
 const DATA_URLS = {
   players: `${GITHUB_RAW}hraciELH.csv`,
@@ -21,7 +21,9 @@ const DATA_URLS = {
   transfers: `${GITHUB_RAW}prestupy.csv`,
   standings: `${GITHUB_RAW}TabulkaELH.csv`,
   schedule: `${GITHUB_RAW}rozpis.csv`,
-  careers: `${GITHUB_RAW}kariery.csv`
+
+  careers:
+    `${GITHUB_RAW}kariery.csv?v=20260816-1`
 };
 
 
