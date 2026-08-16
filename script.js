@@ -23,7 +23,7 @@ const DATA_URLS = {
   schedule: `${GITHUB_RAW}rozpis.csv`,
 
   careers:
-    `${GITHUB_RAW}kariery.csv?v=20260816-1`
+  `${GITHUB_RAW}kariery.csv?v=20260816-2`
 };
 
 
@@ -1660,15 +1660,57 @@ function normalizeCareerRecord(row) {
       getValue(row, "Typ řádku")
     );
 
+  const season =
+    getValue(row, "Sezona");
+
+  const competition =
+    getValue(row, "Soutěž") ||
+    getValue(row, "Liga");
+
+  const club =
+    getValue(row, "Klub") ||
+    getValue(row, "Tým");
+
+
   const section =
     sectionRaw.includes("repre")
       ? "REPREZENTACE"
       : "KLUBOVA";
 
-  const rowType =
+
+  /*
+   * DŮLEŽITÉ:
+   *
+   * Sezonní řádek poznáváme primárně
+   * podle vyplněné sezony.
+   *
+   * Tím nejsme závislí na tom,
+   * jak přesně scraper vyplnil
+   * sloupec "Typ řádku".
+   */
+  let rowType = "DETAIL";
+
+
+  if (season) {
+    rowType = "DETAIL";
+
+  } else if (
     rowTypeRaw.includes("souhrn")
-      ? "SOUHRN"
-      : "DETAIL";
+  ) {
+    rowType = "SOUHRN";
+
+  } else if (
+    getValue(row, "Počet klubů")
+  ) {
+    rowType = "SOUHRN";
+
+  } else if (club) {
+    rowType = "DETAIL";
+
+  } else {
+    rowType = "SOUHRN";
+  }
+
 
   return {
     ...row,
@@ -1680,12 +1722,10 @@ function normalizeCareerRecord(row) {
       rowType,
 
     __careerCompetition:
-      getValue(row, "Soutěž") ||
-      getValue(row, "Liga"),
+      competition,
 
     __careerClub:
-      getValue(row, "Klub") ||
-      getValue(row, "Tým")
+      club
   };
 }
 
