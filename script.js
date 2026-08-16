@@ -5883,6 +5883,10 @@ function bindEvents() {
 
         return;
       }
+      const teamButton =
+  event.target.closest(
+    "[data-team-code]"
+  );
       if (teamButton) {
         await openClub(
           teamButton.dataset.teamCode
