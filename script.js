@@ -9464,7 +9464,10 @@ if (statsSortButton) {
 
   return;
 }
-
+  const careerTab =
+  event.target.closest(
+    "[data-career-tab]"
+  );
 
       if (careerTab) {
         state.careerView.section =
