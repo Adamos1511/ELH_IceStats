@@ -492,6 +492,84 @@ def load_stat_section(
 
     return clean_player_table(player_table)
 
+def load_powerplay_points_section(
+    session: requests.Session,
+) -> pd.DataFrame:
+    """
+    Načte body hráčů dosažené v přesilovkách.
+
+    Hokej.cz je má v:
+    stats-menu-section=advancedPoints
+    stats-submenu-section=powerPlay
+
+    Ve zdrojové tabulce se výsledná hodnota
+    jmenuje P. Uvnitř našeho scraperu ji
+    přejmenujeme na PPP, aby zbytek současné
+    logiky nemusel být vůbec měněn.
+    """
+
+    params = get_base_params()
+
+    params["do"] = (
+        "stats-submenu-select"
+    )
+
+    params["stats-menu-section"] = (
+        "advancedPoints"
+    )
+
+    params["stats-submenu-section"] = (
+        "powerPlay"
+    )
+
+    base_response = download_page(
+        session,
+        DETAIL_STATS_URL,
+        params,
+    )
+
+    show_all_url = find_show_all_url(
+        base_response
+    )
+
+    if show_all_url:
+        response = download_page(
+            session,
+            show_all_url,
+        )
+    else:
+        response = base_response
+
+    tables = read_html_tables(
+        response.text
+    )
+
+    player_table = find_player_table(
+        tables
+    )
+
+    result = clean_player_table(
+        player_table
+    )
+
+    if "P" not in result.columns:
+        raise RuntimeError(
+            "V přesilovkové tabulce "
+            "Hokej.cz nebyl nalezen "
+            "sloupec P."
+        )
+
+    # POZOR:
+    # zde P znamená body dosažené
+    # pouze při přesilovce.
+    result = result.rename(
+        columns={
+            "P": "PPP"
+        }
+    )
+
+    return result    
+
 
 def load_all_stat_sections() -> dict[str, pd.DataFrame]:
     session = create_session()
@@ -515,7 +593,30 @@ def load_all_stat_sections() -> dict[str, pd.DataFrame]:
             )
 
             sections[section_name] = pd.DataFrame()
+    # -----------------------------------------------------
+    # BODY Z PŘESILOVEK
+    # -----------------------------------------------------
 
+    try:
+        sections[
+            "powerplay_points"
+        ] = (
+            load_powerplay_points_section(
+                session
+            )
+        )
+
+    except RuntimeError as error:
+        print(
+            "Upozornění: "
+            "body z přesilovek "
+            "se nepodařilo načíst: "
+            f"{error}"
+        )
+
+        sections[
+            "powerplay_points"
+        ] = pd.DataFrame()
     return sections
 
 
