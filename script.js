@@ -6526,11 +6526,9 @@ function renderStandings() {
       "tabulkaELH"
     );
 
-
   if (!container) {
     return;
   }
-
 
   if (!state.standings.length) {
     container.innerHTML = `
@@ -6541,7 +6539,6 @@ function renderStandings() {
 
     return;
   }
-
 
   container.innerHTML = `
     <div class="elh-tabulka">
@@ -6559,7 +6556,6 @@ function renderStandings() {
         <div>Forma</div>
       </div>
 
-
       ${
         state.standings
           .map(row => {
@@ -6571,19 +6567,16 @@ function renderStandings() {
                 )
               );
 
-
             const teamValue =
               getValue(
                 row,
                 "TÝM"
               );
 
-
             const team =
               getTeam(
                 teamValue
               );
-
 
             const rowClass =
               position <= 4
@@ -6596,7 +6589,6 @@ function renderStandings() {
                   : position === 14
                     ? "baraz"
                     : "";
-
 
             return `
               <div
@@ -6611,124 +6603,110 @@ function renderStandings() {
                     getValue(
                       row,
                       "POŘADÍ"
-                    ) ||
-                    "-"
+                    ) || "-"
                   )}
                 </div>
 
-
-                <div class="team-cell">
+                <div class="tym-nazev tabulka-tym">
 
                   ${
                     team
                       ? `
-                        <button
-                          type="button"
-                          class="standings-team-button"
-                          data-team-code="${escapeHtml(team.code)}"
+                        <img
+                          src="${escapeHtml(
+                            logoUrl(
+                              team.code
+                            )
+                          )}"
+                          alt=""
+                          class="logoMale"
+                          data-hide-on-error
                         >
 
-                          <img
-                            src="${escapeHtml(
-                              logoUrl(
-                                team.code
-                              )
-                            )}"
-                            alt=""
-                            data-hide-on-error
-                          >
-
-                          <span>
-                            ${escapeHtml(team.name)}
-                          </span>
-
+                        <button
+                          type="button"
+                          data-team-code="${escapeHtml(
+                            team.code
+                          )}"
+                        >
+                          ${escapeHtml(
+                            team.name
+                          )}
                         </button>
                       `
-                      : escapeHtml(
-                          teamValue ||
-                          "-"
-                        )
+                      : `
+                        <span>
+                          ${escapeHtml(
+                            teamValue || "-"
+                          )}
+                        </span>
+                      `
                   }
 
                 </div>
-
 
                 <div>
                   ${escapeHtml(
                     getValue(
                       row,
                       "ZÁPASY"
-                    ) ||
-                    "-"
+                    ) || "-"
                   )}
                 </div>
-
 
                 <div>
                   ${escapeHtml(
                     getValue(
                       row,
                       "V"
-                    ) ||
-                    "-"
+                    ) || "-"
                   )}
                 </div>
-
 
                 <div>
                   ${escapeHtml(
                     getValue(
                       row,
                       "VP"
-                    ) ||
-                    "-"
+                    ) || "-"
                   )}
                 </div>
-
 
                 <div>
                   ${escapeHtml(
                     getValue(
                       row,
                       "PP"
-                    ) ||
-                    "-"
+                    ) || "-"
                   )}
                 </div>
-
 
                 <div>
                   ${escapeHtml(
                     getValue(
                       row,
                       "P"
-                    ) ||
-                    "-"
+                    ) || "-"
                   )}
                 </div>
-
 
                 <div>
                   ${escapeHtml(
                     getValue(
                       row,
                       "SKÓRE"
-                    ) ||
-                    "-"
+                    ) || "-"
                   )}
                 </div>
-
 
                 <div class="body-cell">
                   ${escapeHtml(
                     getValue(
                       row,
                       "BODY"
-                    ) ||
-                    "-"
+                    ) || "-"
                   )}
                 </div>
-
 
                 <div class="forma-cell">
                   ${renderForm(
@@ -7008,41 +6986,51 @@ function scheduleTeamHtml(
   const team =
     getTeam(value);
 
-
   if (!team) {
     return `
-      <div class="match-team ${escapeHtml(side)}">
-
+      <div class="schedule-team ${escapeHtml(side)}">
         <span>
           ${escapeHtml(value)}
         </span>
-
       </div>
     `;
   }
 
-
   return `
     <button
       type="button"
-      class="match-team ${escapeHtml(side)}"
+      class="schedule-team ${escapeHtml(side)}"
       data-team-code="${escapeHtml(team.code)}"
     >
+      ${
+        side === "home"
+          ? `
+            <span>
+              ${escapeHtml(team.name)}
+            </span>
 
-      <img
-        src="${escapeHtml(
-          logoUrl(
-            team.code
-          )
-        )}"
-        alt=""
-        data-hide-on-error
-      >
+            <img
+              src="${escapeHtml(
+                logoUrl(team.code)
+              )}"
+              alt=""
+              data-hide-on-error
+            >
+          `
+          : `
+            <img
+              src="${escapeHtml(
+                logoUrl(team.code)
+              )}"
+              alt=""
+              data-hide-on-error
+            >
 
-      <span>
-        ${escapeHtml(team.name)}
-      </span>
-
+            <span>
+              ${escapeHtml(team.name)}
+            </span>
+          `
+      }
     </button>
   `;
 }
