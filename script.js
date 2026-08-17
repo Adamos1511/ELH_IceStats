@@ -2913,22 +2913,23 @@ function careerBaseLeagueName(
 }
 
 
-function careerLeagueKey(
-  value
-) {
-  const base =
-    careerBaseLeagueName(
-      value
-    );
+function careerLeagueKey(value) {
+  const raw =
+    normalize(
+      cleanCell(value)
+    )
+      .replace(/\s+/g, " ")
+      .trim();
 
+  const base =
+    normalize(
+      careerBaseLeagueName(value)
+    )
+      .replace(/\s+/g, " ")
+      .trim();
 
   const text =
-    normalize(base)
-      .replace(
-        /\s+/g,
-        " "
-      )
-      .trim();
+    base || raw;
 
 
   if (!text) {
@@ -2936,6 +2937,7 @@ function careerLeagueKey(
   }
 
 
+  // NHL
   if (
     /\bnhl\b/.test(text)
   ) {
@@ -2943,6 +2945,7 @@ function careerLeagueKey(
   }
 
 
+  // AHL
   if (
     /\bahl\b/.test(text)
   ) {
@@ -2950,6 +2953,7 @@ function careerLeagueKey(
   }
 
 
+  // KHL
   if (
     /\bkhl\b/.test(text)
   ) {
@@ -2957,6 +2961,7 @@ function careerLeagueKey(
   }
 
 
+  // SHL
   if (
     /\bshl\b/.test(text)
   ) {
@@ -2964,36 +2969,30 @@ function careerLeagueKey(
   }
 
 
+  // Finská Liiga
   if (
-    text.includes(
-      "liiga"
-    )
+    text.includes("liiga")
   ) {
     return "liiga";
   }
 
 
   /*
-   * Slovenskou extraligu držíme
-   * odděleně od české.
+   * SLOVENSKÁ EXTRALIGA
+   *
+   * Musí být vyhodnocena před českou.
    */
   if (
     (
-      text.includes(
-        "slovensk"
-      ) &&
-      text.includes(
-        "extralig"
-      )
+      text.includes("slovensk") &&
+      text.includes("extralig")
     ) ||
+
     (
-      text.includes(
-        "tipos"
-      ) &&
-      text.includes(
-        "liga"
-      )
+      text.includes("tipos") &&
+      text.includes("extralig")
     ) ||
+
     text.includes(
       "extraliga sr"
     )
@@ -3002,35 +3001,77 @@ function careerLeagueKey(
   }
 
 
+  /*
+   * ČESKÁ EXTRALIGA + PLAY OFF ELH
+   *
+   * Všechny tyto názvy budou jedna liga:
+   *
+   * Tipsport extraliga
+   * Play off Tipsport extraligy
+   * Generali Česká pojišťovna play off
+   * O2 extraliga
+   *
+   * POZOR:
+   * Generali Česká Cup – play off
+   * sem NEPATŘÍ.
+   */
   if (
-    text === "extraliga" ||
+    raw.includes(
+      "generali ceska pojistovna play off"
+    ) ||
+
+    raw.includes(
+      "play off tipsport extralig"
+    ) ||
+
     text === "elh" ||
+
     text === "telh" ||
+
     text.includes(
-      "tipsport extraliga"
+      "tipsport extralig"
     ) ||
+
     text.includes(
-      "ceska extraliga"
+      "o2 extralig"
     ) ||
+
+    text.includes(
+      "ceska extralig"
+    ) ||
+
     text.includes(
       "extraliga cr"
+    ) ||
+
+    (
+      text.includes("extralig") &&
+      !text.includes("slovensk") &&
+      !text.includes("tipos")
     )
   ) {
     return "cz-extraliga";
   }
 
 
+  /*
+   * ČESKÁ 1. LIGA
+   */
   if (
     text.includes(
       "maxa liga"
     ) ||
+
     text.includes(
       "chance liga"
     ) ||
+
     text.includes(
       "wsm liga"
     ) ||
+
     text === "1. liga" ||
+
     text === "1 liga"
   ) {
     return "cz-1-liga";
@@ -6986,51 +7027,41 @@ function scheduleTeamHtml(
   const team =
     getTeam(value);
 
+
   if (!team) {
     return `
-      <div class="schedule-team ${escapeHtml(side)}">
+      <div class="match-team ${escapeHtml(side)}">
+
         <span>
           ${escapeHtml(value)}
         </span>
+
       </div>
     `;
   }
 
+
   return `
     <button
       type="button"
-      class="schedule-team ${escapeHtml(side)}"
+      class="match-team ${escapeHtml(side)}"
       data-team-code="${escapeHtml(team.code)}"
     >
-      ${
-        side === "home"
-          ? `
-            <span>
-              ${escapeHtml(team.name)}
-            </span>
 
-            <img
-              src="${escapeHtml(
-                logoUrl(team.code)
-              )}"
-              alt=""
-              data-hide-on-error
-            >
-          `
-          : `
-            <img
-              src="${escapeHtml(
-                logoUrl(team.code)
-              )}"
-              alt=""
-              data-hide-on-error
-            >
+      <img
+        src="${escapeHtml(
+          logoUrl(
+            team.code
+          )
+        )}"
+        alt=""
+        data-hide-on-error
+      >
 
-            <span>
-              ${escapeHtml(team.name)}
-            </span>
-          `
-      }
+      <span>
+        ${escapeHtml(team.name)}
+      </span>
+
     </button>
   `;
 }
