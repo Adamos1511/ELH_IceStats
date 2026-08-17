@@ -10,6 +10,8 @@
    KONFIGURACE DAT
 ========================================================= */
 
+const GITHUB_RAW = "./";
+
 const DATA_URLS = {
   players: "./hraciELH.csv",
   playerDetails: "./hraci_detail.csv",
