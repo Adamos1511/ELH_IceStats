@@ -7028,13 +7028,46 @@ function scheduleTeamHtml(
 
   if (!team) {
     return `
-      <div class="match-team ${escapeHtml(side)}">
-
+      <div class="schedule-team ${escapeHtml(side)}">
         <span>
           ${escapeHtml(value)}
         </span>
-
       </div>
+    `;
+  }
+
+
+  /*
+   * Domácí:
+   * Název → logo
+   *
+   * Hosté:
+   * logo → název
+   *
+   * Díky tomu jsou obě strany
+   * orientované směrem ke středu zápasu.
+   */
+  if (side === "home") {
+    return `
+      <button
+        type="button"
+        class="schedule-team home"
+        data-team-code="${escapeHtml(team.code)}"
+      >
+
+        <span>
+          ${escapeHtml(team.name)}
+        </span>
+
+        <img
+          src="${escapeHtml(
+            logoUrl(team.code)
+          )}"
+          alt=""
+          data-hide-on-error
+        >
+
+      </button>
     `;
   }
 
@@ -7042,15 +7075,13 @@ function scheduleTeamHtml(
   return `
     <button
       type="button"
-      class="match-team ${escapeHtml(side)}"
+      class="schedule-team away"
       data-team-code="${escapeHtml(team.code)}"
     >
 
       <img
         src="${escapeHtml(
-          logoUrl(
-            team.code
-          )
+          logoUrl(team.code)
         )}"
         alt=""
         data-hide-on-error
