@@ -566,7 +566,20 @@
           Všechny národnosti
         </option>
       </select>
+      
 
+<select
+  id="statsAgeGroup"
+  aria-label="Věková kategorie"
+>
+  <option value="">
+    Všechny věkové kategorie
+  </option>
+
+  <option value="u23">
+    U23
+  </option>
+</select>
       <select
         id="statsMinGames"
         aria-label="Minimální počet zápasů"
@@ -610,7 +623,46 @@
       </button>
 
     </div>
+    <div class="stats-view-controls">
 
+  <div
+    class="stats-mode-switch"
+    aria-label="Způsob zobrazení statistik"
+  >
+
+    <button
+      type="button"
+      class="stats-mode-button active"
+      data-stats-mode="total"
+    >
+      Celkem
+    </button>
+
+    <button
+      type="button"
+      class="stats-mode-button"
+      data-stats-mode="perGame"
+    >
+      Na zápas
+    </button>
+
+  </div>
+
+
+  <details class="stats-columns-picker">
+
+    <summary>
+      Sloupce
+    </summary>
+
+    <div
+      id="statsColumnsMenu"
+      class="stats-columns-menu"
+    ></div>
+
+  </details>
+
+</div>
 
     <div class="stats-toolbar">
 

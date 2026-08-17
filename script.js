@@ -195,8 +195,10 @@ const state = {
 
 statsView: {
   type: "skater",
+  mode: "total",
   sortKey: "Body",
-  sortDir: "desc"
+  sortDir: "desc",
+  hiddenColumns: []
 }
 };
 
@@ -7452,7 +7454,7 @@ function renderCurrentRound() {
    STATISTIKY ELH
 ========================================================= */
 
-const SKATER_STATS_COLUMNS = [
+const SKATER_STATS_TOTAL_COLUMNS = [
   {
     key: "Odehrané zápasy",
     label: "Z"
@@ -7500,10 +7502,42 @@ const SKATER_STATS_COLUMNS = [
   {
     key: "Úspěšnost střelby %",
     label: "Stř. %"
+  }
+];
+
+
+const SKATER_STATS_RATE_COLUMNS = [
+  {
+    key: "Odehrané zápasy",
+    label: "Z"
+  },
+  {
+    key: "__goalsPerGame",
+    label: "G/Z"
+  },
+  {
+    key: "__assistsPerGame",
+    label: "A/Z"
   },
   {
     key: "Body na zápas",
     label: "B/Z"
+  },
+  {
+    key: "__pppPerGame",
+    label: "PPP/Z"
+  },
+  {
+    key: "__plusMinusPerGame",
+    label: "+/-/Z"
+  },
+  {
+    key: "__pimPerGame",
+    label: "TM/Z"
+  },
+  {
+    key: "Ø Času na ledě",
+    label: "TOI/Z"
   },
   {
     key: "Hity na zápas",
@@ -7512,11 +7546,19 @@ const SKATER_STATS_COLUMNS = [
   {
     key: "Bloky na zápas",
     label: "Bloky/Z"
+  },
+  {
+    key: "Úspěšnost vhazování %",
+    label: "Vhaz. %"
+  },
+  {
+    key: "Úspěšnost střelby %",
+    label: "Stř. %"
   }
 ];
 
 
-const GOALIE_STATS_COLUMNS = [
+const GOALIE_STATS_TOTAL_COLUMNS = [
   {
     key: "Odchytané zápasy",
     label: "Z"
@@ -7557,12 +7599,72 @@ const GOALIE_STATS_COLUMNS = [
 ];
 
 
+const GOALIE_STATS_RATE_COLUMNS = [
+  {
+    key: "Odchytané zápasy",
+    label: "Z"
+  },
+  {
+    key: "__goalieMinutesPerGame",
+    label: "MIN/Z"
+  },
+  {
+    key: "__winsPerGame",
+    label: "V/Z"
+  },
+  {
+    key: "průměr obdržených branek",
+    label: "Pr.",
+    defaultDir: "asc"
+  },
+  {
+    key: "% zákroků",
+    label: "Z%"
+  },
+  {
+    key: "__shutoutsPerGame",
+    label: "SO/Z"
+  },
+  {
+    key: "__savesPerGame",
+    label: "Zákroky/Z"
+  },
+  {
+    key: "Průměr střel na zápas",
+    label: "Střely/Z"
+  }
+];
+
+
 function statisticsColumns() {
+  if (
+    state.statsView.type ===
+    "goalie"
+  ) {
+    return (
+      state.statsView.mode ===
+        "perGame"
+        ? GOALIE_STATS_RATE_COLUMNS
+        : GOALIE_STATS_TOTAL_COLUMNS
+    );
+  }
+
+
   return (
-    state.statsView.type === "goalie"
-      ? GOALIE_STATS_COLUMNS
-      : SKATER_STATS_COLUMNS
+    state.statsView.mode ===
+      "perGame"
+      ? SKATER_STATS_RATE_COLUMNS
+      : SKATER_STATS_TOTAL_COLUMNS
   );
+}
+
+
+function statisticsVisibleColumns() {
+  return statisticsColumns()
+    .filter(column =>
+      !state.statsView.hiddenColumns
+        .includes(column.key)
+    );
 }
 
 
@@ -7600,6 +7702,18 @@ function statisticsDefaultSort() {
       dir: "desc"
     };
   }
+
+
+  if (
+    state.statsView.mode ===
+    "perGame"
+  ) {
+    return {
+      key: "Body na zápas",
+      dir: "desc"
+    };
+  }
+
 
   return {
     key: "Body",
@@ -7674,11 +7788,140 @@ function statisticsNumericValue(
   record,
   key
 ) {
+  const games =
+    toNumber(
+      getValue(
+        record,
+        statisticsGamesKey()
+      )
+    ) || 0;
+
+
+  function perGame(
+    sourceKey
+  ) {
+    if (games <= 0) {
+      return NaN;
+    }
+
+    const value =
+      toNumber(
+        getValue(
+          record,
+          sourceKey
+        )
+      );
+
+    if (
+      !Number.isFinite(value)
+    ) {
+      return NaN;
+    }
+
+    return value / games;
+  }
+
+
+  switch (key) {
+
+    case "__goalsPerGame":
+      return perGame(
+        "Goly"
+      );
+
+
+    case "__assistsPerGame":
+      return perGame(
+        "Asistence"
+      );
+
+
+    case "__pppPerGame":
+      return perGame(
+        "Body z přesilovek"
+      );
+
+
+    case "__plusMinusPerGame":
+      return perGame(
+        "+/-"
+      );
+
+
+    case "__pimPerGame":
+      return perGame(
+        "Trestné minuty"
+      );
+
+
+    case "__winsPerGame":
+      return perGame(
+        "Výhry"
+      );
+
+
+    case "__shutoutsPerGame":
+      return perGame(
+        "Čistá konta"
+      );
+
+
+    case "__savesPerGame":
+      return perGame(
+        "Zákroky"
+      );
+
+
+    case "__goalieMinutesPerGame": {
+
+      if (games <= 0) {
+        return NaN;
+      }
+
+      const value =
+        statisticsTimeValue(
+          getValue(
+            record,
+            "Odchytané minuty"
+          )
+        );
+
+      if (
+        !Number.isFinite(value)
+      ) {
+        return NaN;
+      }
+
+      /*
+       * statisticsTimeValue vrací
+       * u času se dvojtečkou sekundy.
+       */
+      return (
+        getValue(
+          record,
+          "Odchytané minuty"
+        ).includes(":")
+          ? (
+              value /
+              60 /
+              games
+            )
+          : (
+              value /
+              games
+            )
+      );
+    }
+
+  }
+
+
   const value =
     getValue(
       record,
       key
     );
+
 
   if (
     key === "Ø Času na ledě" ||
@@ -7689,6 +7932,7 @@ function statisticsNumericValue(
     );
   }
 
+
   return toNumber(value);
 }
 
@@ -7697,15 +7941,56 @@ function statisticsValueHtml(
   record,
   key
 ) {
+  if (
+    key.startsWith("__")
+  ) {
+    const number =
+      statisticsNumericValue(
+        record,
+        key
+      );
+
+
+    if (
+      !Number.isFinite(number)
+    ) {
+      return "–";
+    }
+
+
+    const digits =
+      key ===
+        "__goalieMinutesPerGame"
+        ? 1
+        : 2;
+
+
+    return escapeHtml(
+      number.toLocaleString(
+        "cs-CZ",
+        {
+          minimumFractionDigits:
+            digits,
+
+          maximumFractionDigits:
+            digits
+        }
+      )
+    );
+  }
+
+
   const value =
     getValue(
       record,
       key
     );
 
+
   if (!value) {
     return "–";
   }
+
 
   if (
     key.includes("%") &&
@@ -7715,6 +8000,7 @@ function statisticsValueHtml(
       `${escapeHtml(value)} %`
     );
   }
+
 
   return escapeHtml(value);
 }
@@ -7864,8 +8150,43 @@ function populateStatisticsFilters() {
           state.statsView.type
       );
     });
-}
+    document
+  .querySelectorAll(
+    "[data-stats-mode]"
+  )
+  .forEach(button => {
 
+    button.classList.toggle(
+      "active",
+      button.dataset.statsMode ===
+        state.statsView.mode
+    );
+
+  });
+
+
+populateStatisticsColumnsMenu();
+
+  }
+
+function isCzechNationality(
+  value
+) {
+  const nationality =
+    normalize(value);
+
+
+  return [
+    "cesko",
+    "ceska republika",
+    "czechia",
+    "czech republic",
+    "cze"
+  ].some(item =>
+    nationality === item ||
+    nationality.includes(item)
+  );
+}
 
 function statisticsFilteredData() {
   const search =
@@ -7896,7 +8217,14 @@ function statisticsFilteredData() {
       )?.value
     );
 
-  const minGames =
+  const ageGroup =
+  cleanCell(
+    document.getElementById(
+      "statsAgeGroup"
+    )?.value
+  );
+  
+    const minGames =
     Number(
       document.getElementById(
         "statsMinGames"
@@ -7942,7 +8270,16 @@ function statisticsFilteredData() {
           "Národnost"
         );
 
-      const games =
+      const age =
+        toNumber(
+        getValue(
+          record,
+          "Věk"
+          )
+        );
+      
+      
+        const games =
         toNumber(
           getValue(
             record,
@@ -7997,6 +8334,20 @@ function statisticsFilteredData() {
           ) === nationality
         ) &&
 
+        
+
+(
+  !ageGroup ||
+
+  (
+    ageGroup === "u23" &&
+    Number.isFinite(age) &&
+    age <= 23
+  )
+) &&
+        
+        
+        
         games >= minGames
       );
     });
@@ -8209,6 +8560,123 @@ function statisticsTeamHtml(
   `;
 }
 
+function populateStatisticsColumnsMenu() {
+  const container =
+    document.getElementById(
+      "statsColumnsMenu"
+    );
+
+
+  if (!container) {
+    return;
+  }
+
+
+  const columns =
+    statisticsColumns();
+
+
+  container.innerHTML =
+    columns
+      .map(column => {
+
+        const hidden =
+          state.statsView.hiddenColumns
+            .includes(
+              column.key
+            );
+
+
+        return `
+          <label
+            class="stats-column-option"
+          >
+
+            <input
+              type="checkbox"
+              data-stats-column="${escapeHtml(
+                column.key
+              )}"
+              ${
+                hidden
+                  ? ""
+                  : "checked"
+              }
+            >
+
+            <span>
+              ${escapeHtml(
+                column.label
+              )}
+            </span>
+
+          </label>
+        `;
+      })
+      .join("");
+
+
+  container
+    .querySelectorAll(
+      "[data-stats-column]"
+    )
+    .forEach(input => {
+
+      input.addEventListener(
+        "change",
+        event => {
+
+          const key =
+            event.target.dataset
+              .statsColumn;
+
+
+          if (
+            event.target.checked
+          ) {
+            state.statsView
+              .hiddenColumns =
+              state.statsView
+                .hiddenColumns
+                .filter(
+                  item =>
+                    item !== key
+                );
+          } else {
+
+            /*
+             * Nenecháme uživatele
+             * skrýt úplně všechny
+             * statistické sloupce.
+             */
+            const visibleCount =
+              statisticsVisibleColumns()
+                .length;
+
+
+            if (
+              visibleCount <= 1
+            ) {
+              event.target.checked =
+                true;
+
+              return;
+            }
+
+
+            state.statsView
+              .hiddenColumns
+              .push(key);
+          }
+
+
+          renderStatistics();
+        }
+      );
+
+    });
+}
+
 
 function renderStatistics() {
   const container =
@@ -8233,8 +8701,8 @@ function renderStatistics() {
 
 
   const columns =
-    statisticsColumns();
-
+  statisticsVisibleColumns();
+  
   const filtered =
     statisticsFilteredData();
 
@@ -8462,6 +8930,9 @@ async function setStatisticsType(
   state.statsView.type =
     type;
 
+  state.statsView.hiddenColumns =
+  [];  
+
 
   const defaults =
     statisticsDefaultSort();
@@ -8481,6 +8952,56 @@ async function setStatisticsType(
   renderStatistics();
 }
 
+function setStatisticsMode(
+  mode
+) {
+  if (
+    ![
+      "total",
+      "perGame"
+    ].includes(mode)
+  ) {
+    return;
+  }
+
+
+  state.statsView.mode =
+    mode;
+
+  state.statsView.hiddenColumns =
+    [];
+
+
+  const defaults =
+    statisticsDefaultSort();
+
+
+  state.statsView.sortKey =
+    defaults.key;
+
+  state.statsView.sortDir =
+    defaults.dir;
+
+
+  document
+    .querySelectorAll(
+      "[data-stats-mode]"
+    )
+    .forEach(button => {
+
+      button.classList.toggle(
+        "active",
+        button.dataset.statsMode ===
+          mode
+      );
+
+    });
+
+
+  populateStatisticsSort();
+  populateStatisticsColumnsMenu();
+  renderStatistics();
+}
 
 function changeStatisticsSort(
   key
@@ -8527,11 +9048,12 @@ function changeStatisticsSort(
 
 function resetStatisticsFilters() {
   [
-    "statsSearch",
-    "statsTeam",
-    "statsPosition",
-    "statsNationality"
-  ]
+  "statsSearch",
+  "statsTeam",
+  "statsPosition",
+  "statsNationality",
+  "statsAgeGroup"
+]
     .forEach(id => {
       const element =
         document.getElementById(
@@ -8914,6 +9436,21 @@ if (statsTypeButton) {
 }
 
 
+const statsModeButton =
+  event.target.closest(
+    "[data-stats-mode]"
+  );
+
+
+if (statsModeButton) {
+  setStatisticsMode(
+    statsModeButton.dataset.statsMode
+  );
+
+  return;
+}
+
+
 const statsSortButton =
   event.target.closest(
     "[data-stats-sort]"
@@ -9097,6 +9634,7 @@ if (statsSortButton) {
   "statsTeam",
   "statsPosition",
   "statsNationality",
+  "statsAgeGroup",
   "statsMinGames"
 ]
   .forEach(id => {

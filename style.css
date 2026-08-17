@@ -5423,3 +5423,326 @@ img {
   }
 
 }
+/* =========================================================
+   STATISTIKY – ZOBRAZENÍ A VÝBĚR SLOUPCŮ
+========================================================= */
+
+.stats-view-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 14px;
+
+  margin:
+    -8px
+    0
+    25px;
+}
+
+
+.stats-mode-switch {
+  display: inline-flex;
+
+  gap: 4px;
+
+  padding: 4px;
+
+  border:
+    1px solid
+    rgba(
+      255,
+      255,
+      255,
+      0.11
+    );
+
+  border-radius: 11px;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.055
+    );
+}
+
+
+.stats-mode-button {
+  min-width: 105px;
+
+  padding:
+    8px
+    14px;
+
+  border: 0;
+  border-radius: 8px;
+
+  background: transparent;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.48
+    );
+
+  font-size: 10px;
+  font-weight: 950;
+
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+
+  cursor: pointer;
+}
+
+
+.stats-mode-button:hover {
+  color: white;
+}
+
+
+.stats-mode-button.active {
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.11
+    );
+
+  color: white;
+}
+
+
+.stats-columns-picker {
+  position: relative;
+
+  z-index: 20;
+}
+
+
+.stats-columns-picker summary {
+  padding:
+    9px
+    15px;
+
+  border:
+    1px solid
+    rgba(
+      255,
+      255,
+      255,
+      0.13
+    );
+
+  border-radius: 9px;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.07
+    );
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.75
+    );
+
+  font-size: 10px;
+  font-weight: 950;
+
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  list-style: none;
+}
+
+
+.stats-columns-picker summary::-webkit-details-marker {
+  display: none;
+}
+
+
+.stats-columns-picker summary::after {
+  content: " ▾";
+
+  opacity: 0.55;
+}
+
+
+.stats-columns-picker[open]
+summary::after {
+  content: " ▴";
+}
+
+
+.stats-columns-menu {
+  position: absolute;
+
+  top:
+    calc(
+      100% + 7px
+    );
+
+  right: 0;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(
+        115px,
+        1fr
+      )
+    );
+
+  gap: 3px;
+
+  min-width: 290px;
+
+  padding: 10px;
+
+  border:
+    1px solid
+    rgba(
+      255,
+      255,
+      255,
+      0.13
+    );
+
+  border-radius: 11px;
+
+  background:
+    rgba(
+      4,
+      12,
+      43,
+      0.98
+    );
+
+  box-shadow:
+    0
+    18px
+    45px
+    rgba(
+      0,
+      0,
+      0,
+      0.38
+    );
+}
+
+
+.stats-column-option {
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+
+  min-height: 32px;
+
+  padding:
+    5px
+    7px;
+
+  border-radius: 7px;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.68
+    );
+
+  font-size: 10px;
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+
+.stats-column-option:hover {
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.06
+    );
+
+  color: white;
+}
+
+
+.stats-column-option input {
+  width: 14px;
+  height: 14px;
+
+  accent-color:
+    var(--red-light);
+}
+
+
+@media (max-width: 700px) {
+
+  .stats-view-controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+
+  .stats-mode-switch {
+    display: flex;
+
+    width: 100%;
+  }
+
+
+  .stats-mode-button {
+    flex: 1;
+  }
+
+
+  .stats-columns-picker {
+    width: 100%;
+  }
+
+
+  .stats-columns-picker summary {
+    width: 100%;
+
+    text-align: center;
+  }
+
+
+  .stats-columns-menu {
+    left: 0;
+    right: auto;
+
+    width: 100%;
+    min-width: 0;
+
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(
+          0,
+          1fr
+        )
+      );
+  }
+
+}
