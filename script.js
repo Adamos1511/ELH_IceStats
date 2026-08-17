@@ -23,7 +23,7 @@ const DATA_URLS = {
   schedule: `${GITHUB_RAW}rozpis.csv`,
 
   careers:
-  `${GITHUB_RAW}kariery.csv?v=20260816-2`
+    `${GITHUB_RAW}kariery.csv?v=20260816-final`
 };
 
 
@@ -36,37 +36,47 @@ const TEAMS = [
     code: "PCE",
     name: "HC Dynamo Pardubice",
     aliases: [
-      "HC Dynamo Pardubice"
+      "HC Dynamo Pardubice",
+      "Dynamo Pardubice"
     ]
   },
+
   {
     code: "SPA",
     name: "HC Sparta Praha",
     aliases: [
-      "HC Sparta Praha"
+      "HC Sparta Praha",
+      "Sparta Praha"
     ]
   },
+
   {
     code: "TRI",
     name: "HC Oceláři Třinec",
     aliases: [
-      "HC Oceláři Třinec"
+      "HC Oceláři Třinec",
+      "Oceláři Třinec"
     ]
   },
+
   {
     code: "KOM",
     name: "HC Kometa Brno",
     aliases: [
-      "HC Kometa Brno"
+      "HC Kometa Brno",
+      "Kometa Brno"
     ]
   },
+
   {
     code: "PLZ",
     name: "HC Škoda Plzeň",
     aliases: [
-      "HC Škoda Plzeň"
+      "HC Škoda Plzeň",
+      "Škoda Plzeň"
     ]
   },
+
   {
     code: "MHK",
     name: "Mountfield HK",
@@ -75,14 +85,17 @@ const TEAMS = [
       "HRA"
     ]
   },
+
   {
     code: "VIT",
     name: "HC Vítkovice Ridera",
     aliases: [
       "HC Vítkovice Ridera",
-      "HC VÍTKOVICE RIDERA"
+      "HC VÍTKOVICE RIDERA",
+      "Vítkovice Ridera"
     ]
   },
+
   {
     code: "OLO",
     name: "HC Olomouc",
@@ -90,6 +103,7 @@ const TEAMS = [
       "HC Olomouc"
     ]
   },
+
   {
     code: "MBL",
     name: "BK Mladá Boleslav",
@@ -97,30 +111,37 @@ const TEAMS = [
       "BK Mladá Boleslav"
     ]
   },
+
   {
     code: "KVA",
     name: "HC Energie Karlovy Vary",
     aliases: [
-      "HC Energie Karlovy Vary"
+      "HC Energie Karlovy Vary",
+      "Energie Karlovy Vary"
     ]
   },
+
   {
     code: "CBU",
     name: "Banes Motor České Budějovice",
     aliases: [
       "Banes Motor České Budějovice",
-      "Banes Motor Č. Budějovice"
+      "Banes Motor Č. Budějovice",
+      "Motor České Budějovice"
     ]
   },
+
   {
     code: "LIT",
     name: "HC Verva Litvínov",
     aliases: [
       "HC Litvínov",
       "HC Verva Litvínov",
-      "HC VERVA Litvínov"
+      "HC VERVA Litvínov",
+      "Verva Litvínov"
     ]
   },
+
   {
     code: "LIB",
     name: "Bílí Tygři Liberec",
@@ -128,6 +149,7 @@ const TEAMS = [
       "Bílí Tygři Liberec"
     ]
   },
+
   {
     code: "KLA",
     name: "Rytíři Kladno",
@@ -158,15 +180,15 @@ const state = {
   goalieDetails: null,
 
   careers: null,
-careerIndex: null,
+  careerIndex: null,
 
-careerView: {
-  rows: [],
-  type: "skater",
-  section: "KLUBOVA",
-  league: "",
-  phase: "ALL"
-},
+  careerView: {
+    rows: [],
+    type: "skater",
+    section: "KLUBOVA",
+    league: "",
+    phase: "ALL"
+  },
 
   selectedPlayer: null,
   selectedClub: null,
@@ -227,12 +249,14 @@ function escapeHtml(value) {
 
 
 function toNumber(value) {
-  const parsed = Number.parseFloat(
+  const text =
     cleanCell(value)
       .replace(/\s/g, "")
       .replace(",", ".")
-      .replace("%", "")
-  );
+      .replace("%", "");
+
+  const parsed =
+    Number.parseFloat(text);
 
   return Number.isFinite(parsed)
     ? parsed
@@ -240,16 +264,23 @@ function toNumber(value) {
 }
 
 
-function getValue(object, wantedKey) {
+function getValue(
+  object,
+  wantedKey
+) {
   if (!object) {
     return "";
   }
 
-  const normalizedKey = normalize(wantedKey);
+  const normalizedKey =
+    normalize(wantedKey);
 
-  const realKey = Object.keys(object).find(
-    key => normalize(key) === normalizedKey
-  );
+  const realKey =
+    Object.keys(object).find(
+      key =>
+        normalize(key) ===
+        normalizedKey
+    );
 
   return realKey
     ? cleanCell(object[realKey])
@@ -258,29 +289,42 @@ function getValue(object, wantedKey) {
 
 
 function uniqueSorted(values) {
-  const map = new Map();
+  const map =
+    new Map();
 
   values
     .map(cleanCell)
     .filter(Boolean)
     .forEach(value => {
-      const key = normalize(value);
+      const key =
+        normalize(value);
 
       if (!map.has(key)) {
-        map.set(key, value);
+        map.set(
+          key,
+          value
+        );
       }
     });
 
   return [...map.values()]
-    .sort((a, b) => collator.compare(a, b));
+    .sort(
+      (a, b) =>
+        collator.compare(a, b)
+    );
 }
 
 
 function errorHtml(message) {
   return `
     <div class="error-card">
-      <strong>Nepodařilo se načíst data.</strong>
-      <span>${escapeHtml(message)}</span>
+      <strong>
+        Nepodařilo se načíst data.
+      </strong>
+
+      <span>
+        ${escapeHtml(message)}
+      </span>
     </div>
   `;
 }
@@ -290,31 +334,38 @@ function errorHtml(message) {
    MAPOVÁNÍ TÝMŮ
 ========================================================= */
 
-const teamLookup = new Map();
+const teamLookup =
+  new Map();
+
 
 TEAMS.forEach(team => {
   [
     team.code,
     team.name,
     ...team.aliases
-  ].forEach(alias => {
-    teamLookup.set(
-      normalize(alias),
-      team
-    );
-  });
+  ]
+    .forEach(alias => {
+      teamLookup.set(
+        normalize(alias),
+        team
+      );
+    });
 });
 
 
 function getTeam(value) {
-  return teamLookup.get(
-    normalize(value)
-  ) || null;
+  return (
+    teamLookup.get(
+      normalize(value)
+    ) ||
+    null
+  );
 }
 
 
 function getTeamCode(value) {
-  const team = getTeam(value);
+  const team =
+    getTeam(value);
 
   if (team) {
     return team.code;
@@ -325,7 +376,8 @@ function getTeamCode(value) {
 
 
 function getTeamName(value) {
-  const team = getTeam(value);
+  const team =
+    getTeam(value);
 
   if (team) {
     return team.name;
@@ -336,18 +388,26 @@ function getTeamName(value) {
 
 
 function logoUrl(value) {
-  const code = getTeamCode(value);
+  const code =
+    getTeamCode(value);
 
   if (!code) {
     return "";
   }
 
-  return `${GITHUB_RAW}loga_tymu/${encodeURIComponent(code)}.png`;
+  return (
+    `${GITHUB_RAW}loga_tymu/` +
+    `${encodeURIComponent(code)}.png`
+  );
 }
 
 
-function teamButtonHtml(value, className = "") {
-  const team = getTeam(value);
+function teamButtonHtml(
+  value,
+  className = ""
+) {
+  const team =
+    getTeam(value);
 
   if (!team) {
     return `
@@ -374,12 +434,13 @@ function teamButtonHtml(value, className = "") {
 ========================================================= */
 
 async function fetchText(url) {
-  const response = await fetch(
-    url,
-    {
-      cache: "no-store"
-    }
-  );
+  const response =
+    await fetch(
+      url,
+      {
+        cache: "no-store"
+      }
+    );
 
   if (!response.ok) {
     throw new Error(
@@ -392,18 +453,20 @@ async function fetchText(url) {
 
 
 function parseObjectCsv(text) {
-  const result = Papa.parse(
-    text,
-    {
-      header: true,
-      delimiter: ";",
-      skipEmptyLines: "greedy",
+  const result =
+    Papa.parse(
+      text,
+      {
+        header: true,
+        delimiter: ";",
+        skipEmptyLines: "greedy",
 
-      transformHeader(header) {
-        return cleanCell(header);
+        transformHeader(header) {
+          return cleanCell(header);
+        }
       }
-    }
-  );
+    );
+
 
   if (result.errors?.length) {
     console.warn(
@@ -412,16 +475,20 @@ function parseObjectCsv(text) {
     );
   }
 
+
   return (result.data || [])
     .map(row => {
       const cleaned = {};
 
-      Object.entries(row).forEach(
-        ([key, value]) => {
-          cleaned[cleanCell(key)] =
-            cleanCell(value);
-        }
-      );
+      Object.entries(row)
+        .forEach(
+          ([key, value]) => {
+            cleaned[
+              cleanCell(key)
+            ] =
+              cleanCell(value);
+          }
+        );
 
       return cleaned;
     });
@@ -429,7 +496,8 @@ function parseObjectCsv(text) {
 
 
 async function loadObjectCsv(url) {
-  const text = await fetchText(url);
+  const text =
+    await fetchText(url);
 
   return parseObjectCsv(text);
 }
@@ -445,11 +513,13 @@ function navigate(
     push = true
   } = {}
 ) {
-  const targetId = PAGE_IDS[page];
+  const targetId =
+    PAGE_IDS[page];
 
   if (!targetId) {
     return;
   }
+
 
   if (
     push &&
@@ -461,24 +531,36 @@ function navigate(
     );
   }
 
+
   document
-    .querySelectorAll(".app-page")
+    .querySelectorAll(
+      ".app-page"
+    )
     .forEach(element => {
       element.hidden =
-        element.id !== targetId;
+        element.id !==
+        targetId;
     });
 
+
   const appNav =
-    document.getElementById("appNav");
+    document.getElementById(
+      "appNav"
+    );
+
 
   if (appNav) {
     appNav.hidden =
       page === "home";
   }
 
-  state.currentPage = page;
+
+  state.currentPage =
+    page;
+
 
   updateActiveNavigation();
+
 
   window.scrollTo({
     top: 0,
@@ -489,7 +571,8 @@ function navigate(
 
 function goBack() {
   const previous =
-    state.history.pop() || "home";
+    state.history.pop() ||
+    "home";
 
   navigate(
     previous,
@@ -519,17 +602,22 @@ function updateActiveNavigation() {
     activeNavigationPage();
 
   document
-    .querySelectorAll("[data-nav]")
+    .querySelectorAll(
+      "[data-nav]"
+    )
     .forEach(button => {
       button.classList.toggle(
         "active",
-        button.dataset.nav === active
+        button.dataset.nav ===
+          active
       );
     });
 }
 
 
-async function handleNavigation(target) {
+async function handleNavigation(
+  target
+) {
   switch (target) {
     case "home":
       state.history = [];
@@ -558,6 +646,10 @@ async function handleNavigation(target) {
 
     case "clubs":
       navigate("clubs");
+
+      if (!state.clubs.length) {
+        await loadClubs();
+      }
 
       renderClubs();
 
@@ -612,25 +704,33 @@ async function loadPlayers() {
       DATA_URLS.players
     );
 
-  const parsed = Papa.parse(
-    text,
-    {
-      delimiter: ";",
-      skipEmptyLines: "greedy"
-    }
-  );
+
+  const parsed =
+    Papa.parse(
+      text,
+      {
+        delimiter: ";",
+        skipEmptyLines: "greedy"
+      }
+    );
+
 
   const rows =
     parsed.data || [];
 
+
   let startIndex = 0;
+
 
   if (
     rows.length &&
-    normalize(rows[0]?.[0]).includes("jmeno")
+    normalize(
+      rows[0]?.[0]
+    ).includes("jmeno")
   ) {
     startIndex = 1;
   }
+
 
   state.players =
     rows
@@ -640,31 +740,51 @@ async function loadPlayers() {
         cleanCell(row?.[1])
       )
       .map(row => ({
-        jmeno: cleanCell(row[0]),
-        prijmeni: cleanCell(row[1]),
-        smlouva: cleanCell(row[2]),
-        pozice: cleanCell(row[3]),
-        tym: cleanCell(row[4]),
-        vek: cleanCell(row[5]),
-        drzeni: cleanCell(row[6]),
-        narodnost: cleanCell(row[7]),
-        foto: cleanCell(row[8]),
-        zdroj: cleanCell(row[9])
+        jmeno:
+          cleanCell(row[0]),
+
+        prijmeni:
+          cleanCell(row[1]),
+
+        smlouva:
+          cleanCell(row[2]),
+
+        pozice:
+          cleanCell(row[3]),
+
+        tym:
+          cleanCell(row[4]),
+
+        vek:
+          cleanCell(row[5]),
+
+        drzeni:
+          cleanCell(row[6]),
+
+        narodnost:
+          cleanCell(row[7]),
+
+        foto:
+          cleanCell(row[8]),
+
+        zdroj:
+          cleanCell(row[9])
       }));
 
 
   state.playerMap.clear();
 
-  state.players.forEach(player => {
-    state.playerMap.set(
-      playerKey(player),
-      player
-    );
-  });
+
+  state.players
+    .forEach(player => {
+      state.playerMap.set(
+        playerKey(player),
+        player
+      );
+    });
 
 
   populatePlayerFilters();
-
   renderPlayers();
 }
 
@@ -673,7 +793,11 @@ function playerKey(player) {
   return [
     normalize(player.jmeno),
     normalize(player.prijmeni),
-    normalize(getTeamCode(player.tym))
+    normalize(
+      getTeamCode(
+        player.tym
+      )
+    )
   ].join("|");
 }
 
@@ -691,8 +815,10 @@ function populateSelect(
     return;
   }
 
+
   const selected =
     select.value;
+
 
   select.innerHTML = `
     <option value="">
@@ -701,58 +827,75 @@ function populateSelect(
   `;
 
 
-  items.forEach(item => {
-    const value =
-      typeof item === "string"
-        ? item
-        : item.value;
+  items
+    .forEach(item => {
+      const value =
+        typeof item ===
+          "string"
+          ? item
+          : item.value;
 
-    const label =
-      typeof item === "string"
-        ? item
-        : item.label;
+      const label =
+        typeof item ===
+          "string"
+          ? item
+          : item.label;
 
-    const option =
-      document.createElement("option");
 
-    option.value = value;
-    option.textContent = label;
+      const option =
+        document.createElement(
+          "option"
+        );
 
-    select.appendChild(option);
-  });
+
+      option.value =
+        value;
+
+      option.textContent =
+        label;
+
+
+      select.appendChild(
+        option
+      );
+    });
 
 
   if (
-    [...select.options].some(
-      option =>
-        option.value === selected
-    )
+    [...select.options]
+      .some(
+        option =>
+          option.value ===
+          selected
+      )
   ) {
-    select.value = selected;
+    select.value =
+      selected;
   }
 }
 
 
 function populatePlayerFilters() {
-  const teamOptions =
+  populateSelect(
+    document.getElementById(
+      "filtrTymu"
+    ),
     TEAMS.map(team => ({
       value: team.code,
       label: team.name
-    }));
-
-
-  populateSelect(
-    document.getElementById("filtrTymu"),
-    teamOptions,
+    })),
     "Všechny týmy"
   );
 
 
   populateSelect(
-    document.getElementById("filtrPozice"),
+    document.getElementById(
+      "filtrPozice"
+    ),
     uniqueSorted(
       state.players.map(
-        player => player.pozice
+        player =>
+          player.pozice
       )
     ),
     "Všechny pozice"
@@ -760,10 +903,13 @@ function populatePlayerFilters() {
 
 
   populateSelect(
-    document.getElementById("filtrDrzeni"),
+    document.getElementById(
+      "filtrDrzeni"
+    ),
     uniqueSorted(
       state.players.map(
-        player => player.drzeni
+        player =>
+          player.drzeni
       )
     ),
     "Všechna držení"
@@ -771,10 +917,13 @@ function populatePlayerFilters() {
 
 
   populateSelect(
-    document.getElementById("filtrNarodnost"),
+    document.getElementById(
+      "filtrNarodnost"
+    ),
     uniqueSorted(
       state.players.map(
-        player => player.narodnost
+        player =>
+          player.narodnost
       )
     ),
     "Všechny národnosti"
@@ -782,10 +931,13 @@ function populatePlayerFilters() {
 
 
   populateSelect(
-    document.getElementById("filtrSmlouva"),
+    document.getElementById(
+      "filtrSmlouva"
+    ),
     uniqueSorted(
       state.players.map(
-        player => player.smlouva
+        player =>
+          player.smlouva
       )
     ),
     "Všechny smlouvy"
@@ -797,39 +949,54 @@ function contractRank(contract) {
   const text =
     cleanCell(contract);
 
+
   if (!text) {
-    return Number.POSITIVE_INFINITY;
+    return (
+      Number.POSITIVE_INFINITY
+    );
   }
+
 
   const match =
     text.match(
       /(\d{2,4})\s*\/\s*(\d{2,4})(?:\s*\+\s*(\d+))?/
     );
 
+
   if (!match) {
-    return Number.POSITIVE_INFINITY;
+    return (
+      Number.POSITIVE_INFINITY
+    );
   }
+
 
   let endYear =
     Number(match[2]);
+
 
   if (endYear < 100) {
     endYear += 2000;
   }
 
-  const extension =
-    Number(match[3] || 0);
 
-  return endYear + extension;
+  return (
+    endYear +
+    Number(match[3] || 0)
+  );
 }
 
 
 function renderPlayers() {
   const container =
-    document.getElementById("hraci");
+    document.getElementById(
+      "hraci"
+    );
 
   const counter =
-    document.getElementById("pocetHracu");
+    document.getElementById(
+      "pocetHracu"
+    );
+
 
   if (!container) {
     return;
@@ -838,186 +1005,231 @@ function renderPlayers() {
 
   const search =
     normalize(
-      document.getElementById("vyhledavani")
-        ?.value
+      document.getElementById(
+        "vyhledavani"
+      )?.value
     );
 
 
   const team =
     cleanCell(
-      document.getElementById("filtrTymu")
-        ?.value
+      document.getElementById(
+        "filtrTymu"
+      )?.value
     );
 
 
   const position =
     normalize(
-      document.getElementById("filtrPozice")
-        ?.value
+      document.getElementById(
+        "filtrPozice"
+      )?.value
     );
 
 
   const stick =
     normalize(
-      document.getElementById("filtrDrzeni")
-        ?.value
+      document.getElementById(
+        "filtrDrzeni"
+      )?.value
     );
 
 
   const nationality =
     normalize(
-      document.getElementById("filtrNarodnost")
-        ?.value
+      document.getElementById(
+        "filtrNarodnost"
+      )?.value
     );
 
 
   const contract =
     normalize(
-      document.getElementById("filtrSmlouva")
-        ?.value
+      document.getElementById(
+        "filtrSmlouva"
+      )?.value
     );
 
 
   const sort =
     cleanCell(
-      document.getElementById("razeni")
-        ?.value
+      document.getElementById(
+        "razeni"
+      )?.value
     );
 
 
   let data =
-    state.players.filter(player => {
-      const searchTarget =
-        normalize(
-          [
-            player.jmeno,
-            player.prijmeni,
-            player.tym,
-            getTeamName(player.tym),
-            player.pozice,
-            player.narodnost
-          ].join(" ")
-        );
+    state.players
+      .filter(player => {
+        const searchTarget =
+          normalize(
+            [
+              player.jmeno,
+              player.prijmeni,
+              player.tym,
+              getTeamName(
+                player.tym
+              ),
+              player.pozice,
+              player.narodnost
+            ].join(" ")
+          );
 
 
-      return (
-        (!search ||
-          searchTarget.includes(search)) &&
-
-        (!team ||
-          getTeamCode(player.tym) === team) &&
-
-        (!position ||
-          normalize(player.pozice) === position) &&
-
-        (!stick ||
-          normalize(player.drzeni) === stick) &&
-
-        (!nationality ||
-          normalize(player.narodnost) === nationality) &&
-
-        (!contract ||
-          normalize(player.smlouva) === contract)
-      );
-    });
-
-
-  data = [...data];
-
-
-  data.sort((a, b) => {
-    switch (sort) {
-      case "prijmeni_az":
-        return collator.compare(
-          a.prijmeni,
-          b.prijmeni
-        );
-
-
-      case "prijmeni_za":
-        return collator.compare(
-          b.prijmeni,
-          a.prijmeni
-        );
-
-
-      case "vek_asc":
         return (
-          (toNumber(a.vek) || 999) -
-          (toNumber(b.vek) || 999)
+          (
+            !search ||
+            searchTarget.includes(
+              search
+            )
+          ) &&
+
+          (
+            !team ||
+            getTeamCode(
+              player.tym
+            ) === team
+          ) &&
+
+          (
+            !position ||
+            normalize(
+              player.pozice
+            ) === position
+          ) &&
+
+          (
+            !stick ||
+            normalize(
+              player.drzeni
+            ) === stick
+          ) &&
+
+          (
+            !nationality ||
+            normalize(
+              player.narodnost
+            ) === nationality
+          ) &&
+
+          (
+            !contract ||
+            normalize(
+              player.smlouva
+            ) === contract
+          )
         );
+      });
 
 
-      case "vek_desc":
-        return (
-          (toNumber(b.vek) || -1) -
-          (toNumber(a.vek) || -1)
-        );
+  data =
+    [...data];
 
 
-      case "tym_az":
-        return collator.compare(
-          getTeamName(a.tym),
-          getTeamName(b.tym)
-        );
+  data.sort(
+    (a, b) => {
+      switch (sort) {
+        case "prijmeni_az":
+          return collator.compare(
+            a.prijmeni,
+            b.prijmeni
+          );
 
+        case "prijmeni_za":
+          return collator.compare(
+            b.prijmeni,
+            a.prijmeni
+          );
 
-      case "tym_za":
-        return collator.compare(
-          getTeamName(b.tym),
-          getTeamName(a.tym)
-        );
+        case "vek_asc":
+          return (
+            (
+              toNumber(a.vek) ||
+              999
+            ) -
+            (
+              toNumber(b.vek) ||
+              999
+            )
+          );
 
+        case "vek_desc":
+          return (
+            (
+              toNumber(b.vek) ||
+              -1
+            ) -
+            (
+              toNumber(a.vek) ||
+              -1
+            )
+          );
 
-      case "pozice_az":
-        return collator.compare(
-          a.pozice,
-          b.pozice
-        );
+        case "tym_az":
+          return collator.compare(
+            getTeamName(a.tym),
+            getTeamName(b.tym)
+          );
 
+        case "tym_za":
+          return collator.compare(
+            getTeamName(b.tym),
+            getTeamName(a.tym)
+          );
 
-      case "pozice_za":
-        return collator.compare(
-          b.pozice,
-          a.pozice
-        );
+        case "pozice_az":
+          return collator.compare(
+            a.pozice,
+            b.pozice
+          );
 
+        case "pozice_za":
+          return collator.compare(
+            b.pozice,
+            a.pozice
+          );
 
-      case "narodnost_az":
-        return collator.compare(
-          a.narodnost,
-          b.narodnost
-        );
+        case "narodnost_az":
+          return collator.compare(
+            a.narodnost,
+            b.narodnost
+          );
 
+        case "narodnost_za":
+          return collator.compare(
+            b.narodnost,
+            a.narodnost
+          );
 
-      case "narodnost_za":
-        return collator.compare(
-          b.narodnost,
-          a.narodnost
-        );
+        case "smlouva_asc":
+          return (
+            contractRank(
+              a.smlouva
+            ) -
+            contractRank(
+              b.smlouva
+            )
+          );
 
+        case "smlouva_desc":
+          return (
+            contractRank(
+              b.smlouva
+            ) -
+            contractRank(
+              a.smlouva
+            )
+          );
 
-      case "smlouva_asc":
-        return (
-          contractRank(a.smlouva) -
-          contractRank(b.smlouva)
-        );
-
-
-      case "smlouva_desc":
-        return (
-          contractRank(b.smlouva) -
-          contractRank(a.smlouva)
-        );
-
-
-      default:
-        return collator.compare(
-          a.prijmeni,
-          b.prijmeni
-        );
+        default:
+          return collator.compare(
+            a.prijmeni,
+            b.prijmeni
+          );
+      }
     }
-  });
+  );
 
 
   if (counter) {
@@ -1044,7 +1256,10 @@ function renderPlayers() {
           playerKey(player);
 
         const code =
-          getTeamCode(player.tym);
+          getTeamCode(
+            player.tym
+          );
+
 
         return `
           <button
@@ -1074,6 +1289,7 @@ function renderPlayers() {
 
 
             <span class="hrac-jmeno">
+
               <strong>
                 ${escapeHtml(player.jmeno)}
                 ${escapeHtml(player.prijmeni)}
@@ -1081,18 +1297,23 @@ function renderPlayers() {
 
               <small>
                 ${escapeHtml(
-                  player.narodnost || "-"
+                  player.narodnost ||
+                  "-"
                 )}
               </small>
+
             </span>
 
 
             <span class="hrac-tym">
+
               ${
                 code
                   ? `
                     <img
-                      src="${escapeHtml(logoUrl(code))}"
+                      src="${escapeHtml(
+                        logoUrl(code)
+                      )}"
                       alt=""
                       class="logoMale"
                       data-hide-on-error
@@ -1102,14 +1323,18 @@ function renderPlayers() {
               }
 
               <strong>
-                ${escapeHtml(code || "-")}
+                ${escapeHtml(
+                  code || "-"
+                )}
               </strong>
+
             </span>
 
 
             <span class="hrac-pozice">
               ${escapeHtml(
-                player.pozice || "-"
+                player.pozice ||
+                "-"
               )}
             </span>
 
@@ -1125,7 +1350,8 @@ function renderPlayers() {
 
             <span class="hrac-smlouva">
               ${escapeHtml(
-                player.smlouva || "-"
+                player.smlouva ||
+                "-"
               )}
             </span>
 
@@ -1184,9 +1410,11 @@ async function loadDetailData(type) {
 
 
   if (type === "goalie") {
-    state.goalieDetails = data;
+    state.goalieDetails =
+      data;
   } else {
-    state.skaterDetails = data;
+    state.skaterDetails =
+      data;
   }
 
 
@@ -1200,11 +1428,25 @@ function findDetailRecord(
 ) {
   const candidates =
     dataset.filter(record =>
-      normalize(getValue(record, "Jméno")) ===
-        normalize(player.jmeno) &&
+      normalize(
+        getValue(
+          record,
+          "Jméno"
+        )
+      ) ===
+        normalize(
+          player.jmeno
+        ) &&
 
-      normalize(getValue(record, "Příjmení")) ===
-        normalize(player.prijmeni)
+      normalize(
+        getValue(
+          record,
+          "Příjmení"
+        )
+      ) ===
+        normalize(
+          player.prijmeni
+        )
     );
 
 
@@ -1213,19 +1455,26 @@ function findDetailRecord(
   }
 
 
-  if (candidates.length === 1) {
+  if (
+    candidates.length === 1
+  ) {
     return candidates[0];
   }
 
 
   const wantedTeam =
-    getTeamCode(player.tym);
+    getTeamCode(
+      player.tym
+    );
 
 
   return (
     candidates.find(record =>
       getTeamCode(
-        getValue(record, "Tým")
+        getValue(
+          record,
+          "Tým"
+        )
       ) === wantedTeam
     ) ||
     candidates[0]
@@ -1238,14 +1487,21 @@ async function openPlayer(player) {
     return;
   }
 
-  state.selectedPlayer = player;
 
-  navigate("playerDetail");
+  state.selectedPlayer =
+    player;
+
+
+  navigate(
+    "playerDetail"
+  );
+
 
   const container =
     document.getElementById(
       "detailHraceObsah"
     );
+
 
   if (container) {
     container.innerHTML = `
@@ -1257,13 +1513,18 @@ async function openPlayer(player) {
 
 
   try {
-    await renderPlayerDetail(player);
+    await renderPlayerDetail(
+      player
+    );
+
   } catch (error) {
     console.error(error);
 
     if (container) {
       container.innerHTML =
-        errorHtml(error.message);
+        errorHtml(
+          error.message
+        );
     }
   }
 }
@@ -1273,18 +1534,34 @@ async function openPlayerByName(
   firstName,
   surname
 ) {
+  if (!state.players.length) {
+    try {
+      await loadPlayers();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+
   const basePlayer =
     state.players.find(player =>
-      normalize(player.jmeno) ===
+      normalize(
+        player.jmeno
+      ) ===
         normalize(firstName) &&
 
-      normalize(player.prijmeni) ===
+      normalize(
+        player.prijmeni
+      ) ===
         normalize(surname)
     );
 
 
   if (basePlayer) {
-    await openPlayer(basePlayer);
+    await openPlayer(
+      basePlayer
+    );
+
     return;
   }
 
@@ -1294,33 +1571,59 @@ async function openPlayerByName(
     goalies
   ] =
     await Promise.all([
-      loadDetailData("skater"),
-      loadDetailData("goalie")
+      loadDetailData(
+        "skater"
+      ),
+
+      loadDetailData(
+        "goalie"
+      )
     ]);
 
 
   const skater =
     skaters.find(record =>
-      normalize(getValue(record, "Jméno")) ===
+      normalize(
+        getValue(
+          record,
+          "Jméno"
+        )
+      ) ===
         normalize(firstName) &&
 
-      normalize(getValue(record, "Příjmení")) ===
+      normalize(
+        getValue(
+          record,
+          "Příjmení"
+        )
+      ) ===
         normalize(surname)
     );
 
 
   const goalie =
     goalies.find(record =>
-      normalize(getValue(record, "Jméno")) ===
+      normalize(
+        getValue(
+          record,
+          "Jméno"
+        )
+      ) ===
         normalize(firstName) &&
 
-      normalize(getValue(record, "Příjmení")) ===
+      normalize(
+        getValue(
+          record,
+          "Příjmení"
+        )
+      ) ===
         normalize(surname)
     );
 
 
   const detail =
-    skater || goalie;
+    skater ||
+    goalie;
 
 
   if (!detail) {
@@ -1332,46 +1635,73 @@ async function openPlayerByName(
   }
 
 
-  const isGoalie =
+  const goalieProfile =
     Boolean(goalie);
 
 
   const player = {
     jmeno:
-      getValue(detail, "Jméno") ||
+      getValue(
+        detail,
+        "Jméno"
+      ) ||
       firstName,
 
     prijmeni:
-      getValue(detail, "Příjmení") ||
+      getValue(
+        detail,
+        "Příjmení"
+      ) ||
       surname,
 
     smlouva:
-      getValue(detail, "Smlouva"),
+      getValue(
+        detail,
+        "Smlouva"
+      ),
 
     pozice:
-      isGoalie
+      goalieProfile
         ? "Brankář"
-        : getValue(detail, "Pozice"),
+        : getValue(
+            detail,
+            "Pozice"
+          ),
 
     tym:
-      getValue(detail, "Tým"),
+      getValue(
+        detail,
+        "Tým"
+      ),
 
     vek:
-      getValue(detail, "Věk"),
+      getValue(
+        detail,
+        "Věk"
+      ),
 
     drzeni:
-      getValue(detail, "Držení hole"),
+      getValue(
+        detail,
+        "Držení hole"
+      ),
 
     narodnost:
-      getValue(detail, "Národnost"),
+      getValue(
+        detail,
+        "Národnost"
+      ),
 
     foto:
-      getValue(detail, "Foto"),
+      getValue(
+        detail,
+        "Foto"
+      ),
 
     zdroj: "",
 
     __detailType:
-      isGoalie
+      goalieProfile
         ? "goalie"
         : "skater"
   };
@@ -1415,11 +1745,10 @@ function playerStatType(
   if (
     [
       "body",
-      "goly",
-      "góly"
-    ]
-      .map(normalize)
-      .includes(normalizedKey)
+      "goly"
+    ].includes(
+      normalizedKey
+    )
   ) {
     return "stat-star";
   }
@@ -1427,7 +1756,7 @@ function playerStatType(
 
   if (
     normalizedKey.includes(
-      normalize("času na ledě")
+      "casu na lede"
     )
   ) {
     return "stat-toi";
@@ -1435,17 +1764,19 @@ function playerStatType(
 
 
   if (
-    normalizedKey === normalize("hity") ||
-    normalizedKey === normalize("bloky")
+    normalizedKey === "hity" ||
+    normalizedKey === "bloky"
   ) {
     return "stat-physical";
   }
 
 
-  if (Number.isFinite(number)) {
+  if (
+    Number.isFinite(number)
+  ) {
     if (
       normalizedKey.includes(
-        normalize("body na zápas")
+        "body na zapas"
       ) &&
       number >= 0.7
     ) {
@@ -1455,7 +1786,7 @@ function playerStatType(
 
     if (
       normalizedKey.includes(
-        normalize("úspěšnost střelby")
+        "uspesnost strelby"
       ) &&
       number >= 12
     ) {
@@ -1464,7 +1795,9 @@ function playerStatType(
 
 
     if (
-      normalizedKey.includes("+/-") &&
+      normalizedKey.includes(
+        "+/-"
+      ) &&
       number < 0
     ) {
       return "stat-bad";
@@ -1543,7 +1876,12 @@ function statProgress(
   const current =
     toNumber(value);
 
-  if (!Number.isFinite(current)) {
+
+  if (
+    !Number.isFinite(
+      current
+    )
+  ) {
     return 0;
   }
 
@@ -1552,10 +1890,15 @@ function statProgress(
     dataset
       .map(record =>
         toNumber(
-          getValue(record, key)
+          getValue(
+            record,
+            key
+          )
         )
       )
-      .filter(Number.isFinite);
+      .filter(
+        Number.isFinite
+      );
 
 
   if (!values.length) {
@@ -1569,14 +1912,13 @@ function statProgress(
 
   if (
     normalizedKey.includes(
-      normalize(
-        "průměr obdržených branek"
-      )
+      "prumer obdrzenych branek"
     )
   ) {
     const positives =
       values.filter(
-        number => number > 0
+        number =>
+          number > 0
       );
 
 
@@ -1588,19 +1930,22 @@ function statProgress(
     }
 
 
-    const best =
-      Math.min(...positives);
-
-
     return Math.min(
       100,
-      (best / current) * 100
+      (
+        Math.min(
+          ...positives
+        ) /
+        current
+      ) * 100
     );
   }
 
 
   const maximum =
-    Math.max(...values);
+    Math.max(
+      ...values
+    );
 
 
   if (maximum <= 0) {
@@ -1610,7 +1955,10 @@ function statProgress(
 
   return Math.min(
     100,
-    (current / maximum) * 100
+    (
+      current /
+      maximum
+    ) * 100
   );
 }
 
@@ -1625,6 +1973,7 @@ function formatStatValue(
 
   if (
     key.includes("%") &&
+    text &&
     !text.includes("%")
   ) {
     return `${text} %`;
@@ -1633,6 +1982,7 @@ function formatStatValue(
 
   return text;
 }
+
 
 /* =========================================================
    KARIÉRA HRÁČE / BRANKÁŘE
@@ -1649,67 +1999,299 @@ function careerPlayerKey(
 }
 
 
-function normalizeCareerRecord(row) {
-  const sectionRaw =
-    normalize(
-      getValue(row, "Sekce")
+/* =========================================================
+   KARIÉRA – SEZONA
+========================================================= */
+
+function careerSeasonRank(value) {
+  const text =
+    cleanCell(value);
+
+
+  const longYear =
+    text.match(
+      /\b((?:19|20)\d{2})\b/
     );
 
-  const rowTypeRaw =
-    normalize(
-      getValue(row, "Typ řádku")
+
+  if (longYear) {
+    return Number(
+      longYear[1]
     );
+  }
+
+
+  const shortYear =
+    text.match(
+      /\b(\d{2})\s*[\/.\-]\s*(\d{2})\b/
+    );
+
+
+  if (shortYear) {
+    const first =
+      Number(
+        shortYear[1]
+      );
+
+    return (
+      first >= 70
+        ? 1900 + first
+        : 2000 + first
+    );
+  }
+
+
+  return 0;
+}
+
+
+/* =========================================================
+   KARIÉRA – IDENTITA PROFILU
+========================================================= */
+
+function careerProfileIdentity(
+  row
+) {
+  return normalize(
+    getValue(
+      row,
+      "Profil URL"
+    ) ||
+    getValue(
+      row,
+      "Kariéra URL"
+    )
+  );
+}
+
+
+function careerExplicitType(
+  row
+) {
+  return normalize(
+    getValue(
+      row,
+      "Typ hráče"
+    )
+  );
+}
+
+
+function careerTypeMatches(
+  row,
+  type
+) {
+  const raw =
+    careerExplicitType(row);
+
+
+  if (!raw) {
+    return true;
+  }
+
+
+  if (
+    type === "goalie"
+  ) {
+    return (
+      raw.includes(
+        "brankar"
+      ) ||
+      raw.includes(
+        "goalie"
+      ) ||
+      raw.includes(
+        "goaltender"
+      )
+    );
+  }
+
+
+  return (
+    raw.includes("hrac") ||
+    raw.includes("skater") ||
+    raw.includes("utocnik") ||
+    raw.includes("obrance")
+  );
+}
+
+
+/* =========================================================
+   KARIÉRA – TYP ŘÁDKU
+========================================================= */
+
+function careerRowType(row) {
+  const rawType =
+    normalize(
+      getValue(
+        row,
+        "Typ řádku"
+      )
+    );
+
 
   const season =
-    getValue(row, "Sezona");
+    cleanCell(
+      getValue(
+        row,
+        "Sezona"
+      )
+    );
 
-  const competition =
-    getValue(row, "Soutěž") ||
-    getValue(row, "Liga");
+
+  const seasonNormalized =
+    normalize(season);
+
 
   const club =
-    getValue(row, "Klub") ||
-    getValue(row, "Tým");
+    getValue(
+      row,
+      "Klub"
+    ) ||
+    getValue(
+      row,
+      "Tým"
+    );
+
+
+  const clubCount =
+    getValue(
+      row,
+      "Počet klubů"
+    );
+
+
+  /*
+   * Pokud je typ řádku přímo v CSV,
+   * věříme mu přednostně.
+   */
+  if (
+    rawType.includes(
+      "souhrn"
+    ) ||
+    rawType.includes(
+      "summary"
+    ) ||
+    rawType.includes(
+      "total"
+    )
+  ) {
+    return "SOUHRN";
+  }
+
+
+  if (
+    rawType.includes(
+      "detail"
+    )
+  ) {
+    return "DETAIL";
+  }
+
+
+  /*
+   * Hokej.cz používá u souhrnů
+   * často Vše / Celkem.
+   */
+  if (
+    [
+      "vse",
+      "vsechny",
+      "celkem",
+      "souhrn",
+      "total",
+      "career"
+    ].includes(
+      seasonNormalized
+    )
+  ) {
+    return "SOUHRN";
+  }
+
+
+  /*
+   * Reálný rok sezony = DETAIL.
+   */
+  if (
+    careerSeasonRank(
+      season
+    ) > 0
+  ) {
+    return "DETAIL";
+  }
+
+
+  /*
+   * Počet klubů je znak souhrnu.
+   */
+  if (
+    clubCount &&
+    !club
+  ) {
+    return "SOUHRN";
+  }
+
+
+  /*
+   * Starší CSV nemuselo mít Typ řádku.
+   * Konkrétní klub tedy bereme jako detail.
+   */
+  if (
+    club &&
+    club !== "-"
+  ) {
+    return "DETAIL";
+  }
+
+
+  return "SOUHRN";
+}
+
+
+/* =========================================================
+   KARIÉRA – NORMALIZACE
+========================================================= */
+
+function normalizeCareerRecord(
+  row
+) {
+  const sectionRaw =
+    normalize(
+      getValue(
+        row,
+        "Sekce"
+      )
+    );
 
 
   const section =
-    sectionRaw.includes("repre")
+    sectionRaw.includes(
+      "repre"
+    )
       ? "REPREZENTACE"
       : "KLUBOVA";
 
 
-  /*
-   * DŮLEŽITÉ:
-   *
-   * Sezonní řádek poznáváme primárně
-   * podle vyplněné sezony.
-   *
-   * Tím nejsme závislí na tom,
-   * jak přesně scraper vyplnil
-   * sloupec "Typ řádku".
-   */
-  let rowType = "DETAIL";
+  const competition =
+    getValue(
+      row,
+      "Soutěž"
+    ) ||
+    getValue(
+      row,
+      "Liga"
+    );
 
 
-  if (season) {
-    rowType = "DETAIL";
-
-  } else if (
-    rowTypeRaw.includes("souhrn")
-  ) {
-    rowType = "SOUHRN";
-
-  } else if (
-    getValue(row, "Počet klubů")
-  ) {
-    rowType = "SOUHRN";
-
-  } else if (club) {
-    rowType = "DETAIL";
-
-  } else {
-    rowType = "SOUHRN";
-  }
+  const club =
+    getValue(
+      row,
+      "Klub"
+    ) ||
+    getValue(
+      row,
+      "Tým"
+    );
 
 
   return {
@@ -1719,13 +2301,20 @@ function normalizeCareerRecord(row) {
       section,
 
     __careerRowType:
-      rowType,
+      careerRowType(
+        row
+      ),
 
     __careerCompetition:
       competition,
 
     __careerClub:
-      club
+      club,
+
+    __careerProfile:
+      careerProfileIdentity(
+        row
+      )
   };
 }
 
@@ -1734,6 +2323,8 @@ function careerFingerprint(row) {
   const keys = [
     "Sekce",
     "Typ řádku",
+    "Typ hráče",
+    "Pořadí",
     "Sezona",
     "Soutěž",
     "Liga",
@@ -1764,79 +2355,253 @@ function careerFingerprint(row) {
     "Pr.",
     "SO",
     "Z%",
-    "T"
+    "T",
+
+    "Profil URL",
+    "Kariéra URL"
   ];
+
 
   return keys
     .map(key =>
       normalize(
-        getValue(row, key)
+        getValue(
+          row,
+          key
+        )
       )
     )
     .join("|");
 }
 
 
+/* =========================================================
+   KARIÉRA – NAČTENÍ
+========================================================= */
+
 async function loadCareers() {
   if (state.careers) {
     return state.careers;
   }
+
 
   const rows =
     await loadObjectCsv(
       DATA_URLS.careers
     );
 
+
   state.careers =
     rows
       .filter(row =>
-        getValue(row, "Jméno") &&
-        getValue(row, "Příjmení")
+        getValue(
+          row,
+          "Jméno"
+        ) &&
+        getValue(
+          row,
+          "Příjmení"
+        )
       )
       .map(
         normalizeCareerRecord
       );
 
+
   state.careerIndex =
     new Map();
 
-  state.careers.forEach(row => {
-    const key =
-      careerPlayerKey(
-        getValue(row, "Jméno"),
-        getValue(row, "Příjmení")
-      );
 
-    if (
-      !state.careerIndex.has(key)
-    ) {
-      state.careerIndex.set(
-        key,
-        []
-      );
-    }
+  state.careers
+    .forEach(row => {
+      const key =
+        careerPlayerKey(
+          getValue(
+            row,
+            "Jméno"
+          ),
+          getValue(
+            row,
+            "Příjmení"
+          )
+        );
 
-    state.careerIndex
-      .get(key)
-      .push(row);
-  });
+
+      if (
+        !state.careerIndex
+          .has(key)
+      ) {
+        state.careerIndex.set(
+          key,
+          []
+        );
+      }
+
+
+      state.careerIndex
+        .get(key)
+        .push(row);
+    });
+
+
+  console.info(
+    "Kariéry načteny:",
+    state.careers.length
+  );
+
 
   return state.careers;
 }
 
 
+/* =========================================================
+   KARIÉRA – VÝBĚR SPRÁVNÉHO PROFILU
+========================================================= */
+
+function careerSelectCorrectProfile(
+  rows,
+  team
+) {
+  const profileIds =
+    new Set(
+      rows
+        .map(
+          careerProfileIdentity
+        )
+        .filter(Boolean)
+    );
+
+
+  /*
+   * Jeden profil = nefiltrujeme podle týmu.
+   * Tohle je zásadní, aby se neztratila
+   * historická kariéra.
+   */
+  if (
+    profileIds.size <= 1
+  ) {
+    return rows;
+  }
+
+
+  const wantedTeam =
+    getTeamCode(team);
+
+
+  if (!wantedTeam) {
+    return rows;
+  }
+
+
+  const scores =
+    new Map();
+
+
+  rows.forEach(row => {
+    const profile =
+      careerProfileIdentity(
+        row
+      );
+
+
+    if (!profile) {
+      return;
+    }
+
+
+    if (
+      !scores.has(
+        profile
+      )
+    ) {
+      scores.set(
+        profile,
+        0
+      );
+    }
+
+
+    const rowTeam =
+      getTeamCode(
+        getValue(
+          row,
+          "Tým ELH"
+        )
+      );
+
+
+    if (
+      rowTeam ===
+      wantedTeam
+    ) {
+      scores.set(
+        profile,
+        scores.get(
+          profile
+        ) + 1
+      );
+    }
+  });
+
+
+  if (!scores.size) {
+    return rows;
+  }
+
+
+  const sorted =
+    [...scores.entries()]
+      .sort(
+        (a, b) =>
+          b[1] - a[1]
+      );
+
+
+  if (
+    !sorted.length ||
+    sorted[0][1] <= 0
+  ) {
+    return rows;
+  }
+
+
+  const selectedProfile =
+    sorted[0][0];
+
+
+  return rows.filter(row => {
+    const id =
+      careerProfileIdentity(
+        row
+      );
+
+    return (
+      !id ||
+      id === selectedProfile
+    );
+  });
+}
+
+
+/* =========================================================
+   KARIÉRA – ŘÁDKY HRÁČE
+========================================================= */
+
 async function getPlayerCareerRows(
   firstName,
   surname,
-  team
+  team,
+  type
 ) {
   await loadCareers();
+
 
   const key =
     careerPlayerKey(
       firstName,
       surname
     );
+
 
   let rows =
     [
@@ -1847,32 +2612,65 @@ async function getPlayerCareerRows(
       )
     ];
 
+
   if (!rows.length) {
     return [];
   }
 
-  /*
-   * Ochrana v případě dvou hráčů
-   * se stejným jménem.
-   */
-  const wantedTeam =
-    getTeamCode(team);
 
-  if (wantedTeam) {
-    const teamRows =
-      rows.filter(row =>
-        getTeamCode(
-          getValue(
-            row,
-            "Tým ELH"
-          )
-        ) === wantedTeam
+  /*
+   * Rozlišení hráče a brankáře.
+   * Použije se jen pokud Typ hráče
+   * v CSV skutečně existuje.
+   */
+  const typedRows =
+    rows.filter(row =>
+      careerExplicitType(
+        row
+      )
+    );
+
+
+  if (typedRows.length) {
+    const matchingTyped =
+      typedRows.filter(row =>
+        careerTypeMatches(
+          row,
+          type
+        )
       );
 
-    if (teamRows.length) {
-      rows = teamRows;
+
+    if (
+      matchingTyped.length
+    ) {
+      rows =
+        rows.filter(row =>
+          !careerExplicitType(
+            row
+          ) ||
+          careerTypeMatches(
+            row,
+            type
+          )
+        );
     }
   }
+
+
+  /*
+   * Tým používáme pouze pro případ
+   * stejného jména dvou různých lidí.
+   *
+   * NIKDY už podle aktuálního týmu
+   * nefiltrujeme jednotlivé sezony.
+   */
+  rows =
+    careerSelectCorrectProfile(
+      rows,
+      team
+    );
+
 
   /*
    * Odstranění přesných duplicit.
@@ -1880,12 +2678,18 @@ async function getPlayerCareerRows(
   const unique =
     new Map();
 
+
   rows.forEach(row => {
     const fingerprint =
-      careerFingerprint(row);
+      careerFingerprint(
+        row
+      );
+
 
     if (
-      !unique.has(fingerprint)
+      !unique.has(
+        fingerprint
+      )
     ) {
       unique.set(
         fingerprint,
@@ -1894,64 +2698,105 @@ async function getPlayerCareerRows(
     }
   });
 
+
   rows =
     [...unique.values()];
 
+
   /*
-   * Zachování pořadí ze scraperu.
+   * Stabilní pořadí.
    */
-  rows.sort((a, b) => {
-    const aOrder =
-      toNumber(
-        getValue(a, "Pořadí")
-      );
+  rows.sort(
+    (a, b) => {
+      const aOrder =
+        toNumber(
+          getValue(
+            a,
+            "Pořadí"
+          )
+        );
 
-    const bOrder =
-      toNumber(
-        getValue(b, "Pořadí")
-      );
+      const bOrder =
+        toNumber(
+          getValue(
+            b,
+            "Pořadí"
+          )
+        );
 
-    if (
-      Number.isFinite(aOrder) &&
-      Number.isFinite(bOrder)
-    ) {
-      return aOrder - bOrder;
+
+      if (
+        Number.isFinite(
+          aOrder
+        ) &&
+        Number.isFinite(
+          bOrder
+        ) &&
+        aOrder !== bOrder
+      ) {
+        return (
+          aOrder -
+          bOrder
+        );
+      }
+
+
+      return (
+        careerSeasonRank(
+          getValue(
+            b,
+            "Sezona"
+          )
+        ) -
+        careerSeasonRank(
+          getValue(
+            a,
+            "Sezona"
+          )
+        )
+      );
     }
+  );
 
-    return (
-      careerSeasonRank(
-        getValue(b, "Sezona")
-      ) -
-      careerSeasonRank(
-        getValue(a, "Sezona")
-      )
-    );
-  });
 
   return rows;
 }
 
 
+/* =========================================================
+   KARIÉRA – HODNOTY
+========================================================= */
+
 function careerGetValue(
   row,
   key
 ) {
-  if (key === "Soutěž") {
+  if (
+    key === "Soutěž"
+  ) {
     return (
       row.__careerCompetition ||
       "-"
     );
   }
 
-  if (key === "Klub") {
+
+  if (
+    key === "Klub"
+  ) {
     return (
       row.__careerClub ||
       "-"
     );
   }
 
+
   const value =
-    getValue(row, key);
+    getValue(
+      row,
+      key
+    );
+
 
   if (
     key === "Z%" &&
@@ -1961,6 +2806,7 @@ function careerGetValue(
     return `${value} %`;
   }
 
+
   return value || "-";
 }
 
@@ -1969,51 +2815,78 @@ function careerSectionRows(
   section,
   rowType
 ) {
-  return state.careerView.rows.filter(
-    row =>
-      row.__careerSection === section &&
-      row.__careerRowType === rowType
-  );
+  return state.careerView.rows
+    .filter(row =>
+      row.__careerSection ===
+        section &&
+      row.__careerRowType ===
+        rowType
+    );
 }
 
 
 /* =========================================================
-   LIGY / FÁZE
+   KARIÉRA – FÁZE
 ========================================================= */
-
-function careerSeasonRank(value) {
-  const match =
-    cleanCell(value)
-      .match(/(\d{4})/);
-
-  return match
-    ? Number(match[1])
-    : 0;
-}
-
 
 function careerPhase(row) {
   const text =
     normalize(
-      row.__careerCompetition
+      [
+        getValue(
+          row,
+          "Fáze"
+        ),
+
+        getValue(
+          row,
+          "Část"
+        ),
+
+        row.__careerCompetition
+      ].join(" ")
     );
 
+
   if (
-    text.includes("play off") ||
-    text.includes("playoff") ||
-    text.includes("play-off")
+    text.includes(
+      "play off"
+    ) ||
+    text.includes(
+      "play-off"
+    ) ||
+    text.includes(
+      "playoff"
+    ) ||
+    text.includes(
+      "playoffs"
+    ) ||
+    text.includes(
+      "vyrazovaci"
+    )
   ) {
     return "PLAYOFF";
   }
+
 
   return "REGULAR";
 }
 
 
-function careerBaseLeagueName(value) {
+/* =========================================================
+   KARIÉRA – LIGY
+========================================================= */
+
+function careerBaseLeagueName(
+  value
+) {
   return cleanCell(value)
     .replace(
-      /\bplay[\s-]*off\b/gi,
+      /\(\s*play[\s-]*offs?\s*\)/gi,
+      ""
+    )
+    .replace(
+      /\bplay[\s-]*offs?\b/gi,
       ""
     )
     .replace(
@@ -2029,7 +2902,7 @@ function careerBaseLeagueName(value) {
       ""
     )
     .replace(
-      /\s*[–—-]\s*$/g,
+      /\s*[–—:/-]\s*$/g,
       ""
     )
     .replace(
@@ -2040,54 +2913,129 @@ function careerBaseLeagueName(value) {
 }
 
 
-function careerLeagueKey(value) {
-  const text =
-    normalize(
-      careerBaseLeagueName(
-        value
-      )
+function careerLeagueKey(
+  value
+) {
+  const base =
+    careerBaseLeagueName(
+      value
     );
+
+
+  const text =
+    normalize(base)
+      .replace(
+        /\s+/g,
+        " "
+      )
+      .trim();
+
 
   if (!text) {
     return "";
   }
 
-  if (
-    text.includes("extralig")
-  ) {
-    return "extraliga";
-  }
 
-  if (/\bnhl\b/.test(text)) {
+  if (
+    /\bnhl\b/.test(text)
+  ) {
     return "nhl";
   }
 
-  if (/\bahl\b/.test(text)) {
+
+  if (
+    /\bahl\b/.test(text)
+  ) {
     return "ahl";
   }
 
-  if (/\bkhl\b/.test(text)) {
+
+  if (
+    /\bkhl\b/.test(text)
+  ) {
     return "khl";
   }
 
-  if (/\bshl\b/.test(text)) {
+
+  if (
+    /\bshl\b/.test(text)
+  ) {
     return "shl";
   }
 
+
   if (
-    text.includes("liiga")
+    text.includes(
+      "liiga"
+    )
   ) {
     return "liiga";
   }
 
+
+  /*
+   * Slovenskou extraligu držíme
+   * odděleně od české.
+   */
   if (
-    text.includes("maxa liga") ||
-    text.includes("chance liga") ||
+    (
+      text.includes(
+        "slovensk"
+      ) &&
+      text.includes(
+        "extralig"
+      )
+    ) ||
+    (
+      text.includes(
+        "tipos"
+      ) &&
+      text.includes(
+        "liga"
+      )
+    ) ||
+    text.includes(
+      "extraliga sr"
+    )
+  ) {
+    return "sk-extraliga";
+  }
+
+
+  if (
+    text === "extraliga" ||
+    text === "elh" ||
+    text === "telh" ||
+    text.includes(
+      "tipsport extraliga"
+    ) ||
+    text.includes(
+      "ceska extraliga"
+    ) ||
+    text.includes(
+      "extraliga cr"
+    )
+  ) {
+    return "cz-extraliga";
+  }
+
+
+  if (
+    text.includes(
+      "maxa liga"
+    ) ||
+    text.includes(
+      "chance liga"
+    ) ||
+    text.includes(
+      "wsm liga"
+    ) ||
     text === "1. liga" ||
     text === "1 liga"
   ) {
-    return "1-liga";
+    return "cz-1-liga";
   }
+
 
   return text;
 }
@@ -2098,18 +3046,36 @@ function careerLeagueLabel(
   rows
 ) {
   const known = {
-    extraliga: "Extraliga",
-    nhl: "NHL",
-    ahl: "AHL",
-    khl: "KHL",
-    shl: "SHL",
-    liiga: "Liiga",
-    "1-liga": "1. liga"
+    "cz-extraliga":
+      "Extraliga",
+
+    "sk-extraliga":
+      "Slovenská extraliga",
+
+    "cz-1-liga":
+      "1. liga",
+
+    nhl:
+      "NHL",
+
+    ahl:
+      "AHL",
+
+    khl:
+      "KHL",
+
+    shl:
+      "SHL",
+
+    liiga:
+      "Liiga"
   };
+
 
   if (known[key]) {
     return known[key];
   }
+
 
   const row =
     rows.find(item =>
@@ -2117,6 +3083,7 @@ function careerLeagueLabel(
         item.__careerCompetition
       ) === key
     );
+
 
   return (
     careerBaseLeagueName(
@@ -2127,9 +3094,12 @@ function careerLeagueLabel(
 }
 
 
-function careerLeagueOptions(rows) {
+function careerLeagueOptions(
+  rows
+) {
   const leagues =
     new Map();
+
 
   rows.forEach(row => {
     const key =
@@ -2137,9 +3107,11 @@ function careerLeagueOptions(rows) {
         row.__careerCompetition
       );
 
+
     if (!key) {
       return;
     }
+
 
     const season =
       careerSeasonRank(
@@ -2149,25 +3121,32 @@ function careerLeagueOptions(rows) {
         )
       );
 
+
     if (!leagues.has(key)) {
       leagues.set(
         key,
         {
           key,
-          latestSeason: season
+          latestSeason:
+            season
         }
       );
-    } else {
-      const existing =
-        leagues.get(key);
 
-      existing.latestSeason =
-        Math.max(
-          existing.latestSeason,
-          season
-        );
+      return;
     }
+
+
+    const existing =
+      leagues.get(key);
+
+
+    existing.latestSeason =
+      Math.max(
+        existing.latestSeason,
+        season
+      );
   });
+
 
   return [...leagues.values()]
     .map(item => ({
@@ -2179,20 +3158,28 @@ function careerLeagueOptions(rows) {
           rows
         )
     }))
-    .sort((a, b) => {
-      const seasonDiff =
-        b.latestSeason -
-        a.latestSeason;
+    .sort(
+      (a, b) => {
+        const seasonDifference =
+          b.latestSeason -
+          a.latestSeason;
 
-      if (seasonDiff) {
-        return seasonDiff;
+
+        if (
+          seasonDifference
+        ) {
+          return (
+            seasonDifference
+          );
+        }
+
+
+        return collator.compare(
+          a.label,
+          b.label
+        );
       }
-
-      return collator.compare(
-        a.label,
-        b.label
-      );
-    });
+    );
 }
 
 
@@ -2212,22 +3199,66 @@ function careerFindSummaryRow(
   rows,
   leagueKey
 ) {
-  return (
-    rows.find(row =>
+  const candidates =
+    rows.filter(row =>
       careerLeagueKey(
         row.__careerCompetition
       ) === leagueKey
-    ) ||
-    null
-  );
+    );
+
+
+  if (!candidates.length) {
+    return null;
+  }
+
+
+  /*
+   * Preferujeme řádek s největším
+   * množstvím vyplněných statistik.
+   */
+  return [...candidates]
+    .sort(
+      (a, b) => {
+        const keys = [
+          "Z",
+          "G",
+          "A",
+          "B",
+          "+/-",
+          "TM",
+          "V",
+          "P",
+          "Pr.",
+          "Z%",
+          "SO"
+        ];
+
+
+        const count =
+          row =>
+            keys.filter(
+              key =>
+                getValue(
+                  row,
+                  key
+                )
+            ).length;
+
+
+        return (
+          count(b) -
+          count(a)
+        );
+      }
+    )[0];
 }
 
 
 /* =========================================================
-   SOUHRNY
+   KARIÉRA – SOUČTY
 ========================================================= */
 
-function careerAdditiveValue(
+function careerNumericSum(
   rows,
   key
 ) {
@@ -2235,33 +3266,184 @@ function careerAdditiveValue(
     rows
       .map(row =>
         toNumber(
-          getValue(row, key)
+          getValue(
+            row,
+            key
+          )
         )
       )
-      .filter(Number.isFinite);
+      .filter(
+        Number.isFinite
+      );
+
 
   if (!values.length) {
+    return NaN;
+  }
+
+
+  return values.reduce(
+    (sum, value) =>
+      sum + value,
+    0
+  );
+}
+
+
+function careerFormatNumber(
+  value,
+  decimals = 0
+) {
+  if (
+    !Number.isFinite(value)
+  ) {
     return "-";
   }
 
-  const total =
-    values.reduce(
-      (sum, value) =>
-        sum + value,
-      0
-    );
 
   if (
-    Number.isInteger(total)
+    decimals === 0
   ) {
-    return String(total);
+    return String(
+      Math.round(value)
+    );
   }
 
-  return String(
-    Math.round(
-      total * 100
-    ) / 100
-  ).replace(".", ",");
+
+  return value
+    .toFixed(decimals)
+    .replace(
+      ".",
+      ","
+    );
+}
+
+
+function careerAdditiveValue(
+  rows,
+  key
+) {
+  const total =
+    careerNumericSum(
+      rows,
+      key
+    );
+
+
+  if (
+    !Number.isFinite(total)
+  ) {
+    return "-";
+  }
+
+
+  return (
+    Number.isInteger(total)
+      ? String(total)
+      : String(
+          Math.round(
+            total * 100
+          ) / 100
+        ).replace(
+          ".",
+          ","
+        )
+  );
+}
+
+
+function careerGoalieMinutes(
+  rows
+) {
+  let total =
+    0;
+
+  let found =
+    false;
+
+
+  rows.forEach(row => {
+    const raw =
+      cleanCell(
+        getValue(
+          row,
+          "Č"
+        )
+      )
+        .replace(
+          /\s/g,
+          ""
+        );
+
+
+    if (!raw) {
+      return;
+    }
+
+
+    if (
+      raw.includes(":")
+    ) {
+      const [
+        minutesText,
+        secondsText
+      ] =
+        raw.split(":");
+
+
+      const minutes =
+        Number(
+          minutesText
+        );
+
+      const seconds =
+        Number(
+          secondsText
+        );
+
+
+      if (
+        Number.isFinite(
+          minutes
+        )
+      ) {
+        total +=
+          minutes;
+
+        if (
+          Number.isFinite(
+            seconds
+          )
+        ) {
+          total +=
+            seconds / 60;
+        }
+
+        found = true;
+      }
+
+      return;
+    }
+
+
+    const value =
+      toNumber(raw);
+
+
+    if (
+      Number.isFinite(
+        value
+      )
+    ) {
+      total += value;
+      found = true;
+    }
+  });
+
+
+  return found
+    ? total
+    : NaN;
 }
 
 
@@ -2278,19 +3460,110 @@ function careerSummaryValue(
         )
       : "";
 
+
   if (
     summaryValue &&
     summaryValue !== "-"
   ) {
     if (
       key === "Z%" &&
-      !summaryValue.includes("%")
+      !summaryValue.includes(
+        "%"
+      )
     ) {
-      return `${summaryValue} %`;
+      return (
+        `${summaryValue} %`
+      );
     }
 
     return summaryValue;
   }
+
+
+  /*
+   * Brankářská procenta a průměr
+   * nesčítáme prostým součtem.
+   */
+  if (
+    key === "Z%"
+  ) {
+    const saves =
+      careerNumericSum(
+        detailRows,
+        "Zás"
+      );
+
+    const shots =
+      careerNumericSum(
+        detailRows,
+        "SP"
+      );
+
+
+    if (
+      Number.isFinite(
+        saves
+      ) &&
+      Number.isFinite(
+        shots
+      ) &&
+      shots > 0
+    ) {
+      return (
+        `${careerFormatNumber(
+          (
+            saves /
+            shots
+          ) * 100,
+          2
+        )} %`
+      );
+    }
+
+
+    return "-";
+  }
+
+
+  if (
+    key === "Pr."
+  ) {
+    const goalsAgainst =
+      careerNumericSum(
+        detailRows,
+        "GOb"
+      );
+
+
+    const minutes =
+      careerGoalieMinutes(
+        detailRows
+      );
+
+
+    if (
+      Number.isFinite(
+        goalsAgainst
+      ) &&
+      Number.isFinite(
+        minutes
+      ) &&
+      minutes > 0
+    ) {
+      return careerFormatNumber(
+        (
+          goalsAgainst *
+          60
+        ) /
+        minutes,
+        2
+      );
+    }
+
+
+    return "-";
+  }
+
 
   const additiveKeys =
     new Set([
@@ -2318,8 +3591,11 @@ function careerSummaryValue(
       "T"
     ]);
 
+
   if (
-    additiveKeys.has(key)
+    additiveKeys.has(
+      key
+    )
   ) {
     return careerAdditiveValue(
       detailRows,
@@ -2327,11 +3603,18 @@ function careerSummaryValue(
     );
   }
 
+
   return "-";
 }
 
 
-function careerSeasonCount(rows) {
+/* =========================================================
+   KARIÉRA – POČTY
+========================================================= */
+
+function careerSeasonCount(
+  rows
+) {
   return new Set(
     rows
       .map(row =>
@@ -2340,12 +3623,19 @@ function careerSeasonCount(rows) {
           "Sezona"
         )
       )
-      .filter(Boolean)
+      .filter(value =>
+        careerSeasonRank(
+          value
+        ) > 0
+      )
+      .map(normalize)
   ).size;
 }
 
 
-function careerClubCount(rows) {
+function careerClubCount(
+  rows
+) {
   return new Set(
     rows
       .map(row =>
@@ -2353,17 +3643,18 @@ function careerClubCount(rows) {
           row.__careerClub
         )
       )
-      .filter(
-        value =>
-          value &&
-          value !== "-"
+      .filter(value =>
+        value &&
+        value !== "-"
       )
       .map(normalize)
   ).size;
 }
 
 
-function careerSeasonWord(count) {
+function careerSeasonWord(
+  count
+) {
   if (count === 1) {
     return "sezona";
   }
@@ -2379,7 +3670,9 @@ function careerSeasonWord(count) {
 }
 
 
-function careerClubWord(count) {
+function careerClubWord(
+  count
+) {
   if (count === 1) {
     return "klub";
   }
@@ -2396,7 +3689,7 @@ function careerClubWord(count) {
 
 
 /* =========================================================
-   TABULKA
+   KARIÉRA – TABULKA
 ========================================================= */
 
 function careerTableColumns(
@@ -2409,12 +3702,14 @@ function careerTableColumns(
       label: "Sezona",
       className: "season"
     },
+
     {
       key: "Klub",
       label: "Klub",
       className: "club"
     }
   ];
+
 
   if (showPhase) {
     common.push({
@@ -2424,7 +3719,10 @@ function careerTableColumns(
     });
   }
 
-  if (type === "goalie") {
+
+  if (
+    type === "goalie"
+  ) {
     return [
       ...common,
 
@@ -2432,28 +3730,34 @@ function careerTableColumns(
         key: "Z",
         label: "Z"
       },
+
       {
         key: "V",
         label: "V"
       },
+
       {
         key: "P",
         label: "P"
       },
+
       {
         key: "Pr.",
         label: "Pr."
       },
+
       {
         key: "Z%",
         label: "Z%"
       },
+
       {
         key: "SO",
         label: "SO"
       }
     ];
   }
+
 
   return [
     ...common,
@@ -2462,22 +3766,27 @@ function careerTableColumns(
       key: "Z",
       label: "Z"
     },
+
     {
       key: "G",
       label: "G"
     },
+
     {
       key: "A",
       label: "A"
     },
+
     {
       key: "B",
       label: "B"
     },
+
     {
       key: "+/-",
       label: "+/-"
     },
+
     {
       key: "TM",
       label: "TM"
@@ -2491,13 +3800,17 @@ function careerCellValue(
   column
 ) {
   if (
-    column.key === "__phase"
+    column.key ===
+    "__phase"
   ) {
-    return careerPhase(row) ===
-      "PLAYOFF"
-      ? "Play off"
-      : "Základní část";
+    return (
+      careerPhase(row) ===
+        "PLAYOFF"
+        ? "Play off"
+        : "Základní část"
+    );
   }
+
 
   return careerGetValue(
     row,
@@ -2507,7 +3820,7 @@ function careerCellValue(
 
 
 /* =========================================================
-   VYKRESLENÍ KARIÉRY
+   KARIÉRA – VYKRESLENÍ
 ========================================================= */
 
 function renderCareerView() {
@@ -2516,12 +3829,15 @@ function renderCareerView() {
       "careerSection"
     );
 
+
   if (!container) {
     return;
   }
 
+
   const rows =
     state.careerView.rows;
+
 
   if (!rows.length) {
     container.innerHTML = `
@@ -2533,12 +3849,14 @@ function renderCareerView() {
     return;
   }
 
+
   const availableSections =
     [
       {
         key: "KLUBOVA",
         label: "Klubová kariéra"
       },
+
       {
         key: "REPREZENTACE",
         label: "Reprezentace"
@@ -2551,6 +3869,7 @@ function renderCareerView() {
         )
       );
 
+
   if (
     !availableSections.some(
       section =>
@@ -2559,18 +3878,22 @@ function renderCareerView() {
     )
   ) {
     state.careerView.section =
-      availableSections[0]?.key ||
+      availableSections[0]
+        ?.key ||
       "KLUBOVA";
   }
+
 
   const section =
     state.careerView.section;
 
-  const detailRows =
+
+  let detailRows =
     careerSectionRows(
       section,
       "DETAIL"
     );
+
 
   const summaryRows =
     careerSectionRows(
@@ -2578,20 +3901,58 @@ function renderCareerView() {
       "SOUHRN"
     );
 
+
+  /*
+   * Bezpečnostní fallback:
+   * pokud starší CSV označilo řádky špatně,
+   * vybereme řádky s reálnou sezonou.
+   */
+  if (!detailRows.length) {
+    detailRows =
+      rows.filter(row =>
+        row.__careerSection ===
+          section &&
+        careerSeasonRank(
+          getValue(
+            row,
+            "Sezona"
+          )
+        ) > 0
+      );
+  }
+
+
+  /*
+   * Druhý fallback pro starší data
+   * bez sloupce Sezona.
+   */
+  if (!detailRows.length) {
+    detailRows =
+      rows.filter(row =>
+        row.__careerSection ===
+          section &&
+        row.__careerClub &&
+        row.__careerCompetition
+      );
+  }
+
+
   if (!detailRows.length) {
     container.innerHTML = `
       <div class="career-empty">
-        Pro tuto část kariéry nejsou k dispozici data.
+        Pro tuto část kariéry nejsou k dispozici sezonní data.
       </div>
     `;
 
     return;
   }
 
+
   const leagues =
     careerLeagueOptions(
       detailRows
     );
+
 
   if (!leagues.length) {
     container.innerHTML = `
@@ -2603,6 +3964,7 @@ function renderCareerView() {
     return;
   }
 
+
   if (
     !leagues.some(
       league =>
@@ -2610,6 +3972,11 @@ function renderCareerView() {
         state.careerView.league
     )
   ) {
+    /*
+     * Ligy jsou seřazené podle nejnovější
+     * sezony, takže automaticky vybereme
+     * aktuální / nejnovější soutěž.
+     */
     state.careerView.league =
       leagues[0].key;
 
@@ -2617,8 +3984,10 @@ function renderCareerView() {
       "ALL";
   }
 
+
   const leagueKey =
     state.careerView.league;
+
 
   const leagueLabel =
     leagues.find(
@@ -2628,11 +3997,13 @@ function renderCareerView() {
     )?.label ||
     "Vybraná soutěž";
 
+
   const allLeagueRows =
     careerLeagueRows(
       detailRows,
       leagueKey
     );
+
 
   const phases =
     new Set(
@@ -2640,6 +4011,7 @@ function renderCareerView() {
         careerPhase
       )
     );
+
 
   if (
     state.careerView.phase !==
@@ -2652,6 +4024,7 @@ function renderCareerView() {
       "ALL";
   }
 
+
   let visibleRows =
     state.careerView.phase ===
       "ALL"
@@ -2662,9 +4035,10 @@ function renderCareerView() {
             state.careerView.phase
         );
 
+
   visibleRows.sort(
     (a, b) => {
-      const seasonDiff =
+      const seasonDifference =
         careerSeasonRank(
           getValue(
             b,
@@ -2678,30 +4052,52 @@ function renderCareerView() {
           )
         );
 
-      if (seasonDiff) {
-        return seasonDiff;
+
+      if (
+        seasonDifference
+      ) {
+        return (
+          seasonDifference
+        );
       }
+
 
       const aOrder =
         toNumber(
-          getValue(a, "Pořadí")
+          getValue(
+            a,
+            "Pořadí"
+          )
         );
 
       const bOrder =
         toNumber(
-          getValue(b, "Pořadí")
+          getValue(
+            b,
+            "Pořadí"
+          )
         );
 
+
       if (
-        Number.isFinite(aOrder) &&
-        Number.isFinite(bOrder)
+        Number.isFinite(
+          aOrder
+        ) &&
+        Number.isFinite(
+          bOrder
+        )
       ) {
-        return aOrder - bOrder;
+        return (
+          aOrder -
+          bOrder
+        );
       }
+
 
       return 0;
     }
   );
+
 
   const summaryRow =
     careerFindSummaryRow(
@@ -2709,8 +4105,10 @@ function renderCareerView() {
       leagueKey
     );
 
+
   const showPhase =
     phases.size > 1;
+
 
   const columns =
     careerTableColumns(
@@ -2718,15 +4116,18 @@ function renderCareerView() {
       showPhase
     );
 
+
   const seasons =
     careerSeasonCount(
       allLeagueRows
     );
 
+
   const clubs =
     careerClubCount(
       allLeagueRows
     );
+
 
   const totalKeys =
     state.careerView.type ===
@@ -2748,12 +4149,14 @@ function renderCareerView() {
           ["TM", "TM"]
         ];
 
+
   container.innerHTML = `
     <section class="career-pro">
 
       <header class="career-pro-header">
 
         <div class="career-pro-title">
+
           <span>
             Kompletní historie
           </span>
@@ -2761,6 +4164,7 @@ function renderCareerView() {
           <h2>
             Kariéra
           </h2>
+
         </div>
 
 
@@ -2771,24 +4175,29 @@ function renderCareerView() {
                 class="career-pro-tabs"
                 role="tablist"
               >
-                ${availableSections
-                  .map(item => `
-                    <button
-                      type="button"
-                      class="
-                        career-pro-tab
-                        ${
-                          item.key === section
-                            ? "active"
-                            : ""
-                        }
-                      "
-                      data-career-tab="${item.key}"
-                    >
-                      ${escapeHtml(item.label)}
-                    </button>
-                  `)
-                  .join("")}
+
+                ${
+                  availableSections
+                    .map(item => `
+                      <button
+                        type="button"
+                        class="
+                          career-pro-tab
+                          ${
+                            item.key ===
+                            section
+                              ? "active"
+                              : ""
+                          }
+                        "
+                        data-career-tab="${escapeHtml(item.key)}"
+                      >
+                        ${escapeHtml(item.label)}
+                      </button>
+                    `)
+                    .join("")
+                }
+
               </div>
             `
             : ""
@@ -2817,27 +4226,36 @@ function renderCareerView() {
           <div class="career-pro-filters">
 
             <label>
-              <span>Liga</span>
+
+              <span>
+                Liga
+              </span>
 
               <select
                 data-career-league
                 aria-label="Vybrat soutěž"
               >
-                ${leagues
-                  .map(league => `
-                    <option
-                      value="${escapeHtml(league.key)}"
-                      ${
-                        league.key === leagueKey
-                          ? "selected"
-                          : ""
-                      }
-                    >
-                      ${escapeHtml(league.label)}
-                    </option>
-                  `)
-                  .join("")}
+
+                ${
+                  leagues
+                    .map(league => `
+                      <option
+                        value="${escapeHtml(league.key)}"
+                        ${
+                          league.key ===
+                          leagueKey
+                            ? "selected"
+                            : ""
+                        }
+                      >
+                        ${escapeHtml(league.label)}
+                      </option>
+                    `)
+                    .join("")
+                }
+
               </select>
+
             </label>
 
 
@@ -2845,12 +4263,16 @@ function renderCareerView() {
               showPhase
                 ? `
                   <label>
-                    <span>Část</span>
+
+                    <span>
+                      Část
+                    </span>
 
                     <select
                       data-career-phase
                       aria-label="Vybrat část soutěže"
                     >
+
                       <option
                         value="ALL"
                         ${
@@ -2862,6 +4284,7 @@ function renderCareerView() {
                       >
                         Vše
                       </option>
+
 
                       ${
                         phases.has(
@@ -2882,6 +4305,7 @@ function renderCareerView() {
                           `
                           : ""
                       }
+
 
                       ${
                         phases.has(
@@ -2904,6 +4328,7 @@ function renderCareerView() {
                       }
 
                     </select>
+
                   </label>
                 `
                 : ""
@@ -2921,21 +4346,27 @@ function renderCareerView() {
             <table class="career-pro-table">
 
               <thead>
+
                 <tr>
-                  ${columns
-                    .map(column => `
-                      <th
-                        class="${
-                          column.className
-                            ? `career-column-${column.className}`
-                            : ""
-                        }"
-                      >
-                        ${escapeHtml(column.label)}
-                      </th>
-                    `)
-                    .join("")}
+
+                  ${
+                    columns
+                      .map(column => `
+                        <th
+                          class="${
+                            column.className
+                              ? `career-column-${column.className}`
+                              : ""
+                          }"
+                        >
+                          ${escapeHtml(column.label)}
+                        </th>
+                      `)
+                      .join("")
+                  }
+
                 </tr>
+
               </thead>
 
 
@@ -2956,24 +4387,28 @@ function renderCareerView() {
                                   : ""
                               }"
                             >
-                              ${columns
-                                .map(column => `
-                                  <td
-                                    class="${
-                                      column.className
-                                        ? `career-column-${column.className}`
-                                        : ""
-                                    }"
-                                  >
-                                    ${escapeHtml(
-                                      careerCellValue(
-                                        row,
-                                        column
-                                      )
-                                    )}
-                                  </td>
-                                `)
-                                .join("")}
+
+                              ${
+                                columns
+                                  .map(column => `
+                                    <td
+                                      class="${
+                                        column.className
+                                          ? `career-column-${column.className}`
+                                          : ""
+                                      }"
+                                    >
+                                      ${escapeHtml(
+                                        careerCellValue(
+                                          row,
+                                          column
+                                        )
+                                      )}
+                                    </td>
+                                  `)
+                                  .join("")
+                              }
+
                             </tr>
                           `
                         )
@@ -3010,17 +4445,20 @@ function renderCareerView() {
               </strong>
 
               <small>
+
                 ${seasons}
                 ${careerSeasonWord(seasons)}
 
                 ${
                   clubs
                     ? `
-                      · ${clubs}
+                      ·
+                      ${clubs}
                       ${careerClubWord(clubs)}
                     `
                     : ""
                 }
+
               </small>
 
             </div>
@@ -3028,29 +4466,36 @@ function renderCareerView() {
 
             <div class="career-pro-total-stats">
 
-              ${totalKeys
-                .map(
-                  ([key, label]) => `
-                    <div class="career-pro-total-stat">
+              ${
+                totalKeys
+                  .map(
+                    (
+                      [
+                        key,
+                        label
+                      ]
+                    ) => `
+                      <div class="career-pro-total-stat">
 
-                      <span>
-                        ${escapeHtml(label)}
-                      </span>
+                        <span>
+                          ${escapeHtml(label)}
+                        </span>
 
-                      <strong>
-                        ${escapeHtml(
-                          careerSummaryValue(
-                            summaryRow,
-                            allLeagueRows,
-                            key
-                          )
-                        )}
-                      </strong>
+                        <strong>
+                          ${escapeHtml(
+                            careerSummaryValue(
+                              summaryRow,
+                              allLeagueRows,
+                              key
+                            )
+                          )}
+                        </strong>
 
-                    </div>
-                  `
-                )
-                .join("")}
+                      </div>
+                    `
+                  )
+                  .join("")
+              }
 
             </div>
 
@@ -3065,6 +4510,10 @@ function renderCareerView() {
 }
 
 
+/* =========================================================
+   KARIÉRA – PROFIL HRÁČE
+========================================================= */
+
 async function renderPlayerCareer({
   firstName,
   surname,
@@ -3076,9 +4525,11 @@ async function renderPlayerCareer({
       "careerSection"
     );
 
+
   if (!container) {
     return;
   }
+
 
   container.innerHTML = `
     <div class="career-loading">
@@ -3087,13 +4538,16 @@ async function renderPlayerCareer({
     </div>
   `;
 
+
   try {
     const rows =
       await getPlayerCareerRows(
         firstName,
         surname,
-        team
+        team,
+        type
       );
+
 
     state.careerView = {
       rows,
@@ -3112,13 +4566,16 @@ async function renderPlayerCareer({
       phase: "ALL"
     };
 
+
     renderCareerView();
+
 
   } catch (error) {
     console.error(
       "Kariéra hráče:",
       error
     );
+
 
     container.innerHTML = `
       <div class="career-empty">
@@ -3128,7 +4585,14 @@ async function renderPlayerCareer({
   }
 }
 
-async function renderPlayerDetail(player) {
+
+/* =========================================================
+   DETAIL HRÁČE – VYKRESLENÍ
+========================================================= */
+
+async function renderPlayerDetail(
+  player
+) {
   const type =
     player.__detailType ||
     (
@@ -3141,7 +4605,9 @@ async function renderPlayerDetail(player) {
 
 
   const dataset =
-    await loadDetailData(type);
+    await loadDetailData(
+      type
+    );
 
 
   const detail =
@@ -3153,29 +4619,42 @@ async function renderPlayerDetail(player) {
 
   const team =
     getTeam(
-      getValue(detail, "Tým") ||
+      getValue(
+        detail,
+        "Tým"
+      ) ||
       player.tym
     );
 
 
   const teamCode =
     team?.code ||
-    getTeamCode(player.tym);
+    getTeamCode(
+      player.tym
+    );
 
 
   const teamName =
     team?.name ||
-    getTeamName(player.tym) ||
+    getTeamName(
+      player.tym
+    ) ||
     "-";
 
 
   const firstName =
-    getValue(detail, "Jméno") ||
+    getValue(
+      detail,
+      "Jméno"
+    ) ||
     player.jmeno;
 
 
   const surname =
-    getValue(detail, "Příjmení") ||
+    getValue(
+      detail,
+      "Příjmení"
+    ) ||
     player.prijmeni;
 
 
@@ -3193,7 +4672,10 @@ async function renderPlayerDetail(player) {
 
 
   const age =
-    getValue(detail, "Věk") ||
+    getValue(
+      detail,
+      "Věk"
+    ) ||
     player.vek ||
     "-";
 
@@ -3202,14 +4684,16 @@ async function renderPlayerDetail(player) {
     getValue(
       detail,
       "Výška (cm)"
-    ) || "-";
+    ) ||
+    "-";
 
 
   const weight =
     getValue(
       detail,
       "Váha (kg)"
-    ) || "-";
+    ) ||
+    "-";
 
 
   const stick =
@@ -3259,7 +4743,8 @@ async function renderPlayerDetail(player) {
     hiddenPlayerFields();
 
 
-  let statsHtml = "";
+  let statsHtml =
+    "";
 
 
   if (detail) {
@@ -3299,12 +4784,17 @@ async function renderPlayerDetail(player) {
           <article
             class="
               stat
-              ${playerStatType(key, value)}
+              ${playerStatType(
+                key,
+                value
+              )}
             "
           >
+
             <span>
               ${escapeHtml(key)}
             </span>
+
 
             <strong>
               ${escapeHtml(
@@ -3314,6 +4804,7 @@ async function renderPlayerDetail(player) {
                 )
               )}
             </strong>
+
 
             ${
               progress > 0
@@ -3330,6 +4821,7 @@ async function renderPlayerDetail(player) {
                 `
                 : ""
             }
+
           </article>
         `;
       });
@@ -3403,6 +4895,7 @@ async function renderPlayerDetail(player) {
               `
               : `
                 <div class="player-photo-placeholder">
+
                   <span>
                     ${escapeHtml(
                       firstName.charAt(0)
@@ -3411,9 +4904,11 @@ async function renderPlayerDetail(player) {
                       surname.charAt(0)
                     )}
                   </span>
+
                 </div>
               `
           }
+
 
           ${
             player.zdroj
@@ -3449,13 +4944,15 @@ async function renderPlayerDetail(player) {
           <div class="team-line">
 
             ${
-              teamCode
+              teamCode &&
+              getTeam(teamCode)
                 ? `
                   <button
                     type="button"
                     class="player-team-link"
                     data-team-code="${escapeHtml(teamCode)}"
                   >
+
                     <img
                       src="${escapeHtml(
                         logoUrl(teamCode)
@@ -3468,6 +4965,7 @@ async function renderPlayerDetail(player) {
                     <span>
                       ${escapeHtml(teamName)}
                     </span>
+
                   </button>
                 `
                 : `
@@ -3489,12 +4987,14 @@ async function renderPlayerDetail(player) {
               </strong>
             </div>
 
+
             <div class="info-box">
               <span>Věk</span>
               <strong>
                 ${escapeHtml(age)}
               </strong>
             </div>
+
 
             <div class="info-box">
               <span>Výška</span>
@@ -3507,6 +5007,7 @@ async function renderPlayerDetail(player) {
               </strong>
             </div>
 
+
             <div class="info-box">
               <span>Váha</span>
               <strong>
@@ -3518,6 +5019,7 @@ async function renderPlayerDetail(player) {
               </strong>
             </div>
 
+
             <div class="info-box">
               <span>Držení hole</span>
               <strong>
@@ -3525,12 +5027,14 @@ async function renderPlayerDetail(player) {
               </strong>
             </div>
 
+
             <div class="info-box">
               <span>Národnost</span>
               <strong>
                 ${escapeHtml(nationality)}
               </strong>
             </div>
+
 
             <div class="info-box">
               <span>Smlouva</span>
@@ -3542,6 +5046,7 @@ async function renderPlayerDetail(player) {
           </div>
 
         </div>
+
       </section>
 
 
@@ -3549,11 +5054,15 @@ async function renderPlayerDetail(player) {
         profileText
           ? `
             <section class="profile-note">
-              <span>Profil hráče</span>
+
+              <span>
+                Profil hráče
+              </span>
 
               <p>
                 ${escapeHtml(profileText)}
               </p>
+
             </section>
           `
           : ""
@@ -3570,32 +5079,36 @@ async function renderPlayerDetail(player) {
 
 
       <section class="stat-box">
-  ${statsHtml}
-</section>
+        ${statsHtml}
+      </section>
 
 
-<section
-  id="careerSection"
-  class="career-section"
->
-  <div class="career-loading">
-    <span class="career-loading-dot"></span>
-    Načítám kompletní kariéru...
-  </div>
-</section>
+      <section
+        id="careerSection"
+        class="career-section"
+      >
 
-</main>
-`;
+        <div class="career-loading">
+          <span class="career-loading-dot"></span>
+          Načítám kompletní kariéru...
+        </div>
+
+      </section>
+
+    </main>
+  `;
 
 
-await renderPlayerCareer({
-  firstName,
-  surname,
-  team:
-    teamCode ||
-    player.tym,
-  type
-});
+  await renderPlayerCareer({
+    firstName,
+    surname,
+
+    team:
+      teamCode ||
+      player.tym,
+
+    type
+  });
 }
 
 
@@ -3608,6 +5121,8 @@ async function loadClubs() {
     await loadObjectCsv(
       DATA_URLS.clubs
     );
+
+  return state.clubs;
 }
 
 
@@ -3631,6 +5146,7 @@ function renderClubs() {
           class="klub-karta"
           data-team-code="${escapeHtml(team.code)}"
         >
+
           <img
             src="${escapeHtml(
               logoUrl(team.code)
@@ -3647,6 +5163,7 @@ function renderClubs() {
           <span>
             ${escapeHtml(team.code)}
           </span>
+
         </button>
       `)
       .join("");
@@ -3654,19 +5171,24 @@ function renderClubs() {
 
 
 function findClubRecord(code) {
-  return state.clubs.find(record => {
-    const value =
-      getValue(
-        record,
-        "NÁZEV TÝMU"
-      );
+  return state.clubs.find(
+    record => {
+      const value =
+        getValue(
+          record,
+          "NÁZEV TÝMU"
+        );
 
-    return (
-      getTeamCode(value) === code ||
-      normalize(value) ===
-        normalize(code)
-    );
-  });
+
+      return (
+        getTeamCode(
+          value
+        ) === code ||
+        normalize(value) ===
+          normalize(code)
+      );
+    }
+  );
 }
 
 
@@ -3678,10 +5200,21 @@ function topTeamPlayer(
   return [...details]
     .filter(record =>
       getTeamCode(
-        getValue(record, "Tým")
+        getValue(
+          record,
+          "Tým"
+        )
       ) === teamCode &&
-      getValue(record, "Jméno") &&
-      getValue(record, "Příjmení")
+
+      getValue(
+        record,
+        "Jméno"
+      ) &&
+
+      getValue(
+        record,
+        "Příjmení"
+      )
     )
     .sort(
       (a, b) =>
@@ -3727,12 +5260,14 @@ function topPlayerText(
         "Příjmení"
       )
     )}
+
     <small>
       ${escapeHtml(
         getValue(
           player,
           statistic
-        ) || "0"
+        ) ||
+        "0"
       )}
     </small>
   `;
@@ -3743,6 +5278,7 @@ async function openClub(value) {
   const code =
     getTeamCode(value);
 
+
   if (!getTeam(code)) {
     return;
   }
@@ -3751,7 +5287,10 @@ async function openClub(value) {
   state.selectedClub =
     code;
 
-  navigate("clubDetail");
+
+  navigate(
+    "clubDetail"
+  );
 
 
   const container =
@@ -3780,28 +5319,40 @@ async function openClub(value) {
     }
 
 
-    await renderClubDetail(code);
+    await renderClubDetail(
+      code
+    );
+
   } catch (error) {
     console.error(error);
 
     if (container) {
       container.innerHTML =
-        errorHtml(error.message);
+        errorHtml(
+          error.message
+        );
     }
   }
 }
 
 
-async function renderClubDetail(code) {
+async function renderClubDetail(
+  code
+) {
   const club =
-    findClubRecord(code);
+    findClubRecord(
+      code
+    );
 
 
   const team =
     getTeam(code);
 
 
-  if (!club || !team) {
+  if (
+    !club ||
+    !team
+  ) {
     throw new Error(
       "Klub nebyl nalezen v kluby.csv."
     );
@@ -3809,19 +5360,24 @@ async function renderClubDetail(code) {
 
 
   const details =
-    await loadDetailData("skater");
+    await loadDetailData(
+      "skater"
+    );
 
 
   const roster =
     state.players
       .filter(player =>
-        getTeamCode(player.tym) === code
+        getTeamCode(
+          player.tym
+        ) === code
       )
-      .sort((a, b) =>
-        collator.compare(
-          a.prijmeni,
-          b.prijmeni
-        )
+      .sort(
+        (a, b) =>
+          collator.compare(
+            a.prijmeni,
+            b.prijmeni
+          )
       );
 
 
@@ -3863,25 +5419,34 @@ async function renderClubDetail(code) {
     seasonPairs
       .map(season => `
         <article class="result-card">
-          <span>${season} ZČ</span>
+          <span>
+            ${season} ZČ
+          </span>
+
           <strong>
             ${escapeHtml(
               getValue(
                 club,
                 `${season} ZČ`
-              ) || "-"
+              ) ||
+              "-"
             )}
           </strong>
         </article>
 
+
         <article class="result-card">
-          <span>${season} Playoff</span>
+          <span>
+            ${season} Playoff
+          </span>
+
           <strong>
             ${escapeHtml(
               getValue(
                 club,
                 `${season} PLAYOFF`
-              ) || "-"
+              ) ||
+              "-"
             )}
           </strong>
         </article>
@@ -3897,9 +5462,12 @@ async function renderClubDetail(code) {
               type="button"
               class="player-card"
               data-player-key="${escapeHtml(
-                playerKey(player)
+                playerKey(
+                  player
+                )
               )}"
             >
+
               <strong>
                 ${escapeHtml(player.jmeno)}
                 ${escapeHtml(player.prijmeni)}
@@ -3907,16 +5475,19 @@ async function renderClubDetail(code) {
 
               <span>
                 ${escapeHtml(
-                  player.pozice || "-"
+                  player.pozice ||
+                  "-"
                 )}
               </span>
 
               <dl>
+
                 <div>
                   <dt>Věk</dt>
                   <dd>
                     ${escapeHtml(
-                      player.vek || "-"
+                      player.vek ||
+                      "-"
                     )}
                   </dd>
                 </div>
@@ -3925,7 +5496,8 @@ async function renderClubDetail(code) {
                   <dt>Národnost</dt>
                   <dd>
                     ${escapeHtml(
-                      player.narodnost || "-"
+                      player.narodnost ||
+                      "-"
                     )}
                   </dd>
                 </div>
@@ -3934,11 +5506,14 @@ async function renderClubDetail(code) {
                   <dt>Smlouva</dt>
                   <dd>
                     ${escapeHtml(
-                      player.smlouva || "-"
+                      player.smlouva ||
+                      "-"
                     )}
                   </dd>
                 </div>
+
               </dl>
+
             </button>
           `)
           .join("")
@@ -3966,6 +5541,7 @@ async function renderClubDetail(code) {
       <section class="club-hero">
 
         <div class="club-logo-box">
+
           <img
             src="${escapeHtml(
               logoUrl(code)
@@ -3974,10 +5550,12 @@ async function renderClubDetail(code) {
             class="club-logo"
             data-hide-on-error
           >
+
         </div>
 
 
         <div>
+
           <span class="club-code">
             ${escapeHtml(code)}
           </span>
@@ -3987,15 +5565,15 @@ async function renderClubDetail(code) {
           </h2>
 
           <div class="club-sub">
-            ${
-              escapeHtml(
-                getValue(
-                  club,
-                  "NÁZEV STADIONU"
-                ) || "Tipsport extraliga"
-              )
-            }
+            ${escapeHtml(
+              getValue(
+                club,
+                "NÁZEV STADIONU"
+              ) ||
+              "Tipsport extraliga"
+            )}
           </div>
+
         </div>
 
       </section>
@@ -4010,7 +5588,8 @@ async function renderClubDetail(code) {
               getValue(
                 club,
                 "ROK ZALOŽENÍ"
-              ) || "-"
+              ) ||
+              "-"
             )}
           </strong>
         </article>
@@ -4023,7 +5602,8 @@ async function renderClubDetail(code) {
               getValue(
                 club,
                 "POČET TITULŮ"
-              ) || "-"
+              ) ||
+              "-"
             )}
           </strong>
         </article>
@@ -4036,7 +5616,8 @@ async function renderClubDetail(code) {
               getValue(
                 club,
                 "HLAVNÍ TRENÉR"
-              ) || "-"
+              ) ||
+              "-"
             )}
           </strong>
         </article>
@@ -4049,7 +5630,8 @@ async function renderClubDetail(code) {
               getValue(
                 club,
                 "POSLEDNÍ TITUL"
-              ) || "-"
+              ) ||
+              "-"
             )}
           </strong>
         </article>
@@ -4062,7 +5644,8 @@ async function renderClubDetail(code) {
               getValue(
                 club,
                 "NÁZEV STADIONU"
-              ) || "-"
+              ) ||
+              "-"
             )}
           </strong>
         </article>
@@ -4075,7 +5658,8 @@ async function renderClubDetail(code) {
               getValue(
                 club,
                 "KAPACITA"
-              ) || "-"
+              ) ||
+              "-"
             )}
           </strong>
         </article>
@@ -4088,7 +5672,8 @@ async function renderClubDetail(code) {
               getValue(
                 club,
                 "PRŮMĚRNÁ NÁVŠTĚVNOST"
-              ) || "-"
+              ) ||
+              "-"
             )}
           </strong>
         </article>
@@ -4101,7 +5686,8 @@ async function renderClubDetail(code) {
               getValue(
                 club,
                 "% ZAPLNĚNOST"
-              ) || "-"
+              ) ||
+              "-"
             )}
           </strong>
         </article>
@@ -4114,7 +5700,8 @@ async function renderClubDetail(code) {
               getValue(
                 club,
                 "Průměrný věk"
-              ) || "-"
+              ) ||
+              "-"
             )}
           </strong>
         </article>
@@ -4130,35 +5717,50 @@ async function renderClubDetail(code) {
       <div class="top-players-grid">
 
         <article class="top-player-card">
-          <span>Nejvíce bodů</span>
+
+          <span>
+            Nejvíce bodů
+          </span>
+
           <strong>
             ${topPlayerText(
               topPoints,
               "Body"
             )}
           </strong>
+
         </article>
 
 
         <article class="top-player-card">
-          <span>Nejvíce gólů</span>
+
+          <span>
+            Nejvíce gólů
+          </span>
+
           <strong>
             ${topPlayerText(
               topGoals,
               "Goly"
             )}
           </strong>
+
         </article>
 
 
         <article class="top-player-card">
-          <span>Nejvíce asistencí</span>
+
+          <span>
+            Nejvíce asistencí
+          </span>
+
           <strong>
             ${topPlayerText(
               topAssists,
               "Asistence"
             )}
           </strong>
+
         </article>
 
       </div>
@@ -4168,6 +5770,7 @@ async function renderClubDetail(code) {
         Výsledky klubu
       </h2>
 
+
       <div class="club-results-grid">
         ${resultsHtml}
       </div>
@@ -4176,6 +5779,7 @@ async function renderClubDetail(code) {
       <h2 class="section-title">
         Soupiska týmu
       </h2>
+
 
       <div class="roster-grid">
         ${rosterHtml}
@@ -4199,16 +5803,23 @@ async function loadTransfers() {
 
   state.transfers =
     rows.filter(row =>
-      getValue(row, "JMÉNO") &&
-      getValue(row, "PŘÍJMENÍ")
+      getValue(
+        row,
+        "JMÉNO"
+      ) &&
+      getValue(
+        row,
+        "PŘÍJMENÍ"
+      )
     );
 
 
   populateTransferFilters();
-
   renderTransfers();
-
   renderTransferSlider();
+
+
+  return state.transfers;
 }
 
 
@@ -4246,10 +5857,9 @@ function populateTransferFilters() {
               "ODKUD"
             )
         )
-        .filter(
-          value =>
-            value &&
-            value !== "-"
+        .filter(value =>
+          value &&
+          value !== "-"
         )
     ),
 
@@ -4271,10 +5881,9 @@ function populateTransferFilters() {
               "KAM"
             )
         )
-        .filter(
-          value =>
-            value &&
-            value !== "-"
+        .filter(value =>
+          value &&
+          value !== "-"
         )
     ),
 
@@ -4283,16 +5892,22 @@ function populateTransferFilters() {
 }
 
 
-function transferTeamHtml(value) {
+function transferTeamHtml(
+  value
+) {
   const text =
-    cleanCell(value) || "-";
+    cleanCell(value) ||
+    "-";
+
 
   const team =
     getTeam(text);
 
 
   if (!team) {
-    return escapeHtml(text);
+    return escapeHtml(
+      text
+    );
   }
 
 
@@ -4359,59 +5974,62 @@ function renderTransfers() {
 
 
   const data =
-    state.transfers.filter(transfer => {
-      const firstName =
-        getValue(
-          transfer,
-          "JMÉNO"
+    state.transfers
+      .filter(transfer => {
+        const name =
+          normalize(
+            [
+              getValue(
+                transfer,
+                "JMÉNO"
+              ),
+              getValue(
+                transfer,
+                "PŘÍJMENÍ"
+              )
+            ].join(" ")
+          );
+
+
+        return (
+          (
+            !search ||
+            name.includes(
+              search
+            )
+          ) &&
+
+          (
+            !season ||
+            normalize(
+              getValue(
+                transfer,
+                "SEZONA"
+              )
+            ) === season
+          ) &&
+
+          (
+            !from ||
+            normalize(
+              getValue(
+                transfer,
+                "ODKUD"
+              )
+            ) === from
+          ) &&
+
+          (
+            !to ||
+            normalize(
+              getValue(
+                transfer,
+                "KAM"
+              )
+            ) === to
+          )
         );
-
-      const surname =
-        getValue(
-          transfer,
-          "PŘÍJMENÍ"
-        );
-
-
-      return (
-        (
-          !search ||
-          normalize(
-            `${firstName} ${surname}`
-          ).includes(search)
-        ) &&
-
-        (
-          !season ||
-          normalize(
-            getValue(
-              transfer,
-              "SEZONA"
-            )
-          ) === season
-        ) &&
-
-        (
-          !from ||
-          normalize(
-            getValue(
-              transfer,
-              "ODKUD"
-            )
-          ) === from
-        ) &&
-
-        (
-          !to ||
-          normalize(
-            getValue(
-              transfer,
-              "KAM"
-            )
-          ) === to
-        )
-      );
-    });
+      });
 
 
   if (counter) {
@@ -4433,9 +6051,11 @@ function renderTransfers() {
 
   container.innerHTML = `
     <div class="table-scroll">
+
       <table class="prestupy-tabulka">
 
         <thead>
+
           <tr>
             <th>Jméno</th>
             <th>Příjmení</th>
@@ -4444,98 +6064,113 @@ function renderTransfers() {
             <th>Pozice</th>
             <th>Sezona</th>
           </tr>
+
         </thead>
+
 
         <tbody>
 
-          ${data.map(transfer => {
-            const firstName =
-              getValue(
-                transfer,
-                "JMÉNO"
-              );
+          ${
+            data
+              .map(transfer => {
+                const firstName =
+                  getValue(
+                    transfer,
+                    "JMÉNO"
+                  );
 
-            const surname =
-              getValue(
-                transfer,
-                "PŘÍJMENÍ"
-              );
+                const surname =
+                  getValue(
+                    transfer,
+                    "PŘÍJMENÍ"
+                  );
 
 
-            return `
-              <tr>
+                return `
+                  <tr>
 
-                <td>
-                  <button
-                    type="button"
-                    class="prestup-hrac"
-                    data-player-first="${escapeHtml(firstName)}"
-                    data-player-last="${escapeHtml(surname)}"
-                  >
-                    ${escapeHtml(firstName)}
-                  </button>
-                </td>
+                    <td>
+                      <button
+                        type="button"
+                        class="prestup-hrac"
+                        data-player-first="${escapeHtml(firstName)}"
+                        data-player-last="${escapeHtml(surname)}"
+                      >
+                        ${escapeHtml(firstName)}
+                      </button>
+                    </td>
 
-                <td>
-                  <button
-                    type="button"
-                    class="prestup-hrac"
-                    data-player-first="${escapeHtml(firstName)}"
-                    data-player-last="${escapeHtml(surname)}"
-                  >
-                    ${escapeHtml(surname)}
-                  </button>
-                </td>
 
-                <td>
-                  ${transferTeamHtml(
-                    getValue(
-                      transfer,
-                      "ODKUD"
-                    )
-                  )}
-                </td>
+                    <td>
+                      <button
+                        type="button"
+                        class="prestup-hrac"
+                        data-player-first="${escapeHtml(firstName)}"
+                        data-player-last="${escapeHtml(surname)}"
+                      >
+                        ${escapeHtml(surname)}
+                      </button>
+                    </td>
 
-                <td>
-                  ${transferTeamHtml(
-                    getValue(
-                      transfer,
-                      "KAM"
-                    )
-                  )}
-                </td>
 
-                <td>
-                  ${escapeHtml(
-                    getValue(
-                      transfer,
-                      "POZICE"
-                    ) || "-"
-                  )}
-                </td>
+                    <td>
+                      ${transferTeamHtml(
+                        getValue(
+                          transfer,
+                          "ODKUD"
+                        )
+                      )}
+                    </td>
 
-                <td>
-                  ${escapeHtml(
-                    getValue(
-                      transfer,
-                      "SEZONA"
-                    ) || "-"
-                  )}
-                </td>
 
-              </tr>
-            `;
-          }).join("")}
+                    <td>
+                      ${transferTeamHtml(
+                        getValue(
+                          transfer,
+                          "KAM"
+                        )
+                      )}
+                    </td>
+
+
+                    <td>
+                      ${escapeHtml(
+                        getValue(
+                          transfer,
+                          "POZICE"
+                        ) ||
+                        "-"
+                      )}
+                    </td>
+
+
+                    <td>
+                      ${escapeHtml(
+                        getValue(
+                          transfer,
+                          "SEZONA"
+                        ) ||
+                        "-"
+                      )}
+                    </td>
+
+                  </tr>
+                `;
+              })
+              .join("")
+          }
 
         </tbody>
+
       </table>
+
     </div>
   `;
 }
 
 
 /* =========================================================
-   SLIDER PŘESTUPŮ NA ÚVODU
+   SLIDER PŘESTUPŮ
 ========================================================= */
 
 function renderTransferSlider() {
@@ -4567,130 +6202,162 @@ function renderTransferSlider() {
   }
 
 
-  state.transferSlideIndex = 0;
+  state.transferSlideIndex =
+    0;
 
 
   container.innerHTML = `
     <div class="transfer-slider">
 
-      ${latest.map(
-        (transfer, index) => `
-          <div
-            class="transfer-slide ${
-              index === 0
-                ? "active"
-                : ""
-            }"
-          >
+      ${
+        latest
+          .map(
+            (
+              transfer,
+              index
+            ) => `
+              <div
+                class="transfer-slide ${
+                  index === 0
+                    ? "active"
+                    : ""
+                }"
+              >
 
-            <div class="transfer-label">
-              Nový přestup
+                <div class="transfer-label">
+                  Nový přestup
+                </div>
+
+
+                <button
+                  type="button"
+                  class="transfer-player"
+                  data-player-first="${escapeHtml(
+                    getValue(
+                      transfer,
+                      "JMÉNO"
+                    )
+                  )}"
+                  data-player-last="${escapeHtml(
+                    getValue(
+                      transfer,
+                      "PŘÍJMENÍ"
+                    )
+                  )}"
+                >
+                  ${escapeHtml(
+                    getValue(
+                      transfer,
+                      "JMÉNO"
+                    )
+                  )}
+                  ${escapeHtml(
+                    getValue(
+                      transfer,
+                      "PŘÍJMENÍ"
+                    )
+                  )}
+                </button>
+
+
+                <div class="transfer-position">
+                  ${escapeHtml(
+                    getValue(
+                      transfer,
+                      "POZICE"
+                    ) ||
+                    "-"
+                  )}
+                </div>
+
+
+                <div class="transfer-route">
+
+                  <span>
+                    ${escapeHtml(
+                      getValue(
+                        transfer,
+                        "ODKUD"
+                      ) ||
+                      "-"
+                    )}
+                  </span>
+
+                  <strong>
+                    →
+                  </strong>
+
+                  <span>
+                    ${escapeHtml(
+                      getValue(
+                        transfer,
+                        "KAM"
+                      ) ||
+                      "-"
+                    )}
+                  </span>
+
+                </div>
+
+
+                <div class="transfer-season">
+                  ${escapeHtml(
+                    getValue(
+                      transfer,
+                      "SEZONA"
+                    ) ||
+                    "-"
+                  )}
+                </div>
+
+              </div>
+            `
+          )
+          .join("")
+      }
+
+
+      ${
+        latest.length > 1
+          ? `
+            <div class="transfer-controls">
+
+              <button
+                type="button"
+                data-transfer-prev
+                aria-label="Předchozí přestup"
+              >
+                ‹
+              </button>
+
+              <button
+                type="button"
+                data-transfer-next
+                aria-label="Další přestup"
+              >
+                ›
+              </button>
+
             </div>
-
-            <button
-              type="button"
-              class="transfer-player"
-              data-player-first="${escapeHtml(
-                getValue(
-                  transfer,
-                  "JMÉNO"
-                )
-              )}"
-              data-player-last="${escapeHtml(
-                getValue(
-                  transfer,
-                  "PŘÍJMENÍ"
-                )
-              )}"
-            >
-              ${escapeHtml(
-                getValue(
-                  transfer,
-                  "JMÉNO"
-                )
-              )}
-
-              ${escapeHtml(
-                getValue(
-                  transfer,
-                  "PŘÍJMENÍ"
-                )
-              )}
-            </button>
-
-            <div class="transfer-position">
-              ${escapeHtml(
-                getValue(
-                  transfer,
-                  "POZICE"
-                ) || "-"
-              )}
-            </div>
-
-            <div class="transfer-route">
-              <span>
-                ${escapeHtml(
-                  getValue(
-                    transfer,
-                    "ODKUD"
-                  ) || "-"
-                )}
-              </span>
-
-              <strong>→</strong>
-
-              <span>
-                ${escapeHtml(
-                  getValue(
-                    transfer,
-                    "KAM"
-                  ) || "-"
-                )}
-              </span>
-            </div>
-
-            <div class="transfer-season">
-              ${escapeHtml(
-                getValue(
-                  transfer,
-                  "SEZONA"
-                ) || ""
-              )}
-            </div>
-
-          </div>
-        `
-      ).join("")}
-
-
-      <div class="transfer-controls">
-        <button
-          type="button"
-          data-transfer-prev
-          aria-label="Předchozí přestup"
-        >
-          ‹
-        </button>
-
-        <button
-          type="button"
-          data-transfer-next
-          aria-label="Další přestup"
-        >
-          ›
-        </button>
-      </div>
+          `
+          : ""
+      }
 
     </div>
   `;
 }
 
 
-function changeTransferSlide(direction) {
+function changeTransferSlide(
+  direction
+) {
   const slides =
-    document.querySelectorAll(
-      "#posledniPrestupy .transfer-slide"
-    );
+    [
+      ...document
+        .querySelectorAll(
+          "#posledniPrestupy .transfer-slide"
+        )
+    ];
 
 
   if (!slides.length) {
@@ -4703,11 +6370,15 @@ function changeTransferSlide(direction) {
       state.transferSlideIndex +
       direction +
       slides.length
-    ) % slides.length;
+    ) %
+    slides.length;
 
 
   slides.forEach(
-    (slide, index) => {
+    (
+      slide,
+      index
+    ) => {
       slide.classList.toggle(
         "active",
         index ===
@@ -4738,6 +6409,9 @@ async function loadStandings() {
 
 
   renderStandings();
+
+
+  return state.standings;
 }
 
 
@@ -4766,7 +6440,8 @@ function parseForm(value) {
   const tokens =
     normalized.match(
       /VP|PP|V|P/g
-    ) || [];
+    ) ||
+    [];
 
 
   const residue =
@@ -4784,6 +6459,7 @@ function parseForm(value) {
   return {
     raw,
     tokens,
+
     valid:
       tokens.length > 0 &&
       residue === ""
@@ -4836,7 +6512,7 @@ function renderForm(value) {
             ${className}
           "
         >
-          ${result}
+          ${escapeHtml(result)}
         </span>
       `;
     })
@@ -4884,171 +6560,190 @@ function renderStandings() {
       </div>
 
 
-      ${state.standings.map(row => {
-        const position =
-          Number(
-            getValue(
-              row,
-              "POŘADÍ"
-            )
-          );
-
-
-        const teamValue =
-          getValue(
-            row,
-            "TÝM"
-          );
-
-
-        const team =
-          getTeam(teamValue);
-
-
-        const rowClass =
-          position <= 4
-            ? "top4"
-            : position >= 5 &&
-              position <= 12
-              ? "predkolo"
-              : position === 14
-                ? "baraz"
-                : "";
-
-
-        return `
-          <div
-            class="
-              elh-radek
-              ${rowClass}
-            "
-          >
-
-            <div class="position-cell">
-              ${escapeHtml(
+      ${
+        state.standings
+          .map(row => {
+            const position =
+              Number(
                 getValue(
                   row,
                   "POŘADÍ"
-                ) || "-"
-              )}
-            </div>
-
-
-            <div class="tym-nazev tabulka-tym">
-
-              ${
-                team
-                  ? `
-                    <img
-                      src="${escapeHtml(
-                        logoUrl(team.code)
-                      )}"
-                      alt=""
-                      class="logoMale"
-                      data-hide-on-error
-                    >
-
-                    <button
-                      type="button"
-                      data-team-code="${escapeHtml(team.code)}"
-                    >
-                      ${escapeHtml(team.name)}
-                    </button>
-                  `
-                  : `
-                    <span>
-                      ${escapeHtml(
-                        teamValue || "-"
-                      )}
-                    </span>
-                  `
-              }
-
-            </div>
-
-
-            <div>
-              ${escapeHtml(
-                getValue(
-                  row,
-                  "ZÁPASY"
-                ) || "-"
-              )}
-            </div>
-
-
-            <div>
-              ${escapeHtml(
-                getValue(
-                  row,
-                  "V"
-                ) || "-"
-              )}
-            </div>
-
-
-            <div>
-              ${escapeHtml(
-                getValue(
-                  row,
-                  "VP"
-                ) || "-"
-              )}
-            </div>
-
-
-            <div>
-              ${escapeHtml(
-                getValue(
-                  row,
-                  "PP"
-                ) || "-"
-              )}
-            </div>
-
-
-            <div>
-              ${escapeHtml(
-                getValue(
-                  row,
-                  "P"
-                ) || "-"
-              )}
-            </div>
-
-
-            <div>
-              ${escapeHtml(
-                getValue(
-                  row,
-                  "SKÓRE"
-                ) || "-"
-              )}
-            </div>
-
-
-            <div class="body-cell">
-              ${escapeHtml(
-                getValue(
-                  row,
-                  "BODY"
-                ) || "-"
-              )}
-            </div>
-
-
-            <div class="forma-cell">
-              ${renderForm(
-                getValue(
-                  row,
-                  "FORMA"
                 )
-              )}
-            </div>
+              );
 
-          </div>
-        `;
-      }).join("")}
+
+            const teamValue =
+              getValue(
+                row,
+                "TÝM"
+              );
+
+
+            const team =
+              getTeam(
+                teamValue
+              );
+
+
+            const rowClass =
+              position <= 4
+                ? "top4"
+                : (
+                    position >= 5 &&
+                    position <= 12
+                  )
+                  ? "predkolo"
+                  : position === 14
+                    ? "baraz"
+                    : "";
+
+
+            return `
+              <div
+                class="
+                  elh-radek
+                  ${rowClass}
+                "
+              >
+
+                <div class="position-cell">
+                  ${escapeHtml(
+                    getValue(
+                      row,
+                      "POŘADÍ"
+                    ) ||
+                    "-"
+                  )}
+                </div>
+
+
+                <div class="team-cell">
+
+                  ${
+                    team
+                      ? `
+                        <button
+                          type="button"
+                          class="standings-team-button"
+                          data-team-code="${escapeHtml(team.code)}"
+                        >
+
+                          <img
+                            src="${escapeHtml(
+                              logoUrl(
+                                team.code
+                              )
+                            )}"
+                            alt=""
+                            data-hide-on-error
+                          >
+
+                          <span>
+                            ${escapeHtml(team.name)}
+                          </span>
+
+                        </button>
+                      `
+                      : escapeHtml(
+                          teamValue ||
+                          "-"
+                        )
+                  }
+
+                </div>
+
+
+                <div>
+                  ${escapeHtml(
+                    getValue(
+                      row,
+                      "ZÁPASY"
+                    ) ||
+                    "-"
+                  )}
+                </div>
+
+
+                <div>
+                  ${escapeHtml(
+                    getValue(
+                      row,
+                      "V"
+                    ) ||
+                    "-"
+                  )}
+                </div>
+
+
+                <div>
+                  ${escapeHtml(
+                    getValue(
+                      row,
+                      "VP"
+                    ) ||
+                    "-"
+                  )}
+                </div>
+
+
+                <div>
+                  ${escapeHtml(
+                    getValue(
+                      row,
+                      "PP"
+                    ) ||
+                    "-"
+                  )}
+                </div>
+
+
+                <div>
+                  ${escapeHtml(
+                    getValue(
+                      row,
+                      "P"
+                    ) ||
+                    "-"
+                  )}
+                </div>
+
+
+                <div>
+                  ${escapeHtml(
+                    getValue(
+                      row,
+                      "SKÓRE"
+                    ) ||
+                    "-"
+                  )}
+                </div>
+
+
+                <div class="body-cell">
+                  ${escapeHtml(
+                    getValue(
+                      row,
+                      "BODY"
+                    ) ||
+                    "-"
+                  )}
+                </div>
+
+
+                <div class="forma-cell">
+                  ${renderForm(
+                    getValue(
+                      row,
+                      "FORMA"
+                    )
+                  )}
+                </div>
+
+              </div>
+            `;
+          })
+          .join("")
+      }
 
     </div>
   `;
@@ -5076,15 +6771,20 @@ async function loadSchedule() {
     );
 
 
-  const matches = [];
+  const matches =
+    [];
 
-  let currentRound = 0;
+
+  let currentRound =
+    0;
 
 
   (parsed.data || [])
     .forEach(row => {
       const first =
-        cleanCell(row?.[0]);
+        cleanCell(
+          row?.[0]
+        );
 
 
       const roundMatch =
@@ -5095,20 +6795,30 @@ async function loadSchedule() {
 
       if (roundMatch) {
         currentRound =
-          Number(roundMatch[1]);
+          Number(
+            roundMatch[1]
+          );
 
         return;
       }
 
 
       const home =
-        cleanCell(row?.[1]);
+        cleanCell(
+          row?.[1]
+        );
+
 
       const versus =
-        normalize(row?.[2]);
+        normalize(
+          row?.[2]
+        );
+
 
       const away =
-        cleanCell(row?.[3]);
+        cleanCell(
+          row?.[3]
+        );
 
 
       if (
@@ -5122,11 +6832,22 @@ async function loadSchedule() {
 
 
       matches.push({
-        round: currentRound,
+        round:
+          currentRound,
+
         home,
+
         away,
-        date: cleanCell(row?.[4]),
-        time: cleanCell(row?.[5])
+
+        date:
+          cleanCell(
+            row?.[4]
+          ),
+
+        time:
+          cleanCell(
+            row?.[5]
+          )
       });
     });
 
@@ -5136,10 +6857,11 @@ async function loadSchedule() {
 
 
   populateScheduleFilters();
-
   renderSchedule();
-
   renderCurrentRound();
+
+
+  return state.schedule;
 }
 
 
@@ -5148,7 +6870,9 @@ function scheduleDate(
   timeValue = "00:00"
 ) {
   const date =
-    cleanCell(dateValue);
+    cleanCell(
+      dateValue
+    );
 
 
   if (!date) {
@@ -5166,7 +6890,9 @@ function scheduleDate(
     parts.length < 3 ||
     parts.some(
       number =>
-        !Number.isFinite(number)
+        !Number.isFinite(
+          number
+        )
     )
   ) {
     return null;
@@ -5174,7 +6900,10 @@ function scheduleDate(
 
 
   const timeParts =
-    cleanCell(timeValue || "00:00")
+    cleanCell(
+      timeValue ||
+      "00:00"
+    )
       .split(":")
       .map(Number);
 
@@ -5196,16 +6925,21 @@ function populateScheduleFilters() {
     [
       ...new Set(
         state.schedule.map(
-          match => match.round
+          match =>
+            match.round
         )
       )
     ]
       .sort(
-        (a, b) => a - b
+        (a, b) =>
+          a - b
       )
       .map(round => ({
-        value: String(round),
-        label: `${round}. kolo`
+        value:
+          String(round),
+
+        label:
+          `${round}. kolo`
       }));
 
 
@@ -5224,8 +6958,11 @@ function populateScheduleFilters() {
     ),
 
     TEAMS.map(team => ({
-      value: team.code,
-      label: team.name
+      value:
+        team.code,
+
+      label:
+        team.name
     })),
 
     "Všechny týmy"
@@ -5251,9 +6988,15 @@ function formatScheduleDate(
       ${escapeHtml(date)}
     </span>
 
-    <strong class="match-time">
-      ${escapeHtml(time || "–")}
-    </strong>
+    ${
+      time
+        ? `
+          <strong class="match-time">
+            ${escapeHtml(time)}
+          </strong>
+        `
+        : ""
+    }
   `;
 }
 
@@ -5268,10 +7011,12 @@ function scheduleTeamHtml(
 
   if (!team) {
     return `
-      <div class="schedule-team ${side}">
+      <div class="match-team ${escapeHtml(side)}">
+
         <span>
           ${escapeHtml(value)}
         </span>
+
       </div>
     `;
   }
@@ -5280,38 +7025,24 @@ function scheduleTeamHtml(
   return `
     <button
       type="button"
-      class="schedule-team ${side}"
+      class="match-team ${escapeHtml(side)}"
       data-team-code="${escapeHtml(team.code)}"
     >
-      ${
-        side === "home"
-          ? `
-            <span>
-              ${escapeHtml(team.name)}
-            </span>
 
-            <img
-              src="${escapeHtml(
-                logoUrl(team.code)
-              )}"
-              alt=""
-              data-hide-on-error
-            >
-          `
-          : `
-            <img
-              src="${escapeHtml(
-                logoUrl(team.code)
-              )}"
-              alt=""
-              data-hide-on-error
-            >
+      <img
+        src="${escapeHtml(
+          logoUrl(
+            team.code
+          )
+        )}"
+        alt=""
+        data-hide-on-error
+      >
 
-            <span>
-              ${escapeHtml(team.name)}
-            </span>
-          `
-      }
+      <span>
+        ${escapeHtml(team.name)}
+      </span>
+
     </button>
   `;
 }
@@ -5333,7 +7064,8 @@ function renderSchedule() {
     Number(
       document.getElementById(
         "filtrKoloRozpis"
-      )?.value || 0
+      )?.value ||
+      0
     );
 
 
@@ -5345,23 +7077,24 @@ function renderSchedule() {
     );
 
 
-  let matches =
-    state.schedule.filter(match => {
-      return (
+  const matches =
+    state.schedule
+      .filter(match =>
         (
           !roundFilter ||
-          match.round === roundFilter
+          match.round ===
+            roundFilter
         ) &&
-
         (
           !teamFilter ||
-          getTeamCode(match.home) ===
-            teamFilter ||
-          getTeamCode(match.away) ===
-            teamFilter
+          getTeamCode(
+            match.home
+          ) === teamFilter ||
+          getTeamCode(
+            match.away
+          ) === teamFilter
         )
       );
-    });
 
 
   if (!matches.length) {
@@ -5379,12 +7112,15 @@ function renderSchedule() {
     [
       ...new Set(
         matches.map(
-          match => match.round
+          match =>
+            match.round
         )
       )
-    ].sort(
-      (a, b) => a - b
-    );
+    ]
+      .sort(
+        (a, b) =>
+          a - b
+      );
 
 
   container.innerHTML =
@@ -5393,7 +7129,8 @@ function renderSchedule() {
         const roundMatches =
           matches.filter(
             match =>
-              match.round === round
+              match.round ===
+              round
           );
 
 
@@ -5401,7 +7138,9 @@ function renderSchedule() {
           <section class="round-block">
 
             <header class="round-header">
+
               <div>
+
                 <span>
                   Tipsport extraliga
                 </span>
@@ -5409,45 +7148,54 @@ function renderSchedule() {
                 <h2>
                   ${round}. kolo
                 </h2>
+
               </div>
+
 
               <strong>
                 ${roundMatches.length}
                 zápasů
               </strong>
+
             </header>
 
 
             <div class="matches-list">
 
-              ${roundMatches.map(match => `
-                <article class="match-card">
+              ${
+                roundMatches
+                  .map(match => `
+                    <article class="match-card">
 
-                  ${scheduleTeamHtml(
-                    match.home,
-                    "home"
-                  )}
+                      ${scheduleTeamHtml(
+                        match.home,
+                        "home"
+                      )}
 
-                  <div class="match-center">
 
-                    <span class="match-vs">
-                      VS
-                    </span>
+                      <div class="match-center">
 
-                    ${formatScheduleDate(
-                      match.date,
-                      match.time
-                    )}
+                        <span class="match-vs">
+                          VS
+                        </span>
 
-                  </div>
+                        ${formatScheduleDate(
+                          match.date,
+                          match.time
+                        )}
 
-                  ${scheduleTeamHtml(
-                    match.away,
-                    "away"
-                  )}
+                      </div>
 
-                </article>
-              `).join("")}
+
+                      ${scheduleTeamHtml(
+                        match.away,
+                        "away"
+                      )}
+
+                    </article>
+                  `)
+                  .join("")
+              }
 
             </div>
 
@@ -5476,6 +7224,7 @@ function findCurrentScheduleRound() {
     state.schedule
       .map(match => ({
         match,
+
         date:
           scheduleDate(
             match.date,
@@ -5487,7 +7236,8 @@ function findCurrentScheduleRound() {
       )
       .sort(
         (a, b) =>
-          a.date - b.date
+          a.date -
+          b.date
       );
 
 
@@ -5499,7 +7249,9 @@ function findCurrentScheduleRound() {
 
 
   if (next) {
-    return next.match.round;
+    return (
+      next.match.round
+    );
   }
 
 
@@ -5517,12 +7269,14 @@ function findCurrentScheduleRound() {
       state.schedule.find(
         match =>
           match.round >
-            lastDatedRound
+          lastDatedRound
       );
 
 
     if (nextUnknown) {
-      return nextUnknown.round;
+      return (
+        nextUnknown.round
+      );
     }
 
 
@@ -5530,7 +7284,11 @@ function findCurrentScheduleRound() {
   }
 
 
-  return state.schedule[0].round;
+  return (
+    state.schedule[0]
+      ?.round ||
+    null
+  );
 }
 
 
@@ -5570,7 +7328,8 @@ function renderCurrentRound() {
   const matches =
     state.schedule.filter(
       match =>
-        match.round === round
+        match.round ===
+        round
     );
 
 
@@ -5606,12 +7365,14 @@ function renderCurrentRound() {
             <span class="live-value">
               ${
                 match.time
-                  ? escapeHtml(match.time)
-                  : (
-                      match.date
-                        ? escapeHtml(match.date)
-                        : "TBD"
+                  ? escapeHtml(
+                      match.time
                     )
+                  : match.date
+                    ? escapeHtml(
+                        match.date
+                      )
+                    : "TBD"
               }
             </span>
 
@@ -5635,8 +7396,14 @@ async function renderHomeStatistics() {
 
   const valid =
     data.filter(record =>
-      getValue(record, "Jméno") &&
-      getValue(record, "Příjmení")
+      getValue(
+        record,
+        "Jméno"
+      ) &&
+      getValue(
+        record,
+        "Příjmení"
+      )
     );
 
 
@@ -5661,7 +7428,10 @@ async function renderHomeStatistics() {
             ) || 0
           )
       )
-      .slice(0, 5);
+      .slice(
+        0,
+        5
+      );
 
 
   const topGoals =
@@ -5685,17 +7455,20 @@ async function renderHomeStatistics() {
             ) || 0
           )
       )
-      .slice(0, 5);
+      .slice(
+        0,
+        5
+      );
 
 
-  renderHomeTopList(
+  renderLiveRanking(
     "#topBody .live-stats",
     topPoints,
     "Body"
   );
 
 
-  renderHomeTopList(
+  renderLiveRanking(
     "#topGoly .live-stats",
     topGoals,
     "Goly"
@@ -5703,7 +7476,7 @@ async function renderHomeStatistics() {
 }
 
 
-function renderHomeTopList(
+function renderLiveRanking(
   selector,
   data,
   statistic
@@ -5715,6 +7488,17 @@ function renderHomeTopList(
 
 
   if (!container) {
+    return;
+  }
+
+
+  if (!data.length) {
+    container.innerHTML = `
+      <div class="live-empty">
+        Data nejsou k dispozici.
+      </div>
+    `;
+
     return;
   }
 
@@ -5748,12 +7532,14 @@ function renderHomeTopList(
               ${escapeHtml(surname)}
             </button>
 
+
             <span class="live-value">
               ${escapeHtml(
                 getValue(
                   record,
                   statistic
-                ) || "0"
+                ) ||
+                "0"
               )}
             </span>
 
@@ -5777,14 +7563,18 @@ function resetPlayerFilters() {
     "filtrNarodnost",
     "filtrSmlouva",
     "razeni"
-  ].forEach(id => {
-    const element =
-      document.getElementById(id);
+  ]
+    .forEach(id => {
+      const element =
+        document.getElementById(
+          id
+        );
 
-    if (element) {
-      element.value = "";
-    }
-  });
+      if (element) {
+        element.value =
+          "";
+      }
+    });
 
 
   renderPlayers();
@@ -5797,14 +7587,18 @@ function resetTransferFilters() {
     "filtrSezonaPrestupy",
     "filtrOdkudPrestupy",
     "filtrKamPrestupy"
-  ].forEach(id => {
-    const element =
-      document.getElementById(id);
+  ]
+    .forEach(id => {
+      const element =
+        document.getElementById(
+          id
+        );
 
-    if (element) {
-      element.value = "";
-    }
-  });
+      if (element) {
+        element.value =
+          "";
+      }
+    });
 
 
   renderTransfers();
@@ -5815,14 +7609,18 @@ function resetScheduleFilters() {
   [
     "filtrKoloRozpis",
     "filtrTymRozpis"
-  ].forEach(id => {
-    const element =
-      document.getElementById(id);
+  ]
+    .forEach(id => {
+      const element =
+        document.getElementById(
+          id
+        );
 
-    if (element) {
-      element.value = "";
-    }
-  });
+      if (element) {
+        element.value =
+          "";
+      }
+    });
 
 
   renderSchedule();
@@ -5834,6 +7632,9 @@ function resetScheduleFilters() {
 ========================================================= */
 
 function bindEvents() {
+  /*
+   * Delegované klikání
+   */
   document.addEventListener(
     "click",
     async event => {
@@ -5884,7 +7685,9 @@ function bindEvents() {
 
 
         if (player) {
-          await openPlayer(player);
+          await openPlayer(
+            player
+          );
         }
 
         return;
@@ -5906,7 +7709,8 @@ function bindEvents() {
         return;
       }
 
-        const careerTab =
+
+      const careerTab =
         event.target.closest(
           "[data-career-tab]"
         );
@@ -5916,17 +7720,24 @@ function bindEvents() {
         state.careerView.section =
           careerTab.dataset.careerTab;
 
-        state.careerView.league = "";
-        state.careerView.phase = "ALL";
+        state.careerView.league =
+          "";
+
+        state.careerView.phase =
+          "ALL";
 
         renderCareerView();
 
         return;
       }
+
+
       const teamButton =
-  event.target.closest(
-    "[data-team-code]"
-  );
+        event.target.closest(
+          "[data-team-code]"
+        );
+
+
       if (teamButton) {
         await openClub(
           teamButton.dataset.teamCode
@@ -5941,7 +7752,9 @@ function bindEvents() {
           "[data-transfer-prev]"
         )
       ) {
-        changeTransferSlide(-1);
+        changeTransferSlide(
+          -1
+        );
 
         return;
       }
@@ -5952,12 +7765,20 @@ function bindEvents() {
           "[data-transfer-next]"
         )
       ) {
-        changeTransferSlide(1);
+        changeTransferSlide(
+          1
+        );
+
+        return;
       }
     }
   );
 
-    document.addEventListener(
+
+  /*
+   * Kariérní selecty.
+   */
+  document.addEventListener(
     "change",
     event => {
 
@@ -5991,18 +7812,26 @@ function bindEvents() {
           phaseSelect.value;
 
         renderCareerView();
+
+        return;
       }
     }
   );
-  
+
+
+  /*
+   * Rozbitý obrázek skryjeme.
+   */
   document.addEventListener(
     "error",
     event => {
       const target =
         event.target;
 
+
       if (
-        target instanceof HTMLImageElement &&
+        target instanceof
+          HTMLImageElement &&
         target.hasAttribute(
           "data-hide-on-error"
         )
@@ -6015,6 +7844,9 @@ function bindEvents() {
   );
 
 
+  /*
+   * Hráčské filtry.
+   */
   [
     "filtrTymu",
     "filtrPozice",
@@ -6022,14 +7854,17 @@ function bindEvents() {
     "filtrNarodnost",
     "filtrSmlouva",
     "razeni"
-  ].forEach(id => {
-    document
-      .getElementById(id)
-      ?.addEventListener(
-        "change",
-        renderPlayers
-      );
-  });
+  ]
+    .forEach(id => {
+      document
+        .getElementById(
+          id
+        )
+        ?.addEventListener(
+          "change",
+          renderPlayers
+        );
+    });
 
 
   document
@@ -6052,18 +7887,24 @@ function bindEvents() {
     );
 
 
+  /*
+   * Přestupy.
+   */
   [
     "filtrSezonaPrestupy",
     "filtrOdkudPrestupy",
     "filtrKamPrestupy"
-  ].forEach(id => {
-    document
-      .getElementById(id)
-      ?.addEventListener(
-        "change",
-        renderTransfers
-      );
-  });
+  ]
+    .forEach(id => {
+      document
+        .getElementById(
+          id
+        )
+        ?.addEventListener(
+          "change",
+          renderTransfers
+        );
+    });
 
 
   document
@@ -6086,17 +7927,23 @@ function bindEvents() {
     );
 
 
+  /*
+   * Rozpis.
+   */
   [
     "filtrKoloRozpis",
     "filtrTymRozpis"
-  ].forEach(id => {
-    document
-      .getElementById(id)
-      ?.addEventListener(
-        "change",
-        renderSchedule
-      );
-  });
+  ]
+    .forEach(id => {
+      document
+        .getElementById(
+          id
+        )
+        ?.addEventListener(
+          "change",
+          renderSchedule
+        );
+    });
 
 
   document
@@ -6136,16 +7983,19 @@ async function init() {
     );
 
 
-  results.forEach(result => {
-    if (
-      result.status === "rejected"
-    ) {
-      console.error(
-        "ELH IceStats:",
-        result.reason
-      );
+  results.forEach(
+    result => {
+      if (
+        result.status ===
+        "rejected"
+      ) {
+        console.error(
+          "ELH IceStats:",
+          result.reason
+        );
+      }
     }
-  });
+  );
 
 
   const parameters =
@@ -6155,13 +8005,21 @@ async function init() {
 
 
   const club =
-    parameters.get("klub");
+    parameters.get(
+      "klub"
+    );
 
 
-  if (club && getTeam(club)) {
-    state.history = ["home"];
+  if (
+    club &&
+    getTeam(club)
+  ) {
+    state.history =
+      ["home"];
 
-    await openClub(club);
+    await openClub(
+      club
+    );
   }
 }
 
