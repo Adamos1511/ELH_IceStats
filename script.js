@@ -10,17 +10,18 @@
    KONFIGURACE DAT
 ========================================================= */
 
-const GITHUB_RAW = "./";
+const GITHUB_RAW =
+  "https://raw.githubusercontent.com/Adamos1511/ELH_IceStats/refs/heads/main/";
 
 const DATA_URLS = {
-  players: "./hraciELH.csv",
-  playerDetails: "./hraci_detail.csv",
-  goalieDetails: "./brankari_detail.csv",
-  clubs: "./kluby.csv",
-  transfers: "./prestupy.csv",
-  standings: "./TabulkaELH.csv",
-  schedule: "./rozpis.csv",
-  careers: "./kariery.csv?v=20260817-career3"
+  players: `${GITHUB_RAW}hraciELH.csv`,
+  playerDetails: `${GITHUB_RAW}hraci_detail.csv`,
+  goalieDetails: `${GITHUB_RAW}brankari_detail.csv`,
+  clubs: `${GITHUB_RAW}kluby.csv`,
+  transfers: `${GITHUB_RAW}prestupy.csv`,
+  standings: `${GITHUB_RAW}TabulkaELH.csv`,
+  schedule: `${GITHUB_RAW}rozpis.csv`,
+  careers: `${GITHUB_RAW}kariery.csv?v=20260817-career3`
 };
 
 
