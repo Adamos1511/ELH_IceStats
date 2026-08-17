@@ -92,7 +92,15 @@
         >
           Kluby
         </button>
-
+        
+        <button
+          type="button"
+          class="menu-item"
+          data-nav="statistics"
+        >
+          Statistiky
+        </button>
+        
         <button
           type="button"
           class="menu-item"
@@ -169,6 +177,10 @@
         Kluby
       </button>
 
+      <button type="button" data-nav="statistics">
+        Statistiky
+      </button>
+      
       <button type="button" data-nav="table">
         Tabulka
       </button>
@@ -467,7 +479,161 @@
 
     </div>
   </section>
+<!-- =========================================================
+     STATISTIKY
+========================================================== -->
+<section
+  id="strankaStatistiky"
+  class="page-hraci statistics-page app-page"
+  hidden
+>
+  <div class="content-container">
 
+    <div class="hraci-header">
+
+      <button
+        type="button"
+        class="back-btn"
+        data-back
+      >
+        ← Zpět
+      </button>
+
+      <div>
+        <span class="section-kicker">
+          Tipsport extraliga
+        </span>
+
+        <h1>Statistiky ELH</h1>
+      </div>
+
+    </div>
+
+
+    <div class="stats-tabs">
+
+      <button
+        type="button"
+        class="stats-tab active"
+        data-stats-type="skater"
+      >
+        Hráči
+      </button>
+
+      <button
+        type="button"
+        class="stats-tab"
+        data-stats-type="goalie"
+      >
+        Brankáři
+      </button>
+
+    </div>
+
+
+    <div class="filtry stats-filters">
+
+      <input
+        type="search"
+        id="statsSearch"
+        placeholder="Hledat hráče..."
+        autocomplete="off"
+      >
+
+      <select
+        id="statsTeam"
+        aria-label="Filtrovat podle týmu"
+      >
+        <option value="">
+          Všechny týmy
+        </option>
+      </select>
+
+      <select
+        id="statsPosition"
+        aria-label="Filtrovat podle pozice"
+      >
+        <option value="">
+          Všechny pozice
+        </option>
+      </select>
+
+      <select
+        id="statsNationality"
+        aria-label="Filtrovat podle národnosti"
+      >
+        <option value="">
+          Všechny národnosti
+        </option>
+      </select>
+
+      <select
+        id="statsMinGames"
+        aria-label="Minimální počet zápasů"
+      >
+        <option value="0">
+          Bez minima zápasů
+        </option>
+
+        <option value="5">
+          Min. 5 zápasů
+        </option>
+
+        <option value="10">
+          Min. 10 zápasů
+        </option>
+
+        <option value="15">
+          Min. 15 zápasů
+        </option>
+
+        <option value="20">
+          Min. 20 zápasů
+        </option>
+
+        <option value="30">
+          Min. 30 zápasů
+        </option>
+      </select>
+
+      <select
+        id="statsSort"
+        aria-label="Řadit podle statistiky"
+      ></select>
+
+      <button
+        type="button"
+        id="resetStats"
+        class="filter-reset"
+      >
+        Reset
+      </button>
+
+    </div>
+
+
+    <div class="stats-toolbar">
+
+      <span id="statsCount">
+        Načítám statistiky...
+      </span>
+
+      <span id="statsSortInfo"></span>
+
+    </div>
+
+
+    <div
+      id="statsContent"
+      class="stats-table-shell"
+    >
+      <div class="loading-card">
+        Načítám statistiky...
+      </div>
+    </div>
+
+  </div>
+</section>
 
   <!-- =========================================================
        TABULKA

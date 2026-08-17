@@ -191,7 +191,13 @@ const state = {
   selectedPlayer: null,
   selectedClub: null,
 
-  transferSlideIndex: 0
+  transferSlideIndex: 0,
+
+statsView: {
+  type: "skater",
+  sortKey: "Body",
+  sortDir: "desc"
+}
 };
 
 
@@ -201,6 +207,7 @@ const PAGE_IDS = {
   playerDetail: "strankaDetailHrace",
   clubs: "kluby",
   clubDetail: "strankaDetailKlubu",
+  statistics: "strankaStatistiky",
   table: "strankaTabulka",
   transfers: "strankaPrestupy",
   schedule: "strankaRozpis"
@@ -652,8 +659,19 @@ async function handleNavigation(
       renderClubs();
 
       break;
+      
+    case "statistics":
+      navigate("statistics");
 
+        await loadDetailData(
+    state.statsView.type
+  );
 
+      populateStatisticsFilters();
+      renderStatistics();
+
+      break;
+    
     case "table":
       navigate("table");
 
@@ -7430,6 +7448,1129 @@ function renderCurrentRound() {
       .join("");
 }
 
+/* =========================================================
+   STATISTIKY ELH
+========================================================= */
+
+const SKATER_STATS_COLUMNS = [
+  {
+    key: "Odehrané zápasy",
+    label: "Z"
+  },
+  {
+    key: "Goly",
+    label: "G"
+  },
+  {
+    key: "Asistence",
+    label: "A"
+  },
+  {
+    key: "Body",
+    label: "B"
+  },
+  {
+    key: "Body z přesilovek",
+    label: "PPP"
+  },
+  {
+    key: "+/-",
+    label: "+/-"
+  },
+  {
+    key: "Trestné minuty",
+    label: "TM"
+  },
+  {
+    key: "Ø Času na ledě",
+    label: "TOI"
+  },
+  {
+    key: "Hity",
+    label: "Hity"
+  },
+  {
+    key: "Bloky",
+    label: "Bloky"
+  },
+  {
+    key: "Úspěšnost vhazování %",
+    label: "Vhaz. %"
+  },
+  {
+    key: "Úspěšnost střelby %",
+    label: "Stř. %"
+  },
+  {
+    key: "Body na zápas",
+    label: "B/Z"
+  },
+  {
+    key: "Hity na zápas",
+    label: "Hity/Z"
+  },
+  {
+    key: "Bloky na zápas",
+    label: "Bloky/Z"
+  }
+];
+
+
+const GOALIE_STATS_COLUMNS = [
+  {
+    key: "Odchytané zápasy",
+    label: "Z"
+  },
+  {
+    key: "Odchytané minuty",
+    label: "MIN"
+  },
+  {
+    key: "Výhry",
+    label: "V"
+  },
+  {
+    key: "průměr obdržených branek",
+    label: "Pr.",
+    defaultDir: "asc"
+  },
+  {
+    key: "% zákroků",
+    label: "Z%"
+  },
+  {
+    key: "Čistá konta",
+    label: "SO"
+  },
+  {
+    key: "Zákroky",
+    label: "Zákroky"
+  },
+  {
+    key: "Střel proti",
+    label: "Střely"
+  },
+  {
+    key: "Průměr střel na zápas",
+    label: "Střely/Z"
+  }
+];
+
+
+function statisticsColumns() {
+  return (
+    state.statsView.type === "goalie"
+      ? GOALIE_STATS_COLUMNS
+      : SKATER_STATS_COLUMNS
+  );
+}
+
+
+function statisticsDataset() {
+  return (
+    state.statsView.type === "goalie"
+      ? (
+          state.goalieDetails ||
+          []
+        )
+      : (
+          state.skaterDetails ||
+          []
+        )
+  );
+}
+
+
+function statisticsGamesKey() {
+  return (
+    state.statsView.type === "goalie"
+      ? "Odchytané zápasy"
+      : "Odehrané zápasy"
+  );
+}
+
+
+function statisticsDefaultSort() {
+  if (
+    state.statsView.type ===
+    "goalie"
+  ) {
+    return {
+      key: "% zákroků",
+      dir: "desc"
+    };
+  }
+
+  return {
+    key: "Body",
+    dir: "desc"
+  };
+}
+
+
+function statisticsColumn(
+  key
+) {
+  return (
+    statisticsColumns()
+      .find(
+        column =>
+          column.key === key
+      ) ||
+    null
+  );
+}
+
+
+function statisticsDefaultDirection(
+  key
+) {
+  return (
+    statisticsColumn(key)
+      ?.defaultDir ||
+    "desc"
+  );
+}
+
+
+function statisticsTimeValue(
+  value
+) {
+  const text =
+    cleanCell(value);
+
+  if (!text) {
+    return NaN;
+  }
+
+  if (!text.includes(":")) {
+    return toNumber(text);
+  }
+
+  const parts =
+    text.split(":");
+
+  const minutes =
+    Number(parts[0]);
+
+  const seconds =
+    Number(parts[1] || 0);
+
+  if (
+    !Number.isFinite(minutes) ||
+    !Number.isFinite(seconds)
+  ) {
+    return NaN;
+  }
+
+  return (
+    minutes * 60 +
+    seconds
+  );
+}
+
+
+function statisticsNumericValue(
+  record,
+  key
+) {
+  const value =
+    getValue(
+      record,
+      key
+    );
+
+  if (
+    key === "Ø Času na ledě" ||
+    key === "Odchytané minuty"
+  ) {
+    return statisticsTimeValue(
+      value
+    );
+  }
+
+  return toNumber(value);
+}
+
+
+function statisticsValueHtml(
+  record,
+  key
+) {
+  const value =
+    getValue(
+      record,
+      key
+    );
+
+  if (!value) {
+    return "–";
+  }
+
+  if (
+    key.includes("%") &&
+    !value.includes("%")
+  ) {
+    return (
+      `${escapeHtml(value)} %`
+    );
+  }
+
+  return escapeHtml(value);
+}
+
+
+function populateStatisticsSort() {
+  const select =
+    document.getElementById(
+      "statsSort"
+    );
+
+  if (!select) {
+    return;
+  }
+
+  const columns =
+    statisticsColumns();
+
+  if (
+    !columns.some(
+      column =>
+        column.key ===
+        state.statsView.sortKey
+    )
+  ) {
+    const defaults =
+      statisticsDefaultSort();
+
+    state.statsView.sortKey =
+      defaults.key;
+
+    state.statsView.sortDir =
+      defaults.dir;
+  }
+
+  select.innerHTML =
+    columns
+      .map(column => `
+        <option
+          value="${escapeHtml(
+            column.key
+          )}"
+        >
+          ${escapeHtml(
+            column.label
+          )}
+        </option>
+      `)
+      .join("");
+
+  select.value =
+    state.statsView.sortKey;
+}
+
+
+function populateStatisticsFilters() {
+  const data =
+    statisticsDataset();
+
+
+  populateSelect(
+    document.getElementById(
+      "statsTeam"
+    ),
+
+    TEAMS.map(team => ({
+      value: team.code,
+      label: team.name
+    })),
+
+    "Všechny týmy"
+  );
+
+
+  const positionSelect =
+    document.getElementById(
+      "statsPosition"
+    );
+
+
+  if (
+    state.statsView.type ===
+    "goalie"
+  ) {
+    if (positionSelect) {
+      positionSelect.innerHTML = `
+        <option value="">
+          Brankáři
+        </option>
+      `;
+
+      positionSelect.disabled =
+        true;
+    }
+  } else {
+    if (positionSelect) {
+      positionSelect.disabled =
+        false;
+    }
+
+    populateSelect(
+      positionSelect,
+
+      uniqueSorted(
+        data.map(record =>
+          getValue(
+            record,
+            "Pozice"
+          )
+        )
+      ),
+
+      "Všechny pozice"
+    );
+  }
+
+
+  populateSelect(
+    document.getElementById(
+      "statsNationality"
+    ),
+
+    uniqueSorted(
+      data.map(record =>
+        getValue(
+          record,
+          "Národnost"
+        )
+      )
+    ),
+
+    "Všechny národnosti"
+  );
+
+
+  populateStatisticsSort();
+
+
+  document
+    .querySelectorAll(
+      "[data-stats-type]"
+    )
+    .forEach(button => {
+      button.classList.toggle(
+        "active",
+        button.dataset.statsType ===
+          state.statsView.type
+      );
+    });
+}
+
+
+function statisticsFilteredData() {
+  const search =
+    normalize(
+      document.getElementById(
+        "statsSearch"
+      )?.value
+    );
+
+  const team =
+    cleanCell(
+      document.getElementById(
+        "statsTeam"
+      )?.value
+    );
+
+  const position =
+    normalize(
+      document.getElementById(
+        "statsPosition"
+      )?.value
+    );
+
+  const nationality =
+    normalize(
+      document.getElementById(
+        "statsNationality"
+      )?.value
+    );
+
+  const minGames =
+    Number(
+      document.getElementById(
+        "statsMinGames"
+      )?.value ||
+      0
+    );
+
+
+  const gamesKey =
+    statisticsGamesKey();
+
+
+  return statisticsDataset()
+    .filter(record => {
+
+      const firstName =
+        getValue(
+          record,
+          "Jméno"
+        );
+
+      const surname =
+        getValue(
+          record,
+          "Příjmení"
+        );
+
+      const teamValue =
+        getValue(
+          record,
+          "Tým"
+        );
+
+      const recordPosition =
+        getValue(
+          record,
+          "Pozice"
+        );
+
+      const recordNationality =
+        getValue(
+          record,
+          "Národnost"
+        );
+
+      const games =
+        toNumber(
+          getValue(
+            record,
+            gamesKey
+          )
+        ) || 0;
+
+
+      const searchTarget =
+        normalize(
+          [
+            firstName,
+            surname,
+            teamValue,
+            getTeamName(
+              teamValue
+            ),
+            recordPosition,
+            recordNationality
+          ].join(" ")
+        );
+
+
+      return (
+        (
+          !search ||
+          searchTarget.includes(
+            search
+          )
+        ) &&
+
+        (
+          !team ||
+          getTeamCode(
+            teamValue
+          ) === team
+        ) &&
+
+        (
+          state.statsView.type ===
+            "goalie" ||
+          !position ||
+          normalize(
+            recordPosition
+          ) === position
+        ) &&
+
+        (
+          !nationality ||
+          normalize(
+            recordNationality
+          ) === nationality
+        ) &&
+
+        games >= minGames
+      );
+    });
+}
+
+
+function statisticsSortData(
+  data
+) {
+  const key =
+    state.statsView.sortKey;
+
+  const direction =
+    state.statsView.sortDir;
+
+
+  return [...data]
+    .sort((a, b) => {
+
+      const aValue =
+        statisticsNumericValue(
+          a,
+          key
+        );
+
+      const bValue =
+        statisticsNumericValue(
+          b,
+          key
+        );
+
+
+      const aValid =
+        Number.isFinite(aValue);
+
+      const bValid =
+        Number.isFinite(bValue);
+
+
+      if (
+        !aValid &&
+        !bValid
+      ) {
+        return collator.compare(
+          getValue(
+            a,
+            "Příjmení"
+          ),
+          getValue(
+            b,
+            "Příjmení"
+          )
+        );
+      }
+
+
+      if (!aValid) {
+        return 1;
+      }
+
+
+      if (!bValid) {
+        return -1;
+      }
+
+
+      const difference =
+        direction === "asc"
+          ? aValue - bValue
+          : bValue - aValue;
+
+
+      if (difference !== 0) {
+        return difference;
+      }
+
+
+      return collator.compare(
+        getValue(
+          a,
+          "Příjmení"
+        ),
+        getValue(
+          b,
+          "Příjmení"
+        )
+      );
+    });
+}
+
+
+function statisticsPlayerHtml(
+  record
+) {
+  const firstName =
+    getValue(
+      record,
+      "Jméno"
+    );
+
+  const surname =
+    getValue(
+      record,
+      "Příjmení"
+    );
+
+  const photo =
+    getValue(
+      record,
+      "Foto"
+    );
+
+
+  return `
+    <button
+      type="button"
+      class="stats-player"
+      data-player-first="${escapeHtml(
+        firstName
+      )}"
+      data-player-last="${escapeHtml(
+        surname
+      )}"
+    >
+
+      ${
+        photo
+          ? `
+            <img
+              src="${escapeHtml(photo)}"
+              alt=""
+              loading="lazy"
+              data-hide-on-error
+            >
+          `
+          : `
+            <span
+              class="stats-player-photo-placeholder"
+            ></span>
+          `
+      }
+
+      <span>
+        <strong>
+          ${escapeHtml(firstName)}
+          ${escapeHtml(surname)}
+        </strong>
+
+        <small>
+          ${escapeHtml(
+            getValue(
+              record,
+              "Národnost"
+            ) || ""
+          )}
+        </small>
+      </span>
+
+    </button>
+  `;
+}
+
+
+function statisticsTeamHtml(
+  record
+) {
+  const value =
+    getValue(
+      record,
+      "Tým"
+    );
+
+  const team =
+    getTeam(value);
+
+
+  if (!team) {
+    return escapeHtml(
+      value || "-"
+    );
+  }
+
+
+  return `
+    <button
+      type="button"
+      class="stats-team"
+      data-team-code="${escapeHtml(
+        team.code
+      )}"
+    >
+
+      <img
+        src="${escapeHtml(
+          logoUrl(
+            team.code
+          )
+        )}"
+        alt=""
+        data-hide-on-error
+      >
+
+      <span>
+        ${escapeHtml(
+          team.code
+        )}
+      </span>
+
+    </button>
+  `;
+}
+
+
+function renderStatistics() {
+  const container =
+    document.getElementById(
+      "statsContent"
+    );
+
+  const counter =
+    document.getElementById(
+      "statsCount"
+    );
+
+  const info =
+    document.getElementById(
+      "statsSortInfo"
+    );
+
+
+  if (!container) {
+    return;
+  }
+
+
+  const columns =
+    statisticsColumns();
+
+  const filtered =
+    statisticsFilteredData();
+
+  const data =
+    statisticsSortData(
+      filtered
+    );
+
+
+  if (counter) {
+    counter.textContent =
+      state.statsView.type ===
+        "goalie"
+        ? `${data.length} brankářů`
+        : `${data.length} hráčů`;
+  }
+
+
+  const activeColumn =
+    statisticsColumn(
+      state.statsView.sortKey
+    );
+
+
+  if (info) {
+    info.textContent =
+      activeColumn
+        ? (
+            `Řazeno: ` +
+            `${activeColumn.label} ` +
+            (
+              state.statsView.sortDir ===
+                "desc"
+                ? "↓"
+                : "↑"
+            )
+          )
+        : "";
+  }
+
+
+  if (!data.length) {
+    container.innerHTML = `
+      <div class="empty-state">
+        Žádní hráči neodpovídají zvoleným filtrům.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  container.innerHTML = `
+    <div class="stats-table-scroll">
+
+      <table
+        class="
+          stats-table
+          ${
+            state.statsView.type ===
+              "goalie"
+              ? "stats-table-goalie"
+              : "stats-table-skater"
+          }
+        "
+      >
+
+        <thead>
+          <tr>
+
+            <th class="stats-rank-column">
+              #
+            </th>
+
+            <th class="stats-player-column">
+              Hráč
+            </th>
+
+            <th>
+              Tým
+            </th>
+
+            ${
+              state.statsView.type ===
+                "skater"
+                ? `
+                  <th>
+                    Poz.
+                  </th>
+                `
+                : ""
+            }
+
+            ${columns
+              .map(column => {
+
+                const active =
+                  column.key ===
+                  state.statsView.sortKey;
+
+                return `
+                  <th
+                    class="${
+                      active
+                        ? "stats-active-column"
+                        : ""
+                    }"
+                  >
+                    <button
+                      type="button"
+                      class="stats-sort-button"
+                      data-stats-sort="${escapeHtml(
+                        column.key
+                      )}"
+                      title="Seřadit podle ${escapeHtml(
+                        column.label
+                      )}"
+                    >
+                      ${escapeHtml(
+                        column.label
+                      )}
+
+                      ${
+                        active
+                          ? (
+                              state.statsView.sortDir ===
+                                "desc"
+                                ? " ↓"
+                                : " ↑"
+                            )
+                          : ""
+                      }
+                    </button>
+                  </th>
+                `;
+              })
+              .join("")}
+
+          </tr>
+        </thead>
+
+
+        <tbody>
+
+          ${data
+            .map((record, index) => `
+              <tr>
+
+                <td class="stats-rank">
+                  ${index + 1}
+                </td>
+
+                <td class="stats-player-cell">
+                  ${statisticsPlayerHtml(
+                    record
+                  )}
+                </td>
+
+                <td>
+                  ${statisticsTeamHtml(
+                    record
+                  )}
+                </td>
+
+                ${
+                  state.statsView.type ===
+                    "skater"
+                    ? `
+                      <td>
+                        ${escapeHtml(
+                          getValue(
+                            record,
+                            "Pozice"
+                          ) || "-"
+                        )}
+                      </td>
+                    `
+                    : ""
+                }
+
+                ${columns
+                  .map(column => `
+                    <td
+                      class="${
+                        column.key ===
+                          state.statsView.sortKey
+                          ? "stats-active-column"
+                          : ""
+                      }"
+                    >
+                      ${statisticsValueHtml(
+                        record,
+                        column.key
+                      )}
+                    </td>
+                  `)
+                  .join("")}
+
+              </tr>
+            `)
+            .join("")}
+
+        </tbody>
+
+      </table>
+
+    </div>
+  `;
+}
+
+
+async function setStatisticsType(
+  type
+) {
+  if (
+    ![
+      "skater",
+      "goalie"
+    ].includes(type)
+  ) {
+    return;
+  }
+
+
+  state.statsView.type =
+    type;
+
+
+  const defaults =
+    statisticsDefaultSort();
+
+
+  state.statsView.sortKey =
+    defaults.key;
+
+  state.statsView.sortDir =
+    defaults.dir;
+
+
+  await loadDetailData(type);
+
+
+  populateStatisticsFilters();
+  renderStatistics();
+}
+
+
+function changeStatisticsSort(
+  key
+) {
+  if (!statisticsColumn(key)) {
+    return;
+  }
+
+
+  if (
+    state.statsView.sortKey === key
+  ) {
+    state.statsView.sortDir =
+      state.statsView.sortDir ===
+        "desc"
+        ? "asc"
+        : "desc";
+  } else {
+    state.statsView.sortKey =
+      key;
+
+    state.statsView.sortDir =
+      statisticsDefaultDirection(
+        key
+      );
+  }
+
+
+  const select =
+    document.getElementById(
+      "statsSort"
+    );
+
+
+  if (select) {
+    select.value =
+      key;
+  }
+
+
+  renderStatistics();
+}
+
+
+function resetStatisticsFilters() {
+  [
+    "statsSearch",
+    "statsTeam",
+    "statsPosition",
+    "statsNationality"
+  ]
+    .forEach(id => {
+      const element =
+        document.getElementById(
+          id
+        );
+
+      if (element) {
+        element.value =
+          "";
+      }
+    });
+
+
+  const minGames =
+    document.getElementById(
+      "statsMinGames"
+    );
+
+
+  if (minGames) {
+    minGames.value =
+      "0";
+  }
+
+
+  const defaults =
+    statisticsDefaultSort();
+
+
+  state.statsView.sortKey =
+    defaults.key;
+
+  state.statsView.sortDir =
+    defaults.dir;
+
+
+  populateStatisticsSort();
+  renderStatistics();
+}
 
 /* =========================================================
    TOP BODY / GÓLY
@@ -7758,10 +8899,34 @@ function bindEvents() {
       }
 
 
-      const careerTab =
-        event.target.closest(
-          "[data-career-tab]"
-        );
+      const statsTypeButton =
+  event.target.closest(
+    "[data-stats-type]"
+  );
+
+
+if (statsTypeButton) {
+  await setStatisticsType(
+    statsTypeButton.dataset.statsType
+  );
+
+  return;
+}
+
+
+const statsSortButton =
+  event.target.closest(
+    "[data-stats-sort]"
+  );
+
+
+if (statsSortButton) {
+  changeStatisticsSort(
+    statsSortButton.dataset.statsSort
+  );
+
+  return;
+}
 
 
       if (careerTab) {
@@ -7925,14 +9090,69 @@ function bindEvents() {
     );
 
 
-  document
-    .getElementById(
-      "resetHraci"
-    )
-    ?.addEventListener(
-      "click",
-      resetPlayerFilters
-    );
+  /*
+ * Statistiky.
+ */
+[
+  "statsTeam",
+  "statsPosition",
+  "statsNationality",
+  "statsMinGames"
+]
+  .forEach(id => {
+    document
+      .getElementById(
+        id
+      )
+      ?.addEventListener(
+        "change",
+        renderStatistics
+      );
+  });
+
+
+document
+  .getElementById(
+    "statsSearch"
+  )
+  ?.addEventListener(
+    "input",
+    renderStatistics
+  );
+
+
+document
+  .getElementById(
+    "statsSort"
+  )
+  ?.addEventListener(
+    "change",
+    event => {
+
+      const key =
+        event.target.value;
+
+      state.statsView.sortKey =
+        key;
+
+      state.statsView.sortDir =
+        statisticsDefaultDirection(
+          key
+        );
+
+      renderStatistics();
+    }
+  );
+
+
+document
+  .getElementById(
+    "resetStats"
+  )
+  ?.addEventListener(
+    "click",
+    resetStatisticsFilters
+  );
 
 
   /*
