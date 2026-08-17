@@ -23,7 +23,7 @@ const DATA_URLS = {
   schedule: `${GITHUB_RAW}rozpis.csv`,
 
   careers:
-    `${GITHUB_RAW}kariery.csv?v=20260816-final`
+  `${GITHUB_RAW}kariery.csv?v=20260817-career2`
 };
 
 
