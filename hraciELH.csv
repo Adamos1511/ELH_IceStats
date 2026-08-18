@@ -350,36 +350,36 @@ Daniel;Kurovský;26/27;LW;TRI;28;P;CZE;;
 Andrej;Nestrašil;27/28;RW/C;TRI;35;L;CZE;;
 Michal;Rybníkár;28/29;F;TRI;19;L;CZE;;
 Daniel;Voženílek;27/28;LW/RW;TRI;30;L;CZE;;
-Dominik;Hrachovina;26/27;B;VIT;31;L;CZE;;
-Patrik;Švančara;26/27+1;B;VIT;24;L;CZE;;
-Patrik;Brůna;26/27+1;O;VIT;22;L;CZE;;
-Patrik;Demel;28/29;O;VIT;30;L;CZE;;
-Alex;Drábek;26/27;O;VIT;19;L;CZE;;
-Tomáš;Herman;26/27+1;O;VIT;20;L;CZE;;
-Rhett;Holland;27/28;O;VIT;32;P;CAN;;
-Samuel;Kňažko;26/27;O;VIT;24;L;SVK;;
-John;Leahy;26/27;O;VIT;29;L;CAN;;
-Mateusz;Majkowski;26/27;O;VIT;19;L;POL;;
-Tomáš;Pavelka;27/28;O;VIT;33;L;CZE;;
-Vojtěch;Port;26/27;O;VIT;21;P;CZE;;
-Tomáš;Tomaškovič;26/27+1;O;VIT;19;P;SVK;;
-Josh;Wesley;26/27;O;VIT;30;P;USA;;
-Jakub;Zbořil;26/27;O;VIT;29;L;CZE;;
-Jindřich;Abdul;26/27;RW/LW;VIT;30;L;CZE;;
-Jan;Bernovský;26/27;RW;VIT;25;P;CZE;;
-David;Cienciala;26/27;C/LW;VIT;30;L;CZE;;
-Šimon;Fašner;26/27;C/LW;VIT;19;L;CZE;;
-Sebastian;Glas;27/28+1;C;VIT;19;P;CZE;;
-Jan;Hladonik;26/27;C/LW;VIT;27;L;CZE;;
-Marek;Hrivík;26/27+1;C/LW;VIT;34;L;SVK;;
-Marek;Kalus;27/28;LW;VIT;33;L;CZE;;
-Filip;Krivošík;27/28;F/RW;VIT;27;P;SVK;;
-Krzysztof;Macias;26/27;F;VIT;22;L;CZE;;
-Michael;Nazad;26/27+1;C/LW;VIT;19;L;CZE;;
-Anthony;Nellis;27/28;C/LW;VIT;31;L;CZE;;
-Dominik;Petr;26/27+1;C/LW;VIT;21;L;CZE;;
-Jan;Šír;27/28;C/RW;VIT;26;P;CZE;;
-Šimon;Stránský;28/29;LW/C;VIT;28;L;CZE;;
-Michal;Šebesta;27/28+1;C;VIT;17;L;CZE;;
-Chad;Yetman;26/27;C/RW;VIT;26;P;CAN;;
-Matěj;Žídek;26/27+2;LW/RW;VIT;20;L;CZE;;
+Dominik;Hrachovina;26/27;B;VIT;31;L;CZE;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Hrachovina.png;ceskobudejovicky.denik.cz
+Patrik;Švančara;26/27+1;B;VIT;24;L;CZE;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Svancara.png;Vítkovice
+Patrik;Brůna;26/27+1;O;VIT;22;L;CZE;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Bruna.png;hokej.cz
+Patrik;Demel;28/29;O;VIT;30;L;CZE;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Demel.png;hokej.cz
+Alex;Drábek;26/27;O;VIT;19;L;CZE;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Drabek.png;hokej.cz
+Tomáš;Herman;26/27+1;O;VIT;20;L;CZE;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Herman.png;valassky.denik.cz
+Rhett;Holland;27/28;O;VIT;32;P;CAN;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Holland.png;Vítkovice
+Samuel;Kňažko;26/27;O;VIT;24;L;SVK;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Knazko.png;Vítkovice
+John;Leahy;26/27;O;VIT;29;L;CAN;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Leahy.png;Oneplay sport
+Mateusz;Majkowski;26/27;O;VIT;19;L;POL;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Majkowski.png;Hokej.net
+Tomáš;Pavelka;27/28;O;VIT;33;L;CZE;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Pavelka.png;moravskoslezky.denik.cz
+Vojtěch;Port;26/27;O;VIT;21;P;CZE;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Port.png;elite prospect
+Tomáš;Tomaškovič;26/27+1;O;VIT;19;P;SVK;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Tomaskovic.png;elite prospect
+Josh;Wesley;26/27;O;VIT;30;P;USA;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Wesley.png;moravskoslezky.denik.cz
+Jakub;Zbořil;26/27;O;VIT;29;L;CZE;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Zboril J..png;Oneplay sport
+Jindřich;Abdul;26/27;RW/LW;VIT;30;L;CZE;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Abdul.png;iSport.cz
+Jan;Bernovský;26/27;RW;VIT;25;P;CZE;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Bernovsky.png;hokej.cz
+David;Cienciala;26/27;C/LW;VIT;30;L;CZE;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Cienciala.png;Vítkovice
+Šimon;Fašner;26/27;C/LW;VIT;19;L;CZE;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Fasner.png;moravskoslezky.denik.cz
+Sebastian;Glas;27/28+1;C;VIT;19;P;CZE;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Glas.png;hokej.cz
+Jan;Hladonik;26/27;C/LW;VIT;27;L;CZE;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Hladonik.png;livesport
+Marek;Hrivík;26/27+1;C/LW;VIT;34;L;SVK;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Hrivik.png;hokej.cz
+Marek;Kalus;27/28;LW;VIT;33;L;CZE;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kalus.png;Vítkovice
+Filip;Krivošík;27/28;F/RW;VIT;27;P;SVK;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Krivosik.png;Vítkovice
+Krzysztof;Macias;26/27;F;VIT;22;L;CZE;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Macias.png;moravskoslezky.denik.cz
+Michael;Nazad;26/27+1;C/LW;VIT;19;L;CZE;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Nazad.png;Vítkovice
+Anthony;Nellis;27/28;C/LW;VIT;31;L;CZE;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Nellis.png;Oneplay sport
+Dominik;Petr;26/27+1;C/LW;VIT;21;L;CZE;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Petr.png;Vítkovice
+Jan;Šír;27/28;C/RW;VIT;26;P;CZE;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Sir.png;Vítkovice
+Šimon;Stránský;28/29;LW/C;VIT;28;L;CZE;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Stransky S..png;Vítkovice
+Michal;Šebesta;27/28+1;C;VIT;17;L;CZE;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Sebesta.png;ceskyhokej.cz
+Chad;Yetman;26/27;C/RW;VIT;26;P;CAN;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Yetman.png;iSport.cz
+Matěj;Žídek;26/27+2;LW/RW;VIT;20;L;CZE;https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Zidek.png;hokej.cz
