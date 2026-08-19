@@ -429,12 +429,23 @@ function slugify(value) {
 }
 
 
-function playerPath(player) {
+function playerPathByName(
+  firstName,
+  surname
+) {
   return (
     "/hraci/" +
     slugify(
-      `${player.jmeno} ${player.prijmeni}`
+      `${firstName} ${surname}`
     )
+  );
+}
+
+
+function playerPath(player) {
+  return playerPathByName(
+    player.jmeno,
+    player.prijmeni
   );
 }
 
@@ -1692,11 +1703,13 @@ function renderPlayers() {
 
 
         return `
-          <button
-            type="button"
-            class="hrac-radek"
-            data-player-key="${escapeHtml(key)}"
-          >
+          <a
+  href="${escapeHtml(
+    playerPath(player)
+  )}"
+  class="hrac-radek"
+  data-player-key="${escapeHtml(key)}"
+>
 
             <span class="hrac-foto-mini">
               ${
@@ -1785,7 +1798,7 @@ function renderPlayers() {
               )}
             </span>
 
-          </button>
+          </a>
         `;
       })
       .join("");
@@ -5662,11 +5675,13 @@ function renderClubs() {
   container.innerHTML =
     TEAMS
       .map(team => `
-        <button
-          type="button"
-          class="klub-karta"
-          data-team-code="${escapeHtml(team.code)}"
-        >
+        <a
+  href="${escapeHtml(
+    clubPath(team.code)
+  )}"
+  class="klub-karta"
+  data-team-code="${escapeHtml(team.code)}"
+>
 
           <img
             src="${escapeHtml(
@@ -5685,7 +5700,7 @@ function renderClubs() {
             ${escapeHtml(team.code)}
           </span>
 
-        </button>
+        </a>
       `)
       .join("");
 }
@@ -8963,16 +8978,17 @@ function statisticsPlayerHtml(
 
 
   return `
-    <button
-      type="button"
-      class="stats-player"
-      data-player-first="${escapeHtml(
-        firstName
-      )}"
-      data-player-last="${escapeHtml(
-        surname
-      )}"
-    >
+    <a
+  href="${escapeHtml(
+    playerPathByName(
+      firstName,
+      surname
+    )
+  )}"
+  class="stats-player"
+  data-player-first="${escapeHtml(firstName)}"
+  data-player-last="${escapeHtml(surname)}"
+>
 
       ${
         photo
@@ -9007,7 +9023,7 @@ function statisticsPlayerHtml(
         </small>
       </span>
 
-    </button>
+    </a>
   `;
 }
 
@@ -9890,10 +9906,12 @@ function bindEvents() {
 
 
       if (playerButton) {
-        const player =
-          state.playerMap.get(
-            playerButton.dataset.playerKey
-          );
+  event.preventDefault();
+
+  const player =
+    state.playerMap.get(
+      playerButton.dataset.playerKey
+    );
 
 
         if (player) {
@@ -9913,6 +9931,8 @@ function bindEvents() {
 
 
       if (namedPlayer) {
+        event.preventDefault();
+
         await openPlayerByName(
           namedPlayer.dataset.playerFirst,
           namedPlayer.dataset.playerLast
@@ -9993,6 +10013,8 @@ if (statsSortButton) {
 
 
       if (teamButton) {
+        event.preventDefault();
+        
         await openClub(
           teamButton.dataset.teamCode
         );

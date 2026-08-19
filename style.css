@@ -5746,3 +5746,9 @@ summary::after {
   }
 
 }
+.hrac-radek,
+.klub-karta,
+.stats-player {
+  color: inherit;
+  text-decoration: none;
+}
