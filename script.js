@@ -165,6 +165,7 @@ const TEAMS = [
 const state = {
   currentPage: "home",
   history: [],
+  routeIndex: 0,
 
   players: [],
   playerMap: new Map(),
@@ -334,6 +335,316 @@ function errorHtml(message) {
       </span>
     </div>
   `;
+}
+
+
+/* =========================================================
+   URL ROUTING + SEO
+========================================================= */
+
+const SITE_ORIGIN =
+  "https://elhicestats.cz";
+
+
+const PAGE_PATHS = {
+  home: "/",
+  players: "/hraci",
+  clubs: "/kluby",
+  statistics: "/statistiky",
+  table: "/tabulka",
+  transfers: "/prestupy",
+  schedule: "/rozpis"
+};
+
+
+const PAGE_SEO = {
+  home: {
+    title:
+      "ELH IceStats | ELH 2026/27",
+
+    description:
+      "Kompletní databáze hráčů, statistik, klubů, tabulky, rozpisu a přestupů Tipsport extraligy."
+  },
+
+  players: {
+    title:
+      "Hráči ELH 2026/27 | ELH IceStats",
+
+    description:
+      "Přehled hráčů Tipsport extraligy 2026/27, jejich profily, statistiky a kariéry."
+  },
+
+  clubs: {
+    title:
+      "Kluby ELH 2026/27 | ELH IceStats",
+
+    description:
+      "Profily klubů Tipsport extraligy, soupisky, statistiky hráčů a klubové informace."
+  },
+
+  statistics: {
+    title:
+      "Statistiky ELH 2026/27 | ELH IceStats",
+
+    description:
+      "Kompletní statistiky hráčů a brankářů Tipsport extraligy 2026/27."
+  },
+
+  table: {
+    title:
+      "Tabulka ELH 2026/27 | ELH IceStats",
+
+    description:
+      "Aktuální tabulka Tipsport extraligy 2026/27."
+  },
+
+  transfers: {
+    title:
+      "Přestupy ELH | ELH IceStats",
+
+    description:
+      "Přehled přestupů hráčů v Tipsport extralize."
+  },
+
+  schedule: {
+    title:
+      "Rozpis ELH 2026/27 | ELH IceStats",
+
+    description:
+      "Kompletní rozpis zápasů Tipsport extraligy 2026/27."
+  }
+};
+
+
+function slugify(value) {
+  return normalize(value)
+    .replace(
+      /[^a-z0-9]+/g,
+      "-"
+    )
+    .replace(
+      /^-+|-+$/g,
+      ""
+    );
+}
+
+
+function playerPath(player) {
+  return (
+    "/hraci/" +
+    slugify(
+      `${player.jmeno} ${player.prijmeni}`
+    )
+  );
+}
+
+
+function clubPath(value) {
+  const team =
+    getTeam(value);
+
+
+  if (!team) {
+    return "/kluby";
+  }
+
+
+  return (
+    "/kluby/" +
+    slugify(team.name)
+  );
+}
+
+
+function currentPath() {
+  const pathname =
+    window.location.pathname
+      .replace(
+        /\/+$/,
+        ""
+      );
+
+
+  return pathname || "/";
+}
+
+
+function setBrowserPath(
+  path,
+  {
+    replace = false
+  } = {}
+) {
+  const current =
+    window.location.pathname +
+    window.location.search;
+
+
+  if (
+    current === path
+  ) {
+    return;
+  }
+
+
+  if (replace) {
+    window.history.replaceState(
+      {
+        iceStats: true,
+        routeIndex:
+          state.routeIndex
+      },
+      "",
+      path
+    );
+
+    return;
+  }
+
+
+  state.routeIndex += 1;
+
+
+  window.history.pushState(
+    {
+      iceStats: true,
+      routeIndex:
+        state.routeIndex
+    },
+    "",
+    path
+  );
+}
+
+
+function setSeo({
+  title,
+  description,
+  path
+}) {
+  document.title =
+    title;
+
+
+  const descriptionMeta =
+    document.querySelector(
+      'meta[name="description"]'
+    );
+
+
+  if (descriptionMeta) {
+    descriptionMeta.setAttribute(
+      "content",
+      description
+    );
+  }
+
+
+  const canonical =
+    document.querySelector(
+      'link[rel="canonical"]'
+    );
+
+
+  if (canonical) {
+    canonical.setAttribute(
+      "href",
+      `${SITE_ORIGIN}${path}`
+    );
+  }
+
+
+  const ogTitle =
+    document.querySelector(
+      'meta[property="og:title"]'
+    );
+
+
+  if (ogTitle) {
+    ogTitle.setAttribute(
+      "content",
+      title
+    );
+  }
+
+
+  const ogDescription =
+    document.querySelector(
+      'meta[property="og:description"]'
+    );
+
+
+  if (ogDescription) {
+    ogDescription.setAttribute(
+      "content",
+      description
+    );
+  }
+
+
+  const ogUrl =
+    document.querySelector(
+      'meta[property="og:url"]'
+    );
+
+
+  if (ogUrl) {
+    ogUrl.setAttribute(
+      "content",
+      `${SITE_ORIGIN}${path}`
+    );
+  }
+}
+
+
+function applyPageSeo(page) {
+  const seo =
+    PAGE_SEO[page];
+
+
+  const path =
+    PAGE_PATHS[page];
+
+
+  if (
+    !seo ||
+    !path
+  ) {
+    return;
+  }
+
+
+  setSeo({
+    ...seo,
+    path
+  });
+}
+
+
+function findPlayerBySlug(
+  slug
+) {
+  return (
+    state.players.find(player =>
+      slugify(
+        `${player.jmeno} ${player.prijmeni}`
+      ) === slug
+    ) ||
+    null
+  );
+}
+
+
+function findTeamBySlug(
+  slug
+) {
+  return (
+    TEAMS.find(team =>
+      slugify(team.name) === slug ||
+      slugify(team.code) === slug
+    ) ||
+    null
+  );
 }
 
 
@@ -577,14 +888,57 @@ function navigate(
 
 
 function goBack() {
-  const previous =
-    state.history.pop() ||
+  const routeIndex =
+    Number(
+      window.history.state
+        ?.routeIndex ||
+      0
+    );
+
+
+  /*
+   * Pokud jsme se uvnitř IceStats
+   * už někam proklikli, použijeme
+   * skutečnou historii prohlížeče.
+   */
+  if (routeIndex > 0) {
+    window.history.back();
+    return;
+  }
+
+
+  /*
+   * Pokud někdo přišel přímo
+   * například z Googlu na profil,
+   * tlačítko Zpět ho nevyhodí
+   * z webu, ale vrátí na seznam.
+   */
+  let fallback =
     "home";
 
-  navigate(
-    previous,
+
+  if (
+    state.currentPage ===
+    "playerDetail"
+  ) {
+    fallback =
+      "players";
+  }
+
+
+  if (
+    state.currentPage ===
+    "clubDetail"
+  ) {
+    fallback =
+      "clubs";
+  }
+
+
+  handleNavigation(
+    fallback,
     {
-      push: false
+      replaceUrl: true
     }
   );
 }
@@ -623,12 +977,15 @@ function updateActiveNavigation() {
 
 
 async function handleNavigation(
-  target
+  target,
+  {
+    updateUrl = true,
+    replaceUrl = false
+  } = {}
 ) {
   switch (target) {
-    case "home":
-      state.history = [];
 
+    case "home":
       navigate(
         "home",
         {
@@ -640,7 +997,12 @@ async function handleNavigation(
 
 
     case "players":
-      navigate("players");
+      navigate(
+        "players",
+        {
+          push: false
+        }
+      );
 
       if (!state.players.length) {
         await loadPlayers();
@@ -652,7 +1014,12 @@ async function handleNavigation(
 
 
     case "clubs":
-      navigate("clubs");
+      navigate(
+        "clubs",
+        {
+          push: false
+        }
+      );
 
       if (!state.clubs.length) {
         await loadClubs();
@@ -661,21 +1028,33 @@ async function handleNavigation(
       renderClubs();
 
       break;
-      
-    case "statistics":
-      navigate("statistics");
 
-        await loadDetailData(
-    state.statsView.type
-  );
+
+    case "statistics":
+      navigate(
+        "statistics",
+        {
+          push: false
+        }
+      );
+
+      await loadDetailData(
+        state.statsView.type
+      );
 
       populateStatisticsFilters();
       renderStatistics();
 
       break;
-    
+
+
     case "table":
-      navigate("table");
+      navigate(
+        "table",
+        {
+          push: false
+        }
+      );
 
       if (!state.standings.length) {
         await loadStandings();
@@ -687,7 +1066,12 @@ async function handleNavigation(
 
 
     case "transfers":
-      navigate("transfers");
+      navigate(
+        "transfers",
+        {
+          push: false
+        }
+      );
 
       if (!state.transfers.length) {
         await loadTransfers();
@@ -699,7 +1083,12 @@ async function handleNavigation(
 
 
     case "schedule":
-      navigate("schedule");
+      navigate(
+        "schedule",
+        {
+          push: false
+        }
+      );
 
       if (!state.schedule.length) {
         await loadSchedule();
@@ -708,7 +1097,30 @@ async function handleNavigation(
       renderSchedule();
 
       break;
+
+
+    default:
+      return;
   }
+
+
+  if (
+    updateUrl &&
+    PAGE_PATHS[target]
+  ) {
+    setBrowserPath(
+      PAGE_PATHS[target],
+      {
+        replace:
+          replaceUrl
+      }
+    );
+  }
+
+
+  applyPageSeo(
+    target
+  );
 }
 
 
@@ -1500,7 +1912,13 @@ function findDetailRecord(
 }
 
 
-async function openPlayer(player) {
+async function openPlayer(
+  player,
+  {
+    updateUrl = true,
+    replaceUrl = false
+  } = {}
+) {
   if (!player) {
     return;
   }
@@ -1510,8 +1928,47 @@ async function openPlayer(player) {
     player;
 
 
+  const path =
+    playerPath(player);
+
+
+  if (updateUrl) {
+    setBrowserPath(
+      path,
+      {
+        replace:
+          replaceUrl
+      }
+    );
+  }
+
+
+  const fullName =
+    `${player.jmeno} ${player.prijmeni}`;
+
+
+  const teamName =
+    getTeamName(
+      player.tym
+    );
+
+
+  setSeo({
+    title:
+      `${fullName} – statistiky a kariéra | ELH IceStats`,
+
+    description:
+      `${fullName} – profil hráče, aktuální statistiky, kariéra a informace${teamName ? `, ${teamName}` : ""}.`,
+
+    path
+  });
+
+
   navigate(
-    "playerDetail"
+    "playerDetail",
+    {
+      push: false
+    }
   );
 
 
@@ -1550,7 +2007,8 @@ async function openPlayer(player) {
 
 async function openPlayerByName(
   firstName,
-  surname
+  surname,
+  options = {}
 ) {
   if (!state.players.length) {
     try {
@@ -1577,8 +2035,9 @@ async function openPlayerByName(
 
   if (basePlayer) {
     await openPlayer(
-      basePlayer
-    );
+  basePlayer,
+  options
+);
 
     return;
   }
@@ -1725,7 +2184,10 @@ async function openPlayerByName(
   };
 
 
-  await openPlayer(player);
+  await openPlayer(
+  player,
+  options
+);
 }
 
 
@@ -5333,12 +5795,22 @@ function topPlayerText(
 }
 
 
-async function openClub(value) {
+async function openClub(
+  value,
+  {
+    updateUrl = true,
+    replaceUrl = false
+  } = {}
+) {
   const code =
     getTeamCode(value);
 
 
-  if (!getTeam(code)) {
+  const team =
+    getTeam(code);
+
+
+  if (!team) {
     return;
   }
 
@@ -5347,8 +5819,37 @@ async function openClub(value) {
     code;
 
 
+  const path =
+    clubPath(code);
+
+
+  if (updateUrl) {
+    setBrowserPath(
+      path,
+      {
+        replace:
+          replaceUrl
+      }
+    );
+  }
+
+
+  setSeo({
+    title:
+      `${team.name} – soupiska a statistiky | ELH IceStats`,
+
+    description:
+      `${team.name} – profil klubu, soupiska, statistiky hráčů a výsledky v Tipsport extralize.`,
+
+    path
+  });
+
+
   navigate(
-    "clubDetail"
+    "clubDetail",
+    {
+      push: false
+    }
   );
 
 
@@ -9765,6 +10266,182 @@ document
     );
 }
 
+/* =========================================================
+   ROUTER – NAČTENÍ URL
+========================================================= */
+
+async function openRouteFromLocation() {
+  const path =
+    currentPath();
+
+
+  /*
+   * Podpora starých odkazů:
+   * ?klub=PCE
+   */
+  const parameters =
+    new URLSearchParams(
+      window.location.search
+    );
+
+
+  const legacyClub =
+    parameters.get(
+      "klub"
+    );
+
+
+  if (
+    legacyClub &&
+    getTeam(legacyClub)
+  ) {
+    const newPath =
+      clubPath(
+        legacyClub
+      );
+
+
+    setBrowserPath(
+      newPath,
+      {
+        replace: true
+      }
+    );
+
+
+    await openClub(
+      legacyClub,
+      {
+        updateUrl: false
+      }
+    );
+
+    return;
+  }
+
+
+  /*
+   * Statické stránky.
+   */
+  const staticRoute =
+    Object.entries(
+      PAGE_PATHS
+    )
+      .find(
+        ([, routePath]) =>
+          routePath === path
+      );
+
+
+  if (staticRoute) {
+    await handleNavigation(
+      staticRoute[0],
+      {
+        updateUrl: false
+      }
+    );
+
+    return;
+  }
+
+
+  /*
+   * Profil hráče.
+   */
+  const playerMatch =
+    path.match(
+      /^\/hraci\/([^/]+)$/
+    );
+
+
+  if (playerMatch) {
+    const player =
+      findPlayerBySlug(
+        playerMatch[1]
+      );
+
+
+    if (player) {
+      await openPlayer(
+        player,
+        {
+          updateUrl: false
+        }
+      );
+
+      return;
+    }
+
+
+    await handleNavigation(
+      "players",
+      {
+        updateUrl: false
+      }
+    );
+
+    return;
+  }
+
+
+  /*
+   * Profil klubu.
+   */
+  const clubMatch =
+    path.match(
+      /^\/kluby\/([^/]+)$/
+    );
+
+
+  if (clubMatch) {
+    const team =
+      findTeamBySlug(
+        clubMatch[1]
+      );
+
+
+    if (team) {
+      await openClub(
+        team.code,
+        {
+          updateUrl: false
+        }
+      );
+
+      return;
+    }
+
+
+    await handleNavigation(
+      "clubs",
+      {
+        updateUrl: false
+      }
+    );
+
+    return;
+  }
+
+
+  /*
+   * Neznámá URL.
+   */
+  setBrowserPath(
+    "/",
+    {
+      replace: true
+    }
+  );
+
+
+  await handleNavigation(
+    "home",
+    {
+      updateUrl: false
+    }
+  );
+}
+
 
 /* =========================================================
    START APLIKACE
@@ -9792,7 +10469,7 @@ async function init() {
     );
 
 
-  results.forEach(
+    results.forEach(
     result => {
       if (
         result.status ===
@@ -9807,30 +10484,40 @@ async function init() {
   );
 
 
-  const parameters =
-    new URLSearchParams(
-      window.location.search
-    );
+  window.history.replaceState(
+    {
+      iceStats: true,
+      routeIndex: 0
+    },
+    "",
+    window.location.pathname +
+    window.location.search
+  );
 
 
-  const club =
-    parameters.get(
-      "klub"
-    );
+  state.routeIndex =
+    0;
 
 
-  if (
-    club &&
-    getTeam(club)
-  ) {
-    state.history =
-      ["home"];
-
-    await openClub(
-      club
-    );
-  }
+  await openRouteFromLocation();
 }
+
+window.addEventListener(
+  "popstate",
+  async event => {
+
+    state.routeIndex =
+      Number(
+        event.state
+          ?.routeIndex ||
+        0
+      );
+
+
+    await openRouteFromLocation();
+
+  }
+);
 
 
 document.addEventListener(
