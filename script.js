@@ -6924,9 +6924,9 @@ function renderTransfers() {
 
                 const team =
                   getValue(
-                    ecord,
-                    "Tým"
-                  );  
+                    transfer,
+                    "KAM"
+                  );
 
 
                 return `
@@ -6956,14 +6956,16 @@ function renderTransfers() {
   href="${escapeHtml(
     playerPathByName(
       firstName,
-      surname
+      surname,
+      team
     )
   )}"
   class="prestup-hrac"
   data-player-first="${escapeHtml(firstName)}"
   data-player-last="${escapeHtml(surname)}"
+  data-player-team="${escapeHtml(team)}"
 >
-  ${escapeHtml(surname)}
+  ${escapeHtml(firstName)}
 </a>
                     </td>
 
