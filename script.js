@@ -6965,7 +6965,7 @@ function renderTransfers() {
   data-player-last="${escapeHtml(surname)}"
   data-player-team="${escapeHtml(team)}"
 >
-  ${escapeHtml(firstName)}
+  ${escapeHtml(surname)}
 </a>
                     </td>
 
