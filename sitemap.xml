@@ -1,8 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset
-  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Hlavní stránky -->
   <url>
     <loc>https://elhicestats.cz/</loc>
   </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/kluby</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/statistiky</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/tabulka</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/prestupy</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/rozpis</loc>
+  </url>
+
+
+  <!-- Kluby -->
+  <url>
+    <loc>https://elhicestats.cz/kluby/hc-dynamo-pardubice</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/kluby/hc-sparta-praha</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/kluby/hc-ocelari-trinec</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/kluby/hc-kometa-brno</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/kluby/hc-skoda-plzen</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/kluby/mountfield-hk</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/kluby/hc-vitkovice-ridera</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/kluby/hc-olomouc</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/kluby/bk-mlada-boleslav</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/kluby/hc-energie-karlovy-vary</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/kluby/banes-motor-ceske-budejovice</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/kluby/hc-verva-litvinov</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/kluby/bili-tygri-liberec</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/kluby/rytiri-kladno</loc>
+  </url>
+
 </urlset>
