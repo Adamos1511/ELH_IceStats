@@ -1,7 +1,11 @@
 ﻿from __future__ import annotations
 
 from io import StringIO
+from pathlib import Path
 from urllib.parse import urljoin
+
+import re
+import unicodedata
 
 import pandas as pd
 import requests
@@ -23,6 +27,43 @@ DETAIL_STATS_URL = f"{PLAYER_STATS_URL}/detailni"
 # Tipsport extraliga 2025/26 – základní část.
 COMPETITION_ID = 7397
 SEASON_START_YEAR = 2025
+SITE_ORIGIN = "https://elhicestats.cz"
+
+SITEMAP_PATH = (
+    Path(__file__)
+    .resolve()
+    .parents[2]
+    / "sitemap.xml"
+)
+
+
+SITEMAP_STATIC_PATHS = [
+    "/",
+    "/hraci",
+    "/kluby",
+    "/statistiky",
+    "/tabulka",
+    "/prestupy",
+    "/rozpis",
+]
+
+
+SITEMAP_CLUBS = [
+    "HC Dynamo Pardubice",
+    "HC Sparta Praha",
+    "HC Oceláři Třinec",
+    "HC Kometa Brno",
+    "HC Škoda Plzeň",
+    "Mountfield HK",
+    "HC Vítkovice Ridera",
+    "HC Olomouc",
+    "BK Mladá Boleslav",
+    "HC Energie Karlovy Vary",
+    "Banes Motor České Budějovice",
+    "HC Verva Litvínov",
+    "Bílí Tygři Liberec",
+    "Rytíři Kladno",
+]
 
 
 OUTPUT_COLUMNS = [
@@ -1117,6 +1158,186 @@ def combine_raw_sections(
         sort=False,
     )
 
+def sitemap_slug(value: object) -> str:
+    text = str(
+        value
+        if value is not None
+        else ""
+    )
+
+    text = (
+        unicodedata
+        .normalize(
+            "NFD",
+            text.lower().strip(),
+        )
+    )
+
+    text = "".join(
+        character
+        for character in text
+        if unicodedata.category(
+            character
+        ) != "Mn"
+    )
+
+    text = re.sub(
+        r"[^a-z0-9]+",
+        "-",
+        text,
+    )
+
+    return text.strip("-")
+
+
+def export_sitemap() -> dict[str, object]:
+    master = read_csv(
+        HRACI_ELH_CSV
+    )
+
+    required_columns = {
+        "JMÉNO",
+        "PŘÍJMENÍ",
+    }
+
+    missing_columns = (
+        required_columns
+        .difference(
+            master.columns
+        )
+    )
+
+    if missing_columns:
+        raise RuntimeError(
+            "Pro sitemap chybí v "
+            "hraciELH.csv sloupce: "
+            + ", ".join(
+                sorted(
+                    missing_columns
+                )
+            )
+        )
+
+
+    urls: list[str] = []
+
+
+    # -----------------------------
+    # HLAVNÍ STRÁNKY
+    # -----------------------------
+
+    for path in (
+        SITEMAP_STATIC_PATHS
+    ):
+        urls.append(
+            f"{SITE_ORIGIN}{path}"
+        )
+
+
+    # -----------------------------
+    # KLUBY
+    # -----------------------------
+
+    for club_name in (
+        SITEMAP_CLUBS
+    ):
+        slug = sitemap_slug(
+            club_name
+        )
+
+        urls.append(
+            f"{SITE_ORIGIN}"
+            f"/kluby/{slug}"
+        )
+
+
+    # -----------------------------
+    # HRÁČI + BRANKÁŘI
+    # -----------------------------
+
+    player_count = 0
+
+    for _, row in master.iterrows():
+        first_name = clean_value(
+            row.get(
+                "JMÉNO",
+                "",
+            )
+        )
+
+        last_name = clean_value(
+            row.get(
+                "PŘÍJMENÍ",
+                "",
+            )
+        )
+
+        if (
+            not first_name
+            and not last_name
+        ):
+            continue
+
+        slug = sitemap_slug(
+            f"{first_name} "
+            f"{last_name}"
+        )
+
+        if not slug:
+            continue
+
+        urls.append(
+            f"{SITE_ORIGIN}"
+            f"/hraci/{slug}"
+        )
+
+        player_count += 1
+
+
+    # Odstranění případných duplicit
+    # při zachování pořadí.
+    urls = list(
+        dict.fromkeys(
+            urls
+        )
+    )
+
+
+    lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+        "",
+    ]
+
+
+    for url in urls:
+        lines.extend([
+            "  <url>",
+            f"    <loc>{url}</loc>",
+            "  </url>",
+            "",
+        ])
+
+
+    lines.append(
+        "</urlset>"
+    )
+
+
+    SITEMAP_PATH.write_text(
+        "\n".join(lines),
+        encoding="utf-8",
+    )
+
+
+    return {
+        "path": SITEMAP_PATH,
+        "player_count":
+            player_count,
+        "url_count":
+            len(urls),
+    }
+
 
 def export_player_detail_preview() -> dict[str, object]:
     master_players = prepare_master_players()
@@ -1185,7 +1406,28 @@ def export_player_detail_preview() -> dict[str, object]:
         without_stats,
         without_stats_path,
     )
+    sitemap_result = (
+    export_sitemap()
+)
 
+print(
+    "Sitemap vytvořena:",
+    sitemap_result["path"],
+)
+
+print(
+    "Hráčských profilů v sitemap:",
+    sitemap_result[
+        "player_count"
+    ],
+)
+
+print(
+    "Celkem URL v sitemap:",
+    sitemap_result[
+        "url_count"
+    ],
+)
     return {
         "original_count": len(master_players),
         "hokej_count": len(basic_players),
