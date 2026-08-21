@@ -1,36 +1,36 @@
 ﻿Foto;Jméno;Příjmení;Smlouva;Tým;Věk;Držení hole;Národnost;Výška (cm);Váha (kg);Odchytané zápasy;Odchytané minuty;Výhry;průměr obdržených branek;% zákroků;Čistá konta;Zákroky;Střel proti;Průměr střel na zápas;Profil Hráče
-;Milan;Klouček;26/27;CBU;28;L;CZE;192;95;26;1502;14;52628;90.87;2;607;668;25.69;Dostává prostor hlavně v doplňkové roli a udržuje připravenost pro další starty.
-;Matyáš;Mařík;26/27+1;CBU;19;L;CZE;188;82;7;357;2;43525;86.43;0;121;140;20.0;V roli náhradníka čeká na větší prostor v brankovišti.
-;Jan;Strmeň;26/27+1;CBU;34;L;CZE;194;92;15;828;4;22313;90.91;1;360;396;46138;V brankářské rotaci plní důležitou roli a drží průměr 2,62 obdržených branek.
-;Matěj;Machovský;;OLO;;;;182;97;39;2289;18;46205;91.44;2;1100;1203;30.85;Brankářská jednička s vysokým vytížením. Jeho profil stojí hlavně na průměru 2,12 obdržených branek.
-;Dominik;Frodl;;KVA;;;;187;80;40;2336;23;46328;92.46;5;1005;1087;27.18;Backup brankář s menším vytížením, který kryje záda hlavní jedničce.
-;Jakub;Kovář;;SPA;;;;187;87;26;1491;13;47150;92.07;1;662;719;27.65;Brankář v rotaci s úspěšností zákroků 89,80% a použitelnými čísly.
-;Adam;Brízgala;;KLA;;;;191;89;42;2387;20;46328;92.61;4;1052;1136;46169;V brankovišti zatím naskakuje spíše výběrově.
-;Josef;Kořenář;;SPA;;;;194;91;24;1414;15;51898;90.73;1;558;615;25.62;Jasná brankářská jednička týmu. Drží průměr obdržených branek 2,63 na zápas.
-;Roman;Will;;PCE;;;;182;83;38;2259;25;36161;91.45;2;802;877;46257;Tým na něm staví velkou část své jistoty v brankovišti. Průměr obdržených branek drží na hodnotě 2,11.
-;Petr;Kváča;;LIB;;;;190;80;42;2555;24;46055;92.61;6;1077;1163;27.69;Brankář v rotaci s úspěšností zákroků 90,32% a použitelnými čísly.
-;Nick;Malík;;PLZ;;;;186;89;41;2403;25;23743;92.93;6;867;933;22.76;Jako hlavní brankář dostává velkou důvěru a potvrzuje ji stabilními čísly.
-;Stanislav;Škorvánek;;MHK;;;;187;81;44;2550;28;34700;92.43;9;1013;1096;24.91;V brankovišti zatím naskakuje spíše výběrově.
-;Aleš;Stezka;;KOM;;;;190;84;40;2377;20;23043;90.98;1;1049;1153;28.82;V roli náhradníka čeká na větší prostor v brankovišti.
-;Marek;Mazanec;;TRI;;;;193;85;39;2290;24;46114;92.54;3;967;1045;26.79;Backup brankář s menším vytížením, který kryje záda hlavní jedničce.
-;Ondřej;Kacetl;;TRI;;;;191;82;16;866;6;46145;89.7;0;383;427;26.69;V brankovišti zatím naskakuje spíše výběrově.
-;Dominik;Hrachovina;;VIT;;;;188;95;48;2811;22;23774;91.73;3;1376;1500;31.25;Tým na něm staví velkou část své jistoty v brankovišti. Průměr obdržených branek drží na hodnotě 2,50.
-;Malcolm;Subban;;PCE;;;;180;77;9;540;5;48611;90.45;1;199;220;24.44;Jasná opora brankoviště. Úspěšnost 93,39% z něj dělá rozdílového brankáře.
-;Jan;Růžička;;PLZ;;;;180;80;14;749;5;23408;90.35;2;309;342;24.43;Backup brankář s menším vytížením, který kryje záda hlavní jedničce.
-;Daniel;Král;;KVA;;;;188;88;15;821;7;23043;90.32;0;336;372;46258;Tým se o něj výrazně opírá a pravidelně mu dává hlavní prostor v brankovišti.
-;Gašper;Krošelj;;KOM;;;;193;90;4;199;1;48274;89.91;0;98;109;27.25;Jeho role je zatím spíš doplňková, ale zůstává důležitou součástí brankářské dvojice.
-;Lukáš;Klimeš;;VIT;;;;181;83;7;343;1;20180;85.64;1;155;181;25.86;Brankář v rotaci s úspěšností zákroků 89,59% a použitelnými čísly.
-;Pavel;Čajan;;LIT;;;;189;91;27;1608;7;46025;90.87;1;826;909;33.67;Jako hlavní brankář dostává velkou důvěru a potvrzuje ji stabilními čísly.
-;Dominik;Furch;;MBL;;;;188;98;39;2292;18;54455;90.57;4;912;1007;25.82;V roli dvojky působí stabilně a týmu dává solidní jistotu mezi třemi tyčemi.
-;Matej;Tomek;;LIT;;;;185;88;26;1474;7;46145;90.49;0;714;789;30.35;Tým se o něj výrazně opírá a pravidelně mu dává hlavní prostor v brankovišti.
-;Vojtěch;Mokry;;MBL;;;;189;81;13;691;3;42767;93.39;1;353;378;46263;Tým se o něj výrazně opírá a pravidelně mu dává hlavní prostor v brankovišti.
-;Martin;Michajlov;;SPA;;;;185;87;4;233;1;46175;92.0;0;92;100;25.0;Brankář v rotaci s úspěšností zákroků 90,35% a použitelnými čísly.
-;Tomáš;Vomáčka;;PCE;;;;186;86;6;345;3;22313;91.18;0;155;170;28.33;Dostává prostor hlavně v doplňkové roli a udržuje připravenost pro další starty.
-;Jakub;Soukup;;MHK;;;;185;91;2;121;2;35827;90.32;0;56;62;31.0;V roli náhradníka čeká na větší prostor v brankovišti.
-;Niclas;Westerholm;;CBU;;;;182;79;12;624;4;42795;89.94;0;295;328;27.33;V brankářské rotaci plní důležitou roli a drží průměr 3,01 obdržených branek.
-;Jan;Kavan;;KOM;;;;190;86;10;576;4;25965;89.8;0;229;255;46167;Tým se o něj výrazně opírá a pravidelně mu dává hlavní prostor v brankovišti.
-;Petr;Hamalčík;;LIB;;;;181;85;3;176;1;50802;89.71;1;61;68;22.67;Jako hlavní brankář dostává velkou důvěru a potvrzuje ji stabilními čísly.
-;Oldřich;Cichoň;;OLO;;;;189;81;15;831;4;48274;89.59;0;396;442;29.47;Backup brankář s menším vytížením, který kryje záda hlavní jedničce.
+;Milan;Klouček;26/27;CBU;28;L;CZE;192;95;26;1502;14;52628;90.87;2;607;668;25.69;
+;Matyáš;Mařík;26/27+1;CBU;19;L;CZE;188;82;7;357;2;43525;86.43;0;121;140;20.0;
+;Jan;Strmeň;26/27+1;CBU;34;L;CZE;194;92;15;828;4;22313;90.91;1;360;396;46138;
+;Matěj;Machovský;;OLO;;;;182;97;39;2289;18;46205;91.44;2;1100;1203;30.85;
+;Dominik;Frodl;;KVA;;;;187;80;40;2336;23;46328;92.46;5;1005;1087;27.18;
+;Jakub;Kovář;;SPA;;;;187;87;26;1491;13;47150;92.07;1;662;719;27.65;
+;Adam;Brízgala;;KLA;;;;191;89;42;2387;20;46328;92.61;4;1052;1136;46169;
+;Josef;Kořenář;;SPA;;;;194;91;24;1414;15;51898;90.73;1;558;615;25.62;
+;Roman;Will;;PCE;;;;182;83;38;2259;25;36161;91.45;2;802;877;46257;
+;Petr;Kváča;;LIB;;;;190;80;42;2555;24;46055;92.61;6;1077;1163;27.69;
+;Nick;Malík;;PLZ;;;;186;89;41;2403;25;23743;92.93;6;867;933;22.76;
+;Stanislav;Škorvánek;;MHK;;;;187;81;44;2550;28;34700;92.43;9;1013;1096;24.91;
+;Aleš;Stezka;;KOM;;;;190;84;40;2377;20;23043;90.98;1;1049;1153;28.82;
+;Marek;Mazanec;;TRI;;;;193;85;39;2290;24;46114;92.54;3;967;1045;26.79;
+;Ondřej;Kacetl;;TRI;;;;191;82;16;866;6;46145;89.7;0;383;427;26.69;
+;Dominik;Hrachovina;;VIT;;;;188;95;48;2811;22;23774;91.73;3;1376;1500;31.25;
+;Malcolm;Subban;;PCE;;;;180;77;9;540;5;48611;90.45;1;199;220;24.44;
+;Jan;Růžička;;PLZ;;;;180;80;14;749;5;23408;90.35;2;309;342;24.43;
+;Daniel;Král;;KVA;;;;188;88;15;821;7;23043;90.32;0;336;372;46258;
+;Gašper;Krošelj;;KOM;;;;193;90;4;199;1;48274;89.91;0;98;109;27.25;
+;Lukáš;Klimeš;;VIT;;;;181;83;7;343;1;20180;85.64;1;155;181;25.86;
+;Pavel;Čajan;;LIT;;;;189;91;27;1608;7;46025;90.87;1;826;909;33.67;
+;Dominik;Furch;;MBL;;;;188;98;39;2292;18;54455;90.57;4;912;1007;25.82;
+;Matej;Tomek;;LIT;;;;185;88;26;1474;7;46145;90.49;0;714;789;30.35;
+;Vojtěch;Mokry;;MBL;;;;189;81;13;691;3;42767;93.39;1;353;378;46263;
+;Martin;Michajlov;;SPA;;;;185;87;4;233;1;46175;92.0;0;92;100;25.0;
+;Tomáš;Vomáčka;;PCE;;;;186;86;6;345;3;22313;91.18;0;155;170;28.33;
+;Jakub;Soukup;;MHK;;;;185;91;2;121;2;35827;90.32;0;56;62;31.0;
+;Niclas;Westerholm;;CBU;;;;182;79;12;624;4;42795;89.94;0;295;328;27.33;
+;Jan;Kavan;;KOM;;;;190;86;10;576;4;25965;89.8;0;229;255;46167;
+;Petr;Hamalčík;;LIB;;;;181;85;3;176;1;50802;89.71;1;61;68;22.67;
+;Oldřich;Cichoň;;OLO;;;;189;81;15;831;4;48274;89.59;0;396;442;29.47;
 ;Oscar;Dansk;;KLA;;;;;;13;681;3;42795;89.57;0;309;345;26.54;
 ;Filip;Novotný;;MHK;;;;;;9;453;2;28522;88.83;0;167;188;20.89;
 ;Štěpán;Lukeš;;LIB;;;;;;9;504;3;31444;88.06;1;177;201;22.33;
