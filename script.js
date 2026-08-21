@@ -1134,6 +1134,137 @@ async function handleNavigation(
   );
 }
 
+async function openHomeShortcut(
+  shortcut,
+  {
+    updateUrl = true,
+    replaceUrl = false
+  } = {}
+) {
+
+  /*
+   * Přestupy
+   */
+  if (
+    shortcut ===
+    "transfers"
+  ) {
+    await handleNavigation(
+      "transfers",
+      {
+        updateUrl,
+        replaceUrl
+      }
+    );
+
+    return;
+  }
+
+
+  /*
+   * TOP statistiky
+   */
+  const sortMap = {
+    body: "Body",
+    goly: "Goly"
+  };
+
+
+  const sortKey =
+    sortMap[shortcut];
+
+
+  if (!sortKey) {
+    return;
+  }
+
+
+  /*
+   * TOP žebříček má vždy zobrazit
+   * všechny hráče ELH.
+   */
+  [
+    "statsSearch",
+    "statsTeam",
+    "statsPosition",
+    "statsNationality",
+    "statsAgeGroup"
+  ]
+    .forEach(id => {
+
+      const element =
+        document.getElementById(
+          id
+        );
+
+
+      if (element) {
+        element.value =
+          "";
+      }
+
+    });
+
+
+  const minGames =
+    document.getElementById(
+      "statsMinGames"
+    );
+
+
+  if (minGames) {
+    minGames.value =
+      "0";
+  }
+
+
+  /*
+   * Hráči + celkové statistiky.
+   */
+  state.statsView.type =
+    "skater";
+
+  state.statsView.mode =
+    "total";
+
+  state.statsView.sortKey =
+    sortKey;
+
+  state.statsView.sortDir =
+    "desc";
+
+  state.statsView.hiddenColumns =
+    [];
+
+
+  /*
+   * Otevření stránky Statistiky,
+   * ale URL nastavíme sami níže.
+   */
+  await handleNavigation(
+    "statistics",
+    {
+      updateUrl: false
+    }
+  );
+
+
+  if (updateUrl) {
+    setBrowserPath(
+      `/statistiky?radit=${shortcut}`,
+      {
+        replace:
+          replaceUrl
+      }
+    );
+  }
+
+
+  applyPageSeo(
+    "statistics"
+  );
+}
+
 
 /* =========================================================
    HRÁČI – NAČTENÍ
@@ -6487,13 +6618,15 @@ function transferTeamHtml(
 
 
   return `
-    <button
-      type="button"
+    <a
+      href="${escapeHtml(
+        clubPath(team.code)
+      )}"
       class="prestup-tym"
       data-team-code="${escapeHtml(team.code)}"
     >
       ${escapeHtml(team.name)}
-    </button>
+    </a>
   `;
 }
 
@@ -6665,26 +6798,36 @@ function renderTransfers() {
                   <tr>
 
                     <td>
-                      <button
-                        type="button"
-                        class="prestup-hrac"
-                        data-player-first="${escapeHtml(firstName)}"
-                        data-player-last="${escapeHtml(surname)}"
-                      >
-                        ${escapeHtml(firstName)}
-                      </button>
+                      <a
+  href="${escapeHtml(
+    playerPathByName(
+      firstName,
+      surname
+    )
+  )}"
+  class="prestup-hrac"
+  data-player-first="${escapeHtml(firstName)}"
+  data-player-last="${escapeHtml(surname)}"
+>
+  ${escapeHtml(firstName)}
+</a>
                     </td>
 
 
                     <td>
-                      <button
-                        type="button"
-                        class="prestup-hrac"
-                        data-player-first="${escapeHtml(firstName)}"
-                        data-player-last="${escapeHtml(surname)}"
-                      >
-                        ${escapeHtml(surname)}
-                      </button>
+                      <a
+  href="${escapeHtml(
+    playerPathByName(
+      firstName,
+      surname
+    )
+  )}"
+  class="prestup-hrac"
+  data-player-first="${escapeHtml(firstName)}"
+  data-player-last="${escapeHtml(surname)}"
+>
+  ${escapeHtml(surname)}
+</a>
                     </td>
 
 
@@ -7573,20 +7716,12 @@ function scheduleTeamHtml(
   }
 
 
-  /*
-   * Domácí:
-   * Název → logo
-   *
-   * Hosté:
-   * logo → název
-   *
-   * Díky tomu jsou obě strany
-   * orientované směrem ke středu zápasu.
-   */
   if (side === "home") {
     return `
-      <button
-        type="button"
+      <a
+        href="${escapeHtml(
+          clubPath(team.code)
+        )}"
         class="schedule-team home"
         data-team-code="${escapeHtml(team.code)}"
       >
@@ -7603,14 +7738,16 @@ function scheduleTeamHtml(
           data-hide-on-error
         >
 
-      </button>
+      </a>
     `;
   }
 
 
   return `
-    <button
-      type="button"
+    <a
+      href="${escapeHtml(
+        clubPath(team.code)
+      )}"
       class="schedule-team away"
       data-team-code="${escapeHtml(team.code)}"
     >
@@ -7627,7 +7764,7 @@ function scheduleTeamHtml(
         ${escapeHtml(team.name)}
       </span>
 
-    </button>
+    </a>
   `;
 }
 
@@ -9750,15 +9887,20 @@ function renderLiveRanking(
         return `
           <div class="live-row">
 
-            <button
-              type="button"
-              class="live-name live-player-link"
-              data-player-first="${escapeHtml(firstName)}"
-              data-player-last="${escapeHtml(surname)}"
-            >
-              ${escapeHtml(firstName)}
-              ${escapeHtml(surname)}
-            </button>
+            <a
+  href="${escapeHtml(
+    playerPathByName(
+      firstName,
+      surname
+    )
+  )}"
+  class="live-name live-player-link"
+  data-player-first="${escapeHtml(firstName)}"
+  data-player-last="${escapeHtml(surname)}"
+>
+  ${escapeHtml(firstName)}
+  ${escapeHtml(surname)}
+</a>
 
 
             <span class="live-value">
@@ -10047,6 +10189,22 @@ if (statsSortButton) {
 
         return;
       }
+      const homeShortcut =
+  event.target.closest(
+    "[data-home-shortcut]"
+  );
+
+
+if (homeShortcut) {
+  event.preventDefault();
+
+  await openHomeShortcut(
+    homeShortcut.dataset
+      .homeShortcut
+  );
+
+  return;
+}
     }
   );
 
@@ -10313,26 +10471,63 @@ async function openRouteFromLocation() {
     );
 
 
-  if (
-    legacyClub &&
-    getTeam(legacyClub)
-  ) {
-    const newPath =
-      clubPath(
-        legacyClub
-      );
-
-
-    setBrowserPath(
-      newPath,
-      {
-        replace: true
-      }
+if (
+  legacyClub &&
+  getTeam(legacyClub)
+) {
+  const newPath =
+    clubPath(
+      legacyClub
     );
 
 
-    await openClub(
-      legacyClub,
+  setBrowserPath(
+    newPath,
+    {
+      replace: true
+    }
+  );
+
+
+  await openClub(
+    legacyClub,
+    {
+      updateUrl: false
+    }
+  );
+
+  return;
+}
+
+
+/*
+ * Speciální odkazy Statistik.
+ *
+ * /statistiky?radit=body
+ * /statistiky?radit=goly
+ */
+if (
+  path ===
+  "/statistiky"
+) {
+  const statsShortcut =
+    normalize(
+      parameters.get(
+        "radit"
+      )
+    );
+
+
+  if (
+    [
+      "body",
+      "goly"
+    ].includes(
+      statsShortcut
+    )
+  ) {
+    await openHomeShortcut(
+      statsShortcut,
       {
         updateUrl: false
       }
@@ -10340,15 +10535,16 @@ async function openRouteFromLocation() {
 
     return;
   }
+}
 
 
-  /*
-   * Statické stránky.
-   */
-  const staticRoute =
-    Object.entries(
-      PAGE_PATHS
-    )
+/*
+ * Statické stránky.
+ */
+const staticRoute =
+  Object.entries(
+    PAGE_PATHS
+  )
       .find(
         ([, routePath]) =>
           routePath === path

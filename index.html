@@ -109,8 +109,19 @@
 
       <div class="left-stats">
 
-        <div class="side-panel" id="posledniPrestupy">
-          <h2>POSLEDNÍ PŘESTUPY</h2>
+        <div
+  class="side-panel side-panel-clickable"
+  id="posledniPrestupy"
+  data-home-shortcut="transfers"
+>
+  <h2>
+    <a
+      href="/prestupy"
+      class="side-panel-heading-link"
+    >
+      POSLEDNÍ PŘESTUPY
+    </a>
+  </h2>
 
           <div class="live-stats">
             Načítám...
@@ -134,68 +145,92 @@
 
       </div>
 
-      <div class="menu-panel">
-        <button
-          type="button"
-          class="menu-item active"
-          data-nav="players"
-        >
-          Hráči
-        </button>
+    <div class="menu-panel">
 
-        <button
-          type="button"
-          class="menu-item"
-          data-nav="clubs"
-        >
-          Kluby
-        </button>
-        
-        <button
-          type="button"
-          class="menu-item"
-          data-nav="statistics"
-        >
-          Statistiky
-        </button>
-        
-        <button
-          type="button"
-          class="menu-item"
-          data-nav="table"
-        >
-          Tabulka
-        </button>
+  <a
+    href="/hraci"
+    class="menu-item active"
+    data-nav="players"
+  >
+    Hráči
+  </a>
 
-        <button
-          type="button"
-          class="menu-item"
-          data-nav="transfers"
-        >
-          Přestupy
-        </button>
+  <a
+    href="/kluby"
+    class="menu-item"
+    data-nav="clubs"
+  >
+    Kluby
+  </a>
 
-        <button
-          type="button"
-          class="menu-item"
-          data-nav="schedule"
-        >
-          Rozpis
-        </button>
-      </div>
+  <a
+    href="/statistiky"
+    class="menu-item"
+    data-nav="statistics"
+  >
+    Statistiky
+  </a>
+
+  <a
+    href="/tabulka"
+    class="menu-item"
+    data-nav="table"
+  >
+    Tabulka
+  </a>
+
+  <a
+    href="/prestupy"
+    class="menu-item"
+    data-nav="transfers"
+  >
+    Přestupy
+  </a>
+
+  <a
+    href="/rozpis"
+    class="menu-item"
+    data-nav="schedule"
+  >
+    Rozpis
+  </a>
+
+</div>
 
       <div class="right-stats">
 
-        <div class="side-panel" id="topBody">
-          <h2>TOP BODY</h2>
+        <div
+  class="side-panel side-panel-clickable"
+  id="topBody"
+  data-home-shortcut="body"
+>
+  <h2>
+    <a
+      href="/statistiky?radit=body"
+      class="side-panel-heading-link"
+    >
+      TOP BODY
+    </a>
+  </h2>
 
           <div class="live-stats">
             Načítám...
           </div>
         </div>
 
-        <div class="side-panel" id="topGoly">
-          <h2>TOP STŘELCI</h2>
+        <div
+  class="side-panel side-panel-clickable"
+  id="topGoly"
+  data-home-shortcut="goly"
+>
+  <h2>
+    <a
+      href="/statistiky?radit=goly"
+      class="side-panel-heading-link"
+    >
+      TOP STŘELCI
+    </a>
+  </h2>
 
           <div class="live-stats">
             Načítám...
@@ -226,31 +261,33 @@
       <span>ELH IceStats</span>
     </button>
 
-    <div class="app-nav-links">
-      <button type="button" data-nav="players">
-        Hráči
-      </button>
+<div class="app-nav-links">
 
-      <button type="button" data-nav="clubs">
-        Kluby
-      </button>
+  <a href="/hraci" data-nav="players">
+    Hráči
+  </a>
 
-      <button type="button" data-nav="statistics">
-        Statistiky
-      </button>
-      
-      <button type="button" data-nav="table">
-        Tabulka
-      </button>
+  <a href="/kluby" data-nav="clubs">
+    Kluby
+  </a>
 
-      <button type="button" data-nav="transfers">
-        Přestupy
-      </button>
+  <a href="/statistiky" data-nav="statistics">
+    Statistiky
+  </a>
 
-      <button type="button" data-nav="schedule">
-        Rozpis
-      </button>
-    </div>
+  <a href="/tabulka" data-nav="table">
+    Tabulka
+  </a>
+
+  <a href="/prestupy" data-nav="transfers">
+    Přestupy
+  </a>
+
+  <a href="/rozpis" data-nav="schedule">
+    Rozpis
+  </a>
+
+</div>
   </nav>
 
 
