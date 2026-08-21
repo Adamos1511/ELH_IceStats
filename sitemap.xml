@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- Hlavní stránky -->
   <url>
     <loc>https://elhicestats.cz/</loc>
   </url>
@@ -30,8 +29,6 @@
     <loc>https://elhicestats.cz/rozpis</loc>
   </url>
 
-
-  <!-- Kluby -->
   <url>
     <loc>https://elhicestats.cz/kluby/hc-dynamo-pardubice</loc>
   </url>
@@ -86,6 +83,1562 @@
 
   <url>
     <loc>https://elhicestats.cz/kluby/rytiri-kladno</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/milan-kloucek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/matyas-marik</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jan-strmen</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/ondrej-kachyna</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/tomas-kundratek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/lucas-nordsater</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/pavel-pycha</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jan-stencel</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/ondrej-vala</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/roman-vrablik</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/filip-ahl</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/parker-bell</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/martin-beranek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/michal-bulir</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/samuel-drancak</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/tomas-chlubna</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/marek-hejduk</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/stepan-hoch</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/matyas-humenik</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/josef-kolacek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/renars-krastenbergs</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/robert-lantosi</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jakub-lev-cbu</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/pavel-novak</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/nick-olesen</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jan-ordos</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jakub-pour</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/matej-toman</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/marek-zachar</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/adam-brizgala</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/dominik-pavlat</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jeremie-blain</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/michal-houdek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/martin-jandus</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/michal-kempny</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/martin-matejicek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/griffin-mendel</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/phil-pietroniro</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/adam-rulik</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/tomas-tomek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/tomas-vandas</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/filip-westerlund</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/daniel-audette</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/adam-bares</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/ondrej-blaha</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/miroslav-forman</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/nicolas-hlava</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/kelly-klima</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jakub-konecny</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/adam-kubik-kla</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/oskar-lisler</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/marcel-marcel</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/niko-ojamaki</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/filip-prikryl</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/martin-prochazka</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/sebastian-redlich</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/martin-rysavy</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/samuel-vigneault</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jan-kavan</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/eugen-rabcan</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/ales-stezka</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/tadeas-beroun</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/brandon-davidson</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/michal-gulasi</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/filip-kral</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/radek-kucerik</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/dalimil-mikyska</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/richard-nedomlel</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/stanislav-svozil</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jan-scotka</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/luke-witkowski</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/libor-zabransky</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jakub-zubicek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jakub-brabenec</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/lukas-cingel</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/maxim-cajkovic</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jan-ekrt</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jakub-flek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/michal-hartl</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/danny-chludil</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/arttu-ilomaki</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/andrej-kollar</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/michal-kunc</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/silvester-kusko</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/robert-leino</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/david-moravec-kom</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/kristian-pospisil</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/tomas-selic</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jan-suss</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/maxim-vehovsky</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/adam-zboril</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/hynek-zohorna</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/tomas-zohorna</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/dominik-frodl</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/daniel-kral</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/daniel-brickley</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/elmeri-eronen</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/matteo-koci</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/pavel-kurka</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/roberts-mamcics</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/josef-mysak</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/tobias-winberg</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/ondrej-beranek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jan-bambula</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jiri-cernoch</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/haralds-egle</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/vit-jiskra</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/nick-jones</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/filip-koffer</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/adam-lukosik</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jakub-minarik</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/tomas-redlich</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/robin-sapousek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/david-stastny</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/petr-tomek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/matyas-vana</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/petr-kvaca</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/petr-hamalcik</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/layton-ahac</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/tomas-galvas</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/tomas-hanousek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/michal-ivan</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/lukas-kachlir</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/radim-simek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/denis-zeman</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/kristaps-zile</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/martin-fasko-rudas</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/tomas-filippi</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jakub-hujer</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/filip-jansa</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/radan-lenc</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/adam-musil</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/adam-najman</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jaromir-perez</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/servac-petrovsky</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/ondrej-prochazka</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jaromir-pytlik</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jakub-rychlovsky</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/filip-sandberg</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jaroslav-vlach</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/pavel-cajan</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/adam-kubik-lit</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/matej-tomek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/ondrej-balaz</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/vit-beran</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/kevin-czuczman</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/vojtech-husinecky</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/janis-jaks</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/michal-moravcik</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/adam-polasek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/daniel-prokes</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/petr-sousek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/filip-tittl</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jonas-bednarik</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/michal-gut</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/martin-havelka</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/josef-jicha</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/ondrej-jurcik</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/david-kampf</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/david-kase</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/ondrej-kase</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/petr-koblasa</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/matej-mastalirsky</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jan-peroutka</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/theodor-pistek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/matus-sukel</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jan-sprynar</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/tomas-urban</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/pawel-zygmunt</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/dominik-furch</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/vojtech-mokry</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/vojtech-budik</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/adam-martin-hlinsky</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/adam-janosik</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/karel-krepelka</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/simon-kubicek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/david-moravec-mbl</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/filip-pavlik</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/martin-skarberg</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/adam-vlasak</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/vojtech-vochvest</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/petr-zamorsky</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jan-buchtele</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/tomas-fort</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/matej-gardon</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/felikss-gavars</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/david-griger</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/vojtech-hradec</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/radek-koblizek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/patrik-kral</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/dominik-lakatos</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jakub-lichtag</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/vojtech-malinek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jordan-martel</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/imrich-maxin</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/antoine-morand</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/aleksi-rekonen</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/pavol-skalicky</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jan-zavora</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/stanislav-skorvanek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/tomas-vomacka</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/stepan-cerny</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/petr-kalina</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/anders-koch</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/graeme-mccormack</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/t-j-melancon</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/david-mudrak</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/martin-planek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/david-sykora</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/michael-vukojevic</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/villiam-cacho</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/ales-jergl</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/kevin-klima</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/martin-kohout</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/robert-kousal</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/patrik-miskar</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/markus-nenonen</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/dominik-pavlik</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/radovan-pavlik</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jordann-perret</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/radek-pilar</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/lukas-radil</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/alex-tamasi</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jan-vyvial</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/patrik-zdrahal</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/oldrich-cichon</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/matej-machovsky</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/trevor-cosgrove</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/tomas-cerny</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/ralfs-freibergs</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/petr-gewiese</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/michal-hradek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jiri-ondrusek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/rayen-petrovicky</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/dalibor-reznicek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/adam-rutar</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/evan-stella</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/lukas-andel</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/carl-berglund</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/daniel-hercik</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jakub-kos</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/rok-macuh</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/ondrej-matys</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/daniel-ministr</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jakub-navratil</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jakub-orsava</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/karel-plasek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/zach-senyshyn</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/matus-spodniak</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/martin-stohanzl</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/michal-tomecek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/david-vitouch</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/michal-vitouch</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/malcolm-subban</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/roman-will</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/peter-ceresnak</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/tomas-dvorak</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/daniel-gazda</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jan-kostalek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/john-ludvig</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/ondrej-miklis</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/miguel-tourigny</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/roman-cervenka</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/hunter-fejes</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/martin-kaut</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/milos-kelemen</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jachym-kondelik</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jakub-lauko</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jan-mandat</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/tomas-nosek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/patrik-poulicek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/lukas-sedlak</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jiri-smejkal</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/vladimir-sobotka</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/matej-stransky</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/david-tomasek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/tomas-vondracek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/nick-malik</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jan-ruzicka</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/ales-cech</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jakub-chromiak</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jakub-jerabek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/dylan-macpherson</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/daniel-malak</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/igor-merezhko</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/carter-robertson</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/kristians-rubins</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/matyas-filip</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jan-fodor</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/danny-katic</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/christophe-lalancette</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jakub-lev-plz</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/adam-mechura</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/mikko-artturi-petman</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/ville-emil-petman</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/ondrej-psenicka</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/ondrej-rohlik</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/ivo-sedlacek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jan-schleiss</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/dominik-simon</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/lukas-strnad</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/michal-teply</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/adam-titlbach</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/josef-korenar</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jakub-kovar</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/aaron-irving</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/ronald-knot</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jakub-krejcik</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/dominik-masin</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/david-nemecek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/mark-pysyk</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/mikael-sepala</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/niko-sepala</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jakub-sirota</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/nino-tomov</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/matej-blumel</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/marek-danicek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/martins-dzierkals</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/roman-horak</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/krystof-hrabik</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/ondrej-hrabik</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/tomas-hyka</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/filip-chlapik</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/pavel-kousal</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/ondrej-najman</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/filip-novak</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jiri-pospisil</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/adam-raska</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/michal-repik</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jiri-sekac</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/devin-shore</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/michael-spacek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/kristian-vesalainen</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/ondrej-kacetl</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/marek-mazanec</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/marian-adamek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/david-aubrecht</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jakub-galvas</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/patrik-koch</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/martin-marincin</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/david-musil</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/pavel-prusek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/filip-pyrochta</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/marko-dano</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/oscar-flynn</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/patrik-hrehorcak</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/petr-chlan</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/libor-hudacek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/michal-kovarcik</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/ondrej-kovarcik</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/matej-kubiesa</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/daniel-kurovsky</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/andrej-nestrasil</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/milos-roman</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/martin-ruzicka</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/daniel-vozenilek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/dominik-hrachovina</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/patrik-svancara</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/patrik-bruna</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/patrik-demel</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/alex-drabek</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/tomas-herman</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/rhett-holland</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/samuel-knazko</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/john-leahy</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/mateusz-majkowski</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/tomas-pavelka</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/vojtech-port</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/tomas-tomaskovic</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/josh-wesley</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jakub-zboril</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jindrich-abdul</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jan-bernovsky</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/david-cienciala</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/simon-fasner</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/sebastian-glas</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jan-hladonik</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/marek-hrivik</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/marek-kalus</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/filip-krivosik</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/krzysztof-macias</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/michael-nazad</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/anthony-nellis</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/dominik-petr</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/jan-sir</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/simon-stransky</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/michal-sebesta</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/chad-yetman</loc>
+  </url>
+
+  <url>
+    <loc>https://elhicestats.cz/hraci/matej-zidek</loc>
   </url>
 
 </urlset>
