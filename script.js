@@ -428,24 +428,126 @@ function slugify(value) {
     );
 }
 
+const DUPLICATE_PLAYER_SLUGS =
+  new Set([
+    "adam-kubik",
+    "david-moravec",
+    "jakub-lev"
+  ]);
 
-function playerPathByName(
+
+function playerBaseSlug(
   firstName,
   surname
 ) {
+  return slugify(
+    `${firstName} ${surname}`
+  );
+}
+
+
+function playerSlug(
+  player
+) {
+  const baseSlug =
+    playerBaseSlug(
+      player.jmeno,
+      player.prijmeni
+    );
+
+
+  if (
+    !DUPLICATE_PLAYER_SLUGS
+      .has(baseSlug)
+  ) {
+    return baseSlug;
+  }
+
+
+  const teamSlug =
+    slugify(
+      player.tym
+    );
+
+
+  return teamSlug
+    ? `${baseSlug}-${teamSlug}`
+    : baseSlug;
+}
+
+
+function playerPathByName(
+  firstName,
+  surname,
+  team = ""
+) {
+  const candidates =
+    state.players.filter(
+      player =>
+        normalize(
+          player.jmeno
+        ) ===
+          normalize(
+            firstName
+          ) &&
+
+        normalize(
+          player.prijmeni
+        ) ===
+          normalize(
+            surname
+          )
+    );
+
+
+  if (team) {
+    const wantedTeam =
+      getTeamCode(team);
+
+
+    const matched =
+      candidates.find(
+        player =>
+          getTeamCode(
+            player.tym
+          ) ===
+          wantedTeam
+      );
+
+
+    if (matched) {
+      return playerPath(
+        matched
+      );
+    }
+  }
+
+
+  if (
+    candidates.length
+  ) {
+    return playerPath(
+      candidates[0]
+    );
+  }
+
+
   return (
     "/hraci/" +
-    slugify(
-      `${firstName} ${surname}`
+    playerBaseSlug(
+      firstName,
+      surname
     )
   );
 }
 
 
-function playerPath(player) {
-  return playerPathByName(
-    player.jmeno,
-    player.prijmeni
+function playerPath(
+  player
+) {
+  return (
+    "/hraci/" +
+    playerSlug(player)
   );
 }
 
@@ -636,10 +738,11 @@ function findPlayerBySlug(
   slug
 ) {
   return (
-    state.players.find(player =>
-      slugify(
-        `${player.jmeno} ${player.prijmeni}`
-      ) === slug
+    state.players.find(
+      player =>
+        playerSlug(
+          player
+        ) === slug
     ) ||
     null
   );
@@ -2163,18 +2266,44 @@ async function openPlayerByName(
   }
 
 
-  const basePlayer =
-    state.players.find(player =>
+  const candidates =
+  state.players.filter(
+    player =>
       normalize(
         player.jmeno
       ) ===
-        normalize(firstName) &&
+        normalize(
+          firstName
+        ) &&
 
       normalize(
         player.prijmeni
       ) ===
-        normalize(surname)
-    );
+        normalize(
+          surname
+        )
+  );
+
+
+const wantedTeam =
+  getTeamCode(
+    options.team || ""
+  );
+
+
+const basePlayer =
+  (
+    wantedTeam
+      ? candidates.find(
+          player =>
+            getTeamCode(
+              player.tym
+            ) === wantedTeam
+        )
+      : null
+  ) ||
+  candidates[0] ||
+  null;
 
 
   if (basePlayer) {
@@ -6793,6 +6922,12 @@ function renderTransfers() {
                     "PŘÍJMENÍ"
                   );
 
+                const team =
+                  getValue(
+                    ecord,
+                    "Tým"
+                  );  
+
 
                 return `
                   <tr>
@@ -6801,13 +6936,15 @@ function renderTransfers() {
                       <a
   href="${escapeHtml(
     playerPathByName(
-      firstName,
-      surname
-    )
+  firstName,
+  surname,
+  team
+)
   )}"
   class="prestup-hrac"
   data-player-first="${escapeHtml(firstName)}"
   data-player-last="${escapeHtml(surname)}"
+  data-player-team="${escapeHtml(team)}"
 >
   ${escapeHtml(firstName)}
 </a>
@@ -9107,6 +9244,12 @@ function statisticsPlayerHtml(
       "Příjmení"
     );
 
+  const team =
+  getValue(
+    record,
+    "Tým"
+  );  
+
   const photo =
     getValue(
       record,
@@ -9882,7 +10025,12 @@ function renderLiveRanking(
             record,
             "Příjmení"
           );
-
+        
+        const team =
+  getValue(
+    record,
+    "Tým"
+  );
 
         return `
           <div class="live-row">
@@ -9890,13 +10038,15 @@ function renderLiveRanking(
             <a
   href="${escapeHtml(
     playerPathByName(
-      firstName,
-      surname
-    )
+  firstName,
+  surname,
+  team
+)
   )}"
   class="live-name live-player-link"
   data-player-first="${escapeHtml(firstName)}"
   data-player-last="${escapeHtml(surname)}"
+  data-player-team="${escapeHtml(team)}"
 >
   ${escapeHtml(firstName)}
   ${escapeHtml(surname)}
@@ -10076,9 +10226,15 @@ function bindEvents() {
         event.preventDefault();
 
         await openPlayerByName(
-          namedPlayer.dataset.playerFirst,
-          namedPlayer.dataset.playerLast
-        );
+  namedPlayer.dataset.playerFirst,
+  namedPlayer.dataset.playerLast,
+  {
+    team:
+      namedPlayer.dataset
+        .playerTeam ||
+      ""
+  }
+);
 
         return;
       }
