@@ -47,6 +47,11 @@ SITEMAP_STATIC_PATHS = [
     "/rozpis",
 ]
 
+SITEMAP_DUPLICATE_PLAYER_SLUGS = {
+    "adam-kubik",
+    "david-moravec",
+    "jakub-lev",
+}
 
 SITEMAP_CLUBS = [
     "HC Dynamo Pardubice",
@@ -1189,6 +1194,35 @@ def sitemap_slug(value: object) -> str:
 
     return text.strip("-")
 
+def sitemap_player_slug(
+    first_name: object,
+    last_name: object,
+    team: object,
+) -> str:
+    base_slug = sitemap_slug(
+        f"{clean_value(first_name)} "
+        f"{clean_value(last_name)}"
+    )
+
+    if (
+        base_slug
+        not in
+        SITEMAP_DUPLICATE_PLAYER_SLUGS
+    ):
+        return base_slug
+
+    team_slug = sitemap_slug(
+        team
+    )
+
+    if not team_slug:
+        return base_slug
+
+    return (
+        f"{base_slug}-"
+        f"{team_slug}"
+    )    
+
 
 def export_sitemap() -> dict[str, object]:
     master = read_csv(
@@ -1198,6 +1232,7 @@ def export_sitemap() -> dict[str, object]:
     required_columns = {
         "JMÉNO",
         "PŘÍJMENÍ",
+        "TÝM",
     }
 
     missing_columns = (
@@ -1218,29 +1253,22 @@ def export_sitemap() -> dict[str, object]:
             )
         )
 
-
     urls: list[str] = []
-
 
     # -----------------------------
     # HLAVNÍ STRÁNKY
     # -----------------------------
 
-    for path in (
-        SITEMAP_STATIC_PATHS
-    ):
+    for path in SITEMAP_STATIC_PATHS:
         urls.append(
             f"{SITE_ORIGIN}{path}"
         )
-
 
     # -----------------------------
     # KLUBY
     # -----------------------------
 
-    for club_name in (
-        SITEMAP_CLUBS
-    ):
+    for club_name in SITEMAP_CLUBS:
         slug = sitemap_slug(
             club_name
         )
@@ -1249,7 +1277,6 @@ def export_sitemap() -> dict[str, object]:
             f"{SITE_ORIGIN}"
             f"/kluby/{slug}"
         )
-
 
     # -----------------------------
     # HRÁČI + BRANKÁŘI
@@ -1272,15 +1299,23 @@ def export_sitemap() -> dict[str, object]:
             )
         )
 
+        team = clean_value(
+            row.get(
+                "TÝM",
+                "",
+            )
+        )
+
         if (
             not first_name
             and not last_name
         ):
             continue
 
-        slug = sitemap_slug(
-            f"{first_name} "
-            f"{last_name}"
+        slug = sitemap_player_slug(
+            first_name,
+            last_name,
+            team,
         )
 
         if not slug:
@@ -1293,22 +1328,19 @@ def export_sitemap() -> dict[str, object]:
 
         player_count += 1
 
-
-    # Odstranění případných duplicit
-    # při zachování pořadí.
+    # Pojistka proti případným
+    # přesně stejným URL.
     urls = list(
         dict.fromkeys(
             urls
         )
     )
 
-
     lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
         "",
     ]
-
 
     for url in urls:
         lines.extend([
@@ -1318,24 +1350,19 @@ def export_sitemap() -> dict[str, object]:
             "",
         ])
 
-
     lines.append(
         "</urlset>"
     )
-
 
     SITEMAP_PATH.write_text(
         "\n".join(lines),
         encoding="utf-8",
     )
 
-
     return {
         "path": SITEMAP_PATH,
-        "player_count":
-            player_count,
-        "url_count":
-            len(urls),
+        "player_count": player_count,
+        "url_count": len(urls),
     }
 
 
@@ -1356,8 +1383,13 @@ def export_player_detail_preview() -> dict[str, object]:
         stat_sections,
     )
 
-    updated = calculate_player_metrics(updated)
-    updated = updated[OUTPUT_COLUMNS].copy()
+    updated = calculate_player_metrics(
+        updated
+    )
+
+    updated = updated[
+        OUTPUT_COLUMNS
+    ].copy()
 
     output_path = (
         OUTPUT_DIR
@@ -1380,7 +1412,9 @@ def export_player_detail_preview() -> dict[str, object]:
     )
 
     without_stats = matching_report[
-        matching_report["Stav"].ne("Spárován")
+        matching_report["Stav"].ne(
+            "Spárován"
+        )
     ].copy()
 
     raw_sections = combine_raw_sections(
@@ -1406,40 +1440,63 @@ def export_player_detail_preview() -> dict[str, object]:
         without_stats,
         without_stats_path,
     )
-    sitemap_result = (
-    export_sitemap()
-)
 
-print(
-    "Sitemap vytvořena:",
-    sitemap_result["path"],
-)
+    sitemap_result = export_sitemap()
 
-print(
-    "Hráčských profilů v sitemap:",
-    sitemap_result[
-        "player_count"
-    ],
-)
+    print(
+        "Sitemap vytvořena:",
+        sitemap_result["path"],
+    )
 
-print(
-    "Celkem URL v sitemap:",
-    sitemap_result[
-        "url_count"
-    ],
-)
+    print(
+        "Hráčských profilů v sitemap:",
+        sitemap_result[
+            "player_count"
+        ],
+    )
+
+    print(
+        "Celkem URL v sitemap:",
+        sitemap_result[
+            "url_count"
+        ],
+    )
+
     return {
-        "original_count": len(master_players),
-        "hokej_count": len(basic_players),
-        "matched_count": matched_count,
-        "alias_matched_count": alias_matched_count,
-        "without_stats_count": without_stats_count,
-        "unmatched_count": without_stats_count,
-        "final_count": len(updated),
-        "output_path": output_path,
-        "raw_path": raw_path,
-        "matching_report_path": report_path,
-        "without_stats_path": without_stats_path,
+        "original_count":
+            len(master_players),
+
+        "hokej_count":
+            len(basic_players),
+
+        "matched_count":
+            matched_count,
+
+        "alias_matched_count":
+            alias_matched_count,
+
+        "without_stats_count":
+            without_stats_count,
+
+        "unmatched_count":
+            without_stats_count,
+
+        "final_count":
+            len(updated),
+
+        "output_path":
+            output_path,
+
+        "raw_path":
+            raw_path,
+
+        "matching_report_path":
+            report_path,
+
+        "without_stats_path":
+            without_stats_path,
+
         # Kompatibilita se starším update.py.
-        "unmatched_path": without_stats_path,
+        "unmatched_path":
+            without_stats_path,
     }
