@@ -969,6 +969,18 @@ img {
   text-transform: uppercase;
 }
 
+.side-panel-heading-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+.side-panel-heading-link:visited,
+.side-panel-heading-link:hover,
+.side-panel-heading-link:active {
+  color: inherit;
+  text-decoration: none;
+}
 
 .live-row {
   display: flex;
