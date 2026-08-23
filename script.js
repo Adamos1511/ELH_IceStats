@@ -2723,17 +2723,26 @@ function formatStatValue(
   const text =
     cleanCell(value);
 
+  const displayText =
+    /^[-+]?\d+,\d+\s*%?$/
+      .test(text)
+      ? text.replace(
+          ",",
+          "."
+        )
+      : text;
+
 
   if (
     key.includes("%") &&
-    text &&
-    !text.includes("%")
+    displayText &&
+    !displayText.includes("%")
   ) {
-    return `${text} %`;
+    return `${displayText} %`;
   }
 
 
-  return text;
+  return displayText;
 }
 
 
