@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://elhicestats.vercel.app/sitemap.xml
+Sitemap: https://elhicestats.cz/sitemap.xml
