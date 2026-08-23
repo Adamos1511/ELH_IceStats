@@ -5380,9 +5380,253 @@ async function renderPlayerCareer({
 }
 
 
+
+
 /* =========================================================
    DETAIL HRÁČE – VYKRESLENÍ
 ========================================================= */
+function playerSeasonSnapshotHtml(
+  detail,
+  type
+) {
+  if (!detail) {
+    return "";
+  }
+
+  const value = key => {
+    const raw =
+      getValue(
+        detail,
+        key
+      );
+
+    if (!raw) {
+      return "-";
+    }
+
+    return formatStatValue(
+      key,
+      raw
+    );
+  };
+
+
+  const primary =
+    type === "goalie"
+      ? [
+          {
+            label: "Zápasy",
+            value:
+              value(
+                "Odchytané zápasy"
+              )
+          },
+          {
+            label: "Výhry",
+            value:
+              value(
+                "Výhry"
+              )
+          },
+          {
+            label: "Úspěšnost",
+            value:
+              value(
+                "% zákroků"
+              )
+          },
+          {
+            label: "GAA",
+            value:
+              value(
+                "průměr obdržených branek"
+              )
+          },
+          {
+            label: "Čistá konta",
+            value:
+              value(
+                "Čistá konta"
+              )
+          }
+        ]
+      : [
+          {
+            label: "Zápasy",
+            value:
+              value(
+                "Odehrané zápasy"
+              )
+          },
+          {
+            label: "Góly",
+            value:
+              value(
+                "Goly"
+              )
+          },
+          {
+            label: "Asistence",
+            value:
+              value(
+                "Asistence"
+              )
+          },
+          {
+            label: "Body",
+            value:
+              value(
+                "Body"
+              )
+          }
+        ];
+
+
+  const secondary =
+    type === "goalie"
+      ? [
+          {
+            label: "Minuty",
+            value:
+              value(
+                "Odchytané minuty"
+              )
+          },
+          {
+            label: "Zákroky",
+            value:
+              value(
+                "Zákroky"
+              )
+          },
+          {
+            label: "Střely proti",
+            value:
+              value(
+                "Střel proti"
+              )
+          },
+          {
+            label: "Střely / zápas",
+            value:
+              value(
+                "Průměr střel na zápas"
+              )
+          }
+        ]
+      : [
+          {
+            label: "Body / zápas",
+            value:
+              value(
+                "Body na zápas"
+              )
+          },
+          {
+            label: "PPP",
+            value:
+              value(
+                "Body z přesilovek"
+              )
+          },
+          {
+            label: "TOI",
+            value:
+              value(
+                "Ø Času na ledě"
+              )
+          },
+          {
+            label: "+/-",
+            value:
+              value(
+                "+/-"
+              )
+          },
+          {
+            label: "Střelba",
+            value:
+              value(
+                "Úspěšnost střelby %"
+              )
+          }
+        ];
+
+
+  return `
+    <section class="player-snapshot">
+
+      <header class="player-snapshot-header">
+
+        <div>
+          <span>
+            Aktuální sezona
+          </span>
+
+          <h2>
+            Season Snapshot
+          </h2>
+        </div>
+
+        <small>
+          Tipsport ELH
+        </small>
+
+      </header>
+
+
+      <div class="player-snapshot-main">
+
+        ${primary
+          .map(item => `
+            <article
+              class="player-snapshot-main-card"
+            >
+              <span>
+                ${escapeHtml(
+                  item.label
+                )}
+              </span>
+
+              <strong>
+                ${escapeHtml(
+                  item.value
+                )}
+              </strong>
+            </article>
+          `)
+          .join("")}
+
+      </div>
+
+
+      <div class="player-snapshot-secondary">
+
+        ${secondary
+          .map(item => `
+            <article
+              class="player-snapshot-secondary-card"
+            >
+              <span>
+                ${escapeHtml(
+                  item.label
+                )}
+              </span>
+
+              <strong>
+                ${escapeHtml(
+                  item.value
+                )}
+              </strong>
+            </article>
+          `)
+          .join("")}
+
+      </div>
+
+    </section>
+  `;
+}
 
 async function renderPlayerDetail(
   player
@@ -5531,6 +5775,12 @@ async function renderPlayerDetail(
       detail,
       "Profil Hráče"
     );
+  
+  const seasonSnapshotHtml =
+  playerSeasonSnapshotHtml(
+    detail,
+    type
+  );  
 
 
   const hidden =
@@ -5843,7 +6093,8 @@ async function renderPlayerDetail(
 
       </section>
 
-
+      ${seasonSnapshotHtml}            
+      
       ${
         profileText
           ? `
