@@ -1,359 +1,359 @@
 ﻿Foto;Jméno;Příjmení;Smlouva;Pozice;Tým;Věk;Držení hole;Národnost;Výška (cm);Váha (kg);Odehrané zápasy;Goly;Asistence;Body;Body z přesilovek;Ø Času na ledě;+/-;Trestné minuty;Hity;Bloky;Úspěšnost vhazování %;Úspěšnost střelby %;Body na zápas;Hity na zápas;Bloky na zápas;Pořadí podle bodu v tymu;Poradi prumerneho casu na lede;Podíl na ofenzivě týmu;Profil Hráče
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kachyna.png;Ondřej;Kachyňa;27/28;O;CBU;28;L;CZE;193;100;40;4;4;8;0;11:46;5;30;16;32;0;9,3;0,2;0,4;0,8;14;16;2,56;Motor ČB
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kundratek.png;Tomáš;Kundrátek;27/28;O;CBU;36;P;CZE;187;91;46;0;8;8;3;16:59;-18;12;17;51;0;0;0,17;0,37;1,11;14;7;2,56;Motor ČB
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Nordsäter.png;Lucas;Nordsäter;26/27;O;CBU;27;L;SWE;185;83;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;21;0;Motor ČB
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Pycha.png;Pavel;Pýcha;26/27;O;CBU;30;L;CZE;185;81;47;3;10;13;6;16:52;-5;24;5;54;0;6,38;0,28;0,11;1,15;10;8;4,15;Motor ČB
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Stencel.png;Jan;Štencel;27/28;O;CBU;31;L;CZE;175;84;51;8;19;27;3;17:08;11;18;9;72;0;15,69;0,53;0,18;1,41;3;6;8,63;Motor ČB
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Vala.png;Ondřej;Vála;27/28;O;CBU;28;L;CZE;194;100;52;4;7;11;0;19:57;-1;28;18;74;0;4,44;0,21;0,35;1,42;12;1;3,51;Motor ČB
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Vrablik.png;Roman;Vráblík;27/28;O;CBU;36;L;CZE;188;87;50;4;10;14;0;15:43;1;20;19;63;0;5;0,28;0,38;1,26;9;11;4,47;Motor ČB
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Ahl.png;Filip;Ahl;26/27+1;LW/RW;CBU;29;L;SWE;193;97;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;21;0;Motor ČB
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Bell.png;Parker;Bell;26/27;C/LW;CBU;22;L;CAN;195;95;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;21;0;Motor ČB
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Beranek.png;Martin;Beránek;27/28;RW/LW;CBU;25;L;CZE;185;85;51;7;10;17;0;16:08;-6;73;22;57;50;8,54;0,33;0,43;1,12;7;10;5,43;Motor ČB
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Bulir.png;Michal;Bulíř;27/28;C;CBU;35;L;CZE;187;82;31;8;11;19;6;18:01;5;8;4;16;44,49;11,27;0,61;0,13;0,52;6;4;6,07;Motor ČB
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Drancak.png;Samuel;Drančák;27/28+1;C;CBU;20;L;CZE;180;81;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;21;0;Motor ČB
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Chlubna.png;Tomáš;Chlubna;26/27+1;RW;CBU;24;P;CZE;190;88;31;2;0;2;0;6:17;-1;4;4;4;0;22,22;0,06;0,13;0,13;19;19;0,64;Motor ČB
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Hejduk.png;Marek;Hejduk;26/27;RW;CBU;22;P;USA;185;86;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;21;0;Motor ČB
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Hoch.png;Štěpán;Hoch;27/28;LW;CBU;19;L;CZE;193;87;37;2;4;6;1;13:47;-5;12;22;30;45,32;6,9;0,16;0,59;0,81;18;14;1,92;Motor ČB
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Humenik.png;Matyáš;Humeník;26/27+1;RW;CBU;19;P;CZE;183;82;15;0;0;0;0;3:42;0;0;2;1;0;0;0;0,13;0,07;20;20;0;Motor ČB
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kolacek.png;Josef;Koláček;27/28;RW;CBU;23;L;CZE;183;85;27;5;6;11;3;14:06;5;2;4;7;41,18;8,47;0,41;0,15;0,26;12;13;3,51;Motor ČB
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Krastenbergs.png;Renars;Krastenbergs;26/27;C/LW;CBU;27;L;LAT;183;84;50;10;13;23;9;17:11;-16;16;6;38;38,1;8;0,46;0,12;0,76;4;5;7,35;Motor ČB
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Lantosi.png;Róbert;Lantoši;27/28;RW/C;CBU;30;P;SVK;180;84;52;17;26;43;16;18:52;-4;36;8;26;42,62;11,26;0,83;0,15;0,5;2;3;13,74;Motor ČB
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Lev.png;Jakub;Lev;27/28+1;F;CBU;19;P;CZE;174;74;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;21;0;Motor ČB
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Novak.png;Pavel;Novák;26/27;RW;CBU;24;P;CZE;174;75;51;4;4;8;2;10:55;-5;18;7;19;47,97;6,06;0,16;0,14;0,37;14;17;2,56;Motor ČB
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Olesen.png;Nick;Olesen;27/28;LW/RW;CBU;30;L;DEN;185;84;51;14;31;45;16;19:37;-10;32;10;11;54,88;9,79;0,88;0,2;0,22;1;2;14,38;Motor ČB
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Ordos.png;Jan;Ordoš;27/28;RW/LW;CBU;29;P;CZE;182;89;49;13;10;23;3;16:42;-1;16;7;21;33,33;15,12;0,47;0,14;0,43;4;9;7,35;Motor ČB
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Pour.png;Jakub;Pour;27/28;RW;CBU;27;L;CZE;191;90;47;10;6;16;1;13:12;-1;27;13;10;50;12,66;0,34;0,28;0,21;8;15;5,11;Motor ČB
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Toman.png;Matěj;Toman;27/28;C;CBU;25;L;CZE;180;82;51;3;9;12;0;15:12;-2;45;24;37;49,74;5,08;0,24;0,47;0,73;11;12;3,83;Motor ČB
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Zachar.png;Marek;Zachar;27/28+1;C;CBU;28;L;CZE;175;85;40;2;5;7;0;10:30;2;0;4;14;0;4,55;0,17;0,1;0,35;17;18;2,24;Motor ČB
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Blain.png;Jéremie;Blain;26/27;O;KLA;34;P;CAN;191;88;22;2;6;8;5;17:22;0;20;1;34;0;5,26;0,36;0,05;1,55;16;8;2,48;Rytíři Kladno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Houdek.png;Michal;Houdek;26/27;O;KLA;26;L;CZE;193;95;41;1;2;3;0;13:08;-7;31;30;44;0;2,63;0,07;0,73;1,07;21;16;0,93;Rytíři Kladno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Jandus.png;Martin;Jandus;26/27;O;KLA;28;P;CZE;181;79;50;1;5;6;2;21:46;-6;38;9;95;0;1,25;0,12;0,18;1,9;19;1;1,86;Rytíři Kladno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kempny.png;Michal;Kempný;26/27;O;KLA;35;L;CZE;183;89;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;23;26;0;Idnes.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Matejicek.png;Martin;Matějíček;26/27+1;O;KLA;21;L;CZE;188;93;3;0;0;0;0;5:52;-3;0;0;0;0;0;0;0;0;23;25;0;Rytíři Kladno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Mendel.png;Griffin;Mendel;26/27;O;KLA;27;L;CAN;197;100;50;4;12;16;0;20:52;2;8;11;70;0;5,19;0,32;0,22;1,4;10;2;4,95;Rytíři Kladno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Pietroniro.png;Phil;Pietroniro;26/27;O;KLA;32;P;ITA;176;80;48;5;13;18;9;20:32;0;26;21;79;0;3,47;0,38;0,44;1,65;6;3;5,57;Rytíři Kladno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Rulik.png;Adam;Rulík;26/27;O;KLA;29;L;CZE;185;81;9;0;0;0;0;13:00;4;6;1;10;0;0;0;0,11;1,11;23;17;0;Idnes.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Tomek.png;Tomáš;Tomek;26/27+1;O;KLA;23;L;CZE;178;78;41;2;9;11;0;14:10;10;16;16;26;0;3,64;0,27;0,39;0,63;12;14;3,41;Rytíři Kladno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Vandas.png;Tomáš;Vandas;26/27+1;O;KLA;20;P;CZE;190;87;23;0;4;4;0;10:08;-4;10;2;13;0;0;0,17;0,09;0,57;20;22;1,24;Isport.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Westerlund.png;Filip;Westerlund;26/27;O;KLA;27;P;SWE;182;84;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;23;26;0;Eliteprospects.com
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Audette.png;Daniel;Audette;26/27;C/LW;KLA;30;L;CAN;175;75;52;12;24;36;15;19:17;-4;40;8;23;38,27;9,92;0,69;0,15;0,44;1;5;11,15;Idnes.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Bares.png;Adam;Bareš;26/27;F;KLA;22;P;CZE;178;76;42;6;1;7;5;11:07;-6;2;7;15;50;10;0,17;0,17;0,36;18;19;2,17;Rytíři Kladno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Blaha.png;Ondřej;Bláha;26/27;LW;KLA;26;L;CZE;187;86;31;1;1;2;0;7:59;-4;8;3;13;34,68;4,17;0,06;0,1;0,42;22;24;0,62;Rytíři Kladno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Forman.png;Miroslav;Forman;26/27;RW;KLA;36;L;CZE;185;91;46;4;14;18;2;14:50;-2;20;11;6;50;6,25;0,39;0,24;0,13;6;13;5,57;Idnes.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Hlava .png;Nicolas;Hlava;27/28;LW/RW;KLA;32;P;CZE;182;85;50;10;7;17;1;16:46;-11;34;38;22;100;8,2;0,34;0,76;0,44;9;9;5,26;Rytíři Kladno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Klima Kel..png;Kelly;Klíma;27/28;RW;KLA;29;P;CZE;176;74;50;14;16;30;5;17:54;-3;34;10;14;14,29;10,07;0,6;0,2;0,28;2;7;9,29;Idnes.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Konecny.png;Jakub;Konečný;27/28;C;KLA;24;L;CZE;179;77;48;6;4;10;1;13:58;-2;2;11;18;44,31;10;0,21;0,23;0,38;13;15;3,1;Rytíři Kladno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kubik.png;Adam;Kubík;28/29;LW;KLA;27;L;CZE;184;88;41;7;11;18;3;15:35;-8;8;3;12;48,89;10;0,44;0,07;0,29;6;11;5,57;Sport.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Lisler.png;Oskar;Lisler;26/27;LW/RW;KLA;20;P;CZE;186;89;33;3;7;10;3;10:09;-1;4;10;15;47,22;7,89;0,3;0,3;0,45;13;21;3,1;Rytíři Kladno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Marcel.png;Marcel;Marcel;27/28+1;LW/RW;KLA;22;L;CZE;193;110;17;2;6;8;1;14:54;7;39;12;10;59,52;7,41;0,47;0,71;0,59;16;12;2,48;Isport.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Marcel.png;Niko;Ojamaki;26/27;RW;KLA;31;P;FIN;181;84;50;13;16;29;12;19:35;2;6;6;31;20;11,11;0,58;0,12;0,62;3;4;8,98;Rytíři Kladno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Prikryl.png;Filip;Přikryl;27/28;C/LW;KLA;25;L;CZE;186;81;52;10;16;26;2;15:37;1;26;2;21;47,08;10,64;0,5;0,04;0,4;4;10;8,05;Rytíři Kladno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Prochazka M..png;Martin;Procházka;26/27;RW/LW;KLA;32;P;CZE;191;101;47;4;8;12;0;11:27;1;14;13;35;83,33;8;0,26;0,28;0,74;11;18;3,72;kladensky.denik.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Redlich S..png;Sebastián;Redlich;26/27+1;F;KLA;22;L;CZE;186;82;1;0;0;0;0;8:26;0;0;0;0;0;0;0;0;0;23;23;0;Rytíři Kladno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Rysavy.png;Martin;Ryšavý;26/27;LW;KLA;23;L;CZE;190;98;45;6;4;10;0;10:28;-13;41;24;26;20;13,95;0,22;0,53;0,58;13;20;3,1;Rytíři Kladno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Vigneault.png;Samuel;Vigneault;26/27;C;KLA;30;L;CAN;196;92;50;12;12;24;6;18:09;-5;28;9;27;46,76;20,69;0,48;0,18;0,54;5;6;7,43;Rytíři Kladno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Beroun.png;Tadeáš;Beroun;J;O;KOM;18;P;CZE;178;82;5;0;1;1;0;5:48;-1;2;0;4;0;0;0,2;0;0,8;18;21;0,3;Kometa Brno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Davidson.png;Brandon;Davidson;26/27;O;KOM;35;L;CAN;188;95;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;21;24;0;Livesport.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Gulasi.png;Michal;Gulaši;26/27;O;KOM;40;L;CZE;182;93;52;1;4;5;0;15:39;5;45;53;100;0;3,45;0,1;1,02;1,92;14;11;1,48;Kometa Brno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kral.png;Filip;Král;27/28;O;KOM;26;L;CZE;185;89;37;2;13;15;5;18:45;0;12;4;43;0;3,08;0,41;0,11;1,16;10;5;4,45;Kometa Brno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kucerik.png;Radek;Kučeřík;26/27;O;KOM;24;L;CZE;184;97;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;21;24;0;Brnensky.denik.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Mikyska.png;Dalimil;Mikyska;26/27;O;KOM;27;L;CZE;186;91;48;0;12;12;0;17:20;7;12;17;46;0;0;0,25;0,35;0,96;12;9;3,56;Kometa Brno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Nedomlel.png;Richard;Nedomlel;28/29;O;KOM;33;L;CZE;194;119;44;1;4;5;0;12:33;-7;16;15;98;0;2,78;0,11;0,34;2,23;14;15;1,48;Facebook Kometa Brno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Svozil.png;Stanislav;Svozil;27/28;O;KOM;23;L;CZE;183;82;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;21;24;0;Kometa Brno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Scotka.png;Jan;Ščotka;27/28;O;KOM;30;L;CZE;187;101;47;4;12;16;6;19:44;5;52;8;59;0;4,55;0,34;0,17;1,26;8;3;4,75;Eliteprospects.com
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Witkowski.png;Luke;Witkowski;26/27;O;KOM;36;P;USA;188;95;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;21;24;0;Hokej.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Zabransky.png;Libor;Zábranský;27/28;O;KOM;26;P;CZE;184;92;52;18;15;33;8;23:06;10;14;11;95;0;11,92;0,63;0,21;1,83;3;1;9,79;Kometa Brno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Zubicek.png;Jakub;Zubíček;27/28+1;O;KOM;20;L;CZE;177;80;3;0;0;0;0;3:07;-1;0;0;0;0;0;0;0;0;21;23;0;Facebook Kometa Brno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Brabenec.png;Jakub;Brabenec;27/28+1;C/LW;KOM;22;L;CZE;187;80;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;21;24;0;Hokej.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Cingel.png;Lukáš;Cingel;26/27;C;KOM;34;L;SVK;187;91;46;9;6;15;3;16:24;-6;12;3;35;47,25;13,85;0,33;0,07;0,76;10;10;4,45;Kometa Brno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Cajkovic.png;Maxim;Čajkovič;26/27;RW;KOM;25;P;SVK;182;91;37;4;8;12;2;12:10;-13;26;7;25;100;7,14;0,32;0,19;0,68;12;16;3,56;Eliteprospects.com
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Ekrt.png;Jan;Ekrt;26/27;C;KOM;21;P;CZE;189;81;45;0;3;3;0;7:12;-6;6;4;15;36,7;0;0,07;0,09;0,33;16;20;0,89;Kometa Brno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Flek.png;Jakub;Flek;27/28+1;LW/RW;KOM;33;L;CZE;173;78;50;24;20;44;9;22:07;-1;4;1;20;46,15;13,33;0,88;0,02;0,4;1;2;13,06;Kometa Brno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Hartl.png;Michal;Hartl;J;C/W;KOM;17;P;CZE;180;76;12;0;1;1;0;8:53;-5;0;2;3;0;0;0,08;0,17;0,25;18;18;0,3;Kometa Brno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Chludil.png;Danny;Chludil;26/27+1;LW;KOM;20;L;CZE;183;88;29;1;1;2;0;7:18;1;31;4;16;0;7,14;0,07;0,14;0,55;17;19;0,59;Kometa Brno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Ilomaki.png;Arttu;Ilomaki;26/27;C/RW;KOM;35;P;CZE;182;87;10;0;1;1;0;15:07;-1;4;0;5;54,26;0;0,1;0;0,5;18;14;0,3;Idnes.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kollar.png;Andrej;Kollár;26/27;C/W;KOM;26;P;CZE;187;93;51;14;13;27;5;17:57;12;10;3;35;49,5;14,58;0,53;0,06;0,69;6;7;8,01;Kometa Brno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kunc.png;Michal;Kunc;26/27;LW/RW;KOM;25;L;CZE;184;85;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;21;24;0;Livesport.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kusko.png;Silvester;Kusko;27/28;C/LW;KOM;31;L;SVK;185;88;50;4;12;16;2;15:37;5;21;4;27;50,73;6,9;0,32;0,08;0,54;8;12;4,75;Kometa Brno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Leino.png;Robert;Leino;26/27;C;KOM;33;P;FIN;182;83;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;21;24;0;Isport.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Moravec.png;David;Moravec;26/27;LW;KOM;21;L;CZE;180;70;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;21;24;0;Isport.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Pospisil.png;Kristián;Pospíšil;26/27;LW;KOM;30;L;SVK;188;99;50;14;29;43;10;17:22;11;44;19;20;33,33;12,28;0,86;0,38;0,4;2;8;12,76;Isport.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Selic.png;Tomáš;Selič;J;RW;KOM;17;L;SVK;191;87;1;0;0;0;0;11:39;-1;0;0;1;0;0;0;0;1;21;17;0;Kometa Brno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Suss.png;Jan;Suss;26/27;C;KOM;27;L;CZE;185;80;3;0;0;0;0;5:19;-1;2;0;1;33,33;0;0;0;0,33;21;22;0;Kometa Brno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Vehovsky.png;Maxim;Vehovský;26/27;RW/LW;KOM;21;L;CZE;181;87;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;21;24;0;Kometa Brno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Zboril A..png;Adam;Zbořil;27/28;C/LW;KOM;30;L;CZE;170;90;52;9;20;29;10;15:34;0;20;22;31;43,8;9,28;0,56;0,42;0,6;5;13;8,61;Oneplaysport
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Zohorna H..png;Hynek;Zohorna;26/27;RW/C;KOM;36;P;CZE;188;102;49;17;10;27;4;18:04;11;18;20;14;57,27;20,24;0,55;0,41;0,29;6;6;8,01;Kometa Brno
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Zohorna T..png;Tomáš;Zohorna;26/27+1;C/LW;KOM;38;L;CZE;186;97;52;9;21;30;1;19:01;7;46;10;26;51,87;11,25;0,58;0,19;0,5;4;4;8,9;Kometa Brno
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Brickley.png;Daniel;Brickley;26/27+1;O;KVA;31;L;USA;191;98;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;18;18;0;Karlovy Vary
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Eronen.png;Elmeri;Eronen;26/27+1;O;KVA;31;P;FIN;176;87;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;18;18;0;Karlovy Vary
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Koci.png;Matteo;Kočí;29/30;O;KVA;21;L;CZE;183;89;47;4;12;16;3;15:36;-3;28;14;29;0;5,97;0,34;0,3;0,62;9;10;5,73;Karlovy Vary
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Kurka.png;Pavel;Kůrka;J;O;KVA;18;L;CZE;181;84;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;18;18;0;Karlovy Vary
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Mamcics.png;Roberts;Mamčics;26/27;O;KVA;31;L;LAT;196;105;46;0;8;8;0;17:44;-5;43;16;77;0;0;0,17;0,35;1,67;12;4;2,87;Karlovy Vary
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Mysak.png;Josef;Myšák;26/27;O;KVA;26;L;CZE;192;95;37;4;5;9;1;17:42;-1;50;24;34;0;8,16;0,24;0,65;0,92;11;5;3,23;Deník.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Winberg.png;Quinn;Schmiemann;26/27+1;O;KVA;25;L;CAN;189;89;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;18;18;0;Drbna.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Beranek O..jpg;Tobias;Winberg;26/27+1;O;KVA;27;L;FIN;182;91;45;18;14;32;9;19:07;-5;22;18;20;0;12,59;0,71;0,4;0,44;2;2;11,47;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Bambula.png;Ondřej;Beránek;27/28;LW/RW;KVA;30;L;CZE;177;83;47;7;11;18;5;15:12;-1;21;31;32;0;11,86;0,38;0,66;0,68;7;11;6,45;Eliteprospects.com
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Cernoch.jpg;Jan;Bambula;27/28;LW;KVA;25;L;CZE;178;93;52;15;25;40;16;19:25;-2;57;27;51;57,11;12,71;0,77;0,52;0,98;1;1;14,34;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Egle.png;Jiří;Černoch;28/29;C/RW;KVA;29;P;CZE;180;87;45;9;15;24;9;15:40;-5;16;3;11;42,62;9,57;0,53;0,07;0,24;5;9;8,6;Karlovy Vary
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Jiskra.jpg;Haralds;Egle;26/27;C/RW;KVA;29;P;LAT;179;84;52;5;12;17;4;15:55;-1;12;16;57;47,06;7,25;0,33;0,31;1,1;8;8;6,09;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Jones.jpg;Vít;Jiskra;27/28;C/LW;KVA;25;L;CZE;180;83;46;13;18;31;11;16:50;0;14;3;18;54,38;12,75;0,67;0,07;0,39;3;6;11,11;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Koffer.jpg;Nick;Jones;26/27;C/RW;KVA;30;P;CAN;177;80;52;3;4;7;0;10:47;-8;26;16;30;0;6,12;0,13;0,31;0,58;13;16;2,51;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Lukosik.png;Filip;Koffer;27/28;RW/LW;KVA;25;L;CZE;187;95;29;1;4;5;0;12:58;-8;49;10;23;0;3,57;0,17;0,34;0,79;15;14;1,79;Karlovy Vary
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Minarik.png;Adam;Lukošík;26/27;LW;KVA;24;L;SVK;191;98;42;10;5;15;4;16:03;-7;16;4;23;47,53;15,15;0,36;0,1;0,55;10;7;5,38;Karlovy Vary
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Redlich T..png;Jakub;Minárik;26/27;C;KVA;26;L;SVK;187;95;14;3;0;3;0;13:01;-2;4;9;13;0;16,67;0,21;0,64;0,93;16;13;1,08;Denik.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Sapousek.jpg;Tomáš;Redlich;27/28;LW/RW;KVA;33;L;CZE;186;80;39;2;5;7;1;12:39;-1;4;17;31;53,85;4,55;0,18;0,44;0,79;13;15;2,51;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Stastny.jpg;Robin;Sapoušek;26/27;C;KVA;22;L;CZE;187;92;51;10;15;25;7;18:08;3;24;13;33;100;8,2;0,49;0,25;0,65;4;3;8,96;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Tomek P..jpg;David;Šťastný;26/27;LW;KVA;33;L;CZE;175;72;51;13;7;20;7;13:02;2;12;6;16;50;17,81;0,39;0,12;0,31;6;12;7,17;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Vana.png;Petr;Tomek;J;C;KVA;17;L;CZE;178;71;12;1;1;2;0;7:54;-3;0;1;8;21,74;9,09;0,17;0,08;0,67;17;17;0,72;Karlovy Vary
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Ahac.png?v=2;Matyáš;Váňa;26/27;C;KVA;21;L;CZE;188;88;52;1;11;12;1;17:13;11;22;3;53;0;1,41;0,23;0,06;1,02;14;9;3,55;Liberec
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Galvas.png;Layton;Ahac;26/27;O;LIB;25;L;CAN;177;75;32;8;16;24;9;16:59;16;10;7;20;0;11,27;0,75;0,22;0,62;5;11;7,1;Sport.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Hanousek.png?v=2;Tomáš;Galvas;27/28;O;LIB;20;L;CZE;183;84;12;0;3;3;0;9:48;2;2;1;5;0;0;0,25;0,08;0,42;19;18;0,89;Eliteprospects.com
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Ivan.png?v=2;Tomáš;Hanousek;26/27+1;O;LIB;28;P;CZE;185;90;52;2;5;7;1;18:28;-1;20;11;72;0;3,7;0,13;0,21;1,38;17;7;2,07;Liberec
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Kachlir.png?v=2;Michal;Ivan;26/27;O;LIB;26;L;SVK;173;68;13;0;0;0;0;6:11;0;0;0;6;0;0;0;0;0,46;20;21;0;Drbna.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Simek.png?v=2;Lukáš;Kachlíř;28/29;O;LIB;16;P;CZE;182;96;47;5;9;14;4;21:26;14;6;18;77;0;5,49;0,3;0,38;1,64;11;1;4,14;iDnes.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Zeman.png?v=2;Radim;Šimek;29/30;O;LIB;33;L;CZE;186;98;52;7;10;17;2;19:35;4;34;16;49;0;9,09;0,33;0,31;0,94;9;2;5,03;Liberec
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Zile.png?v=2;Denis;Zeman;26/27+1;O;LIB;25;P;CZE;186;90;52;6;6;12;0;19:07;8;41;22;69;0;7,06;0,23;0,42;1,33;14;4;3,55;Liberec
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Fasko-Rudas.png?v=2;Kristaps;Zile;26/27+1;O;LIB;28;L;LAT;183;80;50;11;12;23;6;16:15;1;16;1;19;52,22;10,28;0,46;0,02;0,38;6;12;6,8;Liberec
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Filippi.png?v=2;Martin;Faško-Rudáš;27/28+1;RW/LW;LIB;26;P;SVK;186;90;20;4;7;11;4;17:17;-2;10;1;8;58,22;7,84;0,55;0,05;0,4;16;8;3,25;Liberec
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Hujer.png?v=2;Tomáš;Filippi;26/27;C;LIB;34;L;CZE;193;95;11;0;0;0;0;7:04;1;6;2;0;0;0;0;0,18;0;20;20;0;Hokej.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Jansa.png?v=2;Jakub;Hujer;27/28+1;LW/C;LIB;22;L;CZE;187;99;50;8;5;13;0;9:25;1;20;13;24;53,25;19,51;0,26;0,26;0,48;13;19;3,85;Hokej.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Lenc.png?v=2;Filip;Jansa;27/28;LW;LIB;24;L;CZE;183;86;51;24;11;35;12;19:08;11;42;15;34;40,91;14,12;0,69;0,29;0,67;1;3;10,36;Hokej.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Musil A..png;Radan;Lenc;27/28;LW/RW;LIB;35;L;CZE;192;95;51;10;22;32;7;18:48;14;39;19;29;56,96;9,35;0,63;0,37;0,57;3;6;9,47;Liberec
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Najman.png?v=2;Adam;Musil;26/27;C/LW;LIB;29;P;CZE;183;90;51;8;13;21;6;17:10;2;16;4;22;54,99;8,25;0,41;0,08;0,43;7;10;6,21;Liberec
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Perez.png?v=2;Adam;Najman;27/28;C/LW;LIB;25;L;CZE;181;85;50;9;10;19;1;14:15;6;16;36;48;0;9,89;0,38;0,72;0,96;8;15;5,62;Liberec
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Petrovsky.png?v=2;Jaromír;Peréz;27/28;LW/RW;LIB;21;L;CZE;181;86;38;11;5;16;5;11:19;7;16;6;15;44,44;14,86;0,42;0,16;0,39;10;17;4,73;sportovy.cas.sk
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Prochazka.png?v=2;Servác;Petrovský;27/28+1;C/RW;LIB;22;L;SVK;185;88;47;5;9;14;6;15:21;-19;39;9;22;100;4,17;0,3;0,19;0,47;11;14;4,14;iDnes.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Pytlik.png?v=2;Ondřej;Procházka;26/27+1;LW;LIB;28;L;CZE;188;90;44;10;16;26;6;16:14;17;31;15;26;46,88;9,71;0,59;0,34;0,59;4;13;7,69;Liberec
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Rychlovsky.png?v=2;Jaromír;Pytlík;26/27+1;C/RW;LIB;24;P;CZE;181;83;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;22;0;Liberec
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Sandberg.png?v=2;Jakub;Rychlovský;27/28;LW/RW;LIB;25;L;CZE;174;82;50;8;26;34;9;18:50;12;16;4;26;40,91;8,6;0,68;0,08;0,52;2;5;10,06;Liberec
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Vlach.png?v=2;Filip;Sandberg;26/27;C/RW;LIB;32;P;SWE;188;101;15;3;2;5;0;12:02;5;10;3;9;0;15;0,33;0,2;0,6;18;16;1,48;Facebook - Hokej a vše kolem
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Balaz.png?v=2;Jaroslav;Vlach;26/27;LW;LIB;34;L;CZE;182;83;25;0;2;2;0;7:48;-5;0;3;15;0;0;0,08;0,12;0,6;16;19;1,08;Verva Litvínov
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Beran.png?v=2;Ondřej;Baláž;26/27;O;LIT;23;L;CZE;189;82;2;0;0;0;0;10:57;-2;0;0;0;0;0;0;0;0;18;14;0;Eliteprospects.com
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Czuczman.png?v=2;Vít;Beran;26/27;O;LIT;22;L;CZE;191;88;48;1;8;9;2;20:17;-7;32;8;81;0;1,32;0,19;0,17;1,69;9;4;4,84;Verva Litvínov
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Husinecky.png?v=2;Kevin;Czuczman;27/28;O;LIT;35;L;CAN;180;81;46;1;2;3;0;10:55;-9;12;3;39;0;4,55;0,07;0,07;0,85;13;15;1,61;Verva Litvínov
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Jaks.png?v=2;Vojtěch;Husinecký;26/27+1;O;LIT;20;P;CZE;186;86;48;10;15;25;16;21:01;-9;30;15;55;0;7,87;0,52;0,31;1,15;1;2;13,44;Sport.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Moravcik.png?v=2;Janis;Jaks;26/27;O;LIT;30;P;LAT;194;96;5;0;3;3;3;17:14;-3;4;0;5;0;0;0,6;0;1;13;7;1,61;iRozhlas.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Polasek.png?v=2;Michal;Moravčík;26/27;O;LIT;31;L;CZE;191;95;47;3;9;12;1;19:37;-1;30;26;84;0;4,35;0,26;0,55;1,79;8;5;6,45;Verva Litvínov
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Prokes.png;Adam;Polášek;27/28;O;LIT;35;L;CZE;180;82;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;18;22;0;Hokej.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Sousek.png;Daniel ;Prokeš;J;O;LIT;20;L;CZE;182;79;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;18;22;0;Eliteprospects.com
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Tittl.png;Petr;Soušek;26/27+1;O;LIT;19;L;CZE;185;94;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;18;22;0;Slavia Praha
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Bednarik.png?v=2;Filip;Tittl;27/28+1;O;LIT;19;L;CZE;182;72;6;0;0;0;0;7:07;1;0;0;3;45,95;0;0;0;0,5;18;20;0;Verva Litvínov
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Gut.png?v=2;Jonáš;Bednařík;26/27+1;C;LIT;19;L;CZE;182;84;25;2;1;3;0;13:41;-1;18;8;21;45,74;11,76;0,12;0,32;0,84;13;11;1,61;Verva Litvínov
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Havelka.png?v=2;Michal;Gut;26/27+1;C;LIT;24;L;CZE;185;94;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;18;22;0;Verva Litvínov
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Jicha.png?v=2;Martin;Havelka;27/28;LW/RW;LIT;28;L;CZE;182;90;37;2;2;4;0;13:38;-14;41;10;35;44,86;6,25;0,11;0,27;0,95;12;12;2,15;Verva Litvínov
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Jurcik.png?v=2;Josef;Jícha;26/27;C/LW;LIT;29;L;CZE;191;98;51;5;1;6;0;13:01;0;16;14;30;43,7;10,42;0,12;0,27;0,59;10;13;3,23;Verva Litvínov
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Kampf.png?v=2;Ondřej;Jurčík;26/27+1;C;LIT;34;L;CZE;188;90;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;18;22;0;Sport.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Kase D..png;David;Kämpf;28/29;C;LIT;31;L;CZE;180;77;28;6;11;17;9;19:01;-13;6;4;21;44,16;8,45;0,61;0,14;0,75;4;6;9,14;iSport.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Kase O..png;David;Kaše;28/29;C/LW;LIT;29;L;CZE;182;85;33;8;17;25;6;21:15;-13;14;0;16;46,88;7,69;0,76;0;0,48;1;1;13,44;iDnes.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Koblasa.png?v=2;Ondřej;Kaše;28/29;RW;LIT;30;P;CZE;185;97;51;7;10;17;5;15:24;-18;45;6;23;50;8,64;0,33;0,12;0,45;4;9;9,14;Verva Litvínov
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Mastalirsky.png?v=2;Petr;Koblasa;27/28;RW;LIT;32;P;CZE;183;80;46;9;8;17;4;14:32;-7;14;5;34;33,33;14,29;0,37;0,11;0,74;4;10;9,14;Verva Litvínov
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Peroutka.png;Matěj;Maštalířský;26/27;LW/RW;LIT;21;L;CZE;188;83;1;0;0;0;0;8:57;-1;0;0;3;50;0;0;0;3;18;16;0;Litvínov
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Pistek.png?v=2;Jan ;Peroutka;26/27;C/LW;LIT;20;L;CZE;183;85;52;12;3;15;5;15:29;-17;24;6;29;60;12,77;0,29;0,12;0,56;7;8;8,06;Oneplaysport.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Sukel.png?v=2;Theodor;Pištěk;26/27;RW/LW;LIT;25;P;CZE;176;78;44;10;11;21;8;20:44;-11;53;10;49;51,1;16,39;0,48;0,23;1,11;3;3;11,29;Verva Litvínov
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Sprynar.png?v=2;Matuš;Sukel;26/27;C;LIT;30;L;SVK;183;77;21;1;0;1;0;5:47;-1;0;2;1;0;16,67;0,05;0,1;0,05;17;21;0,54;Verva Litvínov
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Urban.png;Jan;Šprynar;26/27;RW;LIT;21;P;CZE;181;83;10;0;0;0;0;8:06;-4;2;0;1;38,46;0;0;0;0,1;18;18;0;Verva Litvínov
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Zygmunt.png?v=2;Tomáš;Urban;Hostování;C/LW;LIT;24;L;CZE;190;97;37;2;4;6;0;8:12;1;15;8;14;47,17;9,09;0,16;0,22;0,38;10;17;3,23;Sport.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Budik.png?v=2;Pawel;Zygmunt;26/27;RW;LIT;26;P;POL;185;92;30;0;2;2;0;14:02;-16;6;4;40;0;0;0,07;0,13;1,33;16;13;1,01;Mlada Boleslav
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Hlinsky.png?v=2;Vojtěch;Budík;26/27;O;MBL;28;L;CZE;179;81;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;21;23;0;Mlada Boleslav
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Janosik.png?v=2;Adam Martin;Hlinský;26/27;O;MBL;20;L;CZE;180;83;24;1;5;6;1;17:40;1;14;18;36;0;4,76;0,25;0,75;1,5;12;4;3,03;Mlada Boleslav
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Krepelka.png?v=2;Adam;Jánošík;27/28;O;MBL;33;L;SVK;184;93;14;1;1;2;0;11:30;-2;12;0;12;0;6,67;0,14;0;0,86;16;18;1,01;Mlada Boleslav
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Kubicek.png?v=2;Karel;Křepelka;27/28;O;MBL;22;P;CZE;187;88;40;2;1;3;0;13:44;-2;30;9;38;0;6,9;0,07;0,23;0,95;13;14;1,52;Mlada Boleslav
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Moravec D..png;Šimon;Kubíček;27/28;O;MBL;24;P;CZE;183;92;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;21;23;0;Mlada Boleslav
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Pavlik F..png;David;Moravec;27/28;O;MBL;22;L;CZE;181;93;50;3;11;14;4;18:17;-9;4;12;124;0;4,76;0,28;0,24;2,48;7;2;7,07;Mlada Boleslav
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Skarberg.png?v=2;Filip;Pavlík;26/27;O;MBL;34;P;CZE;182;88;50;1;6;7;0;14:52;-9;16;12;39;0;2,04;0,14;0,24;0,78;10;11;3,54;hokej.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Vlasak.png?v=2;Martin;Skarberg;27/28;O;MBL;23;L;SWE;170;72;9;0;1;1;0;12:34;-1;4;1;4;0;0;0,11;0,11;0,44;18;15;0,51;Mlada Boleslav
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Vochvest.png?v=2;Adam;Vlasák;26/27;O;MBL;21;L;CZE;178;87;2;0;0;0;0;6:56;0;0;0;0;0;0;0;0;0;21;21;0;Mlada Boleslav
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Zamorsky.png?v=2;Vojtěch;Vochvest;26/27;O;MBL;20;L;CZE;180;86;49;11;17;28;14;19:49;2;14;6;35;0;6,96;0,57;0,12;0,71;1;1;14,14;Mlada Boleslav
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Buchtele.png?v=2;Petr;Zámorský;27/28;O;MBL;34;P;CZE;187;94;44;12;11;23;4;16:46;-4;10;10;21;30,23;13,19;0,52;0,23;0,48;3;7;11,62;Mlada Boleslav
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Fort.png?v=2;Jan;Buchtele;26/27;LW;MBL;36;L;CZE;186;92;47;14;10;24;7;17:47;6;16;4;29;52,15;18,18;0,51;0,09;0,62;2;3;12,12;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Gardon.png?v=2;Tomáš;Fořt;27/28;C;MBL;34;L;CZE;184;80;16;0;1;1;0;8:56;-8;4;2;3;100;0;0,06;0,12;0,19;18;20;0,51;Mlada Boleslav
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Gavars.png?v=2;Matěj;Gardoň;26/27;LW;MBL;22;L;CZE;180;83;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;21;23;0;Mlada Boleslav
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Griger.png?v=2;Felikss;Gavars;26/27;F;MBL;24;L;LAT;179;81;31;7;7;14;4;16:54;-2;26;6;17;59,21;15,22;0,45;0,19;0,55;7;6;7,07;Oneplay sport
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Hradec.png?v=2;Dávid;Gríger;27/28;C/RW;MBL;31;P;SVK;192;91;43;4;4;8;2;14:08;-12;12;12;34;49,49;7,27;0,19;0,28;0,79;9;12;4,04;Mlada Boleslav
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Koblizek.png?v=2;Vojtěch;Hradec;26/27;C;MBL;20;L;CZE;175;73;11;0;3;3;0;16:25;-3;0;1;0;0;0;0,27;0,09;0;13;8;1,52;Mlada Boleslav
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Kral P..png;Radek;Koblížek;27/28;RW/LW;MBL;28;P;CZE;183;77;7;0;0;0;0;5:27;0;0;1;1;0;0;0;0,14;0,14;21;22;0;Mlada Boleslav
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Lakatos.png?v=2;Patrik;Král;26/27;F;MBL;20;L;CZE;182;83;34;9;10;19;7;16:22;2;44;18;13;33,33;11,69;0,56;0,53;0,38;4;9;9,6;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Lichtag.png?v=2;Jakub;Lichtag;26/27;LW/RW;MBL;24;L;CZE;185;87;52;4;3;7;0;12:02;-7;44;41;27;0;8,89;0,13;0,79;0,52;10;16;3,54;Mlada Boleslav
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Malinek.png?v=2;Vojtěch;Malínek;27/28;C;MBL;21;L;CZE;185;88;47;1;2;3;0;12:01;-11;15;14;29;42,95;1,75;0,06;0,3;0,62;13;17;1,52;Mlada Boleslav
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Martel.png?v=2;Jordan;Martel;26/27+1;RW/LW;MBL;28;P;CAN;178;85;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;21;23;0;sport.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Maxin.png?v=2;Imrich;Maxin;J;F;MBL;19;L;CZE;180;86;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;21;23;0;Mlada Boleslav
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Morand.png?v=2;Antoine;Morand;26/27;C/W;MBL;27;L;CAN;181;88;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;21;23;0;Mladá Boleslav
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Rekonen.png?v=2;Aleksi;Rekonen;27/28;LW/C;MBL;33;L;FIN;195;98;51;8;9;17;10;15:08;-19;6;14;44;33,33;11,94;0,33;0,27;0,86;5;10;8,59;Mlada Boleslav
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Skalicky.png?v=2;Pavol;Skalický;28/29;C/RW;MBL;30;P;SVK;184;85;47;6;9;15;2;17:21;-2;31;24;50;0;7,69;0,32;0,51;1,06;6;5;7,58;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Zavora.png?v=2;Jan;Závora;26/27;C;MBL;24;P;CZE;175;63;41;1;0;1;0;10:42;-4;6;5;16;39,5;4,76;0,02;0,12;0,39;18;19;0,51;Mlada Boleslav
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Cerny S..png;Štěpán;Černý;26/27+1;O;MHK;19;L;CZE;186;89;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;22;0;Mountfield hk
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Kalina.png?v=2;Petr;Kalina;27/28;O;MHK;29;L;CZE;190;90;22;0;2;2;0;16:43;6;0;1;39;0;0;0,09;0,05;1,77;19;9;0,61;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Koch A..png;Anders;Koch;26/27+1;O;MHK;28;L;DEN;186;90;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;22;0;Mountfield hk
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/McCormack.png;Graeme;McCormack;26/27;O;MHK;35;P;CAN;183;88;28;3;10;13;7;19:09;7;8;1;31;0;3,85;0,46;0,04;1,11;14;3;3,98;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Melancon.png?v=2;T.J.;Melancon;26/27;O;MHK;30;P;CAN;184;89;51;11;13;24;10;20:25;-10;12;4;53;0;8,59;0,47;0,08;1,04;5;1;7,34;Livesport
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Mudrak.png?v=2;Dávid;Mudrák;27/28;O;MHK;25;P;SVK;178;85;41;4;10;14;3;18:46;3;51;31;59;0;5,48;0,34;0,76;1,44;13;4;4,28;Hokej.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Planek.png?v=2;Martin;Pláněk;26/27+1;O;MHK;35;P;CZE;177;82;33;1;2;3;0;17:24;8;8;14;63;0;5,56;0,09;0,42;1,91;18;6;0,92;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Sykora.png?v=2;David;Sýkora;27/28;O;MHK;25;L;CZE;191;98;4;0;0;0;0;7:41;2;2;0;2;0;0;0;0;0,5;20;20;0;Mountfield hk
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Vukojevic.png?v=2;Michael;Vukojevič;27/28;O;MHK;25;L;CAN;183;83;38;2;5;7;0;19:47;14;28;12;62;0;4,17;0,18;0,32;1,63;16;2;2,14;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Cacho.png?v=2;Villiam;Čacho;27/28;C;MHK;27;L;SVK;181;78;38;7;12;19;5;16:29;2;39;8;25;47,33;11,67;0,5;0,21;0,66;9;10;5,81;Hokej.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Jergl.png?v=2;Aleš;Jergl;28/29;RW;MHK;32;P;CZE;176;78;43;12;14;26;4;15:59;2;12;4;9;40;12,5;0,6;0,09;0,21;2;11;7,95;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Klima Kev..jpg;Kevin;Klíma;27/28;LW/C;MHK;29;L;CZE;185;93;39;7;18;25;7;17:17;9;58;12;19;46,89;9,33;0,64;0,31;0,49;3;7;7,65;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Kohout.png?v=2;Martin;Kohout;27/28;LW;MHK;31;L;CZE;186;92;49;11;14;25;2;15:51;10;56;29;18;49,52;14,47;0,51;0,59;0,37;3;13;7,65;Hokej.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Kousal R..png;Robert;Kousal;26/27+1;C/LW;MHK;35;L;CZE;189;100;43;4;9;13;3;13:54;2;12;11;15;55,56;6,15;0,3;0,26;0,35;14;18;3,98;Mountfield hk
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Miskar.png?v=2;Patrik;Miškář;27/28;C;MHK;30;L;CZE;188;97;44;7;12;19;5;16:51;10;28;15;24;46,36;11,86;0,43;0,34;0,55;9;8;5,81;Livesport.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Nenonen.png?v=2;Markus;Nenonen;26/27;LW/RW;MHK;33;L;FIN;185;92;51;10;13;23;10;14:07;-1;16;6;31;0;8,33;0,45;0,12;0,61;7;17;7,03;Mountfield hk
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Pavlik D..png;Dominik;Pavlík;27/28;C;MHK;19;L;CZE;176;76;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;22;0;Mountfield hk
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Pavlik R..png;Radovan;Pavlík;28/29;LW/RW;MHK;28;L;CZE;179;80;49;14;10;24;3;15:25;14;31;9;7;0;15,38;0,49;0,18;0,14;5;14;7,34;Hokej.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Perret.png?v=2;Jordann;Perret;27/28;RW;MHK;31;L;FRA;178;84;40;6;11;17;2;17:28;5;29;7;23;37,5;7,41;0,42;0,17;0,57;11;5;5,2;Mountfield hk
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Pilar.png?v=2;Radek;Pilař;26/27+1;F/D;MHK;30;L;CZE;193;96;44;0;4;4;0;11:41;7;8;10;35;25;0;0,09;0,23;0,8;17;19;1,22;Hokej.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Radil.png?v=2;Lukáš;Radil;26/27;LW/RW;MHK;36;L;CZE;184;92;51;13;20;33;9;15:59;8;24;5;8;50;9,7;0,65;0,1;0,16;1;11;10,09;Sport.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Tamasi.png?v=2;Alex;Tamáši;26/27;C;MHK;28;L;SVK;178;80;31;8;13;21;7;15:20;7;10;0;10;54,77;15,09;0,68;0;0,32;8;15;6,42;Rimava.sk
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Vyvial.png?v=2;Jan;Vyvial;26/27+1;F;MHK;20;L;CZE;181;85;2;0;0;0;0;2:48;0;0;0;0;0;0;0;0;0;20;21;0;Mountfield hk
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Zdrahal.png?v=2;Patrik;Zdráhal;27/28;LW/RW;MHK;31;L;CZE;183;91;44;6;9;15;1;14:26;-5;6;3;17;0;8,82;0,34;0,07;0,39;12;16;4,59;Salonkyhk.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Cosgrove.png?v=2;Trevor;Cosgrove;26/27;O;OLO;29;L;USA;183;88;52;4;15;19;12;19:24;-14;28;5;58;0;4,12;0,37;0,1;1,12;4;1;8,96;Olomouc
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Cerny.png?v=2;Tomáš;Černý;27/28;O;OLO;29;P;CZE;181;87;45;2;6;8;2;18:22;0;26;5;62;0;2,63;0,18;0,11;1,38;9;2;3,77;Olomouc
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Freibergs.png;Ralfs;Freibergs;26/27+1;O;OLO;35;L;LAT;185;93;32;0;4;4;2;15:49;3;22;8;29;0;0;0,12;0,25;0,91;19;8;1,89;Oneplaysport
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Gewiese.png;Petr;Gewiese;27/28;O;OLO;33;L;CZE;186;92;49;1;4;5;0;17:01;-1;39;25;58;0;1,09;0,1;0,51;1,18;17;4;2,36;Mladá Boleslav
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Hradek.png?v=2;Michal;Hrádek;26/27;O;OLO;24;P;CZE;186;87;47;1;2;3;0;12:26;4;17;12;57;0;3,23;0,06;0,26;1,21;20;16;1,42;Oneplaysport
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Ondrusek.png?v=2;Jiří;Ondrušek;26/27;O;OLO;40;L;CZE;186;81;52;2;12;14;3;18:17;-10;27;10;96;0;2,63;0,27;0,19;1,85;6;3;6,6;Olomouc
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Petrovicky.png?v=2;Rayen;Petrovický;26/27;O;OLO;24;L;SVK;183;85;18;2;5;7;0;13:00;-5;4;4;19;0;11,76;0,39;0,22;1,06;12;14;3,3;sport.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Reznicek.png?v=2;Dalibor;Řezníček;26/27;O;OLO;35;L;CZE;185;84;43;1;5;6;0;13:51;-3;14;7;54;0;2,78;0,14;0,16;1,26;13;11;2,83;Olomouc
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Rutar.png?v=2;Adam;Rutar;27/28;O;OLO;24;P;CZE;180;82;24;2;3;5;0;13:35;-6;10;13;31;0;12,5;0,21;0,54;1,29;17;12;2,36;Olomouc
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Stella.png?v=2;Evan;Stella;26/27;O;OLO;25;L;SWE;175;81;51;0;6;6;0;16:45;-2;14;11;61;0;0;0,12;0,22;1,2;13;5;2,83;Olomouc
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Andel.png?v=2;Lukáš;Anděl;26/27;C;OLO;28;L;CZE;188;94;48;2;6;8;0;11:17;-16;2;7;36;43,35;7,69;0,17;0,15;0,75;9;19;3,77;Olomouc
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Berglund.png;Carl;Berglund;26/27;C/LW;OLO;26;L;SWE;187;88;29;2;4;6;1;14:41;-8;8;0;23;51,26;4,44;0,21;0;0,79;13;10;2,83;ESPN
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Hercik.png;Daniel;Herčík;27/28+1;RW/LW;OLO;23;P;CZE;192;92;11;0;0;0;0;9:00;-1;0;3;3;66,67;0;0;0,27;0,27;23;24;0;Dynamo Pardubice
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kos.png;Jakub;Kos;26/27;LW/C;OLO;23;L;CZE;188;90;50;5;5;10;0;12:03;-6;16;16;21;63,16;9,26;0,2;0,32;0,42;7;17;4,72;Hokej.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Macuh.png?v=2;Rok;Macuh;26/27;C/LW;OLO;29;L;SLO;186;77;33;6;3;9;2;12:59;-6;47;12;23;56,99;13,64;0,27;0,36;0,7;8;15;4,25;Olomouc
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Matys.png?v=2;Ondřej;Matýs;26/27;LW;OLO;27;L;CZE;186;84;51;10;10;20;5;14:56;-8;14;12;14;46,15;12,35;0,39;0,24;0,27;3;9;9,43;Olomouc
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Ministr.png?v=2;Daniel;Ministr;26/27;LW/RW;OLO;23;L;CZE;185;80;27;1;1;2;0;9:12;-11;6;5;12;0;10;0,07;0,19;0,44;21;23;0,94;Olomouc
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Navratil.png?v=2;Jakub;Navrátil;27/28;LW;OLO;27;L;CZE;186;93;51;10;12;22;10;16:05;-16;14;3;26;100;12,82;0,43;0,06;0,51;2;7;10,38;Olomouc
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Orsava.png?v=2;Jakub;Orsava;26/27;LW/RW;OLO;35;P;CZE;182;82;50;11;14;25;8;16:17;1;24;19;40;66,67;13,41;0,5;0,38;0,8;1;6;11,79;Olomouc
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Plasek.png?v=2;Karel;Plášek;27/28;LW;OLO;26;L;CZE;185;93;43;12;6;18;11;13:02;-14;4;7;20;0;18,46;0,42;0,16;0,47;5;13;8,49;olomoucky.rej.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Senyshyn.png;Zach;Senyshyn;26/27;RW;OLO;29;P;CAN;181;91;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;23;25;0;Olomouc
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Spodniak.png;Matúš;Spodniak;26/27;C/LW;OLO;28;L;SVK;180;89;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;23;25;0;Elite Prospect
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Stohanzl.png?v=2;Martin;Štohanzl;27/28;C;OLO;27;L;CZE;177;83;4;0;0;0;0;9:43;1;0;0;2;50;0;0;0;0,5;23;22;0;Olomouc
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Tomecek.png?v=2;Michal;Tomeček;27/28;C/LW;OLO;22;L;CZE;175;78;1;0;1;1;0;10:25;1;2;0;0;0;0;1;0;0;22;20;0,47;Olomouc
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Vitouch D..png;David;Vitouch;27/28+1;C/LW;OLO;24;L;CZE;181;79;46;2;6;8;1;11:21;2;4;8;33;43,58;5,88;0,17;0,17;0,72;9;18;3,77;Idnes.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Vitouch M..png;Michal;Vitouch;27/28;F;OLO;23;L;CZE;191;99;44;2;4;6;0;9:48;-3;18;6;29;42,17;6,25;0,14;0,14;0,66;13;21;2,83;Olomouc
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Ceresnak.png;Peter;Čerešňák;27/28;O;PCE;33;P;SVK;193;101;34;7;12;19;13;20:23;4;10;10;59;0;8,33;0,56;0,29;1,74;8;1;4,86;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Dvorak.png;Tomáš;Dvořák;28/29;O;PCE;31;L;CZE;186;94;46;2;2;4;0;17:23;10;40;11;70;0;4,44;0,09;0,24;1,52;19;7;1,02;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Gazda.png;Daniel;Gazda;27/28;O;PCE;29;P;CZE;185;82;41;6;12;18;8;17:55;3;10;14;39;0;5,45;0,44;0,34;0,95;9;5;4,6;Pardubice
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Kostalek.png;Jan;Košťálek;26/27;O;PCE;31;P;CZE;185;97;46;16;27;43;23;19:05;9;26;6;29;0;10,53;0,93;0,13;0,63;3;4;11;Elite Prospect
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Ludvig.png;John;Ludvig;27/28;O;PCE;26;L;CAN;185;84;44;3;10;13;0;16:37;13;93;22;73;0;5,66;0,3;0,5;1,66;11;12;3,32;Pardubice
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Miklis.png;Ondřej;Mikliš;26/27;O;PCE;30;L;CZE;173;84;51;4;2;6;0;15:32;5;64;38;74;0;5,88;0,12;0,75;1,45;17;15;1,53;Pardubice
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Tourigny.png;Miguel;Tourigny;26/27+1;O;PCE;24;P;CAN;181;88;50;8;19;27;11;17:37;5;33;8;22;0;5,23;0,54;0,16;0,44;5;6;6,91;isport.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Cervenka.png;Roman;Červenka;27/28;LW/RW;PCE;40;L;CZE;182;86;43;19;41;60;22;19:36;26;28;1;6;0;15,45;1,4;0,02;0,14;1;3;15,35;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Fejes.png;Hunter;Fejes;26/27+1;LW/RW;PCE;32;L;CAN;187;92;17;2;3;5;0;11:45;1;6;5;6;0;9,09;0,29;0,29;0,35;18;19;1,28;Pardubice
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Kaut.png;Martin;Kaut;33/34;RW;PCE;26;P;CZE;187;95;17;5;5;10;4;15:43;3;0;1;7;0;9,26;0,59;0,06;0,41;14;14;2,56;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Kelemen.png;Miloš;Kelemen;29/30;RW/LW;PCE;27;L;SVK;201;99;49;6;7;13;0;14:32;12;66;9;26;50;7,23;0,27;0,18;0,53;11;16;3,32;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Kondelik.png;Jáchym;Kondelík;29/30;C;PCE;26;L;CZE;184;85;50;12;20;32;9;17:03;10;20;2;37;50,57;14,81;0,64;0,04;0,74;4;9;8,18;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Lauko.png;Jakub;Lauko;27/28;C/LW;PCE;26;L;CZE;184;100;34;10;12;22;4;16:57;16;45;13;22;25;13,33;0,65;0,38;0,65;7;10;5,63;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Mandat.png;Jan;Mandát;27/28;C/LW;PCE;30;L;CZE;189;91;52;9;14;23;5;16:48;15;33;22;32;66,67;10,59;0,44;0,42;0,62;6;11;5,88;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Nosek.png;Tomáš;Nosek;30/31;C/LW;PCE;33;L;CZE;190;95;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;20;0;Pardubice
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Poulicek.png;Patrik;Poulíček;26/27;C;PCE;33;L;CZE;184;98;48;3;6;9;0;13:42;-2;53;25;43;55,01;6,25;0,19;0,52;0,9;15;17;2,3;hokej.cz
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Sedlak.png;Lukáš;Sedlák;29/30;C/LW;PCE;33;L;CZE;190;101;49;17;35;52;17;19:40;24;31;23;33;57,3;18,28;1,06;0,47;0,67;2;2;13,3;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Smejkal.png;Jiří;Smejkal;28/29;LW/C;PCE;29;L;CZE;179;88;14;4;5;9;1;17:16;0;2;1;18;56,52;18,18;0,64;0,07;1,29;15;8;2,3;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Sobotka.png;Vladimír;Sobotka;26/27;C/LW;PCE;39;L;CZE;193;98;32;4;7;11;5;16:13;-1;20;9;18;57,14;9,3;0,34;0,28;0,56;13;13;2,81;Pardubice
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Stransky.png;Matěj;Stránský;29/30;RW/LW;PCE;33;P;CZE;187;85;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;20;0;Pardubice
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Tomasek.png;David;Tomášek;30/31;C/RW;PCE;30;P;CZE;189;100;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;20;0;Pardubice
-https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Vondracek.png;Tomáš;Vondráček;28/29;LW/RW;PCE;35;L;CZE;187;90;46;10;5;15;0;12:50;3;24;8;15;0;17,24;0,33;0,17;0,33;10;18;3,84;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Cech.png;Aleš;Čech;27/28+1;O;PLZ;22;L;CZE;183;88;22;1;2;3;0;14:11;-2;18;2;24;0;6,25;0,14;0,09;1,09;16;14;1,12;idnes.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Chromiak.png;Jakub;Chromiak;27/28+1;O;PLZ;20;P;SVK;180;88;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;18;18;0;noviny.sk
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Jerabek.png;Jakub;Jeřábek;26/27;O;PLZ;35;L;CZE;190;86;44;2;6;8;2;19:07;7;41;6;65;0;4,08;0,18;0,14;1,48;12;1;2,97;idnes.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Macpherson.png;Dylan;Macpherson;26/27+1;O;PLZ;28;P;CAN;184;77;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;18;18;0;elite prospect
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Malak.png;Daniel;Malák;26/27;O;PLZ;23;L;CZE;194;100;50;3;6;9;0;17:52;8;54;52;80;0;4,55;0,18;1,04;1,6;11;4;3,35;hokej.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Merezhko.png;Igor;Merezhko;26/27;O;PLZ;28;P;UKR;192;91;51;5;12;17;0;18:54;16;44;13;85;0;6,67;0,33;0,25;1,67;9;2;6,32;Plzen
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Robertson.png;Carter;Robertson;26/27+1;O;PLZ;26;L;CAN;195;103;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;18;18;0;denik.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Rubins.png;Kristians;Rubins;26/27;O;PLZ;28;L;LAT;180;85;12;0;1;1;0;17:45;0;2;6;21;0;0;0,08;0,5;1,75;17;5;0,37;hokej.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Filip.png;Matyáš;Filip;26/27;C;PLZ;25;L;CZE;182;81;46;13;13;26;6;15:47;11;10;12;24;48,34;24,07;0,57;0,26;0,52;4;8;9,67;denik.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Fodor.png;Jan;Fodor;27/28+1;RW;PLZ;17;L;CZE;195;100;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;18;18;0;český hokej
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Katic.png;Danny;Katic;26/27+1;LW/RW;PLZ;26;L;CAN;183;86;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;18;18;0;idnes.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Lalancette.png;Christophe;Lalancette;27/28;C;PLZ;32;P;CAN;188;98;38;8;23;31;9;18:32;9;10;1;15;52,18;12,5;0,82;0,03;0,39;1;3;11,52;elite prospect
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Lev J..png;Jakub;Lev;26/27;C/LW;PLZ;35;P;CZE;196;97;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;18;18;0;wikipedia
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Mechura.png;Adam;Měchura;26/27;C/LW;PLZ;23;L;CZE;184;88;52;19;12;31;8;16:42;13;22;9;40;50;17,92;0,6;0,17;0,77;1;6;11,52;hokej.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/M.Petman.png;Mikko Artturi;Petman;26/27;RW;PLZ;25;P;FIN;179;82;48;13;15;28;7;15:17;12;38;21;24;0;16,67;0,58;0,44;0,5;3;10;10,41;fb - tipsport extraliga
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/V.Petman.png;Ville Emil;Petman;26/27;C/LW;PLZ;26;L;FIN;197;96;52;10;11;21;8;15:42;9;24;14;32;55,48;12,5;0,4;0,27;0,62;6;9;7,81;idnes.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Psenicka.png;Ondřej;Pšenička;26/27+1;RW;PLZ;25;L;CZE;186;84;42;3;2;5;0;10:32;2;18;16;40;58,97;11,11;0,12;0,38;0,95;15;16;1,86;Oneplay
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Rohlik.png;Ondřej;Rohlík;27/28+1;LW;PLZ;25;L;CZE;179;71;17;2;5;7;0;15:03;1;2;0;5;0;6,25;0,41;0;0,29;13;11;2,6;Oneplay
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Sedlacek.png;Ivo;Sedláček;26/27;RW;PLZ;23;L;CZE;177;81;45;2;5;7;0;8:03;-2;28;14;23;0;4,55;0,16;0,31;0,51;13;17;2,6;Oneplay
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Schleiss.png;Jan;Schleiss;27/28;RW/LW;PLZ;31;P;CZE;180;80;52;5;14;19;2;14:58;9;20;24;21;20;6,85;0,37;0,46;0,4;7;13;7,06;elite prospect
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Simon.png;Dominik;Simon;27/28;C;PLZ;32;L;CZE;179;73;52;7;11;18;8;16:07;5;20;5;28;41,6;9,21;0,35;0,1;0,54;8;7;6,69;idnes.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Strnad.png;Lukáš;Strnad;26/27;RW;PLZ;22;P;CZE;191;85;52;11;5;16;1;13:13;5;10;16;18;0;13,25;0,31;0,31;0,35;10;15;5,95;denik.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Teply.png;Michal;Teplý;26/27+1;LW/RW;PLZ;25;P;CZE;174;76;40;7;15;22;7;15:01;6;4;2;14;0;8,86;0,55;0,05;0,35;5;12;8,18;sport.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Titlbach.png;Adam;Titlbach;27/28;C/LW;PLZ;20;L;CZE;185;90;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;18;18;0;hokej.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Irving.png;Aaron;Irving;26/27;O;SPA;30;P;CAN;193;90;51;5;13;18;9;17:33;-1;27;15;44;0;4,17;0,35;0,29;0,86;10;8;4,39;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Knot.png;Ronald;Knot;27/28;O;SPA;32;P;CZE;187;87;14;1;2;3;1;20:39;-1;4;3;27;0;4,76;0,21;0,21;1,93;20;1;0,73;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Krejcik.png;Jakub;Krejčík;26/27+1;O;SPA;35;L;CZE;188;90;44;3;23;26;15;18:50;11;46;4;56;0;3,26;0,59;0,09;1,27;7;3;6,34;Elite Prospect
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Masin.png;Dominik;Mašín;26/27;O;SPA;30;L;CZE;194;95;43;3;12;15;0;18:13;20;49;8;68;0;7,14;0,35;0,19;1,58;11;6;3,66;Sparta
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Nemecek.png;David;Němeček;26/27;O;SPA;31;L;CZE;186;90;44;3;3;6;0;16:00;-1;92;35;50;0;5,88;0,14;0,8;1,14;17;14;1,46;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Pysyk.png;Mark;Pysyk;27/28;O;SPA;34;P;CAN;188;91;50;6;15;21;9;17:47;24;28;13;70;0;6;0,42;0,26;1,4;9;7;5,12;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Seppala M..jpg;Mikael;Sepälä;26/27;O;SPA;32;L;FIN;187;99;9;0;1;1;0;16:19;-1;4;1;12;0;0;0,11;0,11;1,33;22;13;0,24;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Seppala.png;Niko;Sepälä;26/27;O;SPA;27;L;FIN;189;94;41;2;4;6;0;11:34;3;52;22;36;0;7,14;0,15;0,54;0,88;17;21;1,46;Sparta
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Sirota.png;Jakub;Sirota;27/28;O;SPA;27;L;CZE;182;88;48;3;10;13;3;16:22;2;24;7;48;0;5;0,27;0,15;1;13;12;3,17;Oneplay sport
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Tomov.png;Nino;Tomov;26/27;O;SPA;22;L;BUL;183;93;20;0;3;3;0;13:05;-4;6;5;23;0;0;0,15;0,25;1,15;20;20;0,73;Sparta
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Blumel.png;Matěj;Blümel;29/30;RW/LW;SPA;26;L;CZE;185;78;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;24;26;0;iDnes.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Danicek.png;Marek;Daníček;26/27+1;RW;SPA;19;L;CZE;183;90;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;24;26;0;Sparta Praha
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Dzierkals.jpg;Martins;Dzierkals;26/27;LW/RW;SPA;29;L;LAT;182;83;50;7;8;15;2;15:36;1;30;13;21;75;9,86;0,3;0,26;0,42;11;15;3,66;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Horak.png;Roman;Horák;26/27;C;SPA;35;L;CZE;194;99;40;17;14;31;8;18:46;5;10;4;23;54,23;20,48;0,78;0,1;0,57;6;4;7,56;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Hrabik K..png;Kryštof;Hrabík;27/28;F;SPA;26;L;CZE;191;94;48;9;3;12;4;14:38;2;65;5;50;46,67;15,52;0,25;0,1;1,04;14;17;2,93;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Hrabik O..png;Ondřej;Hrabík;26/27;F;SPA;22;L;CZE;180;83;16;0;1;1;0;5:34;0;2;0;3;0;0;0,06;0;0,19;22;24;0,24;Sparta
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Hyka.png;Tomáš;Hyka;26/27;RW;SPA;33;P;CZE;187;96;46;7;15;22;3;15:11;4;16;8;30;40;7,22;0,48;0,17;0,65;8;16;5,37;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Chlapik.png;Filip;Chlapík;28/29;LW/C;SPA;29;L;CZE;183;90;48;21;30;51;18;19:23;5;32;21;16;48,15;11,8;1,06;0,44;0,33;1;2;12,44;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kousal.png;Pavel;Kousal;27/28;LW/RW;SPA;27;L;CZE;187;95;52;17;17;34;12;16:37;10;28;15;21;71,43;11,81;0,65;0,29;0,4;4;11;8,29;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Najman O..png;Ondřej;Najman;26/27+1;C/LRW;SPA;28;L;CZE;186;90;45;3;7;10;2;13:40;-7;20;2;10;45,86;9,09;0,22;0,04;0,22;15;18;2,44;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Novak F..png;Filip;Novák;26/27+1;F;SPA;18;L;CZE;192;99;9;0;0;0;0;8:53;-1;0;0;2;0;0;0;0;0,22;24;23;0;Sparta
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Pospisil J..png;Jiří;Pospíšil;26/27;F;SPA;21;P;CZE;178;81;8;0;0;0;0;3:32;-2;2;1;0;0;0;0;0,12;0;24;25;0;Sparta
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Raska.png;Adam;Raška;26/27;RW/LW;SPA;24;P;CZE;179;86;43;2;6;8;1;9:51;6;76;49;9;62,5;5,56;0,19;1,14;0,21;16;22;1,95;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Repik.png;Michal;Řepík;27/28;RW;SPA;37;P;CZE;189;91;44;15;20;35;8;17:00;13;20;6;12;43,48;11,9;0,8;0,14;0,27;3;10;8,54;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Sekac.png;Jiří;Sekáč;27/28;LW;SPA;34;L;CZE;185;93;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;24;26;0;Hokej.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Shore.png;Devin;Shore;27/28;C;SPA;32;L;CAN;180;85;44;18;14;32;10;18:20;12;8;6;40;51,88;17,31;0,73;0,14;0,91;5;5;7,8;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Spacek.png;Michael;Špaček;27/28;C/RW;SPA;29;P;CZE;192;94;52;15;28;43;18;17:20;-4;18;6;21;55,51;15,15;0,83;0,12;0,4;2;9;10,49;Veru Masatova photo
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Vesalainen.png;Kristian;Vesalainen;26/27;C/LW;SPA;27;L;FIN;178;82;16;3;1;4;0;13:18;-3;4;5;10;39,47;17,65;0,25;0,31;0,62;19;19;0,98;Sparta
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Adamek.png;Marián;Adámek;26/27;O;TRI;28;P;CZE;184;90;52;5;15;20;9;19:06;4;14;2;64;0;5,43;0,38;0,04;1,23;7;3;5,92;Třinec
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Aubrecht.png;David ;Aubrecht;26/27;O;TRI;26;L;CZE;181;84;26;1;1;2;0;7:45;2;10;12;7;0;6,25;0,08;0,46;0,27;18;18;0,59;Liberec
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Galvas J..png;Jakub;Galvas;27/28;O;TRI;27;L;CZE;186;86;50;4;14;18;5;18:37;20;22;2;56;0;4,3;0,36;0,04;1,12;11;4;5,33;iDnes.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Koch P..png;Patrik;Koch;28/29;O;TRI;29;L;SVK;192;95;41;1;7;8;0;16:42;-1;30;38;58;0;1,33;0,2;0,93;1,41;14;8;2,37;Třinec
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Marincin.png;Martin;Marinčin;27/28;O;TRI;34;L;SVK;193;96;52;3;6;9;1;19:15;14;24;2;66;0;4,48;0,17;0,04;1,27;13;2;2,66;sportweb.pravda.sk
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Musil.png;David;Musil;26/27;O;TRI;33;L;CZE;182;82;52;2;5;7;0;16:16;3;12;17;103;0;3,51;0,13;0,33;1,98;16;11;2,07;Třinec
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Prusek.png;Pavel;Průšek;27/28;O;TRI;20;L;CZE;189;87;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;19;19;0;Třinec
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Pyrochta.png;Filip;Pyrochta;28/29;O;TRI;30;L;CZE;182;96;52;4;15;19;8;21:03;-3;10;7;33;0;3,81;0,37;0,13;0,63;9;1;5,62;Třinec
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Dano.png;Marko;Daňo;27/28;LW/C;TRI;31;L;SVK;174;75;33;14;7;21;7;14:34;0;64;8;6;25;16,28;0,64;0,24;0,18;6;14;6,21;iDnes.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Flynn.png;Oscar;Flynn;28/29;LW;TRI;27;L;CZE;175;78;52;12;23;35;6;16:17;14;16;5;11;0;10,17;0,67;0,1;0,21;2;10;10,36;Třinec
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Hrehorcak.png;Patrik;Hrehorčák;26/27;LW;TRI;27;L;SVK;180;93;52;5;3;8;0;12:46;-2;15;17;41;100;6,94;0,15;0,33;0,79;14;16;2,37;Třinec
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Chlan.png;Petr;Chlán;26/27;C;TRI;27;L;CZE;177;80;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;19;19;0;elite prospect
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Hudacek.png;Libor;Hudáček;28/29;RW/C;TRI;35;P;SVK;182;80;51;17;27;44;10;16:38;7;51;9;6;54,33;12,59;0,86;0,18;0,12;1;9;13,02;Sport.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kovarcik M..png;Michal;Kovařčík;27/28;C/RW;TRI;29;L;CZE;178;75;52;12;19;31;8;16:56;16;14;3;25;54,65;13,64;0,6;0,06;0,48;4;7;9,17;Třinec
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kovarcik O..png;Ondřej;Kovařčík;26/27;LW;TRI;31;L;CZE;182;78;43;13;14;27;9;17:28;5;14;2;28;0;19,12;0,63;0,05;0,65;5;6;7,99;Třinec
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kubiesa.png;Matěj;Kubiesa;26/27+1;RW;TRI;19;P;CZE;192;96;21;4;1;5;0;10:52;1;2;7;7;100;11,76;0,24;0,33;0,33;17;17;1,48;Třinec
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kurovsky.png;Daniel;Kurovský;26/27;LW;TRI;28;P;CZE;190;91;42;11;9;20;2;14:54;-5;56;6;21;0;16,42;0,48;0,14;0,5;7;13;5,92;Třinec
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Nestrasil.png;Andrej;Nestrašil;27/28;RW/C;TRI;35;L;CZE;182;85;52;13;20;33;10;18:33;12;10;2;21;48,5;13,4;0,63;0,04;0,4;3;5;9,76;Třinec
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Roman.png;Miloš;Roman;26/27;C;TRI;27;L;SVK;181;79;52;5;7;12;0;13:56;-7;20;15;50;48,52;9,8;0,23;0,29;0,96;12;15;3,55;Třinec
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Ruzicka M..png;Martin;Růžička;26/27;RW/LW;TRI;40;P;CZE;190;97;52;9;10;19;12;15:43;-8;10;4;21;0;14,29;0,37;0,08;0,4;9;12;5,62;elite prospect
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Vozenilek.png;Daniel;Voženílek;27/28;LW/RW;TRI;30;L;CZE;185;88;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;19;19;0;Třinec
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Bruna.png;Patrik;Brůna;26/27+1;O;VIT;22;L;CZE;181;80;27;0;4;4;0;9:22;-5;2;4;17;0;0;0,15;0,15;0,63;16;20;1,24;hokej.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Demel.png;Patrik;Demel;28/29;O;VIT;30;L;CZE;182;79;52;1;6;7;1;18:30;0;18;7;125;0;1,92;0,13;0,13;2,4;14;7;2,17;hokej.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Drabek.png;Alex;Drábek;26/27;O;VIT;19;L;CZE;184;85;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;22;24;0;hokej.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Herman.png;Tomáš;Herman;26/27+1;O;VIT;20;L;CZE;188;100;1;0;0;0;0;0:26;0;0;0;0;0;0;0;0;0;22;23;0;valassky.denik.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Holland.png;Rhett;Holland;27/28;O;VIT;32;P;CAN;186;86;47;2;4;6;0;17:47;6;29;64;70;0;3,64;0,13;1,36;1,49;15;10;1,86;Vítkovice
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Knazko.png;Samuel;Kňažko;26/27;O;VIT;24;L;SVK;193;87;42;2;13;15;12;21:57;-5;20;9;69;0;3,77;0,36;0,21;1,64;9;1;4,64;Vítkovice
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Leahy.png;John;Leahy;26/27;O;VIT;29;L;CAN;186;78;33;3;9;12;1;19:58;4;22;2;53;0;6,67;0,36;0,06;1,61;10;3;3,72;Oneplay sport
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Majkowski.png;Mateusz;Majkowski;26/27;O;VIT;19;L;POL;183;93;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;22;24;0;Hokej.net
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Pavelka.png;Tomáš;Pavelka;27/28;O;VIT;33;L;CZE;188;80;10;0;1;1;0;9:16;-1;2;0;6;0;0;0,1;0;0,6;21;21;0,31;moravskoslezky.denik.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Port.png;Vojtěch;Port;26/27;O;VIT;21;P;CZE;182;79;41;0;2;2;0;12:59;-6;10;4;37;0;0;0,05;0,1;0,9;19;15;0,62;elite prospect
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Tomaskovic.png;Tomáš;Tomaškovič;26/27+1;O;VIT;19;P;SVK;191;94;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;22;24;0;elite prospect
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Wesley.png;Josh;Wesley;26/27;O;VIT;30;P;USA;184;84;20;3;5;8;2;19:23;7;25;2;57;0;9,68;0,4;0,1;2,85;13;5;2,48;moravskoslezky.denik.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Zboril J..png;Jakub;Zbořil;26/27;O;VIT;29;L;CZE;184;86;41;1;9;10;3;18:27;-11;79;15;46;0;1,96;0,24;0,37;1,12;12;8;3,1;Oneplay sport
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Abdul.png;Jindřich;Abdul;26/27;RW/LW;VIT;30;L;CZE;183;86;50;16;22;38;9;18:17;-11;35;2;29;0;13,22;0,76;0,04;0,58;2;9;11,76;iSport.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Bernovsky.png;Jan;Bernovský;26/27;RW;VIT;25;P;CZE;182;85;3;1;1;2;0;12:09;2;0;1;2;0;20;0,67;0,33;0,67;19;17;0,62;hokej.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Cienciala.png;David;Cienciala;26/27;C/LW;VIT;30;L;CZE;178;84;49;8;12;20;10;13:46;-8;10;7;21;46,55;12,31;0,41;0,14;0,43;7;14;6,19;Vítkovice
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Fasner.png;Šimon;Fašner;26/27;C/LW;VIT;19;L;CZE;185;84;11;2;1;3;1;9:47;-1;2;1;3;33,33;28,57;0,27;0,09;0,27;18;19;0,93;moravskoslezky.denik.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Glas.png;Sebastian;Glas;27/28+1;C;VIT;19;P;CZE;177;85;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;22;24;0;hokej.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Hladonik.png;Jan;Hladonik;26/27;C/LW;VIT;27;L;CZE;185;89;50;10;6;16;3;14:29;-3;18;4;28;44,99;14,08;0,32;0,08;0,56;8;13;4,95;livesport
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Hrivik.png;Marek;Hrivík;26/27+1;C/LW;VIT;34;L;SVK;188;97;42;6;18;24;8;18:58;-2;16;4;23;47,75;8,96;0,57;0,1;0,55;6;6;7,43;hokej.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kalus.png;Marek;Kalus;27/28;LW;VIT;33;L;CZE;193;94;47;11;14;25;11;17:21;0;56;25;35;0;15,71;0,53;0,53;0,74;5;12;7,74;Vítkovice
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Krivosik.png;Filip;Krivošík;27/28;C/RW;VIT;27;P;SVK;184;96;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;22;24;0;Vítkovice
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Macias.png;Krzysztof;Macias;26/27;C;VIT;22;L;CZE;187;88;45;7;5;12;0;11:06;2;17;35;26;44;12,96;0,27;0,78;0,58;10;18;3,72;moravskoslezky.denik.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Nazad.png;Michael;Nazad;26/27+1;C/LW;VIT;19;L;CZE;183;82;2;0;0;0;0;6:29;-2;0;0;2;0;0;0;0;1;22;22;0;Vítkovice
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Nellis.png;Anthony;Nellis;27/28;C/LW;VIT;31;L;CZE;191;79;52;25;22;47;17;20:22;0;30;10;23;54,47;18,66;0,9;0,19;0,44;1;2;14,55;Oneplay sport
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Petr.png;Dominik;Petr;26/27+1;C/LW;VIT;21;L;CZE;187;95;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;22;24;0;Vítkovice
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Sir.png;Jan;Šír;27/28;C/RW;VIT;26;P;CZE;182;90;51;3;1;4;0;12:25;-6;9;18;35;51,37;8,57;0,08;0,35;0,69;16;16;1,24;Vítkovice
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Stransky S..png;Šimon;Stránský;28/29;LW/C;VIT;28;L;CZE;181;69;52;8;24;32;13;17:34;-14;26;0;22;75;9,76;0,62;0;0,42;4;11;9,91;Vítkovice
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Sebesta.png;Michal;Šebesta;27/28+1;C;VIT;17;L;CZE;180;81;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;22;24;0;ceskyhokej.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Yetman.png;Chad;Yetman;26/27;C/RW;VIT;26;P;CAN;187;94;44;14;21;35;13;19:46;2;12;2;17;49,33;14,43;0,8;0,05;0,39;3;4;10,84;iSport.cz
-https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Zidek.png;Matěj;Žídek;26/27+2;LW/RW;VIT;20;L;CZE;188;91;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;22;24;0;hokej.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kachyna.png;Ondřej;Kachyňa;27/28;O;CBU;28;L;CZE;;;40;4;4;8;0;11:46;5;30;16;32;0,0;9,3;0,2;0,4;0,8;14;16;2,56;Motor ČB
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kundratek.png;Tomáš;Kundrátek;27/28;O;CBU;36;P;CZE;;;46;0;8;8;3;16:59;-18;12;17;51;0,0;0,0;0,17;0,37;1,11;14;7;2,56;Motor ČB
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Nordsäter.png;Lucas;Nordsäter;26/27;O;CBU;27;L;SWE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;21;0;Motor ČB
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Pycha.png;Pavel;Pýcha;26/27;O;CBU;30;L;CZE;;;47;3;10;13;6;16:52;-5;24;5;54;0,0;6,38;0,28;0,11;1,15;10;8;4,15;Motor ČB
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Stencel.png;Jan;Štencel;27/28;O;CBU;31;L;CZE;;;51;8;19;27;3;17:08;11;18;9;72;0,0;15,69;0,53;0,18;1,41;3;6;8,63;Motor ČB
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Vala.png;Ondřej;Vála;27/28;O;CBU;28;L;CZE;;;52;4;7;11;0;19:57;-1;28;18;74;0,0;4,44;0,21;0,35;1,42;12;1;3,51;Motor ČB
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Vrablik.png;Roman;Vráblík;27/28;O;CBU;36;L;CZE;;;50;4;10;14;0;15:43;1;20;19;63;0,0;5,0;0,28;0,38;1,26;9;11;4,47;Motor ČB
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Ahl.png;Filip;Ahl;26/27+1;LW/RW;CBU;29;L;SWE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;21;0;Motor ČB
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Bell.png;Parker;Bell;26/27;C/LW;CBU;22;L;CAN;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;21;0;Motor ČB
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Beranek.png;Martin;Beránek;27/28;RW/LW;CBU;25;L;CZE;;;51;7;10;17;0;16:08;-6;73;22;57;50,0;8,54;0,33;0,43;1,12;7;10;5,43;Motor ČB
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Bulir.png;Michal;Bulíř;27/28;C;CBU;35;L;CZE;;;31;8;11;19;6;18:01;5;8;4;16;44,49;11,27;0,61;0,13;0,52;6;4;6,07;Motor ČB
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Drancak.png;Samuel;Drančák;27/28+1;C;CBU;20;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;21;0;Motor ČB
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Chlubna.png;Tomáš;Chlubna;26/27+1;RW;CBU;24;P;CZE;;;31;2;0;2;0;06:17;-1;4;4;4;0,0;22,22;0,06;0,13;0,13;19;19;0,64;Motor ČB
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Hejduk.png;Marek;Hejduk;26/27;RW;CBU;22;P;USA;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;21;0;Motor ČB
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Hoch.png;Štěpán;Hoch;27/28;LW;CBU;19;L;CZE;;;37;2;4;6;1;13:47;-5;12;22;30;45,32;6,9;0,16;0,59;0,81;18;14;1,92;Motor ČB
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Humenik.png;Matyáš;Humeník;26/27+1;RW;CBU;19;P;CZE;;;15;0;0;0;0;03:42;0;0;2;1;0,0;0,0;0;0,13;0,07;20;20;0;Motor ČB
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kolacek.png;Josef;Koláček;27/28;RW;CBU;23;L;CZE;;;27;5;6;11;3;14:06;5;2;4;7;41,18;8,47;0,41;0,15;0,26;12;13;3,51;Motor ČB
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Krastenbergs.png;Renars;Krastenbergs;26/27;C/LW;CBU;27;L;LAT;;;50;10;13;23;9;17:11;-16;16;6;38;38,1;8,0;0,46;0,12;0,76;4;5;7,35;Motor ČB
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Lantosi.png;Róbert;Lantoši;27/28;RW/C;CBU;30;P;SVK;;;52;17;26;43;16;18:52;-4;36;8;26;42,62;11,26;0,83;0,15;0,5;2;3;13,74;Motor ČB
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Lev.png;Jakub;Lev;27/28+1;F;CBU;19;P;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;21;0;Motor ČB
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Novak.png;Pavel;Novák;26/27;RW;CBU;24;P;CZE;;;51;4;4;8;2;10:55;-5;18;7;19;47,97;6,06;0,16;0,14;0,37;14;17;2,56;Motor ČB
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Olesen.png;Nick;Olesen;27/28;LW/RW;CBU;30;L;DEN;;;51;14;31;45;16;19:37;-10;32;10;11;54,88;9,79;0,88;0,2;0,22;1;2;14,38;Motor ČB
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Ordos.png;Jan;Ordoš;27/28;RW/LW;CBU;29;P;CZE;;;49;13;10;23;3;16:42;-1;16;7;21;33,33;15,12;0,47;0,14;0,43;4;9;7,35;Motor ČB
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Pour.png;Jakub;Pour;27/28;RW;CBU;27;L;CZE;;;47;10;6;16;1;13:12;-1;27;13;10;50,0;12,66;0,34;0,28;0,21;8;15;5,11;Motor ČB
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Toman.png;Matěj;Toman;27/28;C;CBU;25;L;CZE;;;51;3;9;12;0;15:12;-2;45;24;37;49,74;5,08;0,24;0,47;0,73;11;12;3,83;Motor ČB
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Zachar.png;Marek;Zachar;27/28+1;C;CBU;28;L;CZE;;;40;2;5;7;0;10:30;2;0;4;14;0,0;4,55;0,17;0,1;0,35;17;18;2,24;Motor ČB
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Blain.png;Jéremie;Blain;26/27;O;KLA;34;P;CAN;;;22;2;6;8;5;17:22;0;20;1;34;0,0;5,26;0,36;0,05;1,55;16;8;2,48;Rytíři Kladno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Houdek.png;Michal;Houdek;26/27;O;KLA;26;L;CZE;;;41;1;2;3;0;13:08;-7;31;30;44;0,0;2,63;0,07;0,73;1,07;21;16;0,93;Rytíři Kladno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Jandus.png;Martin;Jandus;26/27;O;KLA;28;P;CZE;;;50;1;5;6;2;21:46;-6;38;9;95;0,0;1,25;0,12;0,18;1,9;19;1;1,86;Rytíři Kladno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kempny.png;Michal;Kempný;26/27;O;KLA;35;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;23;26;0;Idnes.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Matejicek.png;Martin;Matějíček;26/27+1;O;KLA;21;L;CZE;;;3;0;0;0;0;05:52;-3;0;0;0;0,0;0,0;0;0;0;23;25;0;Rytíři Kladno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Mendel.png;Griffin;Mendel;26/27;O;KLA;27;L;CAN;;;50;4;12;16;0;20:52;2;8;11;70;0,0;5,19;0,32;0,22;1,4;10;2;4,95;Rytíři Kladno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Pietroniro.png;Phil;Pietroniro;26/27;O;KLA;32;P;ITA;;;48;5;13;18;9;20:32;0;26;21;79;0,0;3,47;0,38;0,44;1,65;6;3;5,57;Rytíři Kladno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Rulik.png;Adam;Rulík;26/27;O;KLA;29;L;CZE;;;9;0;0;0;0;13:00;4;6;1;10;0,0;0,0;0;0,11;1,11;23;17;0;Idnes.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Tomek.png;Tomáš;Tomek;26/27+1;O;KLA;23;L;CZE;;;41;2;9;11;0;14:10;10;16;16;26;0,0;3,64;0,27;0,39;0,63;12;14;3,41;Rytíři Kladno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Vandas.png;Tomáš;Vandas;26/27+1;O;KLA;20;P;CZE;;;23;0;4;4;0;10:08;-4;10;2;13;0,0;0,0;0,17;0,09;0,57;20;22;1,24;Isport.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Westerlund.png;Filip;Westerlund;26/27;O;KLA;27;P;SWE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;23;26;0;Eliteprospects.com
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Audette.png;Daniel;Audette;26/27;C/LW;KLA;30;L;CAN;;;52;12;24;36;15;19:17;-4;40;8;23;38,27;9,92;0,69;0,15;0,44;1;5;11,15;Idnes.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Bares.png;Adam;Bareš;26/27;F;KLA;22;P;CZE;;;42;6;1;7;5;11:07;-6;2;7;15;50,0;10,0;0,17;0,17;0,36;18;19;2,17;Rytíři Kladno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Blaha.png;Ondřej;Bláha;26/27;LW;KLA;26;L;CZE;;;31;1;1;2;0;07:59;-4;8;3;13;34,68;4,17;0,06;0,1;0,42;22;24;0,62;Rytíři Kladno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Forman.png;Miroslav;Forman;26/27;RW;KLA;36;L;CZE;;;46;4;14;18;2;14:50;-2;20;11;6;50,0;6,25;0,39;0,24;0,13;6;13;5,57;Idnes.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Hlava .png;Nicolas;Hlava;27/28;LW/RW;KLA;32;P;CZE;;;50;10;7;17;1;16:46;-11;34;38;22;100,0;8,2;0,34;0,76;0,44;9;9;5,26;Rytíři Kladno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Klima Kel..png;Kelly;Klíma;27/28;RW;KLA;29;P;CZE;;;50;14;16;30;5;17:54;-3;34;10;14;14,29;10,07;0,6;0,2;0,28;2;7;9,29;Idnes.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Konecny.png;Jakub;Konečný;27/28;C;KLA;24;L;CZE;;;48;6;4;10;1;13:58;-2;2;11;18;44,31;10,0;0,21;0,23;0,38;13;15;3,1;Rytíři Kladno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kubik.png;Adam;Kubík;28/29;LW;KLA;27;L;CZE;;;41;7;11;18;3;15:35;-8;8;3;12;48,89;10,0;0,44;0,07;0,29;6;11;5,57;Sport.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Lisler.png;Oskar;Lisler;26/27;LW/RW;KLA;20;P;CZE;;;33;3;7;10;3;10:09;-1;4;10;15;47,22;7,89;0,3;0,3;0,45;13;21;3,1;Rytíři Kladno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Marcel.png;Marcel;Marcel;27/28+1;LW/RW;KLA;22;L;CZE;;;17;2;6;8;1;14:54;7;39;12;10;59,52;7,41;0,47;0,71;0,59;16;12;2,48;Isport.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Marcel.png;Niko;Ojamaki;26/27;RW;KLA;31;P;FIN;;;50;13;16;29;12;19:35;2;6;6;31;20,0;11,11;0,58;0,12;0,62;3;4;8,98;Rytíři Kladno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Prikryl.png;Filip;Přikryl;27/28;C/LW;KLA;25;L;CZE;;;52;10;16;26;2;15:37;1;26;2;21;47,08;10,64;0,5;0,04;0,4;4;10;8,05;Rytíři Kladno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Prochazka M..png;Martin;Procházka;26/27;RW/LW;KLA;32;P;CZE;;;47;4;8;12;0;11:27;1;14;13;35;83,33;8,0;0,26;0,28;0,74;11;18;3,72;kladensky.denik.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Redlich S..png;Sebastián;Redlich;26/27+1;F;KLA;22;L;CZE;;;1;0;0;0;0;08:26;0;0;0;0;0,0;0,0;0;0;0;23;23;0;Rytíři Kladno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Rysavy.png;Martin;Ryšavý;26/27;LW;KLA;23;L;CZE;;;45;6;4;10;0;10:28;-13;41;24;26;20,0;13,95;0,22;0,53;0,58;13;20;3,1;Rytíři Kladno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Vigneault.png;Samuel;Vigneault;26/27;C;KLA;30;L;CAN;;;50;12;12;24;6;18:09;-5;28;9;27;46,76;20,69;0,48;0,18;0,54;5;6;7,43;Rytíři Kladno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Beroun.png;Tadeáš;Beroun;J;O;KOM;18;P;CZE;;;5;0;1;1;0;05:48;-1;2;0;4;0,0;0,0;0,2;0;0,8;18;21;0,3;Kometa Brno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Davidson.png;Brandon;Davidson;26/27;O;KOM;35;L;CAN;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;21;24;0;Livesport.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Gulasi.png;Michal;Gulaši;26/27;O;KOM;40;L;CZE;;;52;1;4;5;0;15:39;5;45;53;100;0,0;3,45;0,1;1,02;1,92;14;11;1,48;Kometa Brno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kral.png;Filip;Král;27/28;O;KOM;26;L;CZE;;;37;2;13;15;5;18:45;0;12;4;43;0,0;3,08;0,41;0,11;1,16;10;5;4,45;Kometa Brno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kucerik.png;Radek;Kučeřík;26/27;O;KOM;24;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;21;24;0;Brnensky.denik.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Mikyska.png;Dalimil;Mikyska;26/27;O;KOM;27;L;CZE;;;48;0;12;12;0;17:20;7;12;17;46;0,0;0,0;0,25;0,35;0,96;12;9;3,56;Kometa Brno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Nedomlel.png;Richard;Nedomlel;28/29;O;KOM;33;L;CZE;;;44;1;4;5;0;12:33;-7;16;15;98;0,0;2,78;0,11;0,34;2,23;14;15;1,48;Facebook Kometa Brno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Svozil.png;Stanislav;Svozil;27/28;O;KOM;23;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;21;24;0;Kometa Brno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Scotka.png;Jan;Ščotka;27/28;O;KOM;30;L;CZE;;;47;4;12;16;6;19:44;5;52;8;59;0,0;4,55;0,34;0,17;1,26;8;3;4,75;Eliteprospects.com
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Witkowski.png;Luke;Witkowski;26/27;O;KOM;36;P;USA;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;21;24;0;Hokej.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Zabransky.png;Libor;Zábranský;27/28;O;KOM;26;P;CZE;;;52;18;15;33;8;23:06;10;14;11;95;0,0;11,92;0,63;0,21;1,83;3;1;9,79;Kometa Brno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Zubicek.png;Jakub;Zubíček;27/28+1;O;KOM;20;L;CZE;;;3;0;0;0;0;03:07;-1;0;0;0;0,0;0,0;0;0;0;21;23;0;Facebook Kometa Brno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Brabenec.png;Jakub;Brabenec;27/28+1;C/LW;KOM;22;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;21;24;0;Hokej.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Cingel.png;Lukáš;Cingel;26/27;C;KOM;34;L;SVK;;;46;9;6;15;3;16:24;-6;12;3;35;47,25;13,85;0,33;0,07;0,76;10;10;4,45;Kometa Brno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Cajkovic.png;Maxim;Čajkovič;26/27;RW;KOM;25;P;SVK;;;37;4;8;12;2;12:10;-13;26;7;25;100,0;7,14;0,32;0,19;0,68;12;16;3,56;Eliteprospects.com
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Ekrt.png;Jan;Ekrt;26/27;C;KOM;21;P;CZE;;;45;0;3;3;0;07:12;-6;6;4;15;36,7;0,0;0,07;0,09;0,33;16;20;0,89;Kometa Brno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Flek.png;Jakub;Flek;27/28+1;LW/RW;KOM;33;L;CZE;;;50;24;20;44;9;22:07;-1;4;1;20;46,15;13,33;0,88;0,02;0,4;1;2;13,06;Kometa Brno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Hartl.png;Michal;Hartl;J;C/W;KOM;17;P;CZE;;;12;0;1;1;0;08:53;-5;0;2;3;0,0;0,0;0,08;0,17;0,25;18;18;0,3;Kometa Brno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Chludil.png;Danny;Chludil;26/27+1;LW;KOM;20;L;CZE;;;29;1;1;2;0;07:18;1;31;4;16;0,0;7,14;0,07;0,14;0,55;17;19;0,59;Kometa Brno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Ilomaki.png;Arttu;Ilomaki;26/27;C/RW;KOM;35;P;CZE;;;10;0;1;1;0;15:07;-1;4;0;5;54,26;0,0;0,1;0;0,5;18;14;0,3;Idnes.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kollar.png;Andrej;Kollár;26/27;C/W;KOM;26;P;CZE;;;51;14;13;27;5;17:57;12;10;3;35;49,5;14,58;0,53;0,06;0,69;6;7;8,01;Kometa Brno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kunc.png;Michal;Kunc;26/27;LW/RW;KOM;25;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;21;24;0;Livesport.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kusko.png;Silvester;Kusko;27/28;C/LW;KOM;31;L;SVK;;;50;4;12;16;2;15:37;5;21;4;27;50,73;6,9;0,32;0,08;0,54;8;12;4,75;Kometa Brno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Leino.png;Robert;Leino;26/27;C;KOM;33;P;FIN;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;21;24;0;Isport.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Moravec.png;David;Moravec;26/27;LW;KOM;21;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;21;24;0;Isport.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Pospisil.png;Kristián;Pospíšil;26/27;LW;KOM;30;L;SVK;;;50;14;29;43;10;17:22;11;44;19;20;33,33;12,28;0,86;0,38;0,4;2;8;12,76;Isport.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Selic.png;Tomáš;Selič;J;RW;KOM;17;L;SVK;;;1;0;0;0;0;11:39;-1;0;0;1;0,0;0,0;0;0;1;21;17;0;Kometa Brno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Suss.png;Jan;Suss;26/27;C;KOM;27;L;CZE;;;3;0;0;0;0;05:19;-1;2;0;1;33,33;0,0;0;0;0,33;21;22;0;Kometa Brno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Vehovsky.png;Maxim;Vehovský;26/27;RW/LW;KOM;21;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;21;24;0;Kometa Brno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Zboril A..png;Adam;Zbořil;27/28;C/LW;KOM;30;L;CZE;;;52;9;20;29;10;15:34;0;20;22;31;43,8;9,28;0,56;0,42;0,6;5;13;8,61;Oneplaysport
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Zohorna H..png;Hynek;Zohorna;26/27;RW/C;KOM;36;P;CZE;;;49;17;10;27;4;18:04;11;18;20;14;57,27;20,24;0,55;0,41;0,29;6;6;8,01;Kometa Brno
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Zohorna T..png;Tomáš;Zohorna;26/27+1;C/LW;KOM;38;L;CZE;;;52;9;21;30;1;19:01;7;46;10;26;51,87;11,25;0,58;0,19;0,5;4;4;8,9;Kometa Brno
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Brickley.png;Daniel;Brickley;26/27+1;O;KVA;31;L;USA;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;19;19;0;Karlovy Vary
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Eronen.png;Elmeri;Eronen;26/27+1;O;KVA;31;P;FIN;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;19;19;0;Karlovy Vary
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Koci.png;Matteo;Kočí;29/30;O;KVA;21;L;CZE;;;47;4;12;16;3;15:36;-3;28;14;29;0,0;5,97;0,34;0,3;0,62;9;11;5,67;Karlovy Vary
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Kurka.png;Pavel;Kůrka;J;O;KVA;18;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;19;19;0;Karlovy Vary
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Mamcics.png;Roberts;Mamčics;26/27;O;KVA;31;L;LAT;;;46;0;8;8;0;17:44;-5;43;16;77;0,0;0,0;0,17;0,35;1,67;12;5;2,84;Karlovy Vary
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Mysak.png;Josef;Myšák;26/27;O;KVA;26;L;CZE;;;37;4;5;9;1;17:42;-1;50;24;34;0,0;8,16;0,24;0,65;0,92;11;6;3,19;Deník.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Winberg.png;Quinn;Schmiemann;26/27+1;O;KVA;25;L;CAN;;;39;0;3;3;1;18:41;-11;52;17;60;0,0;0,0;0,08;0,44;1,54;16;3;1,06;Drbna.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Beranek O..jpg;Tobias;Winberg;26/27+1;O;KVA;27;L;FIN;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;19;19;0;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Bambula.png;Ondřej;Beránek;27/28;LW/RW;KVA;30;L;CZE;;;45;18;14;32;9;19:07;-5;22;18;20;0,0;12,59;0,71;0,4;0,44;2;2;11,35;Eliteprospects.com
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Cernoch.jpg;Jan;Bambula;27/28;LW;KVA;25;L;CZE;;;47;7;11;18;5;15:12;-1;21;31;32;0,0;11,86;0,38;0,66;0,68;7;12;6,38;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Egle.png;Jiří;Černoch;28/29;C/RW;KVA;29;P;CZE;;;52;15;25;40;16;19:25;-2;57;27;51;57,11;12,71;0,77;0,52;0,98;1;1;14,18;Karlovy Vary
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Jiskra.jpg;Haralds;Egle;26/27;C/RW;KVA;29;P;LAT;;;45;9;15;24;9;15:40;-5;16;3;11;42,62;9,57;0,53;0,07;0,24;5;10;8,51;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Jones.jpg;Vít;Jiskra;27/28;C/LW;KVA;25;L;CZE;;;52;5;12;17;4;15:55;-1;12;16;57;47,06;7,25;0,33;0,31;1,1;8;9;6,03;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Koffer.jpg;Nick;Jones;26/27;C/RW;KVA;30;P;CAN;;;46;13;18;31;11;16:50;0;14;3;18;54,38;12,75;0,67;0,07;0,39;3;7;10,99;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Lukosik.png;Filip;Koffer;27/28;RW/LW;KVA;25;L;CZE;;;52;3;4;7;0;10:47;-8;26;16;30;0,0;6,12;0,13;0,31;0,58;13;17;2,48;Karlovy Vary
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Minarik.png;Adam;Lukošík;26/27;LW;KVA;24;L;SVK;;;29;1;4;5;0;12:58;-8;49;10;23;0,0;3,57;0,17;0,34;0,79;15;15;1,77;Karlovy Vary
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Redlich T..png;Jakub;Minárik;26/27;C;KVA;26;L;SVK;;;42;10;5;15;4;16:03;-7;16;4;23;47,53;15,15;0,36;0,1;0,55;10;8;5,32;Denik.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Sapousek.jpg;Tomáš;Redlich;27/28;LW/RW;KVA;33;L;CZE;;;14;3;0;3;0;13:01;-2;4;9;13;0,0;16,67;0,21;0,64;0,93;16;14;1,06;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Stastny.jpg;Robin;Sapoušek;26/27;C;KVA;22;L;CZE;;;39;2;5;7;1;12:39;-1;4;17;31;53,85;4,55;0,18;0,44;0,79;13;16;2,48;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Tomek P..jpg;David;Šťastný;26/27;LW;KVA;33;L;CZE;;;51;10;15;25;7;18:08;3;24;13;33;100,0;8,2;0,49;0,25;0,65;4;4;8,87;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Vana.png;Petr;Tomek;J;C;KVA;17;L;CZE;;;51;13;7;20;7;13:02;2;12;6;16;50,0;17,81;0,39;0,12;0,31;6;13;7,09;Karlovy Vary
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Kvaca.png?v=2;Matyáš;Váňa;26/27;C;KVA;21;L;CZE;;;12;1;1;2;0;07:54;-3;0;1;8;21,74;9,09;0,17;0,08;0,67;18;18;0,71;Liberec
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Galvas.png;Layton;Ahac;26/27;O;LIB;25;L;CAN;;;52;1;11;12;1;17:13;11;22;3;53;0,0;1,41;0,23;0,06;1,02;14;9;3,55;Sport.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Hanousek.png?v=2;Tomáš;Galvas;27/28;O;LIB;20;L;CZE;;;32;8;16;24;9;16:59;16;10;7;20;0,0;11,27;0,75;0,22;0,62;5;11;7,1;Eliteprospects.com
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Ivan.png?v=2;Tomáš;Hanousek;26/27+1;O;LIB;28;P;CZE;;;12;0;3;3;0;09:48;2;2;1;5;0,0;0,0;0,25;0,08;0,42;19;18;0,89;Liberec
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Kachlir.png?v=2;Michal;Ivan;26/27;O;LIB;26;L;SVK;;;52;2;5;7;1;18:28;-1;20;11;72;0,0;3,7;0,13;0,21;1,38;17;7;2,07;Drbna.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Simek.png?v=2;Lukáš;Kachlíř;28/29;O;LIB;16;P;CZE;;;13;0;0;0;0;06:11;0;0;0;6;0,0;0,0;0;0;0,46;20;21;0;iDnes.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Zeman.png?v=2;Radim;Šimek;29/30;O;LIB;33;L;CZE;;;47;5;9;14;4;21:26;14;6;18;77;0,0;5,49;0,3;0,38;1,64;11;1;4,14;Liberec
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Zile.png?v=2;Denis;Zeman;26/27+1;O;LIB;25;P;CZE;;;52;7;10;17;2;19:35;4;34;16;49;0,0;9,09;0,33;0,31;0,94;9;2;5,03;Liberec
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Fasko-Rudas.png?v=2;Kristaps;Zile;26/27+1;O;LIB;28;L;LAT;;;52;6;6;12;0;19:07;8;41;22;69;0,0;7,06;0,23;0,42;1,33;14;4;3,55;Liberec
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Filippi.png?v=2;Martin;Faško-Rudáš;27/28+1;RW/LW;LIB;26;P;SVK;;;50;11;12;23;6;16:15;1;16;1;19;52,22;10,28;0,46;0,02;0,38;6;12;6,8;Liberec
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Hujer.png?v=2;Tomáš;Filippi;26/27;C;LIB;34;L;CZE;;;20;4;7;11;4;17:17;-2;10;1;8;58,22;7,84;0,55;0,05;0,4;16;8;3,25;Hokej.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Jansa.png?v=2;Jakub;Hujer;27/28+1;LW/C;LIB;22;L;CZE;;;11;0;0;0;0;07:04;1;6;2;0;0,0;0,0;0;0,18;0;20;20;0;Hokej.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Lenc.png?v=2;Filip;Jansa;27/28;LW;LIB;24;L;CZE;;;50;8;5;13;0;09:25;1;20;13;24;53,25;19,51;0,26;0,26;0,48;13;19;3,85;Hokej.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Musil A..png;Radan;Lenc;27/28;LW/RW;LIB;35;L;CZE;;;51;24;11;35;12;19:08;11;42;15;34;40,91;14,12;0,69;0,29;0,67;1;3;10,36;Liberec
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Najman.png?v=2;Adam;Musil;26/27;C/LW;LIB;29;P;CZE;;;51;10;22;32;7;18:48;14;39;19;29;56,96;9,35;0,63;0,37;0,57;3;6;9,47;Liberec
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Perez.png?v=2;Adam;Najman;27/28;C/LW;LIB;25;L;CZE;;;51;8;13;21;6;17:10;2;16;4;22;54,99;8,25;0,41;0,08;0,43;7;10;6,21;Liberec
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Petrovsky.png?v=2;Jaromír;Peréz;27/28;LW/RW;LIB;21;L;CZE;;;50;9;10;19;1;14:15;6;16;36;48;0,0;9,89;0,38;0,72;0,96;8;15;5,62;sportovy.cas.sk
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Prochazka.png?v=2;Servác;Petrovský;27/28+1;C/RW;LIB;22;L;SVK;;;38;11;5;16;5;11:19;7;16;6;15;44,44;14,86;0,42;0,16;0,39;10;17;4,73;iDnes.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Pytlik.png?v=2;Ondřej;Procházka;26/27+1;LW;LIB;28;L;CZE;;;47;5;9;14;6;15:21;-19;39;9;22;100,0;4,17;0,3;0,19;0,47;11;14;4,14;Liberec
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Rychlovsky.png?v=2;Jaromír;Pytlík;26/27+1;C/RW;LIB;24;P;CZE;;;44;10;16;26;6;16:14;17;31;15;26;46,88;9,71;0,59;0,34;0,59;4;13;7,69;Liberec
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Sandberg.png?v=2;Jakub;Rychlovský;27/28;LW/RW;LIB;25;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;22;0;Liberec
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Vlach.png?v=2;Filip;Sandberg;26/27;C/RW;LIB;32;P;SWE;;;50;8;26;34;9;18:50;12;16;4;26;40,91;8,6;0,68;0,08;0,52;2;5;10,06;Facebook - Hokej a vše kolem
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Cajan.png?v=2;Jaroslav;Vlach;26/27;LW;LIB;34;L;CZE;;;15;3;2;5;0;12:02;5;10;3;9;0,0;15,0;0,33;0,2;0,6;18;16;1,48;Verva Litvínov
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Beran.png?v=2;Ondřej;Baláž;26/27;O;LIT;23;L;CZE;;;25;0;2;2;0;07:48;-5;0;3;15;0,0;0,0;0,08;0,12;0,6;16;19;1,08;Eliteprospects.com
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Czuczman.png?v=2;Vít;Beran;26/27;O;LIT;22;L;CZE;;;2;0;0;0;0;10:57;-2;0;0;0;0,0;0,0;0;0;0;18;14;0;Verva Litvínov
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Husinecky.png?v=2;Kevin;Czuczman;27/28;O;LIT;35;L;CAN;;;48;1;8;9;2;20:17;-7;32;8;81;0,0;1,32;0,19;0,17;1,69;9;4;4,84;Verva Litvínov
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Jaks.png?v=2;Vojtěch;Husinecký;26/27+1;O;LIT;20;P;CZE;;;46;1;2;3;0;10:55;-9;12;3;39;0,0;4,55;0,07;0,07;0,85;13;15;1,61;Sport.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Moravcik.png?v=2;Janis;Jaks;26/27;O;LIT;30;P;LAT;;;48;10;15;25;16;21:01;-9;30;15;55;0,0;7,87;0,52;0,31;1,15;1;2;13,44;iRozhlas.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Polasek.png?v=2;Michal;Moravčík;26/27;O;LIT;31;L;CZE;;;5;0;3;3;3;17:14;-3;4;0;5;0,0;0,0;0,6;0;1;13;7;1,61;Verva Litvínov
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Prokes.png;Adam;Polášek;27/28;O;LIT;35;L;CZE;;;47;3;9;12;1;19:37;-1;30;26;84;0,0;4,35;0,26;0,55;1,79;8;5;6,45;Hokej.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Sousek.png;Daniel;Prokeš;J;O;LIT;20;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;18;22;0;Eliteprospects.com
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Tittl.png;Petr;Soušek;26/27+1;O;LIT;19;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;18;22;0;Slavia Praha
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Bednarik.png?v=2;Filip;Tittl;27/28+1;O;LIT;19;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;18;22;0;Verva Litvínov
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Gut.png?v=2;Jonáš;Bednařík;26/27+1;C;LIT;19;L;CZE;;;6;0;0;0;0;07:07;1;0;0;3;45,95;0,0;0;0;0,5;18;20;0;Verva Litvínov
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Havelka.png?v=2;Michal;Gut;26/27+1;C;LIT;24;L;CZE;;;25;2;1;3;0;13:41;-1;18;8;21;45,74;11,76;0,12;0,32;0,84;13;11;1,61;Verva Litvínov
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Jicha.png?v=2;Martin;Havelka;27/28;LW/RW;LIT;28;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;18;22;0;Verva Litvínov
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Jurcik.png?v=2;Josef;Jícha;26/27;C/LW;LIT;29;L;CZE;;;37;2;2;4;0;13:38;-14;41;10;35;44,86;6,25;0,11;0,27;0,95;12;12;2,15;Verva Litvínov
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Kampf.png?v=2;Ondřej;Jurčík;26/27+1;C;LIT;34;L;CZE;;;51;5;1;6;0;13:01;0;16;14;30;43,7;10,42;0,12;0,27;0,59;10;13;3,23;Sport.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Kase D..png;David;Kämpf;28/29;C;LIT;31;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;18;22;0;iSport.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Kase O..png;David;Kaše;28/29;C/LW;LIT;29;L;CZE;;;28;6;11;17;9;19:01;-13;6;4;21;44,16;8,45;0,61;0,14;0,75;4;6;9,14;iDnes.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Koblasa.png?v=2;Ondřej;Kaše;28/29;RW;LIT;30;P;CZE;;;33;8;17;25;6;21:15;-13;14;0;16;46,88;7,69;0,76;0;0,48;1;1;13,44;Verva Litvínov
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Mastalirsky.png?v=2;Petr;Koblasa;27/28;RW;LIT;32;P;CZE;;;51;7;10;17;5;15:24;-18;45;6;23;50,0;8,64;0,33;0,12;0,45;4;9;9,14;Verva Litvínov
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Peroutka.png;Matěj;Maštalířský;26/27;LW/RW;LIT;21;L;CZE;;;46;9;8;17;4;14:32;-7;14;5;34;33,33;14,29;0,37;0,11;0,74;4;10;9,14;Litvínov
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Pistek.png?v=2;Jan;Peroutka;26/27;C/LW;LIT;20;L;CZE;;;1;0;0;0;0;08:57;-1;0;0;3;50,0;0,0;0;0;3;18;16;0;Oneplaysport.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Sukel.png?v=2;Theodor;Pištěk;26/27;RW/LW;LIT;25;P;CZE;;;52;12;3;15;5;15:29;-17;24;6;29;60,0;12,77;0,29;0,12;0,56;7;8;8,06;Verva Litvínov
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Sprynar.png?v=2;Matuš;Sukel;26/27;C;LIT;30;L;SVK;;;44;10;11;21;8;20:44;-11;53;10;49;51,1;16,39;0,48;0,23;1,11;3;3;11,29;Verva Litvínov
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Urban.png;Jan;Šprynar;26/27;RW;LIT;21;P;CZE;;;21;1;0;1;0;05:47;-1;0;2;1;0,0;16,67;0,05;0,1;0,05;17;21;0,54;Verva Litvínov
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Zygmunt.png?v=2;Tomáš;Urban;Hostování;C/LW;LIT;24;L;CZE;;;10;0;0;0;0;08:06;-4;2;0;1;38,46;0,0;0;0;0,1;18;18;0;Sport.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Furch.png?v=2;Pawel;Zygmunt;26/27;RW;LIT;26;P;POL;;;37;2;4;6;0;08:12;1;15;8;14;47,17;9,09;0,16;0,22;0,38;10;17;3,23;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Hlinsky.png?v=2;Vojtěch;Budík;26/27;O;MBL;28;L;CZE;;;30;0;2;2;0;14:02;-16;6;4;40;0,0;0,0;0,07;0,13;1,33;15;12;1,12;Mlada Boleslav
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Janosik.png?v=2;Adam Martin;Hlinský;26/27;O;MBL;20;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;22;0;Mlada Boleslav
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Krepelka.png?v=2;Adam;Jánošík;27/28;O;MBL;33;L;SVK;;;24;1;5;6;1;17:40;1;14;18;36;0,0;4,76;0,25;0,75;1,5;11;4;3,35;Mlada Boleslav
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Kubicek.png?v=2;Karel;Křepelka;27/28;O;MBL;22;P;CZE;;;14;1;1;2;0;11:30;-2;12;0;12;0,0;6,67;0,14;0;0,86;15;17;1,12;Mlada Boleslav
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Moravec D..png;Šimon;Kubíček;27/28;O;MBL;24;P;CZE;;;40;2;1;3;0;13:44;-2;30;9;38;0,0;6,9;0,07;0,23;0,95;12;13;1,68;Mlada Boleslav
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Pavlik F..png;David;Moravec;27/28;O;MBL;22;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;22;0;Mlada Boleslav
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Skarberg.png?v=2;Filip;Pavlík;26/27;O;MBL;34;P;CZE;;;50;3;11;14;4;18:17;-9;4;12;124;0,0;4,76;0,28;0,24;2,48;6;2;7,82;hokej.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Vlasak.png?v=2;Martin;Skarberg;27/28;O;MBL;23;L;SWE;;;50;1;6;7;0;14:52;-9;16;12;39;0,0;2,04;0,14;0,24;0,78;9;10;3,91;Mlada Boleslav
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Vochvest.png?v=2;Adam;Vlasák;26/27;O;MBL;21;L;CZE;;;9;0;1;1;0;12:34;-1;4;1;4;0,0;0,0;0,11;0,11;0,44;17;14;0,56;Mlada Boleslav
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Zamorsky.png?v=2;Vojtěch;Vochvest;26/27;O;MBL;20;L;CZE;;;2;0;0;0;0;06:56;0;0;0;0;0,0;0,0;0;0;0;20;20;0;Mlada Boleslav
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Buchtele.png?v=2;Petr;Zámorský;27/28;O;MBL;34;P;CZE;;;49;11;17;28;14;19:49;2;14;6;35;0,0;6,96;0,57;0,12;0,71;1;1;15,64;Mlada Boleslav
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Fort.png?v=2;Jan;Buchtele;26/27;LW;MBL;36;L;CZE;;;44;12;11;23;4;16:46;-4;10;10;21;30,23;13,19;0,52;0,23;0,48;3;7;12,85;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Gardon.png?v=2;Tomáš;Fořt;27/28;C;MBL;34;L;CZE;;;47;14;10;24;7;17:47;6;16;4;29;52,15;18,18;0,51;0,09;0,62;2;3;13,41;Mlada Boleslav
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Gavars.png?v=2;Matěj;Gardoň;26/27;LW;MBL;22;L;CZE;;;16;0;1;1;0;08:56;-8;4;2;3;100,0;0,0;0,06;0,12;0,19;17;19;0,56;Mlada Boleslav
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Griger.png?v=2;Felikss;Gavars;26/27;F;MBL;24;L;LAT;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;22;0;Oneplay sport
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Hradec.png?v=2;Dávid;Gríger;27/28;C/RW;MBL;31;P;SVK;;;31;7;7;14;4;16:54;-2;26;6;17;59,21;15,22;0,45;0,19;0,55;6;6;7,82;Mlada Boleslav
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Koblizek.png?v=2;Vojtěch;Hradec;26/27;C;MBL;20;L;CZE;;;43;4;4;8;2;14:08;-12;12;12;34;49,49;7,27;0,19;0,28;0,79;8;11;4,47;Mlada Boleslav
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Kral P..png;Radek;Koblížek;27/28;RW/LW;MBL;28;P;CZE;;;11;0;3;3;0;16:25;-3;0;1;0;0,0;0,0;0,27;0,09;0;12;8;1,68;Mlada Boleslav
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Lakatos.png?v=2;Patrik;Král;26/27;F;MBL;20;L;CZE;;;7;0;0;0;0;05:27;0;0;1;1;0,0;0,0;0;0,14;0,14;20;21;0;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Lichtag.png?v=2;Jakub;Lichtag;26/27;LW/RW;MBL;24;L;CZE;;;52;4;3;7;0;12:02;-7;44;41;27;0,0;8,89;0,13;0,79;0,52;9;15;3,91;Mlada Boleslav
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Malinek.png?v=2;Vojtěch;Malínek;27/28;C;MBL;21;L;CZE;;;47;1;2;3;0;12:01;-11;15;14;29;42,95;1,75;0,06;0,3;0,62;12;16;1,68;Mlada Boleslav
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Martel.png?v=2;Jordan;Martel;26/27+1;RW/LW;MBL;28;P;CAN;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;22;0;sport.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Maxin.png?v=2;Imrich;Maxin;J;F;MBL;19;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;22;0;Mlada Boleslav
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Morand.png?v=2;Antoine;Morand;26/27;C/W;MBL;27;L;CAN;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;22;0;Mladá Boleslav
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Rekonen.png?v=2;Aleksi;Rekonen;27/28;LW/C;MBL;33;L;FIN;;;51;8;9;17;10;15:08;-19;6;14;44;33,33;11,94;0,33;0,27;0,86;4;9;9,5;Mlada Boleslav
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Skalicky.png?v=2;Pavol;Skalický;28/29;C/RW;MBL;30;P;SVK;;;47;6;9;15;2;17:21;-2;31;24;50;0,0;7,69;0,32;0,51;1,06;5;5;8,38;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Zavora.png?v=2;Jan;Závora;26/27;C;MBL;24;P;CZE;;;41;1;0;1;0;10:42;-4;6;5;16;39,5;4,76;0,02;0,12;0,39;17;18;0,56;Mlada Boleslav
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Kalina.png?v=2;Štěpán;Černý;26/27+1;O;MHK;19;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;22;0;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Koch A..png;Petr;Kalina;27/28;O;MHK;29;L;CZE;;;22;0;2;2;0;16:43;6;0;1;39;0,0;0,0;0,09;0,05;1,77;19;9;0,61;Mountfield hk
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/McCormack.png;Anders;Koch;26/27+1;O;MHK;28;L;DEN;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;22;0;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Melancon.png?v=2;Graeme;McCormack;26/27;O;MHK;35;P;CAN;;;28;3;10;13;7;19:09;7;8;1;31;0,0;3,85;0,46;0,04;1,11;14;3;3,98;Livesport
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Mudrak.png?v=2;T.J.;Melancon;26/27;O;MHK;30;P;CAN;;;51;11;13;24;10;20:25;-10;12;4;53;0,0;8,59;0,47;0,08;1,04;5;1;7,34;Hokej.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Planek.png?v=2;Dávid;Mudrák;27/28;O;MHK;25;P;SVK;;;41;4;10;14;3;18:46;3;51;31;59;0,0;5,48;0,34;0,76;1,44;13;4;4,28;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Sykora.png?v=2;Martin;Pláněk;26/27+1;O;MHK;35;P;CZE;;;33;1;2;3;0;17:24;8;8;14;63;0,0;5,56;0,09;0,42;1,91;18;6;0,92;Mountfield hk
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Vukojevic.png?v=2;David;Sýkora;27/28;O;MHK;25;L;CZE;;;4;0;0;0;0;07:41;2;2;0;2;0,0;0,0;0;0;0,5;20;20;0;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Cacho.png?v=2;Michael;Vukojevič;27/28;O;MHK;25;L;CAN;;;38;2;5;7;0;19:47;14;28;12;62;0,0;4,17;0,18;0,32;1,63;16;2;2,14;Hokej.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Jergl.png?v=2;Villiam;Čacho;27/28;C;MHK;27;L;SVK;;;38;7;12;19;5;16:29;2;39;8;25;47,33;11,67;0,5;0,21;0,66;9;10;5,81;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Klima Kev..jpg;Aleš;Jergl;28/29;RW;MHK;32;P;CZE;;;43;12;14;26;4;15:59;2;12;4;9;40,0;12,5;0,6;0,09;0,21;2;11;7,95;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Kohout.png?v=2;Kevin;Klíma;27/28;LW/C;MHK;29;L;CZE;;;39;7;18;25;7;17:17;9;58;12;19;46,89;9,33;0,64;0,31;0,49;3;7;7,65;Hokej.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Kousal R..png;Martin;Kohout;27/28;LW;MHK;31;L;CZE;;;49;11;14;25;2;15:51;10;56;29;18;49,52;14,47;0,51;0,59;0,37;3;13;7,65;Mountfield hk
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Miskar.png?v=2;Robert;Kousal;26/27+1;C/LW;MHK;35;L;CZE;;;43;4;9;13;3;13:54;2;12;11;15;55,56;6,15;0,3;0,26;0,35;14;18;3,98;Livesport.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Nenonen.png?v=2;Patrik;Miškář;27/28;C;MHK;30;L;CZE;;;44;7;12;19;5;16:51;10;28;15;24;46,36;11,86;0,43;0,34;0,55;9;8;5,81;Mountfield hk
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Pavlik D..png;Markus;Nenonen;26/27;LW/RW;MHK;33;L;FIN;;;51;10;13;23;10;14:07;-1;16;6;31;0,0;8,33;0,45;0,12;0,61;7;17;7,03;Mountfield hk
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Pavlik R..png;Dominik;Pavlík;27/28;C;MHK;19;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;22;0;Hokej.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Perret.png?v=2;Radovan;Pavlík;28/29;LW/RW;MHK;28;L;CZE;;;49;14;10;24;3;15:25;14;31;9;7;0,0;15,38;0,49;0,18;0,14;5;14;7,34;Mountfield hk
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Pilar.png?v=2;Jordann;Perret;27/28;RW;MHK;31;L;FRA;;;40;6;11;17;2;17:28;5;29;7;23;37,5;7,41;0,42;0,17;0,57;11;5;5,2;Hokej.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Radil.png?v=2;Radek;Pilař;26/27+1;F/D;MHK;30;L;CZE;;;44;0;4;4;0;11:41;7;8;10;35;25,0;0,0;0,09;0,23;0,8;17;19;1,22;Sport.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Tamasi.png?v=2;Lukáš;Radil;26/27;LW/RW;MHK;36;L;CZE;;;51;13;20;33;9;15:59;8;24;5;8;50,0;9,7;0,65;0,1;0,16;1;11;10,09;Rimava.sk
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Vyvial.png?v=2;Alex;Tamáši;26/27;C;MHK;28;L;SVK;;;31;8;13;21;7;15:20;7;10;0;10;54,77;15,09;0,68;0;0,32;8;15;6,42;Mountfield hk
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Zdrahal.png?v=2;Jan;Vyvial;26/27+1;F;MHK;20;L;CZE;;;2;0;0;0;0;02:48;0;0;0;0;0,0;0,0;0;0;0;20;21;0;Salonkyhk.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Cichon.png?v=2;Patrik;Zdráhal;27/28;LW/RW;MHK;31;L;CZE;;;44;6;9;15;1;14:26;-5;6;3;17;0,0;8,82;0,34;0,07;0,39;12;16;4,59;Olomouc
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Cerny.png?v=2;Trevor;Cosgrove;26/27;O;OLO;29;L;USA;;;52;4;15;19;12;19:24;-14;28;5;58;0,0;4,12;0,37;0,1;1,12;4;1;8,96;Olomouc
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Freibergs.png;Tomáš;Černý;27/28;O;OLO;29;P;CZE;;;45;2;6;8;2;18:22;0;26;5;62;0,0;2,63;0,18;0,11;1,38;9;2;3,77;Oneplaysport
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Gewiese.png;Ralfs;Freibergs;26/27+1;O;OLO;35;L;LAT;;;32;0;4;4;2;15:49;3;22;8;29;0,0;0,0;0,12;0,25;0,91;19;8;1,89;Mladá Boleslav
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Hradek.png?v=2;Petr;Gewiese;27/28;O;OLO;33;L;CZE;;;49;1;4;5;0;17:01;-1;39;25;58;0,0;1,09;0,1;0,51;1,18;17;4;2,36;Oneplaysport
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Ondrusek.png?v=2;Michal;Hrádek;26/27;O;OLO;24;P;CZE;;;47;1;2;3;0;12:26;4;17;12;57;0,0;3,23;0,06;0,26;1,21;20;16;1,42;Olomouc
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Petrovicky.png?v=2;Jiří;Ondrušek;26/27;O;OLO;40;L;CZE;;;52;2;12;14;3;18:17;-10;27;10;96;0,0;2,63;0,27;0,19;1,85;6;3;6,6;sport.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Reznicek.png?v=2;Rayen;Petrovický;26/27;O;OLO;24;L;SVK;;;18;2;5;7;0;13:00;-5;4;4;19;0,0;11,76;0,39;0,22;1,06;12;14;3,3;Olomouc
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Rutar.png?v=2;Dalibor;Řezníček;26/27;O;OLO;35;L;CZE;;;43;1;5;6;0;13:51;-3;14;7;54;0,0;2,78;0,14;0,16;1,26;13;11;2,83;Olomouc
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Stella.png?v=2;Adam;Rutar;27/28;O;OLO;24;P;CZE;;;24;2;3;5;0;13:35;-6;10;13;31;0,0;12,5;0,21;0,54;1,29;17;12;2,36;Olomouc
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Andel.png?v=2;Evan;Stella;26/27;O;OLO;25;L;SWE;;;51;0;6;6;0;16:45;-2;14;11;61;0,0;0,0;0,12;0,22;1,2;13;5;2,83;Olomouc
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Berglund.png;Lukáš;Anděl;26/27;C;OLO;28;L;CZE;;;48;2;6;8;0;11:17;-16;2;7;36;43,35;7,69;0,17;0,15;0,75;9;19;3,77;ESPN
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Hercik.png;Carl;Berglund;26/27;C/LW;OLO;26;L;SWE;;;29;2;4;6;1;14:41;-8;8;0;23;51,26;4,44;0,21;0;0,79;13;10;2,83;Dynamo Pardubice
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kos.png;Daniel;Herčík;27/28+1;RW/LW;OLO;23;P;CZE;;;11;0;0;0;0;09:00;-1;0;3;3;66,67;0,0;0;0,27;0,27;23;24;0;Hokej.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Macuh.png?v=2;Jakub;Kos;26/27;LW/C;OLO;23;L;CZE;;;50;5;5;10;0;12:03;-6;16;16;21;63,16;9,26;0,2;0,32;0,42;7;17;4,72;Olomouc
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Matys.png?v=2;Rok;Macuh;26/27;C/LW;OLO;29;L;SLO;;;33;6;3;9;2;12:59;-6;47;12;23;56,99;13,64;0,27;0,36;0,7;8;15;4,25;Olomouc
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Ministr.png?v=2;Ondřej;Matýs;26/27;LW;OLO;27;L;CZE;;;51;10;10;20;5;14:56;-8;14;12;14;46,15;12,35;0,39;0,24;0,27;3;9;9,43;Olomouc
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Navratil.png?v=2;Daniel;Ministr;26/27;LW/RW;OLO;23;L;CZE;;;27;1;1;2;0;09:12;-11;6;5;12;0,0;10,0;0,07;0,19;0,44;21;23;0,94;Olomouc
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Orsava.png?v=2;Jakub;Navrátil;27/28;LW;OLO;27;L;CZE;;;51;10;12;22;10;16:05;-16;14;3;26;100,0;12,82;0,43;0,06;0,51;2;7;10,38;Olomouc
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Plasek.png?v=2;Jakub;Orsava;26/27;LW/RW;OLO;35;P;CZE;;;50;11;14;25;8;16:17;1;24;19;40;66,67;13,41;0,5;0,38;0,8;1;6;11,79;olomoucky.rej.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Senyshyn.png;Karel;Plášek;27/28;LW;OLO;26;L;CZE;;;43;12;6;18;11;13:02;-14;4;7;20;0,0;18,46;0,42;0,16;0,47;5;13;8,49;Olomouc
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Spodniak.png;Zach;Senyshyn;26/27;RW;OLO;29;P;CAN;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;23;25;0;Elite Prospect
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Stohanzl.png?v=2;Matúš;Spodniak;26/27;C/LW;OLO;28;L;SVK;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;23;25;0;Olomouc
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Tomecek.png?v=2;Martin;Štohanzl;27/28;C;OLO;27;L;CZE;;;4;0;0;0;0;09:43;1;0;0;2;50,0;0,0;0;0;0,5;23;22;0;Olomouc
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Vitouch D..png;Michal;Tomeček;27/28;C/LW;OLO;22;L;CZE;;;1;0;1;1;0;10:25;1;2;0;0;0,0;0,0;1;0;0;22;20;0,47;Idnes.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Vitouch M..png;David;Vitouch;27/28+1;C/LW;OLO;24;L;CZE;;;46;2;6;8;1;11:21;2;4;8;33;43,58;5,88;0,17;0,17;0,72;9;18;3,77;Olomouc
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Subban.png;Michal;Vitouch;27/28;F;OLO;23;L;CZE;;;44;2;4;6;0;09:48;-3;18;6;29;42,17;6,25;0,14;0,14;0,66;13;21;2,83;Pardubice
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Dvorak.png;Peter;Čerešňák;27/28;O;PCE;33;P;SVK;;;34;7;12;19;13;20:23;4;10;10;59;0,0;8,33;0,56;0,29;1,74;8;1;4,86;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Gazda.png;Tomáš;Dvořák;28/29;O;PCE;31;L;CZE;;;46;2;2;4;0;17:23;10;40;11;70;0,0;4,44;0,09;0,24;1,52;19;7;1,02;Pardubice
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Kostalek.png;Daniel;Gazda;27/28;O;PCE;29;P;CZE;;;41;6;12;18;8;17:55;3;10;14;39;0,0;5,45;0,44;0,34;0,95;9;5;4,6;Elite Prospect
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Ludvig.png;Jan;Košťálek;26/27;O;PCE;31;P;CZE;;;46;16;27;43;23;19:05;9;26;6;29;0,0;10,53;0,93;0,13;0,63;3;4;11;Pardubice
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Miklis.png;John;Ludvig;27/28;O;PCE;26;L;CAN;;;44;3;10;13;0;16:37;13;93;22;73;0,0;5,66;0,3;0,5;1,66;11;12;3,32;Pardubice
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Tourigny.png;Ondřej;Mikliš;26/27;O;PCE;30;L;CZE;;;51;4;2;6;0;15:32;5;64;38;74;0,0;5,88;0,12;0,75;1,45;17;15;1,53;isport.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Cervenka.png;Miguel;Tourigny;26/27+1;O;PCE;24;P;CAN;;;50;8;19;27;11;17:37;5;33;8;22;0,0;5,23;0,54;0,16;0,44;5;6;6,91;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Fejes.png;Roman;Červenka;27/28;LW/RW;PCE;40;L;CZE;;;43;19;41;60;22;19:36;26;28;1;6;0,0;15,45;1,4;0,02;0,14;1;3;15,35;Pardubice
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Kaut.png;Hunter;Fejes;26/27+1;LW/RW;PCE;32;L;CAN;;;17;2;3;5;0;11:45;1;6;5;6;0,0;9,09;0,29;0,29;0,35;18;19;1,28;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Kelemen.png;Martin;Kaut;33/34;RW;PCE;26;P;CZE;;;17;5;5;10;4;15:43;3;0;1;7;0,0;9,26;0,59;0,06;0,41;14;14;2,56;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Kondelik.png;Miloš;Kelemen;29/30;RW/LW;PCE;27;L;SVK;;;49;6;7;13;0;14:32;12;66;9;26;50,0;7,23;0,27;0,18;0,53;11;16;3,32;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Lauko.png;Jáchym;Kondelík;29/30;C;PCE;26;L;CZE;;;50;12;20;32;9;17:03;10;20;2;37;50,57;14,81;0,64;0,04;0,74;4;9;8,18;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Mandat.png;Jakub;Lauko;27/28;C/LW;PCE;26;L;CZE;;;34;10;12;22;4;16:57;16;45;13;22;25,0;13,33;0,65;0,38;0,65;7;10;5,63;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Nosek.png;Jan;Mandát;27/28;C/LW;PCE;30;L;CZE;;;52;9;14;23;5;16:48;15;33;22;32;66,67;10,59;0,44;0,42;0,62;6;11;5,88;Pardubice
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Poulicek.png;Tomáš;Nosek;30/31;C/LW;PCE;33;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;20;0;hokej.cz
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Sedlak.png;Patrik;Poulíček;26/27;C;PCE;33;L;CZE;;;48;3;6;9;0;13:42;-2;53;25;43;55,01;6,25;0,19;0,52;0,9;15;17;2,3;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Smejkal.png;Lukáš;Sedlák;29/30;C/LW;PCE;33;L;CZE;;;49;17;35;52;17;19:40;24;31;23;33;57,3;18,28;1,06;0,47;0,67;2;2;13,3;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Sobotka.png;Jiří;Smejkal;28/29;LW/C;PCE;29;L;CZE;;;14;4;5;9;1;17:16;0;2;1;18;56,52;18,18;0,64;0,07;1,29;15;8;2,3;Pardubice
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Stransky.png;Vladimír;Sobotka;26/27;C/LW;PCE;39;L;CZE;;;32;4;7;11;5;16:13;-1;20;9;18;57,14;9,3;0,34;0,28;0,56;13;13;2,81;Pardubice
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Tomasek.png;Matěj;Stránský;29/30;RW/LW;PCE;33;P;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;20;0;Pardubice
+https://raw.githubusercontent.com/Adamos1511/ELH-web/main/foto_hrac/Vondracek.png;David;Tomášek;30/31;C/RW;PCE;30;P;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;20;20;0;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Malik.png;Tomáš;Vondráček;28/29;LW/RW;PCE;35;L;CZE;;;46;10;5;15;0;12:50;3;24;8;15;0,0;17,24;0,33;0,17;0,33;10;18;3,84;sport.ceskatelevize.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Chromiak.png;Aleš;Čech;27/28+1;O;PLZ;22;L;CZE;;;22;1;2;3;0;14:11;-2;18;2;24;0,0;6,25;0,14;0,09;1,09;16;14;1,12;noviny.sk
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Jerabek.png;Jakub;Chromiak;27/28+1;O;PLZ;20;P;SVK;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;18;18;0;idnes.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Macpherson.png;Jakub;Jeřábek;26/27;O;PLZ;35;L;CZE;;;44;2;6;8;2;19:07;7;41;6;65;0,0;4,08;0,18;0,14;1,48;12;1;2,97;elite prospect
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Malak.png;Dylan;Macpherson;26/27+1;O;PLZ;28;P;CAN;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;18;18;0;hokej.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Merezhko.png;Daniel;Malák;26/27;O;PLZ;23;L;CZE;;;50;3;6;9;0;17:52;8;54;52;80;0,0;4,55;0,18;1,04;1,6;11;4;3,35;Plzen
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Robertson.png;Igor;Merezhko;26/27;O;PLZ;28;P;UKR;;;51;5;12;17;0;18:54;16;44;13;85;0,0;6,67;0,33;0,25;1,67;9;2;6,32;denik.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Rubins.png;Carter;Robertson;26/27+1;O;PLZ;26;L;CAN;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;18;18;0;hokej.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Filip.png;Kristians;Rubins;26/27;O;PLZ;28;L;LAT;;;12;0;1;1;0;17:45;0;2;6;21;0,0;0,0;0,08;0,5;1,75;17;5;0,37;denik.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Fodor.png;Matyáš;Filip;26/27;C;PLZ;25;L;CZE;;;46;13;13;26;6;15:47;11;10;12;24;48,34;24,07;0,57;0,26;0,52;4;8;9,67;český hokej
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Katic.png;Jan;Fodor;27/28+1;RW;PLZ;17;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;18;18;0;idnes.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Lalancette.png;Danny;Katic;26/27+1;LW/RW;PLZ;26;L;CAN;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;18;18;0;elite prospect
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Lev J..png;Christophe;Lalancette;27/28;C;PLZ;32;P;CAN;;;38;8;23;31;9;18:32;9;10;1;15;52,18;12,5;0,82;0,03;0,39;1;3;11,52;wikipedia
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Mechura.png;Jakub;Lev;26/27;C/LW;PLZ;35;P;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;18;18;0;hokej.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/M.Petman.png;Adam;Měchura;26/27;C/LW;PLZ;23;L;CZE;;;52;19;12;31;8;16:42;13;22;9;40;50,0;17,92;0,6;0,17;0,77;1;6;11,52;fb - tipsport extraliga
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/V.Petman.png;Mikko Artturi;Petman;26/27;RW;PLZ;25;P;FIN;;;48;13;15;28;7;15:17;12;38;21;24;0,0;16,67;0,58;0,44;0,5;3;10;10,41;idnes.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Psenicka.png;Ville Emil;Petman;26/27;C/LW;PLZ;26;L;FIN;;;52;10;11;21;8;15:42;9;24;14;32;55,48;12,5;0,4;0,27;0,62;6;9;7,81;Oneplay
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Rohlik.png;Ondřej;Pšenička;26/27+1;RW;PLZ;25;L;CZE;;;42;3;2;5;0;10:32;2;18;16;40;58,97;11,11;0,12;0,38;0,95;15;16;1,86;Oneplay
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Sedlacek.png;Ondřej;Rohlík;27/28+1;LW;PLZ;25;L;CZE;;;17;2;5;7;0;15:03;1;2;0;5;0,0;6,25;0,41;0;0,29;13;11;2,6;Oneplay
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Schleiss.png;Ivo;Sedláček;26/27;RW;PLZ;23;L;CZE;;;45;2;5;7;0;08:03;-2;28;14;23;0,0;4,55;0,16;0,31;0,51;13;17;2,6;elite prospect
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Simon.png;Jan;Schleiss;27/28;RW/LW;PLZ;31;P;CZE;;;52;5;14;19;2;14:58;9;20;24;21;20,0;6,85;0,37;0,46;0,4;7;13;7,06;idnes.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Strnad.png;Dominik;Simon;27/28;C;PLZ;32;L;CZE;;;52;7;11;18;8;16:07;5;20;5;28;41,6;9,21;0,35;0,1;0,54;8;7;6,69;denik.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Teply.png;Lukáš;Strnad;26/27;RW;PLZ;22;P;CZE;;;52;11;5;16;1;13:13;5;10;16;18;0,0;13,25;0,31;0,31;0,35;10;15;5,95;sport.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Titlbach.png;Michal;Teplý;26/27+1;LW/RW;PLZ;25;P;CZE;;;40;7;15;22;7;15:01;6;4;2;14;0,0;8,86;0,55;0,05;0,35;5;12;8,18;hokej.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Korenar.png;Adam;Titlbach;27/28;C/LW;PLZ;20;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;18;18;0;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Knot.png;Aaron;Irving;26/27;O;SPA;30;P;CAN;;;51;5;13;18;9;17:33;-1;27;15;44;0,0;4,17;0,35;0,29;0,86;10;8;4,39;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Krejcik.png;Ronald;Knot;27/28;O;SPA;32;P;CZE;;;14;1;2;3;1;20:39;-1;4;3;27;0,0;4,76;0,21;0,21;1,93;20;1;0,73;Elite Prospect
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Masin.png;Jakub;Krejčík;26/27+1;O;SPA;35;L;CZE;;;44;3;23;26;15;18:50;11;46;4;56;0,0;3,26;0,59;0,09;1,27;7;3;6,34;Sparta
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Nemecek.png;Dominik;Mašín;26/27;O;SPA;30;L;CZE;;;43;3;12;15;0;18:13;20;49;8;68;0,0;7,14;0,35;0,19;1,58;11;6;3,66;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Pysyk.png;David;Němeček;26/27;O;SPA;31;L;CZE;;;44;3;3;6;0;16:00;-1;92;35;50;0,0;5,88;0,14;0,8;1,14;17;14;1,46;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Seppala M..jpg;Mark;Pysyk;27/28;O;SPA;34;P;CAN;;;50;6;15;21;9;17:47;24;28;13;70;0,0;6,0;0,42;0,26;1,4;9;7;5,12;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Seppala.png;Mikael;Sepälä;26/27;O;SPA;32;L;FIN;;;9;0;1;1;0;16:19;-1;4;1;12;0,0;0,0;0,11;0,11;1,33;22;13;0,24;Sparta
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Sirota.png;Niko;Sepälä;26/27;O;SPA;27;L;FIN;;;41;2;4;6;0;11:34;3;52;22;36;0,0;7,14;0,15;0,54;0,88;17;21;1,46;Oneplay sport
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Tomov.png;Jakub;Sirota;27/28;O;SPA;27;L;CZE;;;48;3;10;13;3;16:22;2;24;7;48;0,0;5,0;0,27;0,15;1;13;12;3,17;Sparta
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Blumel.png;Nino;Tomov;26/27;O;SPA;22;L;BUL;;;20;0;3;3;0;13:05;-4;6;5;23;0,0;0,0;0,15;0,25;1,15;20;20;0,73;iDnes.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Danicek.png;Matěj;Blümel;29/30;RW/LW;SPA;26;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;24;26;0;Sparta Praha
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Dzierkals.jpg;Marek;Daníček;26/27+1;RW;SPA;19;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;24;26;0;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Horak.png;Martins;Dzierkals;26/27;LW/RW;SPA;29;L;LAT;;;50;7;8;15;2;15:36;1;30;13;21;75,0;9,86;0,3;0,26;0,42;11;15;3,66;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Hrabik K..png;Roman;Horák;26/27;C;SPA;35;L;CZE;;;40;17;14;31;8;18:46;5;10;4;23;54,23;20,48;0,78;0,1;0,57;6;4;7,56;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Hrabik O..png;Kryštof;Hrabík;27/28;F;SPA;26;L;CZE;;;48;9;3;12;4;14:38;2;65;5;50;46,67;15,52;0,25;0,1;1,04;14;17;2,93;Sparta
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Hyka.png;Ondřej;Hrabík;26/27;F;SPA;22;L;CZE;;;16;0;1;1;0;05:34;0;2;0;3;0,0;0,0;0,06;0;0,19;22;24;0,24;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Chlapik.png;Tomáš;Hyka;26/27;RW;SPA;33;P;CZE;;;46;7;15;22;3;15:11;4;16;8;30;40,0;7,22;0,48;0,17;0,65;8;16;5,37;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kousal.png;Filip;Chlapík;28/29;LW/C;SPA;29;L;CZE;;;48;21;30;51;18;19:23;5;32;21;16;48,15;11,8;1,06;0,44;0,33;1;2;12,44;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Najman O..png;Pavel;Kousal;27/28;LW/RW;SPA;27;L;CZE;;;52;17;17;34;12;16:37;10;28;15;21;71,43;11,81;0,65;0,29;0,4;4;11;8,29;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Novak F..png;Ondřej;Najman;26/27+1;C/LRW;SPA;28;L;CZE;;;45;3;7;10;2;13:40;-7;20;2;10;45,86;9,09;0,22;0,04;0,22;15;18;2,44;Sparta
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Pospisil J..png;Filip;Novák;26/27+1;F;SPA;18;L;CZE;;;9;0;0;0;0;08:53;-1;0;0;2;0,0;0,0;0;0;0,22;24;23;0;Sparta
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Raska.png;Jiří;Pospíšil;26/27;F;SPA;21;P;CZE;;;8;0;0;0;0;03:32;-2;2;1;0;0,0;0,0;0;0,12;0;24;25;0;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Repik.png;Adam;Raška;26/27;RW/LW;SPA;24;P;CZE;;;43;2;6;8;1;09:51;6;76;49;9;62,5;5,56;0,19;1,14;0,21;16;22;1,95;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Sekac.png;Michal;Řepík;27/28;RW;SPA;37;P;CZE;;;44;15;20;35;8;17:00;13;20;6;12;43,48;11,9;0,8;0,14;0,27;3;10;8,54;Hokej.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Shore.png;Jiří;Sekáč;27/28;LW;SPA;34;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;24;26;0;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Spacek.png;Devin;Shore;27/28;C;SPA;32;L;CAN;;;44;18;14;32;10;18:20;12;8;6;40;51,88;17,31;0,73;0,14;0,91;5;5;7,8;Veru Masatova photo
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Vesalainen.png;Michael;Špaček;27/28;C/RW;SPA;29;P;CZE;;;52;15;28;43;18;17:20;-4;18;6;21;55,51;15,15;0,83;0,12;0,4;2;9;10,49;Sparta
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kacetl.png;Kristian;Vesalainen;26/27;C/LW;SPA;27;L;FIN;;;16;3;1;4;0;13:18;-3;4;5;10;39,47;17,65;0,25;0,31;0,62;19;19;0,98;Třinec
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Aubrecht.png;Marián;Adámek;26/27;O;TRI;28;P;CZE;;;52;5;15;20;9;19:06;4;14;2;64;0,0;5,43;0,38;0,04;1,23;7;3;5,92;Liberec
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Galvas J..png;David;Aubrecht;26/27;O;TRI;26;L;CZE;;;26;1;1;2;0;07:45;2;10;12;7;0,0;6,25;0,08;0,46;0,27;18;18;0,59;iDnes.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Koch P..png;Jakub;Galvas;27/28;O;TRI;27;L;CZE;;;50;4;14;18;5;18:37;20;22;2;56;0,0;4,3;0,36;0,04;1,12;11;4;5,33;Třinec
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Marincin.png;Patrik;Koch;28/29;O;TRI;29;L;SVK;;;41;1;7;8;0;16:42;-1;30;38;58;0,0;1,33;0,2;0,93;1,41;14;8;2,37;sportweb.pravda.sk
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Musil.png;Martin;Marinčin;27/28;O;TRI;34;L;SVK;;;52;3;6;9;1;19:15;14;24;2;66;0,0;4,48;0,17;0,04;1,27;13;2;2,66;Třinec
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Prusek.png;David;Musil;26/27;O;TRI;33;L;CZE;;;52;2;5;7;0;16:16;3;12;17;103;0,0;3,51;0,13;0,33;1,98;16;11;2,07;Třinec
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Pyrochta.png;Pavel;Průšek;27/28;O;TRI;20;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;19;19;0;Třinec
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Dano.png;Filip;Pyrochta;28/29;O;TRI;30;L;CZE;;;52;4;15;19;8;21:03;-3;10;7;33;0,0;3,81;0,37;0,13;0,63;9;1;5,62;iDnes.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Flynn.png;Marko;Daňo;27/28;LW/C;TRI;31;L;SVK;;;33;14;7;21;7;14:34;0;64;8;6;25,0;16,28;0,64;0,24;0,18;6;14;6,21;Třinec
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Hrehorcak.png;Oscar;Flynn;28/29;LW;TRI;27;L;CZE;;;52;12;23;35;6;16:17;14;16;5;11;0,0;10,17;0,67;0,1;0,21;2;10;10,36;Třinec
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Chlan.png;Patrik;Hrehorčák;26/27;LW;TRI;27;L;SVK;;;52;5;3;8;0;12:46;-2;15;17;41;100,0;6,94;0,15;0,33;0,79;14;16;2,37;elite prospect
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Hudacek.png;Petr;Chlán;26/27;C;TRI;27;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;19;19;0;Sport.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kovarcik M..png;Libor;Hudáček;28/29;RW/C;TRI;35;P;SVK;;;51;17;27;44;10;16:38;7;51;9;6;54,33;12,59;0,86;0,18;0,12;1;9;13,02;Třinec
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kovarcik O..png;Michal;Kovařčík;27/28;C/RW;TRI;29;L;CZE;;;52;12;19;31;8;16:56;16;14;3;25;54,65;13,64;0,6;0,06;0,48;4;7;9,17;Třinec
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kubiesa.png;Ondřej;Kovařčík;26/27;LW;TRI;31;L;CZE;;;43;13;14;27;9;17:28;5;14;2;28;0,0;19,12;0,63;0,05;0,65;5;6;7,99;Třinec
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kurovsky.png;Matěj;Kubiesa;26/27+1;RW;TRI;19;P;CZE;;;21;4;1;5;0;10:52;1;2;7;7;100,0;11,76;0,24;0,33;0,33;17;17;1,48;Třinec
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Nestrasil.png;Daniel;Kurovský;26/27;LW;TRI;28;P;CZE;;;42;11;9;20;2;14:54;-5;56;6;21;0,0;16,42;0,48;0,14;0,5;7;13;5,92;Třinec
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Roman.png;Andrej;Nestrašil;27/28;RW/C;TRI;35;L;CZE;;;52;13;20;33;10;18:33;12;10;2;21;48,5;13,4;0,63;0,04;0,4;3;5;9,76;Třinec
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Ruzicka M..png;Miloš;Roman;26/27;C;TRI;27;L;SVK;;;52;5;7;12;0;13:56;-7;20;15;50;48,52;9,8;0,23;0,29;0,96;12;15;3,55;elite prospect
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Vozenilek.png;Martin;Růžička;26/27;RW/LW;TRI;40;P;CZE;;;52;9;10;19;12;15:43;-8;10;4;21;0,0;14,29;0,37;0,08;0,4;9;12;5,62;Třinec
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Hrachovina.png;Daniel;Voženílek;27/28;LW/RW;TRI;30;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;19;19;0;ceskobudejovicky.denik.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Demel.png;Patrik;Brůna;26/27+1;O;VIT;22;L;CZE;;;27;0;4;4;0;09:22;-5;2;4;17;0,0;0,0;0,15;0,15;0,63;16;20;1,24;hokej.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Drabek.png;Patrik;Demel;28/29;O;VIT;30;L;CZE;;;52;1;6;7;1;18:30;0;18;7;125;0,0;1,92;0,13;0,13;2,4;14;7;2,17;hokej.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Herman.png;Alex;Drábek;26/27;O;VIT;19;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;22;24;0;valassky.denik.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Holland.png;Tomáš;Herman;26/27+1;O;VIT;20;L;CZE;;;1;0;0;0;0;00:26;0;0;0;0;0,0;0,0;0;0;0;22;23;0;Vítkovice
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Knazko.png;Rhett;Holland;27/28;O;VIT;32;P;CAN;;;47;2;4;6;0;17:47;6;29;64;70;0,0;3,64;0,13;1,36;1,49;15;10;1,86;Vítkovice
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Leahy.png;Samuel;Kňažko;26/27;O;VIT;24;L;SVK;;;42;2;13;15;12;21:57;-5;20;9;69;0,0;3,77;0,36;0,21;1,64;9;1;4,64;Oneplay sport
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Majkowski.png;John;Leahy;26/27;O;VIT;29;L;CAN;;;33;3;9;12;1;19:58;4;22;2;53;0,0;6,67;0,36;0,06;1,61;10;3;3,72;Hokej.net
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Pavelka.png;Mateusz;Majkowski;26/27;O;VIT;19;L;POL;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;22;24;0;moravskoslezky.denik.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Port.png;Tomáš;Pavelka;27/28;O;VIT;33;L;CZE;;;10;0;1;1;0;09:16;-1;2;0;6;0,0;0,0;0,1;0;0,6;21;21;0,31;elite prospect
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Tomaskovic.png;Vojtěch;Port;26/27;O;VIT;21;P;CZE;;;41;0;2;2;0;12:59;-6;10;4;37;0,0;0,0;0,05;0,1;0,9;19;15;0,62;elite prospect
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Wesley.png;Tomáš;Tomaškovič;26/27+1;O;VIT;19;P;SVK;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;22;24;0;moravskoslezky.denik.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Zboril J..png;Josh;Wesley;26/27;O;VIT;30;P;USA;;;20;3;5;8;2;19:23;7;25;2;57;0,0;9,68;0,4;0,1;2,85;13;5;2,48;Oneplay sport
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Abdul.png;Jakub;Zbořil;26/27;O;VIT;29;L;CZE;;;41;1;9;10;3;18:27;-11;79;15;46;0,0;1,96;0,24;0,37;1,12;12;8;3,1;iSport.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Bernovsky.png;Jindřich;Abdul;26/27;RW/LW;VIT;30;L;CZE;;;50;16;22;38;9;18:17;-11;35;2;29;0,0;13,22;0,76;0,04;0,58;2;9;11,76;hokej.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Cienciala.png;Jan;Bernovský;26/27;RW;VIT;25;P;CZE;;;3;1;1;2;0;12:09;2;0;1;2;0,0;20,0;0,67;0,33;0,67;19;17;0,62;Vítkovice
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Fasner.png;David;Cienciala;26/27;C/LW;VIT;30;L;CZE;;;49;8;12;20;10;13:46;-8;10;7;21;46,55;12,31;0,41;0,14;0,43;7;14;6,19;moravskoslezky.denik.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Glas.png;Šimon;Fašner;26/27;C/LW;VIT;19;L;CZE;;;11;2;1;3;1;09:47;-1;2;1;3;33,33;28,57;0,27;0,09;0,27;18;19;0,93;hokej.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Hladonik.png;Sebastian;Glas;27/28+1;C;VIT;19;P;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;22;24;0;livesport
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Hrivik.png;Jan;Hladonik;26/27;C/LW;VIT;27;L;CZE;;;50;10;6;16;3;14:29;-3;18;4;28;44,99;14,08;0,32;0,08;0,56;8;13;4,95;hokej.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Kalus.png;Marek;Hrivík;26/27+1;C/LW;VIT;34;L;SVK;;;42;6;18;24;8;18:58;-2;16;4;23;47,75;8,96;0,57;0,1;0,55;6;6;7,43;Vítkovice
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Krivosik.png;Marek;Kalus;27/28;LW;VIT;33;L;CZE;;;47;11;14;25;11;17:21;0;56;25;35;0,0;15,71;0,53;0,53;0,74;5;12;7,74;Vítkovice
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Macias.png;Filip;Krivošík;27/28;C/RW;VIT;27;P;SVK;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;22;24;0;moravskoslezky.denik.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Nazad.png;Krzysztof;Macias;26/27;C;VIT;22;L;CZE;;;45;7;5;12;0;11:06;2;17;35;26;44,0;12,96;0,27;0,78;0,58;10;18;3,72;Vítkovice
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Nellis.png;Michael;Nazad;26/27+1;C/LW;VIT;19;L;CZE;;;2;0;0;0;0;06:29;-2;0;0;2;0,0;0,0;0;0;1;22;22;0;Oneplay sport
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Petr.png;Anthony;Nellis;27/28;C/LW;VIT;31;L;CZE;;;52;25;22;47;17;20:22;0;30;10;23;54,47;18,66;0,9;0,19;0,44;1;2;14,55;Vítkovice
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Sir.png;Dominik;Petr;26/27+1;C/LW;VIT;21;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;22;24;0;Vítkovice
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Stransky S..png;Jan;Šír;27/28;C/RW;VIT;26;P;CZE;;;51;3;1;4;0;12:25;-6;9;18;35;51,37;8,57;0,08;0,35;0,69;16;16;1,24;Vítkovice
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Sebesta.png;Šimon;Stránský;28/29;LW/C;VIT;28;L;CZE;;;52;8;24;32;13;17:34;-14;26;0;22;75,0;9,76;0,62;0;0,42;4;11;9,91;ceskyhokej.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Yetman.png;Michal;Šebesta;27/28+1;C;VIT;17;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;22;24;0;iSport.cz
+https://raw.githubusercontent.com/Adamos1511/ELH_web/main/foto_hrac/Zidek.png;Chad;Yetman;26/27;C/RW;VIT;26;P;CAN;;;44;14;21;35;13;19:46;2;12;2;17;49,33;14,43;0,8;0,05;0,39;3;4;10,84;hokej.cz
+;Matěj;Žídek;26/27+2;LW/RW;VIT;20;L;CZE;;;0;0;0;0;0;0:00;0;0;0;0;0;0;0;0;0;22;24;0;
