@@ -6267,3 +6267,89 @@ summary::after {
   }
 
 }
+
+.player-ranking-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+
+.player-ranking-select {
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+}
+
+
+.player-ranking-select > span {
+  margin: 0;
+
+  color: #8094c0;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+
+.player-ranking-select select {
+  min-width: 170px;
+
+  padding:
+    9px
+    34px
+    9px
+    12px;
+
+  border:
+    1px solid
+    rgba(
+      255,
+      255,
+      255,
+      0.16
+    );
+
+  border-radius: 9px;
+
+  outline: none;
+
+  background:
+    #0d2056;
+
+  color: white;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+
+.player-ranking-select select option {
+  background:
+    #071a4c;
+
+  color: white;
+}
+
+
+@media (max-width: 650px) {
+
+  .player-ranking-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+
+  .player-ranking-select select {
+    width: 100%;
+  }
+
+}

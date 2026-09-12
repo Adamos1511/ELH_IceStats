@@ -190,7 +190,12 @@ const state = {
   },
 
   selectedPlayer: null,
-  selectedClub: null,
+selectedClub: null,
+
+playerRankingMetric: {
+  skater: "Body",
+  goalie: "% zákroků"
+},
 
   transferSlideIndex: 0,
 
@@ -2818,6 +2823,71 @@ function playerRank(
   };
 }
 
+function playerRankingMetrics(
+  type
+) {
+  if (type === "goalie") {
+    return [
+      {
+        key: "% zákroků",
+        label: "% zákroků"
+      },
+      {
+        key: "průměr obdržených branek",
+        label: "GAA",
+        lowerIsBetter: true
+      },
+      {
+        key: "Výhry",
+        label: "Výhry"
+      },
+      {
+        key: "Čistá konta",
+        label: "Čistá konta"
+      },
+      {
+        key: "Zákroky",
+        label: "Zákroky"
+      },
+      {
+        key: "Odchytané zápasy",
+        label: "Zápasy"
+      }
+    ];
+  }
+
+
+  return [
+    {
+      key: "Body",
+      label: "Body"
+    },
+    {
+      key: "Goly",
+      label: "Góly"
+    },
+    {
+      key: "Asistence",
+      label: "Asistence"
+    },
+    {
+      key: "Body z přesilovek",
+      label: "PPP"
+    },
+    {
+      key: "Hity",
+      label: "Hity"
+    },
+    {
+      key: "Bloky",
+      label: "Bloky"
+    },
+    {
+      key: "Body na zápas",
+      label: "Body / zápas"
+    }
+  ];
+}
 
 function playerRankingHtml(
   detail,
@@ -2829,6 +2899,34 @@ function playerRankingHtml(
   }
 
 
+  const metrics =
+    playerRankingMetrics(type);
+
+
+  const selectedKey =
+    state.playerRankingMetric[
+      type
+    ];
+
+
+  const metric =
+    metrics.find(
+      item =>
+        item.key === selectedKey
+    ) ||
+    metrics[0];
+
+
+  const statKey =
+    metric.key;
+
+
+  const lowerIsBetter =
+    Boolean(
+      metric.lowerIsBetter
+    );
+
+
   const teamCode =
     getTeamCode(
       getValue(
@@ -2836,17 +2934,6 @@ function playerRankingHtml(
         "Tým"
       )
     );
-
-
-  const position =
-  normalize(
-    primaryPosition(
-      getValue(
-        detail,
-        "Pozice"
-      )
-    )
-  );
 
 
   const teamRows =
@@ -2860,79 +2947,65 @@ function playerRankingHtml(
     );
 
 
-  let cards = [];
-
-
-  if (type === "goalie") {
-    const teamRank =
-      playerRank(
-        teamRows,
-        detail,
-        "% zákroků"
-      );
-
-
-    const leagueRank =
-      playerRank(
-        dataset,
-        detail,
-        "% zákroků"
-      );
-
-
-    const winsRank =
-      playerRank(
-        dataset,
-        detail,
-        "Výhry"
-      );
-
-
-    cards = [
+  const teamRank =
+    playerRank(
+      teamRows,
+      detail,
+      statKey,
       {
-        label: "V týmu",
-        rank: teamRank,
-        note: "% zákroků"
-      },
-      {
-        label: "V ELH",
-        rank: leagueRank,
-        note: "% zákroků"
-      },
-      {
-        label: "Výhry ELH",
-        rank: winsRank,
-        note: "podle výher"
+        lowerIsBetter
       }
-    ];
+    );
 
-  } else {
-    const positionRows =
-  dataset.filter(row =>
-    normalize(
-      primaryPosition(
-        getValue(
-          row,
-          "Pozice"
+
+  const leagueRank =
+    playerRank(
+      dataset,
+      detail,
+      statKey,
+      {
+        lowerIsBetter
+      }
+    );
+
+
+  const cards = [
+    {
+      label: "V týmu",
+      rank: teamRank
+    },
+
+    {
+      label: "V ELH",
+      rank: leagueRank
+    }
+  ];
+
+
+  if (
+    type !== "goalie"
+  ) {
+    const position =
+      normalize(
+        primaryPosition(
+          getValue(
+            detail,
+            "Pozice"
+          )
         )
-      )
-    ) === position
-  );
-
-
-    const teamRank =
-      playerRank(
-        teamRows,
-        detail,
-        "Body"
       );
 
 
-    const leagueRank =
-      playerRank(
-        dataset,
-        detail,
-        "Body"
+    const positionRows =
+      dataset.filter(row =>
+        normalize(
+          primaryPosition(
+            getValue(
+              row,
+              "Pozice"
+            )
+          )
+        ) === position
       );
 
 
@@ -2940,27 +3013,17 @@ function playerRankingHtml(
       playerRank(
         positionRows,
         detail,
-        "Body"
+        statKey,
+        {
+          lowerIsBetter
+        }
       );
 
 
-    cards = [
-      {
-        label: "V týmu",
-        rank: teamRank,
-        note: "podle bodů"
-      },
-      {
-        label: "V ELH",
-        rank: leagueRank,
-        note: "podle bodů"
-      },
-      {
-        label: "Na pozici",
-        rank: positionRank,
-        note: "podle bodů"
-      }
-    ];
+    cards.push({
+      label: "Na pozici",
+      rank: positionRank
+    });
   }
 
 
@@ -2968,6 +3031,7 @@ function playerRankingHtml(
     <section class="player-ranking">
 
       <header class="player-ranking-header">
+
         <div>
           <span>
             Postavení v sezoně
@@ -2977,6 +3041,40 @@ function playerRankingHtml(
             Pořadí hráče
           </h2>
         </div>
+
+
+        <label
+          class="player-ranking-select"
+        >
+          <span>
+            Řadit podle
+          </span>
+
+          <select
+            id="playerRankingMetric"
+          >
+            ${metrics
+              .map(item => `
+                <option
+                  value="${escapeHtml(
+                    item.key
+                  )}"
+                  ${
+                    item.key ===
+                    statKey
+                      ? "selected"
+                      : ""
+                  }
+                >
+                  ${escapeHtml(
+                    item.label
+                  )}
+                </option>
+              `)
+              .join("")}
+          </select>
+        </label>
+
       </header>
 
 
@@ -3011,8 +3109,8 @@ function playerRankingHtml(
               </small>
 
               <em>
-                ${escapeHtml(
-                  card.note
+                podle ${escapeHtml(
+                  metric.label
                 )}
               </em>
 
@@ -3025,6 +3123,50 @@ function playerRankingHtml(
     </section>
   `;
 }
+
+document.addEventListener(
+  "change",
+  async event => {
+
+    if (
+      event.target.id !==
+      "playerRankingMetric"
+    ) {
+      return;
+    }
+
+
+    const player =
+      state.selectedPlayer;
+
+
+    if (!player) {
+      return;
+    }
+
+
+    const type =
+      player.__detailType ||
+      (
+        isGoaliePosition(
+          player.pozice
+        )
+          ? "goalie"
+          : "skater"
+      );
+
+
+    state.playerRankingMetric[
+      type
+    ] =
+      event.target.value;
+
+
+    await renderPlayerDetail(
+      player
+    );
+  }
+);
 
 
 /* =========================================================
