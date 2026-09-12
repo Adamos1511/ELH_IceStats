@@ -3461,8 +3461,9 @@ async function openPlayerCard() {
                   photo
                     ? `
                       <img
-                        src="${escapeHtml(
-                          photo
+                      crossorigin="anonymous"
+                      src="${escapeHtml(
+                      photo
                         )}"
                         alt="${escapeHtml(
                           `${firstName} ${surname}`
@@ -3519,6 +3520,7 @@ async function openPlayerCard() {
                     teamCode
                       ? `
                         <img
+                          crossorigin="anonymous"
                           src="${escapeHtml(
                             logoUrl(
                               teamCode
@@ -3628,22 +3630,29 @@ async function openPlayerCard() {
 
           <div class="player-card-modal-actions">
 
-            <button
-              type="button"
-              class="player-card-action-primary"
-              disabled
-            >
-              Stáhnout PNG
-            </button>
+              <button
+                type="button"
+                class="player-card-action-primary"
+                data-download-player-card
+              >
+                Stáhnout PNG
+              </button>
 
-            <button
-              type="button"
-              data-close-player-card
-            >
-              Zavřít
-            </button>
+              <button
+                type="button"
+                data-copy-player-card-link
+              >
+                Kopírovat odkaz
+              </button>
 
-          </div>
+              <button
+                type="button"
+                data-close-player-card
+              >
+                Zavřít
+              </button>
+
+            </div>
 
         </div>
 
@@ -3655,6 +3664,301 @@ async function openPlayerCard() {
   document.body.classList.add(
     "player-card-modal-open"
   );
+}
+
+async function waitForPlayerCardImages(
+  element
+) {
+  const images =
+    [
+      ...element.querySelectorAll(
+        "img"
+      )
+    ];
+
+
+  await Promise.all(
+    images.map(image => {
+
+      if (image.complete) {
+        return Promise.resolve();
+      }
+
+
+      return new Promise(resolve => {
+
+        image.addEventListener(
+          "load",
+          resolve,
+          {
+            once: true
+          }
+        );
+
+
+        image.addEventListener(
+          "error",
+          resolve,
+          {
+            once: true
+          }
+        );
+
+      });
+
+    })
+  );
+}
+
+
+async function downloadPlayerCardPng(
+  button
+) {
+  const card =
+    document.getElementById(
+      "sharePlayerCard"
+    );
+
+
+  const player =
+    state.selectedPlayer;
+
+
+  if (
+    !card ||
+    !player
+  ) {
+    return;
+  }
+
+
+  if (
+    typeof window.html2canvas !==
+    "function"
+  ) {
+    alert(
+      "Generátor PNG se nepodařilo načíst."
+    );
+
+    return;
+  }
+
+
+  const originalText =
+    button.textContent;
+
+
+  button.disabled = true;
+  button.textContent =
+    "Generuji PNG...";
+
+
+  try {
+
+    if (document.fonts?.ready) {
+      await document.fonts.ready;
+    }
+
+
+    await waitForPlayerCardImages(
+      card
+    );
+
+
+    const canvas =
+      await window.html2canvas(
+        card,
+        {
+          scale: 2,
+          backgroundColor: null,
+          useCORS: true,
+          allowTaint: false,
+          logging: false,
+          imageTimeout: 15000
+        }
+      );
+
+
+    const blob =
+      await new Promise(resolve => {
+
+        canvas.toBlob(
+          resolve,
+          "image/png"
+        );
+
+      });
+
+
+    if (!blob) {
+      throw new Error(
+        "PNG nebylo vytvořeno."
+      );
+    }
+
+
+    const objectUrl =
+      URL.createObjectURL(
+        blob
+      );
+
+
+    const link =
+      document.createElement(
+        "a"
+      );
+
+
+    link.href =
+      objectUrl;
+
+    link.download =
+      `elh-icestats-${
+        playerSlug(player)
+      }-player-card.png`;
+
+
+    document.body.appendChild(
+      link
+    );
+
+    link.click();
+
+    link.remove();
+
+
+    window.setTimeout(
+      () => {
+        URL.revokeObjectURL(
+          objectUrl
+        );
+      },
+      1000
+    );
+
+  } catch (error) {
+
+    console.error(
+      "Player Card PNG:",
+      error
+    );
+
+
+    alert(
+      "Player Card se nepodařilo uložit jako PNG."
+    );
+
+  } finally {
+
+    button.disabled = false;
+    button.textContent =
+      originalText;
+
+  }
+}
+
+
+function currentPlayerShareUrl() {
+  const player =
+    state.selectedPlayer;
+
+
+  if (!player) {
+    return SITE_ORIGIN;
+  }
+
+
+  return (
+    SITE_ORIGIN +
+    playerPath(player)
+  );
+}
+
+
+async function copyPlayerCardLink(
+  button
+) {
+  const url =
+    currentPlayerShareUrl();
+
+
+  try {
+
+    await navigator.clipboard.writeText(
+      url
+    );
+
+
+    const originalText =
+      button.textContent;
+
+
+    button.textContent =
+      "Zkopírováno ✓";
+
+
+    window.setTimeout(
+      () => {
+        button.textContent =
+          originalText;
+      },
+      1600
+    );
+
+  } catch (error) {
+
+    console.error(
+      "Kopírování odkazu:",
+      error
+    );
+
+
+    const textarea =
+      document.createElement(
+        "textarea"
+      );
+
+
+    textarea.value =
+      url;
+
+    textarea.style.position =
+      "fixed";
+
+    textarea.style.opacity =
+      "0";
+
+
+    document.body.appendChild(
+      textarea
+    );
+
+    textarea.select();
+
+    document.execCommand(
+      "copy"
+    );
+
+    textarea.remove();
+
+
+    const originalText =
+      button.textContent;
+
+
+    button.textContent =
+      "Zkopírováno ✓";
+
+
+    window.setTimeout(
+      () => {
+        button.textContent =
+          originalText;
+      },
+      1600
+    );
+
+  }
 }
 
 
@@ -11388,6 +11692,7 @@ function bindEvents() {
 
         return;
       }
+
       
       const openPlayerCardButton =
   event.target.closest(
@@ -11399,6 +11704,40 @@ if (openPlayerCardButton) {
   event.preventDefault();
 
   await openPlayerCard();
+
+  return;
+}
+
+
+const downloadPlayerCardButton =
+  event.target.closest(
+    "[data-download-player-card]"
+  );
+
+
+if (downloadPlayerCardButton) {
+  event.preventDefault();
+
+  await downloadPlayerCardPng(
+    downloadPlayerCardButton
+  );
+
+  return;
+}
+
+
+const copyPlayerCardButton =
+  event.target.closest(
+    "[data-copy-player-card-link]"
+  );
+
+
+if (copyPlayerCardButton) {
+  event.preventDefault();
+
+  await copyPlayerCardLink(
+    copyPlayerCardButton
+  );
 
   return;
 }
