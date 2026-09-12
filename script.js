@@ -3749,32 +3749,134 @@ async function downloadPlayerCardPng(
 
 
   button.disabled = true;
+
   button.textContent =
     "Generuji PNG...";
 
 
+  let exportCard = null;
+
+
   try {
 
+    /*
+     * Počkáme na fonty.
+     */
     if (document.fonts?.ready) {
       await document.fonts.ready;
     }
 
 
-    await waitForPlayerCardImages(
-      card
+    /*
+     * Nevyrábíme PNG přímo
+     * z responsivní karty.
+     *
+     * Vytvoříme její samostatnou
+     * exportní kopii.
+     */
+    exportCard =
+      card.cloneNode(true);
+
+
+    exportCard.removeAttribute(
+      "id"
     );
 
 
+    exportCard.classList.add(
+      "player-card-export"
+    );
+
+
+    document.body.appendChild(
+      exportCard
+    );
+
+
+    /*
+     * Počkáme na obrázky
+     * v exportní kopii.
+     */
+    await waitForPlayerCardImages(
+      exportCard
+    );
+
+
+    /*
+     * Dáme browseru jeden frame,
+     * aby stihl aplikovat exportní CSS.
+     */
+    await new Promise(resolve =>
+      requestAnimationFrame(
+        resolve
+      )
+    );
+
+
+    const rect =
+      exportCard
+        .getBoundingClientRect();
+
+
+    const exportWidth =
+      Math.ceil(
+        rect.width
+      );
+
+
+    const exportHeight =
+      Math.ceil(
+        rect.height
+      );
+
+
+    /*
+     * 3× render:
+     *
+     * 804 px karta
+     * -> cca 2412 px široké PNG.
+     *
+     * To už je dostatečně ostré
+     * i pro sociální sítě.
+     */
     const canvas =
       await window.html2canvas(
-        card,
+        exportCard,
         {
-          scale: 2,
-          backgroundColor: null,
-          useCORS: true,
-          allowTaint: false,
-          logging: false,
-          imageTimeout: 15000
+          scale: 3,
+
+          width:
+            exportWidth,
+
+          height:
+            exportHeight,
+
+          windowWidth:
+            1200,
+
+          windowHeight:
+            1000,
+
+          backgroundColor:
+            null,
+
+          useCORS:
+            true,
+
+          allowTaint:
+            false,
+
+          logging:
+            false,
+
+          imageTimeout:
+            15000,
+
+          scrollX:
+            0,
+
+          scrollY:
+            0
         }
       );
 
@@ -3784,7 +3886,8 @@ async function downloadPlayerCardPng(
 
         canvas.toBlob(
           resolve,
-          "image/png"
+          "image/png",
+          1
         );
 
       });
@@ -3812,6 +3915,7 @@ async function downloadPlayerCardPng(
     link.href =
       objectUrl;
 
+
     link.download =
       `elh-icestats-${
         playerSlug(player)
@@ -3822,16 +3926,20 @@ async function downloadPlayerCardPng(
       link
     );
 
+
     link.click();
+
 
     link.remove();
 
 
     window.setTimeout(
       () => {
+
         URL.revokeObjectURL(
           objectUrl
         );
+
       },
       1000
     );
@@ -3850,7 +3958,18 @@ async function downloadPlayerCardPng(
 
   } finally {
 
-    button.disabled = false;
+    /*
+     * Exportní kopii vždy odstraníme.
+     */
+    if (exportCard) {
+      exportCard.remove();
+    }
+
+
+    button.disabled =
+      false;
+
+
     button.textContent =
       originalText;
 
