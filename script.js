@@ -2746,6 +2746,272 @@ function formatStatValue(
 }
 
 
+function playerRank(
+  rows,
+  detail,
+  statKey,
+  {
+    lowerIsBetter = false
+  } = {}
+) {
+  const current =
+    toNumber(
+      getValue(
+        detail,
+        statKey
+      )
+    );
+
+
+  if (
+    !Number.isFinite(current)
+  ) {
+    return null;
+  }
+
+
+  const values =
+    rows
+      .map(row =>
+        toNumber(
+          getValue(
+            row,
+            statKey
+          )
+        )
+      )
+      .filter(
+        Number.isFinite
+      );
+
+
+  if (!values.length) {
+    return null;
+  }
+
+
+  const betterCount =
+    values.filter(value =>
+      lowerIsBetter
+        ? value < current
+        : value > current
+    ).length;
+
+
+  return {
+    rank:
+      betterCount + 1,
+
+    total:
+      values.length
+  };
+}
+
+
+function playerRankingHtml(
+  detail,
+  dataset,
+  type
+) {
+  if (!detail) {
+    return "";
+  }
+
+
+  const teamCode =
+    getTeamCode(
+      getValue(
+        detail,
+        "Tým"
+      )
+    );
+
+
+  const position =
+    normalize(
+      getValue(
+        detail,
+        "Pozice"
+      )
+    );
+
+
+  const teamRows =
+    dataset.filter(row =>
+      getTeamCode(
+        getValue(
+          row,
+          "Tým"
+        )
+      ) === teamCode
+    );
+
+
+  let cards = [];
+
+
+  if (type === "goalie") {
+    const teamRank =
+      playerRank(
+        teamRows,
+        detail,
+        "% zákroků"
+      );
+
+
+    const leagueRank =
+      playerRank(
+        dataset,
+        detail,
+        "% zákroků"
+      );
+
+
+    const winsRank =
+      playerRank(
+        dataset,
+        detail,
+        "Výhry"
+      );
+
+
+    cards = [
+      {
+        label: "V týmu",
+        rank: teamRank,
+        note: "% zákroků"
+      },
+      {
+        label: "V ELH",
+        rank: leagueRank,
+        note: "% zákroků"
+      },
+      {
+        label: "Výhry ELH",
+        rank: winsRank,
+        note: "podle výher"
+      }
+    ];
+
+  } else {
+    const positionRows =
+      dataset.filter(row =>
+        normalize(
+          getValue(
+            row,
+            "Pozice"
+          )
+        ) === position
+      );
+
+
+    const teamRank =
+      playerRank(
+        teamRows,
+        detail,
+        "Body"
+      );
+
+
+    const leagueRank =
+      playerRank(
+        dataset,
+        detail,
+        "Body"
+      );
+
+
+    const positionRank =
+      playerRank(
+        positionRows,
+        detail,
+        "Body"
+      );
+
+
+    cards = [
+      {
+        label: "V týmu",
+        rank: teamRank,
+        note: "podle bodů"
+      },
+      {
+        label: "V ELH",
+        rank: leagueRank,
+        note: "podle bodů"
+      },
+      {
+        label: "Na pozici",
+        rank: positionRank,
+        note: "podle bodů"
+      }
+    ];
+  }
+
+
+  return `
+    <section class="player-ranking">
+
+      <header class="player-ranking-header">
+        <div>
+          <span>
+            Postavení v sezoně
+          </span>
+
+          <h2>
+            Pořadí hráče
+          </h2>
+        </div>
+      </header>
+
+
+      <div class="player-ranking-grid">
+
+        ${cards
+          .map(card => `
+            <article
+              class="player-ranking-card"
+            >
+
+              <span>
+                ${escapeHtml(
+                  card.label
+                )}
+              </span>
+
+              <strong>
+                ${
+                  card.rank
+                    ? `#${card.rank.rank}`
+                    : "-"
+                }
+              </strong>
+
+              <small>
+                ${
+                  card.rank
+                    ? `${card.rank.rank}. z ${card.rank.total}`
+                    : "Bez dat"
+                }
+              </small>
+
+              <em>
+                ${escapeHtml(
+                  card.note
+                )}
+              </em>
+
+            </article>
+          `)
+          .join("")}
+
+      </div>
+
+    </section>
+  `;
+}
+
+
 /* =========================================================
    KARIÉRA HRÁČE / BRANKÁŘE
 ========================================================= */
@@ -5789,7 +6055,14 @@ async function renderPlayerDetail(
   playerSeasonSnapshotHtml(
     detail,
     type
-  );  
+  );
+  
+  const rankingHtml =
+  playerRankingHtml(
+    detail,
+    dataset,
+    type
+  );
 
 
   const hidden =
@@ -6102,7 +6375,9 @@ async function renderPlayerDetail(
 
       </section>
 
-      ${seasonSnapshotHtml}            
+      ${seasonSnapshotHtml}
+      
+      ${rankingHtml}
       
       ${
         profileText
