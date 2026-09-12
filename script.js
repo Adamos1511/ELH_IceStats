@@ -3768,6 +3768,7 @@ async function downloadPlayerCardPng(
 
 
   button.disabled = true;
+
   button.textContent =
     "Generuji PNG...";
 
@@ -3779,47 +3780,36 @@ async function downloadPlayerCardPng(
     }
 
 
-    /*
-     * Obrázky v otevřené kartě
-     * už jsou načtené.
-     */
     await waitForPlayerCardImages(
       card
     );
 
 
     /*
-     * Na chvíli skutečnou kartu
-     * přepneme do exportního layoutu.
+     * Bereme přesně rozměry karty,
+     * která je právě vidět v modalu.
      */
-    card.classList.add(
-      "player-card-export"
-    );
+    const width =
+      card.offsetWidth;
+
+
+    const height =
+      card.offsetHeight;
 
 
     /*
-     * Necháme prohlížeč aplikovat CSS.
+     * Vzhled se vůbec nemění.
+     * Jen vyrenderujeme kartu
+     * ve 3× větším rozlišení.
      */
-    await new Promise(resolve => {
-      requestAnimationFrame(
-        () => {
-          requestAnimationFrame(
-            resolve
-          );
-        }
-      );
-    });
-
-
-    const rect =
-      card.getBoundingClientRect();
-
-
     const canvas =
       await window.html2canvas(
         card,
         {
           scale: 3,
+
+          width,
+          height,
 
           backgroundColor:
             null,
@@ -3835,16 +3825,6 @@ async function downloadPlayerCardPng(
 
           imageTimeout:
             15000,
-
-          width:
-            Math.ceil(
-              rect.width
-            ),
-
-          height:
-            Math.ceil(
-              rect.height
-            ),
 
           scrollX:
             0,
@@ -3866,16 +3846,17 @@ async function downloadPlayerCardPng(
             result => {
 
               if (result) {
-                resolve(
-                  result
-                );
-              } else {
-                reject(
-                  new Error(
-                    "PNG nebylo vytvořeno."
-                  )
-                );
+                resolve(result);
+
+                return;
               }
+
+
+              reject(
+                new Error(
+                  "PNG nebylo vytvořeno."
+                )
+              );
 
             },
             "image/png"
@@ -3903,9 +3884,7 @@ async function downloadPlayerCardPng(
 
     link.download =
       `elh-icestats-${
-        playerSlug(
-          player
-        )
+        playerSlug(player)
       }-player-card.png`;
 
 
@@ -3922,9 +3901,11 @@ async function downloadPlayerCardPng(
 
     window.setTimeout(
       () => {
+
         URL.revokeObjectURL(
           objectUrl
         );
+
       },
       1000
     );
@@ -3942,15 +3923,6 @@ async function downloadPlayerCardPng(
     );
 
   } finally {
-
-    /*
-     * Vždy kartu vrátíme
-     * do normálního vzhledu.
-     */
-    card.classList.remove(
-      "player-card-export"
-    );
-
 
     button.disabled =
       false;
