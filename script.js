@@ -3184,6 +3184,99 @@ function closePlayerCard() {
   );
 }
 
+function fitPlayerCardPhoto() {
+  const frame =
+    document.querySelector(
+      ".share-player-card-photo"
+    );
+
+
+  const image =
+    frame?.querySelector(
+      "img"
+    );
+
+
+  if (
+    !frame ||
+    !image
+  ) {
+    return;
+  }
+
+
+  const applyFit =
+    () => {
+
+      if (
+        !image.naturalWidth ||
+        !image.naturalHeight
+      ) {
+        return;
+      }
+
+
+      const frameRatio =
+        frame.clientWidth /
+        frame.clientHeight;
+
+
+      const imageRatio =
+        image.naturalWidth /
+        image.naturalHeight;
+
+
+      image.classList.remove(
+        "fit-width",
+        "fit-height"
+      );
+
+
+      /*
+       * Fotka je užší než box.
+       * Vyplníme ji podle šířky.
+       */
+      if (
+        imageRatio <
+        frameRatio
+      ) {
+        image.classList.add(
+          "fit-width"
+        );
+
+        return;
+      }
+
+
+      /*
+       * Fotka je širší než box.
+       * Vyplníme ji podle výšky.
+       */
+      image.classList.add(
+        "fit-height"
+      );
+
+    };
+
+
+  if (
+    image.complete &&
+    image.naturalWidth
+  ) {
+    applyFit();
+
+    return;
+  }
+
+
+  image.addEventListener(
+    "load",
+    applyFit,
+    {
+      once: true
+    }
+  );
+}
 
 async function openPlayerCard() {
   const player =
@@ -3664,6 +3757,9 @@ async function openPlayerCard() {
   document.body.classList.add(
     "player-card-modal-open"
   );
+
+  
+  fitPlayerCardPhoto();
 }
 
 async function waitForPlayerCardImages(
