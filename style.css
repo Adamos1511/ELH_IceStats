@@ -6353,3 +6353,672 @@ summary::after {
   }
 
 }
+/* =========================================================
+   PLAYER CARD – SHARE BUTTON
+========================================================= */
+
+.player-share-actions {
+  display: flex;
+
+  margin:
+    0
+    0
+    22px;
+}
+
+
+.player-card-share-button {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 9px;
+
+  padding:
+    11px
+    16px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.18);
+
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(165, 0, 24, 0.88),
+      rgba(220, 38, 60, 0.78)
+    );
+
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 900;
+
+  letter-spacing: 0.3px;
+
+  cursor: pointer;
+
+  box-shadow:
+    0
+    10px
+    24px
+    rgba(165, 0, 24, 0.20);
+
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+
+.player-card-share-button span {
+  font-size: 16px;
+  line-height: 1;
+}
+
+
+.player-card-share-button:hover {
+  transform:
+    translateY(-2px);
+
+  border-color:
+    rgba(255, 255, 255, 0.32);
+
+  box-shadow:
+    0
+    14px
+    30px
+    rgba(165, 0, 24, 0.30);
+}
+/* =========================================================
+   PLAYER CARD MODAL
+========================================================= */
+
+body.player-card-modal-open {
+  overflow: hidden;
+}
+
+
+.player-card-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 5000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 28px;
+
+  overflow-y: auto;
+
+  background:
+    rgba(1, 5, 20, 0.88);
+
+  backdrop-filter:
+    blur(14px);
+}
+
+
+.player-card-modal {
+  position: relative;
+
+  width: min(
+    860px,
+    100%
+  );
+
+  padding: 28px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.12);
+
+  border-radius: 24px;
+
+  background:
+    #07112f;
+
+  box-shadow:
+    0
+    35px
+    100px
+    rgba(0, 0, 0, 0.55);
+}
+
+
+.player-card-modal-close {
+  position: absolute;
+
+  top: 12px;
+  right: 14px;
+
+  z-index: 5;
+
+  width: 38px;
+  height: 38px;
+
+  padding: 0;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.14);
+
+  border-radius: 50%;
+
+  background:
+    rgba(4, 12, 40, 0.82);
+
+  color: white;
+
+  font-size: 25px;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   PLAYER CARD
+========================================================= */
+
+.share-player-card {
+  position: relative;
+
+  overflow: hidden;
+
+  width: 100%;
+
+  padding: 32px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.13);
+
+  border-radius: 22px;
+
+  background:
+    radial-gradient(
+      circle at 90% 5%,
+      rgba(220, 38, 60, 0.28),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 10% 90%,
+      rgba(46, 86, 190, 0.25),
+      transparent 36%
+    ),
+    linear-gradient(
+      145deg,
+      #0d225c,
+      #050d2b 72%
+    );
+
+  box-shadow:
+    inset
+    0
+    1px
+    0
+    rgba(255, 255, 255, 0.08);
+}
+
+
+.share-player-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 32px;
+
+  width: 105px;
+  height: 4px;
+
+  border-radius:
+    0
+    0
+    5px
+    5px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #a50018,
+      #ff3554
+    );
+}
+
+
+.share-player-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-bottom: 30px;
+}
+
+
+.share-player-card-brand {
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+}
+
+
+.share-player-card-brand img {
+  width: 42px;
+  height: 42px;
+
+  object-fit: contain;
+}
+
+
+.share-player-card-brand div {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.share-player-card-brand strong {
+  color: white;
+
+  font-size: 18px;
+  font-weight: 950;
+}
+
+
+.share-player-card-brand span,
+.share-player-card-season {
+  color:
+    rgba(255, 255, 255, 0.48);
+
+  font-size: 10px;
+  font-weight: 900;
+
+  letter-spacing: 1.3px;
+}
+
+
+.share-player-card-main {
+  display: grid;
+
+  grid-template-columns:
+    190px
+    minmax(0, 1fr);
+
+  align-items: center;
+
+  gap: 28px;
+}
+
+
+.share-player-card-photo {
+  height: 220px;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.14);
+
+  border-radius: 18px;
+
+  background:
+    rgba(255, 255, 255, 0.06);
+}
+
+
+.share-player-card-photo img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: top center;
+}
+
+
+.share-player-card-photo-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+
+  color:
+    rgba(255, 255, 255, 0.35);
+
+  font-size: 60px;
+  font-weight: 950;
+}
+
+
+.share-player-card-player {
+  min-width: 0;
+}
+
+
+.share-player-card-position {
+  display: inline-block;
+
+  margin-bottom: 11px;
+
+  padding:
+    5px
+    9px;
+
+  border-radius: 7px;
+
+  background:
+    rgba(220, 38, 60, 0.18);
+
+  color: #ff6278;
+
+  font-size: 11px;
+  font-weight: 900;
+}
+
+
+.share-player-card-player h2 {
+  margin: 0;
+
+  color: white;
+
+  font-size:
+    clamp(
+      32px,
+      5vw,
+      52px
+    );
+
+  font-weight: 700;
+  line-height: 0.95;
+
+  text-transform: uppercase;
+}
+
+
+.share-player-card-player h2 strong {
+  display: block;
+
+  margin-top: 5px;
+
+  font-weight: 950;
+}
+
+
+.share-player-card-team {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  margin-top: 20px;
+
+  color:
+    rgba(255, 255, 255, 0.73);
+
+  font-size: 14px;
+  font-weight: 850;
+}
+
+
+.share-player-card-team img {
+  width: 34px;
+  height: 34px;
+
+  object-fit: contain;
+}
+
+
+.share-player-card-stats {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 10px;
+
+  margin-top: 28px;
+}
+
+
+.share-player-card-stat {
+  padding:
+    17px
+    12px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.11);
+
+  border-radius: 13px;
+
+  background:
+    rgba(255, 255, 255, 0.055);
+
+  text-align: center;
+}
+
+
+.share-player-card-stat strong {
+  display: block;
+
+  color: white;
+
+  font-size: 27px;
+  font-weight: 950;
+}
+
+
+.share-player-card-stat span {
+  display: block;
+
+  margin-top: 4px;
+
+  color:
+    rgba(255, 255, 255, 0.44);
+
+  font-size: 10px;
+  font-weight: 900;
+
+  letter-spacing: 0.8px;
+}
+
+
+.share-player-card-ranking {
+  display: flex;
+  align-items: center;
+
+  gap: 28px;
+
+  margin-top: 14px;
+  padding:
+    17px
+    20px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.10);
+
+  border-radius: 13px;
+
+  background:
+    rgba(3, 10, 35, 0.42);
+}
+
+
+.share-player-card-ranking > div {
+  display: flex;
+  align-items: baseline;
+
+  gap: 9px;
+}
+
+
+.share-player-card-ranking span,
+.share-player-card-ranking small {
+  color:
+    rgba(255, 255, 255, 0.43);
+
+  font-size: 10px;
+  font-weight: 900;
+
+  letter-spacing: 0.7px;
+
+  text-transform: uppercase;
+}
+
+
+.share-player-card-ranking strong {
+  color: white;
+
+  font-size: 23px;
+  font-weight: 950;
+}
+
+
+.share-player-card-ranking small {
+  margin-left: auto;
+}
+
+
+.share-player-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 26px;
+
+  color:
+    rgba(255, 255, 255, 0.35);
+
+  font-size: 10px;
+  font-weight: 900;
+
+  letter-spacing: 1px;
+}
+
+
+.share-player-card-footer strong {
+  color:
+    rgba(255, 255, 255, 0.68);
+}
+
+
+.player-card-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  margin-top: 18px;
+}
+
+
+.player-card-modal-actions button {
+  padding:
+    10px
+    16px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.14);
+
+  border-radius: 9px;
+
+  background:
+    rgba(255, 255, 255, 0.08);
+
+  color: white;
+
+  font-size: 12px;
+  font-weight: 850;
+
+  cursor: pointer;
+}
+
+
+.player-card-modal-actions
+.player-card-action-primary {
+  background:
+    linear-gradient(
+      135deg,
+      #a50018,
+      #dc263c
+    );
+}
+
+
+.player-card-modal-actions
+button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+
+@media (max-width: 650px) {
+
+  .player-card-overlay {
+    padding: 12px;
+  }
+
+
+  .player-card-modal {
+    padding: 14px;
+
+    border-radius: 18px;
+  }
+
+
+  .share-player-card {
+    padding:
+      24px
+      18px;
+  }
+
+
+  .share-player-card::before {
+    left: 18px;
+  }
+
+
+  .share-player-card-main {
+    grid-template-columns: 1fr;
+  }
+
+
+  .share-player-card-photo {
+    width: 150px;
+    height: 170px;
+  }
+
+
+  .share-player-card-player h2 {
+    font-size: 34px;
+  }
+
+
+  .share-player-card-stats {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+
+  .share-player-card-ranking {
+    align-items: flex-start;
+    flex-direction: column;
+
+    gap: 8px;
+  }
+
+
+  .share-player-card-ranking small {
+    margin-left: 0;
+  }
+
+}

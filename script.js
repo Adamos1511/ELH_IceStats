@@ -3168,6 +3168,495 @@ document.addEventListener(
   }
 );
 
+/* =========================================================
+   PLAYER CARD
+========================================================= */
+
+function closePlayerCard() {
+  document
+    .querySelector(
+      "[data-player-card-overlay]"
+    )
+    ?.remove();
+
+  document.body.classList.remove(
+    "player-card-modal-open"
+  );
+}
+
+
+async function openPlayerCard() {
+  const player =
+    state.selectedPlayer;
+
+
+  if (!player) {
+    return;
+  }
+
+
+  const type =
+    player.__detailType ||
+    (
+      isGoaliePosition(
+        player.pozice
+      )
+        ? "goalie"
+        : "skater"
+    );
+
+
+  const dataset =
+    await loadDetailData(
+      type
+    );
+
+
+  const detail =
+    findDetailRecord(
+      dataset,
+      player
+    );
+
+
+  if (!detail) {
+    return;
+  }
+
+
+  const firstName =
+    getValue(
+      detail,
+      "Jméno"
+    ) ||
+    player.jmeno;
+
+
+  const surname =
+    getValue(
+      detail,
+      "Příjmení"
+    ) ||
+    player.prijmeni;
+
+
+  const teamValue =
+    getValue(
+      detail,
+      "Tým"
+    ) ||
+    player.tym;
+
+
+  const teamCode =
+    getTeamCode(
+      teamValue
+    );
+
+
+  const teamName =
+    getTeamName(
+      teamValue
+    );
+
+
+  const photo =
+    getValue(
+      detail,
+      "Foto"
+    ) ||
+    player.foto ||
+    "";
+
+
+  const position =
+    type === "goalie"
+      ? "Brankář"
+      : (
+          getValue(
+            detail,
+            "Pozice"
+          ) ||
+          player.pozice ||
+          "-"
+        );
+
+
+  const statValue =
+    key =>
+      formatStatValue(
+        key,
+        getValue(
+          detail,
+          key
+        ) ||
+        "-"
+      );
+
+
+  const mainStats =
+    type === "goalie"
+      ? [
+          {
+            label: "Z",
+            value:
+              statValue(
+                "Odchytané zápasy"
+              )
+          },
+          {
+            label: "ÚSP",
+            value:
+              statValue(
+                "% zákroků"
+              )
+          },
+          {
+            label: "GAA",
+            value:
+              statValue(
+                "průměr obdržených branek"
+              )
+          },
+          {
+            label: "V",
+            value:
+              statValue(
+                "Výhry"
+              )
+          }
+        ]
+      : [
+          {
+            label: "Z",
+            value:
+              statValue(
+                "Odehrané zápasy"
+              )
+          },
+          {
+            label: "G",
+            value:
+              statValue(
+                "Goly"
+              )
+          },
+          {
+            label: "A",
+            value:
+              statValue(
+                "Asistence"
+              )
+          },
+          {
+            label: "B",
+            value:
+              statValue(
+                "Body"
+              )
+          }
+        ];
+
+
+  const rankingKey =
+    type === "goalie"
+      ? "% zákroků"
+      : "Body";
+
+
+  const teamRows =
+    dataset.filter(row =>
+      getTeamCode(
+        getValue(
+          row,
+          "Tým"
+        )
+      ) === teamCode
+    );
+
+
+  const teamRank =
+    playerRank(
+      teamRows,
+      detail,
+      rankingKey
+    );
+
+
+  const leagueRank =
+    playerRank(
+      dataset,
+      detail,
+      rankingKey
+    );
+
+
+  closePlayerCard();
+
+
+  document.body.insertAdjacentHTML(
+    "beforeend",
+    `
+      <div
+        class="player-card-overlay"
+        data-player-card-overlay
+      >
+
+        <div
+          class="player-card-modal"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Player Card"
+        >
+
+          <button
+            type="button"
+            class="player-card-modal-close"
+            data-close-player-card
+            aria-label="Zavřít"
+          >
+            ×
+          </button>
+
+
+          <div
+            class="share-player-card"
+            id="sharePlayerCard"
+          >
+
+            <div class="share-player-card-top">
+
+              <div class="share-player-card-brand">
+
+                <img
+                  src="/logo_web.png"
+                  alt=""
+                >
+
+                <div>
+                  <strong>
+                    ELH IceStats
+                  </strong>
+
+                  <span>
+                    PLAYER CARD
+                  </span>
+                </div>
+
+              </div>
+
+
+              <span class="share-player-card-season">
+                2026/27
+              </span>
+
+            </div>
+
+
+            <div class="share-player-card-main">
+
+              <div class="share-player-card-photo">
+
+                ${
+                  photo
+                    ? `
+                      <img
+                        src="${escapeHtml(
+                          photo
+                        )}"
+                        alt="${escapeHtml(
+                          `${firstName} ${surname}`
+                        )}"
+                      >
+                    `
+                    : `
+                      <div
+                        class="share-player-card-photo-placeholder"
+                      >
+                        ${
+                          escapeHtml(
+                            firstName
+                              .charAt(0)
+                          )
+                        }${
+                          escapeHtml(
+                            surname
+                              .charAt(0)
+                          )
+                        }
+                      </div>
+                    `
+                }
+
+              </div>
+
+
+              <div class="share-player-card-player">
+
+                <span class="share-player-card-position">
+                  ${escapeHtml(
+                    position
+                  )}
+                </span>
+
+
+                <h2>
+                  ${escapeHtml(
+                    firstName
+                  )}
+
+                  <strong>
+                    ${escapeHtml(
+                      surname
+                    )}
+                  </strong>
+                </h2>
+
+
+                <div class="share-player-card-team">
+
+                  ${
+                    teamCode
+                      ? `
+                        <img
+                          src="${escapeHtml(
+                            logoUrl(
+                              teamCode
+                            )
+                          )}"
+                          alt=""
+                        >
+                      `
+                      : ""
+                  }
+
+                  <span>
+                    ${escapeHtml(
+                      teamName
+                    )}
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="share-player-card-stats">
+
+              ${mainStats
+                .map(stat => `
+                  <div
+                    class="share-player-card-stat"
+                  >
+                    <strong>
+                      ${escapeHtml(
+                        stat.value
+                      )}
+                    </strong>
+
+                    <span>
+                      ${escapeHtml(
+                        stat.label
+                      )}
+                    </span>
+                  </div>
+                `)
+                .join("")}
+
+            </div>
+
+
+            <div class="share-player-card-ranking">
+
+              <div>
+                <span>
+                  V TÝMU
+                </span>
+
+                <strong>
+                  ${
+                    teamRank
+                      ? `#${teamRank.rank}`
+                      : "-"
+                  }
+                </strong>
+              </div>
+
+
+              <div>
+                <span>
+                  V ELH
+                </span>
+
+                <strong>
+                  ${
+                    leagueRank
+                      ? `#${leagueRank.rank}`
+                      : "-"
+                  }
+                </strong>
+              </div>
+
+
+              <small>
+                ${
+                  type === "goalie"
+                    ? "podle % zákroků"
+                    : "podle bodů"
+                }
+              </small>
+
+            </div>
+
+
+            <div class="share-player-card-footer">
+
+              <span>
+                ELH ICESTATS
+              </span>
+
+              <strong>
+                elhicestats.cz
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <div class="player-card-modal-actions">
+
+            <button
+              type="button"
+              class="player-card-action-primary"
+              disabled
+            >
+              Stáhnout PNG
+            </button>
+
+            <button
+              type="button"
+              data-close-player-card
+            >
+              Zavřít
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+    `
+  );
+
+
+  document.body.classList.add(
+    "player-card-modal-open"
+  );
+}
+
 
 /* =========================================================
    KARIÉRA HRÁČE / BRANKÁŘE
@@ -6459,6 +6948,22 @@ async function renderPlayerDetail(
             }
 
           </div>
+
+          <div class="player-share-actions">
+
+              <button
+                type="button"
+                class="player-card-share-button"
+                data-open-player-card
+              >
+                <span aria-hidden="true">
+                  ↗
+                </span>
+
+                Sdílet Player Card
+              </button>
+
+            </div>
 
 
           <div class="info-grid">
@@ -10883,7 +11388,52 @@ function bindEvents() {
 
         return;
       }
+      
+      const openPlayerCardButton =
+  event.target.closest(
+    "[data-open-player-card]"
+  );
 
+
+if (openPlayerCardButton) {
+  event.preventDefault();
+
+  await openPlayerCard();
+
+  return;
+}
+
+
+const closePlayerCardButton =
+  event.target.closest(
+    "[data-close-player-card]"
+  );
+
+
+if (closePlayerCardButton) {
+  event.preventDefault();
+
+  closePlayerCard();
+
+  return;
+}
+
+
+const playerCardOverlay =
+  event.target.closest(
+    "[data-player-card-overlay]"
+  );
+
+
+if (
+  playerCardOverlay &&
+  event.target ===
+    playerCardOverlay
+) {
+  closePlayerCard();
+
+  return;
+}
 
       const playerButton =
         event.target.closest(
