@@ -6657,6 +6657,8 @@ body.player-card-modal-open {
 
 
 .share-player-card-photo {
+  position: relative;
+
   height: 220px;
 
   overflow: hidden;
@@ -6673,11 +6675,23 @@ body.player-card-modal-open {
 
 
 .share-player-card-photo img {
-  width: 100%;
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: auto;
   height: 100%;
 
-  object-fit: cover;
-  object-position: top center;
+  max-width: none;
+
+  transform:
+    translate(
+      -50%,
+      -50%
+    );
+
+  display: block;
 }
 
 
