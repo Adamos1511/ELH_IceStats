@@ -6041,3 +6041,229 @@ summary::after {
   }
 
 }
+
+/* =========================================================
+   PLAYER RANKING
+========================================================= */
+
+.player-ranking {
+  position: relative;
+  margin-top: 20px;
+  padding: 26px 28px 28px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(10, 27, 73, 0.98),
+      rgba(5, 18, 54, 0.98)
+    );
+
+  border: 1px solid rgba(93, 125, 196, 0.28);
+  border-radius: 22px;
+
+  overflow: hidden;
+}
+
+
+/* červený detail nahoře stejně jako Snapshot */
+
+.player-ranking::before {
+  content: "";
+  position: absolute;
+
+  top: 0;
+  left: 28px;
+
+  width: 90px;
+  height: 3px;
+
+  background: #ff3158;
+
+  border-radius: 0 0 4px 4px;
+}
+
+
+.player-ranking-header {
+  margin-bottom: 20px;
+}
+
+
+.player-ranking-header span {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #8094c0;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+}
+
+
+.player-ranking-header h2 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: 27px;
+  font-weight: 900;
+
+  line-height: 1.1;
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.player-ranking-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 14px;
+}
+
+
+/* =========================================================
+   KARTA
+========================================================= */
+
+.player-ranking-card {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  min-height: 150px;
+
+  padding: 20px 22px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(30, 48, 94, 0.94),
+      rgba(20, 36, 77, 0.94)
+    );
+
+  border: 1px solid rgba(123, 151, 211, 0.22);
+
+  border-radius: 16px;
+
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    background 0.18s ease;
+}
+
+
+.player-ranking-card:hover {
+  transform: translateY(-2px);
+
+  border-color:
+    rgba(123, 151, 211, 0.42);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(34, 54, 105, 0.98),
+      rgba(22, 40, 84, 0.98)
+    );
+}
+
+
+/* V TÝMU / V ELH / NA POZICI */
+
+.player-ranking-card > span {
+  color: #91a3c9;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+}
+
+
+/* #1, #2, #13 */
+
+.player-ranking-card > strong {
+  display: block;
+
+  margin-top: 8px;
+
+  color: #ffffff;
+
+  font-size: 42px;
+  font-weight: 950;
+
+  line-height: 1;
+}
+
+
+/* 2. z 31 */
+
+.player-ranking-card > small {
+  margin-top: 8px;
+
+  color: #b7c3df;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+
+/* podle bodů */
+
+.player-ranking-card > em {
+  margin-top: auto;
+  padding-top: 14px;
+
+  color: #647aa9;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  font-style: normal;
+
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 760px) {
+
+  .player-ranking {
+    padding:
+      22px 18px 20px;
+  }
+
+
+  .player-ranking::before {
+    left: 18px;
+  }
+
+
+  .player-ranking-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .player-ranking-card {
+    min-height: 125px;
+  }
+
+
+  .player-ranking-card > strong {
+    font-size: 36px;
+  }
+
+}
