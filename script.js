@@ -1564,17 +1564,19 @@ function populatePlayerFilters() {
 
 
   populateSelect(
-    document.getElementById(
-      "filtrPozice"
-    ),
-    uniqueSorted(
-      state.players.map(
-        player =>
-          player.pozice
-      )
-    ),
-    "Všechny pozice"
-  );
+  document.getElementById(
+    "filtrPozice"
+  ),
+  [
+    "LW",
+    "C",
+    "RW",
+    "O",
+    "B",
+    "F"
+  ],
+  "Všechny pozice"
+);
 
 
   populateSelect(
@@ -1770,7 +1772,9 @@ function renderPlayers() {
           (
             !position ||
             normalize(
-              player.pozice
+              primaryPosition(
+                player.pozice
+              )
             ) === position
           ) &&
 
@@ -2056,6 +2060,13 @@ function isGoaliePosition(value) {
     "goalie",
     "goaltender"
   ].includes(position);
+}
+
+function primaryPosition(value) {
+  return cleanCell(value)
+    .toUpperCase()
+    .split("/")[0]
+    .trim();
 }
 
 
@@ -2828,12 +2839,14 @@ function playerRankingHtml(
 
 
   const position =
-    normalize(
+  normalize(
+    primaryPosition(
       getValue(
         detail,
         "Pozice"
       )
-    );
+    )
+  );
 
 
   const teamRows =
@@ -2895,14 +2908,16 @@ function playerRankingHtml(
 
   } else {
     const positionRows =
-      dataset.filter(row =>
-        normalize(
-          getValue(
-            row,
-            "Pozice"
-          )
-        ) === position
-      );
+  dataset.filter(row =>
+    normalize(
+      primaryPosition(
+        getValue(
+          row,
+          "Pozice"
+        )
+      )
+    ) === position
+  );
 
 
     const teamRank =
