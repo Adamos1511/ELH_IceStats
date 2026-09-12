@@ -6681,9 +6681,10 @@ body.player-card-modal-open {
   left: 50%;
 
   width: auto;
-  height: 100%;
+  height: auto;
 
   max-width: none;
+  max-height: none;
 
   transform:
     translate(
@@ -6692,6 +6693,28 @@ body.player-card-modal-open {
     );
 
   display: block;
+}
+
+
+/*
+ * Úzká / portrétní fotka:
+ * vyplní box podle šířky
+ * a přebytek se ořízne nahoře/dole.
+ */
+.share-player-card-photo img.fit-width {
+  width: 100%;
+  height: auto;
+}
+
+
+/*
+ * Široká fotka:
+ * vyplní box podle výšky
+ * a přebytek se ořízne po stranách.
+ */
+.share-player-card-photo img.fit-height {
+  width: auto;
+  height: 100%;
 }
 
 
