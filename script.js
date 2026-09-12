@@ -3680,16 +3680,35 @@ async function waitForPlayerCardImages(
   await Promise.all(
     images.map(image => {
 
-      if (image.complete) {
+      if (
+        image.complete
+      ) {
         return Promise.resolve();
       }
 
 
       return new Promise(resolve => {
 
+        const finish =
+          () => {
+            clearTimeout(
+              timeout
+            );
+
+            resolve();
+          };
+
+
+        const timeout =
+          window.setTimeout(
+            finish,
+            5000
+          );
+
+
         image.addEventListener(
           "load",
-          resolve,
+          finish,
           {
             once: true
           }
@@ -3698,7 +3717,7 @@ async function waitForPlayerCardImages(
 
         image.addEventListener(
           "error",
-          resolve,
+          finish,
           {
             once: true
           }
@@ -3749,113 +3768,58 @@ async function downloadPlayerCardPng(
 
 
   button.disabled = true;
-
   button.textContent =
     "Generuji PNG...";
 
 
-  let exportCard = null;
-
-
   try {
 
-    /*
-     * Počkáme na fonty.
-     */
     if (document.fonts?.ready) {
       await document.fonts.ready;
     }
 
 
     /*
-     * Nevyrábíme PNG přímo
-     * z responsivní karty.
-     *
-     * Vytvoříme její samostatnou
-     * exportní kopii.
+     * Obrázky v otevřené kartě
+     * už jsou načtené.
      */
-    exportCard =
-      card.cloneNode(true);
-
-
-    exportCard.removeAttribute(
-      "id"
+    await waitForPlayerCardImages(
+      card
     );
 
 
-    exportCard.classList.add(
+    /*
+     * Na chvíli skutečnou kartu
+     * přepneme do exportního layoutu.
+     */
+    card.classList.add(
       "player-card-export"
     );
 
 
-    document.body.appendChild(
-      exportCard
-    );
-
-
     /*
-     * Počkáme na obrázky
-     * v exportní kopii.
+     * Necháme prohlížeč aplikovat CSS.
      */
-    await waitForPlayerCardImages(
-      exportCard
-    );
-
-
-    /*
-     * Dáme browseru jeden frame,
-     * aby stihl aplikovat exportní CSS.
-     */
-    await new Promise(resolve =>
+    await new Promise(resolve => {
       requestAnimationFrame(
-        resolve
-      )
-    );
+        () => {
+          requestAnimationFrame(
+            resolve
+          );
+        }
+      );
+    });
 
 
     const rect =
-      exportCard
-        .getBoundingClientRect();
+      card.getBoundingClientRect();
 
 
-    const exportWidth =
-      Math.ceil(
-        rect.width
-      );
-
-
-    const exportHeight =
-      Math.ceil(
-        rect.height
-      );
-
-
-    /*
-     * 3× render:
-     *
-     * 804 px karta
-     * -> cca 2412 px široké PNG.
-     *
-     * To už je dostatečně ostré
-     * i pro sociální sítě.
-     */
     const canvas =
       await window.html2canvas(
-        exportCard,
+        card,
         {
           scale: 3,
-
-          width:
-            exportWidth,
-
-          height:
-            exportHeight,
-
-          windowWidth:
-            1200,
-
-          windowHeight:
-            1000,
 
           backgroundColor:
             null,
@@ -3872,6 +3836,16 @@ async function downloadPlayerCardPng(
           imageTimeout:
             15000,
 
+          width:
+            Math.ceil(
+              rect.width
+            ),
+
+          height:
+            Math.ceil(
+              rect.height
+            ),
+
           scrollX:
             0,
 
@@ -3882,22 +3856,33 @@ async function downloadPlayerCardPng(
 
 
     const blob =
-      await new Promise(resolve => {
-
-        canvas.toBlob(
+      await new Promise(
+        (
           resolve,
-          "image/png",
-          1
-        );
+          reject
+        ) => {
 
-      });
+          canvas.toBlob(
+            result => {
 
+              if (result) {
+                resolve(
+                  result
+                );
+              } else {
+                reject(
+                  new Error(
+                    "PNG nebylo vytvořeno."
+                  )
+                );
+              }
 
-    if (!blob) {
-      throw new Error(
-        "PNG nebylo vytvořeno."
+            },
+            "image/png"
+          );
+
+        }
       );
-    }
 
 
     const objectUrl =
@@ -3918,7 +3903,9 @@ async function downloadPlayerCardPng(
 
     link.download =
       `elh-icestats-${
-        playerSlug(player)
+        playerSlug(
+          player
+        )
       }-player-card.png`;
 
 
@@ -3935,11 +3922,9 @@ async function downloadPlayerCardPng(
 
     window.setTimeout(
       () => {
-
         URL.revokeObjectURL(
           objectUrl
         );
-
       },
       1000
     );
@@ -3959,11 +3944,12 @@ async function downloadPlayerCardPng(
   } finally {
 
     /*
-     * Exportní kopii vždy odstraníme.
+     * Vždy kartu vrátíme
+     * do normálního vzhledu.
      */
-    if (exportCard) {
-      exportCard.remove();
-    }
+    card.classList.remove(
+      "player-card-export"
+    );
 
 
     button.disabled =
