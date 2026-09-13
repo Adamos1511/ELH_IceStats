@@ -3871,29 +3871,28 @@ async function downloadPlayerCardPng(
     "Generuji PNG...";
 
 
+  let photoImage = null;
+
+  let originalPhotoStyle = null;
+
+  let originalPhotoClass = null;
+
+
   try {
 
-    /*
-     * Počkáme na fonty.
-     */
     if (document.fonts?.ready) {
       await document.fonts.ready;
     }
 
 
-    /*
-     * Počkáme na fotku hráče,
-     * logo klubu a logo IceStats.
-     */
     await waitForPlayerCardImages(
       card
     );
 
 
     /*
-     * Dočasně přepneme kartu
-     * na Instagram layout
-     * 1080 × 1080.
+     * Přepnutí celé karty
+     * na 1080 × 1080 layout.
      */
     card.classList.add(
       "player-card-instagram-export"
@@ -3901,18 +3900,8 @@ async function downloadPlayerCardPng(
 
 
     /*
-     * Přepočítáme ořez fotky,
-     * protože exportní box má
-     * jiné rozměry než modal.
-     */
-    fitPlayerCardPhoto(
-      card
-    );
-
-
-    /*
-     * Necháme prohlížeč
-     * aplikovat nový layout.
+     * Nejdřív necháme prohlížeč
+     * opravdu aplikovat nové rozměry.
      */
     await new Promise(resolve => {
 
@@ -3930,18 +3919,176 @@ async function downloadPlayerCardPng(
 
 
     /*
-     * Samotný export.
+     * FOTKA PRO EXPORT
      *
-     * scale 1 = výsledný soubor
-     * bude přesně 1080 × 1080 px,
-     * protože tak velká je
-     * exportní karta v CSS.
+     * Nepoužijeme procenta ani
+     * fit-width / fit-height.
+     *
+     * Vypočítáme přesné pixely tak,
+     * aby fotografie vždy vyplnila
+     * celý box a nedeformovala se.
+     */
+    const photoFrame =
+      card.querySelector(
+        ".share-player-card-photo"
+      );
+
+
+    photoImage =
+      photoFrame?.querySelector(
+        "img"
+      ) ||
+      null;
+
+
+    if (
+      photoFrame &&
+      photoImage &&
+      photoImage.naturalWidth &&
+      photoImage.naturalHeight
+    ) {
+
+      originalPhotoStyle =
+        photoImage.getAttribute(
+          "style"
+        );
+
+
+      originalPhotoClass =
+        photoImage.className;
+
+
+      const frameWidth =
+        photoFrame.clientWidth;
+
+
+      const frameHeight =
+        photoFrame.clientHeight;
+
+
+      const imageRatio =
+        photoImage.naturalWidth /
+        photoImage.naturalHeight;
+
+
+      const frameRatio =
+        frameWidth /
+        frameHeight;
+
+
+      let imageWidth;
+      let imageHeight;
+
+
+      /*
+       * Fotka je širší než box.
+       * Vyplníme podle výšky.
+       */
+      if (
+        imageRatio >
+        frameRatio
+      ) {
+
+        imageHeight =
+          frameHeight;
+
+        imageWidth =
+          imageHeight *
+          imageRatio;
+
+      } else {
+
+        /*
+         * Fotka je užší než box.
+         * Vyplníme podle šířky.
+         */
+        imageWidth =
+          frameWidth;
+
+        imageHeight =
+          imageWidth /
+          imageRatio;
+
+      }
+
+
+      /*
+       * Odstraníme normální
+       * fit třídy pouze během exportu.
+       */
+      photoImage.classList.remove(
+        "fit-width",
+        "fit-height"
+      );
+
+
+      /*
+       * Přesné rozměry fotografie.
+       */
+      photoImage.style.width =
+        `${imageWidth}px`;
+
+      photoImage.style.height =
+        `${imageHeight}px`;
+
+      photoImage.style.maxWidth =
+        "none";
+
+      photoImage.style.maxHeight =
+        "none";
+
+
+      /*
+       * Vodorovně fotografie
+       * vždy doprostřed.
+       */
+      photoImage.style.left =
+        `${
+          (
+            frameWidth -
+            imageWidth
+          ) / 2
+        }px`;
+
+
+      /*
+       * Nahoře zarovnáme na 0.
+       * U hráčských fotek tak
+       * zbytečně neuřízneme hlavu.
+       */
+      photoImage.style.top =
+        "0px";
+
+
+      /*
+       * Pozici už máme vypočtenou
+       * v pixelech, transformace
+       * není potřeba.
+       */
+      photoImage.style.transform =
+        "none";
+
+
+      await new Promise(resolve => {
+        requestAnimationFrame(
+          resolve
+        );
+      });
+
+    }
+
+
+    /*
+     * EXPORT 1080 × 1080
      */
     const canvas =
       await window.html2canvas(
         card,
         {
           scale: 1,
+
+          width: 1080,
+          height: 1080,
 
           backgroundColor:
             null,
@@ -3967,23 +4114,6 @@ async function downloadPlayerCardPng(
       );
 
 
-    /*
-     * Kontrola rozměru.
-     */
-    if (
-      canvas.width !== 1080 ||
-      canvas.height !== 1080
-    ) {
-      console.warn(
-        "Player Card export:",
-        `${canvas.width} × ${canvas.height}`
-      );
-    }
-
-
-    /*
-     * Canvas → PNG.
-     */
     const blob =
       await new Promise(
         (
@@ -4017,9 +4147,6 @@ async function downloadPlayerCardPng(
       );
 
 
-    /*
-     * Stažení souboru.
-     */
     const objectUrl =
       URL.createObjectURL(
         blob
@@ -4081,19 +4208,45 @@ async function downloadPlayerCardPng(
   } finally {
 
     /*
-     * Vrátíme kartu zpět
-     * do normálního vzhledu
-     * v modalu.
+     * Vrácení fotografie
+     * do původního stavu.
+     */
+    if (photoImage) {
+
+      if (
+        originalPhotoStyle ===
+        null
+      ) {
+        photoImage.removeAttribute(
+          "style"
+        );
+      } else {
+        photoImage.setAttribute(
+          "style",
+          originalPhotoStyle
+        );
+      }
+
+
+      if (
+        originalPhotoClass !==
+        null
+      ) {
+        photoImage.className =
+          originalPhotoClass;
+      }
+
+    }
+
+
+    /*
+     * Vrácení běžné Player Card.
      */
     card.classList.remove(
       "player-card-instagram-export"
     );
 
 
-    /*
-     * Znovu nastavíme správný
-     * ořez fotky pro modal.
-     */
     fitPlayerCardPhoto(
       card
     );
