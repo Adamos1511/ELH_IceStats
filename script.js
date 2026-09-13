@@ -3184,9 +3184,11 @@ function closePlayerCard() {
   );
 }
 
-function fitPlayerCardPhoto() {
+function fitPlayerCardPhoto(
+  root = document
+) {
   const frame =
-    document.querySelector(
+    root.querySelector(
       ".share-player-card-photo"
     );
 
@@ -3234,7 +3236,7 @@ function fitPlayerCardPhoto() {
 
       /*
        * Fotka je užší než box.
-       * Vyplníme ji podle šířky.
+       * Vyplníme box podle šířky.
        */
       if (
         imageRatio <
@@ -3250,7 +3252,7 @@ function fitPlayerCardPhoto() {
 
       /*
        * Fotka je širší než box.
-       * Vyplníme ji podle výšky.
+       * Vyplníme box podle výšky.
        */
       image.classList.add(
         "fit-height"
@@ -3871,41 +3873,75 @@ async function downloadPlayerCardPng(
 
   try {
 
+    /*
+     * Počkáme na fonty.
+     */
     if (document.fonts?.ready) {
       await document.fonts.ready;
     }
 
 
+    /*
+     * Počkáme na fotku hráče,
+     * logo klubu a logo IceStats.
+     */
     await waitForPlayerCardImages(
       card
     );
 
 
     /*
-     * Bereme přesně rozměry karty,
-     * která je právě vidět v modalu.
+     * Dočasně přepneme kartu
+     * na Instagram layout
+     * 1080 × 1080.
      */
-    const width =
-      card.offsetWidth;
-
-
-    const height =
-      card.offsetHeight;
+    card.classList.add(
+      "player-card-instagram-export"
+    );
 
 
     /*
-     * Vzhled se vůbec nemění.
-     * Jen vyrenderujeme kartu
-     * ve 3× větším rozlišení.
+     * Přepočítáme ořez fotky,
+     * protože exportní box má
+     * jiné rozměry než modal.
+     */
+    fitPlayerCardPhoto(
+      card
+    );
+
+
+    /*
+     * Necháme prohlížeč
+     * aplikovat nový layout.
+     */
+    await new Promise(resolve => {
+
+      requestAnimationFrame(
+        () => {
+
+          requestAnimationFrame(
+            resolve
+          );
+
+        }
+      );
+
+    });
+
+
+    /*
+     * Samotný export.
+     *
+     * scale 1 = výsledný soubor
+     * bude přesně 1080 × 1080 px,
+     * protože tak velká je
+     * exportní karta v CSS.
      */
     const canvas =
       await window.html2canvas(
         card,
         {
-          scale: 3,
-
-          width,
-          height,
+          scale: 1,
 
           backgroundColor:
             null,
@@ -3931,6 +3967,23 @@ async function downloadPlayerCardPng(
       );
 
 
+    /*
+     * Kontrola rozměru.
+     */
+    if (
+      canvas.width !== 1080 ||
+      canvas.height !== 1080
+    ) {
+      console.warn(
+        "Player Card export:",
+        `${canvas.width} × ${canvas.height}`
+      );
+    }
+
+
+    /*
+     * Canvas → PNG.
+     */
     const blob =
       await new Promise(
         (
@@ -3942,7 +3995,9 @@ async function downloadPlayerCardPng(
             result => {
 
               if (result) {
-                resolve(result);
+                resolve(
+                  result
+                );
 
                 return;
               }
@@ -3962,6 +4017,9 @@ async function downloadPlayerCardPng(
       );
 
 
+    /*
+     * Stažení souboru.
+     */
     const objectUrl =
       URL.createObjectURL(
         blob
@@ -3980,8 +4038,10 @@ async function downloadPlayerCardPng(
 
     link.download =
       `elh-icestats-${
-        playerSlug(player)
-      }-player-card.png`;
+        playerSlug(
+          player
+        )
+      }-player-card-1080x1080.png`;
 
 
     document.body.appendChild(
@@ -4019,6 +4079,25 @@ async function downloadPlayerCardPng(
     );
 
   } finally {
+
+    /*
+     * Vrátíme kartu zpět
+     * do normálního vzhledu
+     * v modalu.
+     */
+    card.classList.remove(
+      "player-card-instagram-export"
+    );
+
+
+    /*
+     * Znovu nastavíme správný
+     * ořez fotky pro modal.
+     */
+    fitPlayerCardPhoto(
+      card
+    );
+
 
     button.disabled =
       false;
