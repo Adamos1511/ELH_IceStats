@@ -3871,20 +3871,45 @@ async function downloadPlayerCardPng(
     "Generuji PNG...";
 
 
+  /*
+   * Proměnné potřebujeme i ve finally,
+   * abychom po exportu všechno
+   * vrátili do původního stavu.
+   */
+  let photoFrame = null;
+
   let photoImage = null;
 
-  let originalPhotoStyle = null;
+  let originalFrameBackgroundImage =
+    "";
 
-  let originalPhotoClass = null;
+  let originalFrameBackgroundSize =
+    "";
+
+  let originalFrameBackgroundPosition =
+    "";
+
+  let originalFrameBackgroundRepeat =
+    "";
+
+  let originalPhotoVisibility =
+    "";
 
 
   try {
 
+    /*
+     * Počkáme na fonty.
+     */
     if (document.fonts?.ready) {
       await document.fonts.ready;
     }
 
 
+    /*
+     * Počkáme na všechny obrázky
+     * v Player Card.
+     */
     await waitForPlayerCardImages(
       card
     );
@@ -3892,7 +3917,8 @@ async function downloadPlayerCardPng(
 
     /*
      * Přepnutí celé karty
-     * na 1080 × 1080 layout.
+     * na Instagram layout
+     * 1080 × 1080.
      */
     card.classList.add(
       "player-card-instagram-export"
@@ -3900,8 +3926,8 @@ async function downloadPlayerCardPng(
 
 
     /*
-     * Nejdřív necháme prohlížeč
-     * opravdu aplikovat nové rozměry.
+     * Necháme prohlížeč
+     * aplikovat nové rozměry.
      */
     await new Promise(resolve => {
 
@@ -3919,16 +3945,23 @@ async function downloadPlayerCardPng(
 
 
     /*
-     * FOTKA PRO EXPORT
+     * =====================================================
+     * FOTKA PRO PNG EXPORT
+     * =====================================================
      *
-     * Nepoužijeme procenta ani
-     * fit-width / fit-height.
+     * html2canvas nám špatně renderoval
+     * absolutně pozicovaný <img>.
      *
-     * Vypočítáme přesné pixely tak,
-     * aby fotografie vždy vyplnila
-     * celý box a nedeformovala se.
+     * Proto při exportu vezmeme stejnou
+     * fotografii a použijeme ji jako
+     * background samotného rámečku.
+     *
+     * background-size: cover
+     * = celý rámeček je vždy vyplněný
+     * bez deformace fotografie.
      */
-    const photoFrame =
+
+    photoFrame =
       card.querySelector(
         ".share-player-card-photo"
       );
@@ -3943,144 +3976,93 @@ async function downloadPlayerCardPng(
 
     if (
       photoFrame &&
-      photoImage &&
-      photoImage.naturalWidth &&
-      photoImage.naturalHeight
+      photoImage
     ) {
 
-      originalPhotoStyle =
-        photoImage.getAttribute(
-          "style"
-        );
+      /*
+       * Zapamatujeme původní stav.
+       */
+      originalFrameBackgroundImage =
+        photoFrame.style.backgroundImage;
 
+      originalFrameBackgroundSize =
+        photoFrame.style.backgroundSize;
 
-      originalPhotoClass =
-        photoImage.className;
+      originalFrameBackgroundPosition =
+        photoFrame.style.backgroundPosition;
 
+      originalFrameBackgroundRepeat =
+        photoFrame.style.backgroundRepeat;
 
-      const frameWidth =
-        photoFrame.clientWidth;
-
-
-      const frameHeight =
-        photoFrame.clientHeight;
-
-
-      const imageRatio =
-        photoImage.naturalWidth /
-        photoImage.naturalHeight;
-
-
-      const frameRatio =
-        frameWidth /
-        frameHeight;
-
-
-      let imageWidth;
-      let imageHeight;
+      originalPhotoVisibility =
+        photoImage.style.visibility;
 
 
       /*
-       * Fotka je širší než box.
-       * Vyplníme podle výšky.
+       * Fotku dáme jako background.
        */
-      if (
-        imageRatio >
-        frameRatio
-      ) {
+      const photoUrl =
+        photoImage.currentSrc ||
+        photoImage.src;
 
-        imageHeight =
-          frameHeight;
 
-        imageWidth =
-          imageHeight *
-          imageRatio;
-
-      } else {
-
-        /*
-         * Fotka je užší než box.
-         * Vyplníme podle šířky.
-         */
-        imageWidth =
-          frameWidth;
-
-        imageHeight =
-          imageWidth /
-          imageRatio;
-
-      }
+      photoFrame.style.backgroundImage =
+        `url("${photoUrl}")`;
 
 
       /*
-       * Odstraníme normální
-       * fit třídy pouze během exportu.
+       * Celý box musí být vyplněný.
        */
-      photoImage.classList.remove(
-        "fit-width",
-        "fit-height"
-      );
+      photoFrame.style.backgroundSize =
+        "cover";
 
 
       /*
-       * Přesné rozměry fotografie.
+       * Preferujeme horní část fotografie,
+       * aby se hráčům zbytečně neřezala hlava.
        */
-      photoImage.style.width =
-        `${imageWidth}px`;
+      photoFrame.style.backgroundPosition =
+        "center top";
 
-      photoImage.style.height =
-        `${imageHeight}px`;
 
-      photoImage.style.maxWidth =
-        "none";
-
-      photoImage.style.maxHeight =
-        "none";
+      photoFrame.style.backgroundRepeat =
+        "no-repeat";
 
 
       /*
-       * Vodorovně fotografie
-       * vždy doprostřed.
+       * Původní <img> během exportu
+       * schováme.
        */
-      photoImage.style.left =
-        `${
-          (
-            frameWidth -
-            imageWidth
-          ) / 2
-        }px`;
+      photoImage.style.visibility =
+        "hidden";
 
 
       /*
-       * Nahoře zarovnáme na 0.
-       * U hráčských fotek tak
-       * zbytečně neuřízneme hlavu.
+       * Necháme background vykreslit.
        */
-      photoImage.style.top =
-        "0px";
-
-
-      /*
-       * Pozici už máme vypočtenou
-       * v pixelech, transformace
-       * není potřeba.
-       */
-      photoImage.style.transform =
-        "none";
-
-
       await new Promise(resolve => {
+
         requestAnimationFrame(
-          resolve
+          () => {
+
+            requestAnimationFrame(
+              resolve
+            );
+
+          }
         );
+
       });
 
     }
 
 
     /*
+     * =====================================================
      * EXPORT 1080 × 1080
+     * =====================================================
      */
+
     const canvas =
       await window.html2canvas(
         card,
@@ -4114,6 +4096,23 @@ async function downloadPlayerCardPng(
       );
 
 
+    /*
+     * Kontrola rozměru.
+     */
+    if (
+      canvas.width !== 1080 ||
+      canvas.height !== 1080
+    ) {
+      console.warn(
+        "Player Card export:",
+        `${canvas.width} × ${canvas.height}`
+      );
+    }
+
+
+    /*
+     * Canvas → PNG blob.
+     */
     const blob =
       await new Promise(
         (
@@ -4147,6 +4146,9 @@ async function downloadPlayerCardPng(
       );
 
 
+    /*
+     * Stažení souboru.
+     */
     const objectUrl =
       URL.createObjectURL(
         blob
@@ -4193,6 +4195,7 @@ async function downloadPlayerCardPng(
       1000
     );
 
+
   } catch (error) {
 
     console.error(
@@ -4205,48 +4208,51 @@ async function downloadPlayerCardPng(
       "Player Card se nepodařilo uložit jako PNG."
     );
 
+
   } finally {
 
     /*
-     * Vrácení fotografie
-     * do původního stavu.
+     * =====================================================
+     * VRÁCENÍ FOTKY DO PŮVODNÍHO STAVU
+     * =====================================================
      */
-    if (photoImage) {
 
-      if (
-        originalPhotoStyle ===
-        null
-      ) {
-        photoImage.removeAttribute(
-          "style"
-        );
-      } else {
-        photoImage.setAttribute(
-          "style",
-          originalPhotoStyle
-        );
-      }
+    if (
+      photoFrame &&
+      photoImage
+    ) {
+
+      photoFrame.style.backgroundImage =
+        originalFrameBackgroundImage;
+
+      photoFrame.style.backgroundSize =
+        originalFrameBackgroundSize;
+
+      photoFrame.style.backgroundPosition =
+        originalFrameBackgroundPosition;
+
+      photoFrame.style.backgroundRepeat =
+        originalFrameBackgroundRepeat;
 
 
-      if (
-        originalPhotoClass !==
-        null
-      ) {
-        photoImage.className =
-          originalPhotoClass;
-      }
+      photoImage.style.visibility =
+        originalPhotoVisibility;
 
     }
 
 
     /*
-     * Vrácení běžné Player Card.
+     * Vrátíme běžný vzhled Player Card.
      */
     card.classList.remove(
       "player-card-instagram-export"
     );
 
 
+    /*
+     * Znovu nastavíme normální
+     * ořez fotky v modalu.
+     */
     fitPlayerCardPhoto(
       card
     );
