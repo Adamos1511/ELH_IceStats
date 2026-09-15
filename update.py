@@ -1,4 +1,5 @@
 ﻿from __future__ import annotations
+import argparse
 
 from data_bot.config import (
     BRANKARI_DETAIL_CSV,
@@ -112,8 +113,20 @@ def print_clubs_report(report: dict[str, object]) -> None:
     print(f"Náhled: {report['output_path']}")
     print(f"Surová data: {report['metrics_path']}")
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        "--careers-only",
+        action="store_true",
+        help="Aktualizuje pouze kariéry.",
+    )
+
+    return parser.parse_args()
 
 def main() -> None:
+    args = parse_args()
+
     print("=" * 55)
     print("ELH ENGINE")
     print("=" * 55)
@@ -157,6 +170,43 @@ def main() -> None:
         f"Kontrolovaná sezona: "
         f"{season_report['current_season']}"
     )
+    
+    if args.careers_only:
+        print(
+            "\nRežim: pouze kariéry."
+        )
+
+        print(
+            "\nVytvářím náhled kariér hráčů..."
+        )
+
+        career_report = export_career_preview(
+            str(
+                season_report[
+                    "current_season"
+                ]
+            )
+        )
+
+        print_career_report(
+            career_report
+        )
+
+        print(
+            "\nPůvodní kariery.csv "
+            "nebylo změněno."
+        )
+
+        print(
+            "Náhled je uložený "
+            "v data_bot/output."
+        )
+
+        log_message(
+            "Dokončen náhled kariér."
+        )
+
+        return
 
     print("\nTestuji připojení k Hokej.cz...")
 
@@ -180,12 +230,7 @@ def main() -> None:
     standings_report = export_standings_preview()
     print_report("TABULKA ELH", standings_report)
 
-    print("\nVytvářím náhled kariér hráčů...")
 
-    career_report = export_career_preview(
-        str(season_report["current_season"])
-    )
-    print_career_report(career_report)
 
     print("\nVytvářím náhled klubových statistik...")
 
@@ -197,7 +242,7 @@ def main() -> None:
 
     log_message(
         "Dokončen náhled hráčů, brankářů, "
-        "tabulky ELH, kariér a klubů."
+        "tabulky ELH a klubů."
     )
 
 

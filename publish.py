@@ -1,4 +1,5 @@
 from __future__ import annotations
+import argparse
 
 import shutil
 from datetime import datetime
@@ -16,33 +17,60 @@ from data_bot.config import (
 from data_bot.modules.utils import log_message
 
 
-PUBLISH_MAP: dict[Path, Path] = {
-    OUTPUT_DIR / "hraci_detail_preview.csv": HRACI_DETAIL_CSV,
-    OUTPUT_DIR / "brankari_detail_preview.csv": BRANKARI_DETAIL_CSV,
-    OUTPUT_DIR / "TabulkaELH_preview.csv": TABULKA_ELH_CSV,
-    OUTPUT_DIR / "kluby_preview.csv": KLUBY_CSV,
-    OUTPUT_DIR / "kariery_preview.csv": KARIERY_CSV,
+STANDARD_PUBLISH_MAP: dict[
+    Path,
+    Path,
+] = {
+    OUTPUT_DIR
+    / "hraci_detail_preview.csv":
+        HRACI_DETAIL_CSV,
+
+    OUTPUT_DIR
+    / "brankari_detail_preview.csv":
+        BRANKARI_DETAIL_CSV,
+
+    OUTPUT_DIR
+    / "TabulkaELH_preview.csv":
+        TABULKA_ELH_CSV,
+
+    OUTPUT_DIR
+    / "kluby_preview.csv":
+        KLUBY_CSV,
 }
 
 
-def validate_preview_files() -> list[Path]:
+CAREER_PUBLISH_MAP: dict[
+    Path,
+    Path,
+] = {
+    OUTPUT_DIR
+    / "kariery_preview.csv":
+        KARIERY_CSV,
+}
+
+
+def validate_preview_files(
+    publish_map: dict[Path, Path],
+) -> list[Path]:
     """
     Vrátí seznam chybějících preview souborů.
     """
     return [
         preview_path
-        for preview_path in PUBLISH_MAP
+        for preview_path in publish_map
         if not preview_path.exists()
     ]
 
 
-def validate_preview_content() -> list[str]:
+def validate_preview_content(
+    publish_map: dict[Path, Path],
+) -> list[str]:
     """
     Základní ochrana proti publikaci prázdných souborů.
     """
     errors: list[str] = []
 
-    for preview_path in PUBLISH_MAP:
+    for preview_path in publish_map:
         if not preview_path.exists():
             continue
 
@@ -67,13 +95,14 @@ def create_backup_directory() -> Path:
 
 def backup_production_files(
     backup_directory: Path,
+    publish_map: dict[Path, Path],
 ) -> list[Path]:
     """
     Zazálohuje všechny existující produkční CSV.
     """
     backup_paths: list[Path] = []
 
-    for target_path in PUBLISH_MAP.values():
+    for target_path in publish_map.values():
         if not target_path.exists():
             continue
 
@@ -84,28 +113,55 @@ def backup_production_files(
     return backup_paths
 
 
-def publish_preview_files() -> list[Path]:
+def publish_preview_files(
+    publish_map: dict[Path, Path],
+) -> list[Path]:
     """
     Zkopíruje ověřené preview soubory do produkčních CSV.
     """
     published_paths: list[Path] = []
 
-    for preview_path, target_path in PUBLISH_MAP.items():
+    for preview_path, target_path in publish_map.items():
         target_path.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(preview_path, target_path)
         published_paths.append(target_path)
 
     return published_paths
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        "--careers-only",
+        action="store_true",
+        help="Publikuje pouze kariéry.",
+    )
+
+    return parser.parse_args()
 
 def main() -> None:
+    args = parse_args()
+
+    publish_map = (
+        CAREER_PUBLISH_MAP
+        if args.careers_only
+        else STANDARD_PUBLISH_MAP
+    )
+
     print("=" * 55)
-    print("ELH ENGINE — PUBLISH")
+
+    if args.careers_only:
+        print("ELH ENGINE — PUBLISH KARIÉR")
+    else:
+        print("ELH ENGINE — PUBLISH")
+
     print("=" * 55)
 
     print("\nKontroluji preview soubory...")
 
-    missing_files = validate_preview_files()
+    missing_files = validate_preview_files(
+    publish_map
+)
 
     if missing_files:
         print("\nPublikace byla zrušena.")
@@ -116,7 +172,9 @@ def main() -> None:
 
         raise SystemExit(1)
 
-    content_errors = validate_preview_content()
+    content_errors = validate_preview_content(
+    publish_map
+)
 
     if content_errors:
         print("\nPublikace byla zrušena.")
@@ -132,7 +190,10 @@ def main() -> None:
     print("\nVytvářím zálohu produkčních CSV...")
 
     backup_directory = create_backup_directory()
-    backup_paths = backup_production_files(backup_directory)
+    backup_paths = backup_production_files(
+    backup_directory,
+    publish_map,
+)
 
     print(f"Záloha: {backup_directory}")
 
@@ -141,7 +202,9 @@ def main() -> None:
 
     print("\nPublikuji nové CSV do webu...")
 
-    published_paths = publish_preview_files()
+    published_paths = publish_preview_files(
+    publish_map
+)
 
     for path in published_paths:
         print(f"  - {path.name}")
