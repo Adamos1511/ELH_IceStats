@@ -23,10 +23,10 @@ from data_bot.modules.utils import (
 
 GOALIE_STATS_URL = f"{PLAYER_STATS_URL}/detailni"
 
-# Tipsport extraliga 2025/26 – základní část.
-COMPETITION_ID = 7397
+# Tipsport extraliga 2026/27 – základní část.
+COMPETITION_ID = 7562
 
-SEASON_START_YEAR = 2025
+SEASON_START_YEAR = 2026
 
 REQUIRED_GOALIE_COLUMNS = {
     "POŘ.",
@@ -61,6 +61,7 @@ TEAM_CODES = {
     "hc olomouc": "OLO",
     "bk mlada boleslav": "MBL",
     "hc energie karlovy vary": "KVA",
+    "byd energie karlovy vary": "KVA",
     "hc verva litvinov": "LIT",
     "bili tygri liberec": "LIB",
     "rytiri kladno": "KLA",
@@ -314,6 +315,24 @@ def update_and_add_goalies(
     goalies: pd.DataFrame,
 ) -> tuple[pd.DataFrame, pd.DataFrame, int, int]:
     result = original.copy()
+
+    # Každý výstup obsahuje pouze statistiky aktuální sezony.
+    # Osobní údaje, smlouvy a další sloupce zachováme.
+    for column in (
+        "Odchytané zápasy",
+        "Výhry",
+        "průměr obdržených branek",
+        "% zákroků",
+        "Čistá konta",
+        "Zákroky",
+        "Střel proti",
+        "Průměr střel na zápas",
+    ):
+        if column in result.columns:
+            result[column] = "0"
+
+    if "Odchytané minuty" in result.columns:
+        result["Odchytané minuty"] = "0:00"
 
     existing_lookup: dict[str, int] = {}
 

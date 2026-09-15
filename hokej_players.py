@@ -24,9 +24,9 @@ from data_bot.modules.utils import normalize_text, read_csv, write_csv
 
 DETAIL_STATS_URL = f"{PLAYER_STATS_URL}/detailni"
 
-# Tipsport extraliga 2025/26 – základní část.
-COMPETITION_ID = 7397
-SEASON_START_YEAR = 2025
+# Tipsport extraliga 2026/27 – základní část.
+COMPETITION_ID = 7562
+SEASON_START_YEAR = 2026
 SITE_ORIGIN = "https://elhicestats.cz"
 
 SITEMAP_PATH = (
