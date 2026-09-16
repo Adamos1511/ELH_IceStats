@@ -1,15 +1,15 @@
-﻿POŘADÍ;TÝM;ZÁPASY;V;VP;PP;P;SKÓRE;BODY;FORMA
-1;HC Oceláři Třinec;1;1;0;0;0;2:0;3;5
-2;Banes Motor Č. Budějovice;0;0;0;0;0;0:0;0;0
-2;Mountfield HK;0;0;0;0;0;0:0;0;0
-2;HC VÍTKOVICE RIDERA;0;0;0;0;0;0:0;0;0
-2;HC VERVA Litvínov;0;0;0;0;0;0:0;0;0
-2;HC Škoda Plzeň;0;0;0;0;0;0:0;0;0
-2;HC Sparta Praha;0;0;0;0;0;0:0;0;0
-2;HC Olomouc;0;0;0;0;0;0:0;0;0
-2;HC Kometa Brno;0;0;0;0;0;0:0;0;0
-2;HC Dynamo Pardubice;0;0;0;0;0;0:0;0;0
-2;BK Mladá Boleslav;0;0;0;0;0;0:0;0;0
-2;Bílí Tygři Liberec;0;0;0;0;0;0:0;0;0
-2;Rytíři Kladno;0;0;0;0;0;0:0;0;0
-14;BYD Energie Karlovy Vary;1;0;0;0;1;0:2;0;2
+﻿POŘADÍ;TÝM;ZÁPASY;V;VP;PP;P;SKÓRE;BODY;FORMA;FORMA_DETAIL
+1;HC Sparta Praha;1;1;0;0;0;5:2;3;V;16. 9. 2026 · HC Olomouc – HC Sparta Praha 2:5
+2;Mountfield HK;1;1;0;0;0;5:3;3;V;16. 9. 2026 · HC Dynamo Pardubice – Mountfield HK 3:5
+3;HC Oceláři Třinec;1;1;0;0;0;2:0;3;V;15. 9. 2026 · BYD Energie Karlovy Vary – HC Oceláři Třinec 0:2
+4;Rytíři Kladno;1;1;0;0;0;4:3;3;V;16. 9. 2026 · HC VÍTKOVICE RIDERA – Rytíři Kladno 3:4
+5;HC VERVA Litvínov;1;1;0;0;0;2:1;3;V;16. 9. 2026 · HC VERVA Litvínov – HC Kometa Brno 2:1
+6;BK Mladá Boleslav;1;0;1;0;0;3:2;2;VP;16. 9. 2026 · Banes Motor Č. Budějovice – BK Mladá Boleslav 2:3 · po prodloužení
+7;HC Škoda Plzeň;1;0;1;0;0;2:1;2;VSn;16. 9. 2026 · HC Škoda Plzeň – Bílí Tygři Liberec 2:1 · po nájezdech
+8;Banes Motor Č. Budějovice;1;0;0;1;0;2:3;1;PP;16. 9. 2026 · Banes Motor Č. Budějovice – BK Mladá Boleslav 2:3 · po prodloužení
+9;Bílí Tygři Liberec;1;0;0;1;0;1:2;1;PSn;16. 9. 2026 · HC Škoda Plzeň – Bílí Tygři Liberec 2:1 · po nájezdech
+10;HC VÍTKOVICE RIDERA;1;0;0;0;1;3:4;0;P;16. 9. 2026 · HC VÍTKOVICE RIDERA – Rytíři Kladno 3:4
+11;HC Kometa Brno;1;0;0;0;1;1:2;0;P;16. 9. 2026 · HC VERVA Litvínov – HC Kometa Brno 2:1
+12;HC Dynamo Pardubice;1;0;0;0;1;3:5;0;P;16. 9. 2026 · HC Dynamo Pardubice – Mountfield HK 3:5
+13;BYD Energie Karlovy Vary;1;0;0;0;1;0:2;0;P;15. 9. 2026 · BYD Energie Karlovy Vary – HC Oceláři Třinec 0:2
+14;HC Olomouc;1;0;0;0;1;2:5;0;P;16. 9. 2026 · HC Olomouc – HC Sparta Praha 2:5

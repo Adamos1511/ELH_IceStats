@@ -3913,7 +3913,28 @@ img {
     );
 }
 
+.forma-vsn {
+  background:
+    linear-gradient(
+      135deg,
+      var(--green) 0%,
+      var(--green) 55%,
+      #3aa7ff 55%,
+      #3aa7ff 100%
+    );
+}
 
+
+.forma-psn {
+  background:
+    linear-gradient(
+      135deg,
+      var(--danger) 0%,
+      var(--danger) 55%,
+      #3aa7ff 55%,
+      #3aa7ff 100%
+    );
+}
 .forma-raw {
   display: inline-flex;
   align-items: center;

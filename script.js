@@ -9310,7 +9310,7 @@ function parseForm(value) {
 
   const tokens =
     normalized.match(
-      /VP|PP|V|P/g
+      /VSN|PSN|VP|PP|V|P/g
     ) ||
     [];
 
@@ -9318,7 +9318,7 @@ function parseForm(value) {
   const residue =
     normalized
       .replace(
-        /VP|PP|V|P/g,
+        /VSN|PSN|VP|PP|V|P/g,
         ""
       )
       .replace(
@@ -9338,9 +9338,17 @@ function parseForm(value) {
 }
 
 
-function renderForm(value) {
+function renderForm(
+  value,
+  detailValue = ""
+) {
   const form =
     parseForm(value);
+
+  const details =
+    cleanCell(detailValue)
+      .split("||")
+      .map(item => item.trim());
 
 
   if (!form.raw) {
@@ -9365,15 +9373,28 @@ function renderForm(value) {
 
 
   return form.tokens
-    .map(result => {
+    .map((result, index) => {
+      const detail =
+        details[index] || "";
       const className =
         result === "V"
           ? "forma-v"
           : result === "VP"
             ? "forma-vp"
-            : result === "PP"
-              ? "forma-pp"
-              : "forma-p";
+            : result === "VSN"
+              ? "forma-vsn"
+              : result === "PP"
+                ? "forma-pp"
+                : result === "PSN"
+                  ? "forma-psn"
+                  : "forma-p";
+
+      const label =
+        result === "VSN"
+          ? "VSn"
+          : result === "PSN"
+            ? "PSn"
+            : result;
 
 
       return `
@@ -9382,8 +9403,13 @@ function renderForm(value) {
             forma-vysledek
             ${className}
           "
+          ${
+            detail
+              ? `title="${escapeHtml(detail)}"`
+              : ""
+          }
         >
-          ${escapeHtml(result)}
+          ${escapeHtml(label)}
         </span>
       `;
     })
@@ -9584,6 +9610,10 @@ function renderStandings() {
                     getValue(
                       row,
                       "FORMA"
+                    ),
+                    getValue(
+                      row,
+                      "FORMA_DETAIL"
                     )
                   )}
                 </div>
