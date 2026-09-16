@@ -21,6 +21,7 @@ const DATA_URLS = {
   transfers: `${GITHUB_RAW}prestupy.csv`,
   standings: `${GITHUB_RAW}TabulkaELH.csv`,
   schedule: `${GITHUB_RAW}rozpis.csv`,
+  matches: `${GITHUB_RAW}data/matches/`,
   careers: `${GITHUB_RAW}kariery.csv?v=20260817-career3`
 };
 
@@ -218,7 +219,8 @@ const PAGE_IDS = {
   statistics: "strankaStatistiky",
   table: "strankaTabulka",
   transfers: "strankaPrestupy",
-  schedule: "strankaRozpis"
+  schedule: "strankaRozpis",
+  matchDetail: "strankaDetailZapasu"
 };
 
 
@@ -950,6 +952,11 @@ function navigate(
     push = true
   } = {}
 ) {
+  if (page !== "matchDetail") {
+    matchDetailRequest += 1;
+    matchDetailController?.abort();
+  }
+
   const targetId =
     PAGE_IDS[page];
 
@@ -1054,6 +1061,10 @@ function goBack() {
   }
 
 
+  if (state.currentPage === "matchDetail") {
+    fallback = "schedule";
+  }
+
   handleNavigation(
     fallback,
     {
@@ -1070,6 +1081,9 @@ function activeNavigationPage() {
 
     case "clubDetail":
       return "clubs";
+
+    case "matchDetail":
+      return "schedule";
 
     default:
       return state.currentPage;
@@ -9665,6 +9679,7 @@ async function loadSchedule() {
 
 
       matches.push({
+        id: /^[0-9]+$/.test(cleanCell(row?.[6])) ? cleanCell(row[6]) : "",
         round:
           currentRound,
 
@@ -9831,6 +9846,182 @@ function formatScheduleDate(
         : ""
     }
   `;
+}
+
+
+/* =========================================================
+   MATCH CENTER — data/matches/<id>.json
+========================================================= */
+let matchDetailRequest = 0;
+let matchDetailController = null;
+
+function matchDetailPath(id) {
+  return `/rozpis?zapas=${encodeURIComponent(id)}`;
+}
+
+function scheduleMatchHtml(match) {
+  const id = /^[0-9]+$/.test(match.id || "") ? match.id : "";
+  const teamHtml = (value, side) => {
+    const team = getTeam(value);
+    return `<span class="schedule-team ${side}">
+      ${side === "away" && team ? `<img src="${escapeHtml(logoUrl(team.code))}" alt="" data-hide-on-error>` : ""}
+      <span>${escapeHtml(value)}</span>
+      ${side === "home" && team ? `<img src="${escapeHtml(logoUrl(team.code))}" alt="" data-hide-on-error>` : ""}
+    </span>`;
+  };
+  const body = `${teamHtml(match.home, "home")}
+    <span class="match-center">
+      <span class="match-vs">VS</span>
+      ${formatScheduleDate(match.date, match.time)}
+      <span class="mc-open">${id ? "Detail zápasu →" : "Detail zatím není dostupný"}</span>
+    </span>${teamHtml(match.away, "away")}`;
+  return id
+    ? `<a class="match-card mc-match-link" href="${escapeHtml(matchDetailPath(id))}" data-match-id="${id}">${body}</a>`
+    : `<article class="match-card">${body}</article>`;
+}
+
+function matchTeamName(team) {
+  return team?.name || getTeam(team?.code)?.name || team?.code || "Tým";
+}
+
+function matchTeamHtml(team) {
+  const known = getTeam(team?.code || team?.name);
+  const body = `${known ? `<img src="${escapeHtml(logoUrl(known.code))}" alt="" data-hide-on-error>` : ""}
+    <strong>${escapeHtml(matchTeamName(team))}</strong>`;
+  return known
+    ? `<a class="mc-team" href="${escapeHtml(clubPath(known.code))}" data-team-code="${escapeHtml(known.code)}">${body}</a>`
+    : `<div class="mc-team">${body}</div>`;
+}
+
+function matchEmpty(text) {
+  return `<p class="mc-empty">${escapeHtml(text)}</p>`;
+}
+
+function matchEventsHtml(data, type) {
+  const rows = data.events?.[type];
+  if (!Array.isArray(rows) || !rows.length) {
+    return matchEmpty(type === "goals" ? "V uložených datech nejsou zaznamenané góly." : "V uložených datech nejsou zaznamenané tresty.");
+  }
+  return `<ol class="mc-events">${rows.map(item => {
+    const home = item.team === data.home?.code;
+    const person = type === "goals" ? item.scorer : item.player;
+    const info = type === "goals"
+      ? [item.assists ? `Asistence: ${item.assists}` : "", item.type ? `Hra ${item.type}` : ""].filter(Boolean).join(" · ")
+      : item.penalty;
+    return `<li class="mc-event ${home ? "mc-event-home" : "mc-event-away"}">
+      <div class="mc-event-time"><strong>${escapeHtml(item.time || "—")}</strong><span>${escapeHtml(item.team || "")}</span></div>
+      <div><strong>${escapeHtml(person || "Hráč neuveden")}</strong><p>${escapeHtml(info || "")}</p></div>
+      ${type === "goals" ? `<b class="mc-event-score">${escapeHtml(item.score_after || "")}</b>` : ""}
+    </li>`;
+  }).join("")}</ol>`;
+}
+
+function matchRosterHtml(data, side) {
+  const roster = data.roster;
+  if (roster?.status !== "available" || !Array.isArray(roster[side])) {
+    return matchEmpty(roster?.status === "error" ? "Sestavu se při posledním načtení nepodařilo získat." : "Sestava zatím není k dispozici.");
+  }
+  const groups = [["GK", "Brankáři"], ["BK", "Obránci"], ["FW", "Útočníci"], ["other", "Ostatní"]];
+  return groups.map(([position, label]) => {
+    const players = roster[side].filter(p => position === "other"
+      ? !["GK", "BK", "FW"].includes(p.position) : p.position === position)
+      .slice().sort((a, b) => collator.compare(String(a.slot || ""), String(b.slot || "")));
+    if (!players.length) return "";
+    return `<h3 class="mc-group-title">${label} <span>${players.length}</span></h3>
+      <ul class="mc-roster">${players.map(p => `<li>
+        <span class="mc-jersey">${escapeHtml(p.jersey ?? "—")}</span>
+        <span>${escapeHtml([p.name, p.surname].filter(Boolean).join(" "))}</span>
+      </li>`).join("")}</ul>`;
+  }).join("");
+}
+
+function matchLast5Html(rows) {
+  if (!Array.isArray(rows) || !rows.length) return matchEmpty("Poslední zápasy zatím nejsou k dispozici.");
+  return `<ul class="mc-history">${rows.map(row => `<li>
+    <span>${escapeHtml(row.date || "")}</span><span>${escapeHtml(row.match || "")}</span>
+    <strong>${escapeHtml(row.result || "—")}</strong></li>`).join("")}</ul>`;
+}
+
+function renderMatchDetail(data, notice = "") {
+  const container = document.getElementById("matchDetailContent");
+  if (!container) return;
+  const title = `${matchTeamName(data.home)} – ${matchTeamName(data.away)}`;
+  document.getElementById("matchDetailTitle").textContent = title;
+  setSeo({title: `${title} | Match Center | ELH IceStats`, description: `Detail zápasu ${title}: skóre, góly, tresty, sestavy a preview.`, path: matchDetailPath(data.match_id)});
+  const sb = data.scoreboard || {};
+  const statusNames = {final: "Konec zápasu", live: "Rozehráno", intermission: "Přestávka", scheduled: "Před zápasem", postponed: "Odloženo", suspended: "Přerušeno"};
+  const periods = Array.isArray(sb.periods) ? sb.periods : [];
+  const periodLabel = p => p === "OT" ? "Prodloužení" : p === "SO" ? "Nájezdy" : p ? `${p}. třetina` : "";
+  const timestamp = data.generated_at ? new Date(data.generated_at) : null;
+  const updated = timestamp && !Number.isNaN(timestamp.getTime()) ? timestamp.toLocaleString("cs-CZ", {timeZone: "Europe/Prague"}) : "";
+  container.innerHTML = `
+    <section class="mc-scoreboard" aria-label="Skóre zápasu">
+      <div class="mc-meta"><span>${escapeHtml(data.competition || "Tipsport extraliga")}${data.round ? ` · ${escapeHtml(data.round)}. kolo` : ""}</span>
+      <span>${escapeHtml(data.date || "")}${data.time ? ` · ${escapeHtml(data.time)}` : ""}</span></div>
+      <div class="mc-score-grid">${matchTeamHtml(data.home)}
+        <div class="mc-score-middle"><span class="mc-status">${escapeHtml(statusNames[sb.state] || "Detail čeká na doplnění")}</span>
+        <div class="mc-score">${escapeHtml(sb.home_score ?? "—")}<span>:</span>${escapeHtml(sb.away_score ?? "—")}</div>
+        ${sb.state !== "final" ? `<span class="mc-clock">${escapeHtml([periodLabel(sb.current_period), sb.clock].filter(Boolean).join(" · "))}</span>` : ""}
+        </div>${matchTeamHtml(data.away)}</div>
+      ${periods.length ? `<div class="mc-periods">${periods.map((p, i) => `<span><small>${i < 3 ? `${i + 1}. třetina` : i === 3 ? "Prodloužení" : "Nájezdy"}</small><strong>${escapeHtml(p.home ?? "—")}:${escapeHtml(p.away ?? "—")}</strong></span>`).join("")}</div>` : ""}
+      ${updated ? `<p class="mc-updated">Poslední načtení dat: ${escapeHtml(updated)} (Praha)</p>` : ""}
+    </section>
+    ${notice ? `<div class="mc-notice" role="status">${escapeHtml(notice)} <button type="button" class="mc-retry" data-match-retry="${escapeHtml(data.match_id)}">Zkusit znovu</button></div>` : `
+    <nav class="mc-tabs" aria-label="Obsah detailu zápasu">
+      <button type="button" data-match-tab="summary" aria-pressed="true">Souhrn</button>
+      <button type="button" data-match-tab="roster" aria-pressed="false">Sestavy</button>
+      <button type="button" data-match-tab="preview" aria-pressed="false">Preview</button>
+    </nav>
+    <div data-match-panel="summary" class="mc-columns">
+      <section class="mc-panel"><h2>Góly <span>${data.events?.goals?.length ?? 0}</span></h2>${matchEventsHtml(data, "goals")}</section>
+      <section class="mc-panel"><h2>Tresty <span>${data.events?.penalties?.length ?? 0}</span></h2>${matchEventsHtml(data, "penalties")}</section>
+    </div>
+    <div data-match-panel="roster" class="mc-columns" hidden>
+      ${["home", "away"].map(side => `<section class="mc-panel"><h2>${escapeHtml(matchTeamName(data[side]))}</h2>${matchRosterHtml(data, side)}</section>`).join("")}
+    </div>
+    <div data-match-panel="preview" hidden>
+      <div class="mc-columns">${["home", "away"].map(side => `<section class="mc-panel"><h2>${escapeHtml(matchTeamName(data[side]))}</h2><p class="mc-subtitle">Posledních 5 zápasů</p>${matchLast5Html(data.preview?.[side]?.last5)}</section>`).join("")}</div>
+      <section class="mc-panel mc-h2h"><h2>Vzájemné zápasy</h2>
+      ${Array.isArray(data.preview?.h2h) && data.preview.h2h.length ? `<ul class="mc-history">${data.preview.h2h.map(row => `<li><span>${escapeHtml(row.home_code || row.home_team || "")}</span><strong>${escapeHtml(row.home_score ?? "—")}:${escapeHtml(row.away_score ?? "—")}</strong><span>${escapeHtml(row.away_code || row.away_team || "")}</span></li>`).join("")}</ul>` : matchEmpty("Vzájemné zápasy zatím nejsou k dispozici.")}
+      </section>
+    </div>`}
+    <p class="mc-source">Zdroj: <a href="https://www.hokej.cz/zapas/${escapeHtml(data.match_id)}" target="_blank" rel="noopener noreferrer">Hokej.cz</a> · sestavy Onlajny</p>`;
+}
+
+async function openMatchDetail(id, {updateUrl = true} = {}) {
+  id = String(id);
+  if (!/^[0-9]+$/.test(id)) return;
+  const request = ++matchDetailRequest;
+  matchDetailController?.abort();
+  const controller = new AbortController();
+  matchDetailController = controller;
+  navigate("matchDetail", {push: false});
+  if (updateUrl) setBrowserPath(matchDetailPath(id));
+  setSeo({title: "Match Center | ELH IceStats", description: "Detail zápasu Tipsport extraligy.", path: matchDetailPath(id)});
+  document.getElementById("matchDetailTitle").textContent = "Match Center";
+  document.getElementById("matchDetailContent").innerHTML = '<div class="loading-card" role="status">Načítám detail zápasu…</div>';
+  const item = state.schedule.find(m => m.id === id);
+  const fallback = {match_id: id, home: {name: item?.home || "Domácí", code: getTeamCode(item?.home)}, away: {name: item?.away || "Hosté", code: getTeamCode(item?.away)}, date: item?.date || "", time: item?.time || "", round: item?.round || ""};
+  const timeout = setTimeout(() => controller.abort(), 15000);
+  try {
+    const response = await fetch(`${DATA_URLS.matches}${encodeURIComponent(id)}.json`, {signal: controller.signal, cache: "no-store"});
+    if (response.status === 404) {
+      if (request === matchDetailRequest && state.currentPage === "matchDetail") renderMatchDetail(fallback, item ? "Podrobná data tohoto zápasu zatím nejsou zveřejněna." : "Pro tento zápas zatím nemáme zveřejněná data ani záznam v rozpisu.");
+      return;
+    }
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json();
+    if (data?.status !== "ok" || String(data.match_id) !== id || !data.home || !data.away || !data.scoreboard) throw new Error("Neplatná data zápasu.");
+    if (request === matchDetailRequest && state.currentPage === "matchDetail") renderMatchDetail(data);
+  } catch (error) {
+    if (request === matchDetailRequest && state.currentPage === "matchDetail") {
+      renderMatchDetail(fallback, "Data zápasu se nepodařilo načíst. Zkus to prosím znovu.");
+      console.warn("Match Center:", error);
+    }
+  } finally {
+    clearTimeout(timeout);
+    if (matchDetailController === controller) matchDetailController = null;
+  }
 }
 
 
@@ -10022,36 +10213,7 @@ function renderSchedule() {
 
               ${
                 roundMatches
-                  .map(match => `
-                    <article class="match-card">
-
-                      ${scheduleTeamHtml(
-                        match.home,
-                        "home"
-                      )}
-
-
-                      <div class="match-center">
-
-                        <span class="match-vs">
-                          VS
-                        </span>
-
-                        ${formatScheduleDate(
-                          match.date,
-                          match.time
-                        )}
-
-                      </div>
-
-
-                      ${scheduleTeamHtml(
-                        match.away,
-                        "away"
-                      )}
-
-                    </article>
-                  `)
+                  .map(scheduleMatchHtml)
                   .join("")
               }
 
@@ -12159,6 +12321,32 @@ function bindEvents() {
     "click",
     async event => {
 
+      const matchLink = event.target.closest("[data-match-id]");
+      if (matchLink) {
+        if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) return;
+        event.preventDefault();
+        await openMatchDetail(matchLink.dataset.matchId);
+        return;
+      }
+
+      const matchRetry = event.target.closest("[data-match-retry]");
+      if (matchRetry) {
+        await openMatchDetail(matchRetry.dataset.matchRetry, {updateUrl: false});
+        return;
+      }
+
+      const matchTab = event.target.closest("[data-match-tab]");
+      if (matchTab) {
+        const view = document.getElementById("matchDetailContent");
+        view.querySelectorAll("[data-match-tab]").forEach(button => {
+          button.setAttribute("aria-pressed", String(button === matchTab));
+        });
+        view.querySelectorAll("[data-match-panel]").forEach(panel => {
+          panel.hidden = panel.dataset.matchPanel !== matchTab.dataset.matchTab;
+        });
+        return;
+      }
+
       const navButton =
         event.target.closest(
           "[data-nav]"
@@ -12773,6 +12961,11 @@ if (
   }
 }
 
+
+if (path === "/rozpis" && /^[0-9]+$/.test(parameters.get("zapas") || "")) {
+  await openMatchDetail(parameters.get("zapas"), {updateUrl: false});
+  return;
+}
 
 /*
  * Statické stránky.
