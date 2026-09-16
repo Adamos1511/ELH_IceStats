@@ -9855,7 +9855,10 @@ function formatScheduleDate(
    MATCH CENTER — data/matches/<id>.json
 ========================================================= */
 // Configure once with the Supabase PROJECT URL and PUBLISHABLE (not secret) key.
-const MATCH_CLOUD = { url: "", publicKey: "" };
+const MATCH_CLOUD = {
+  url: "https://oymjgbjoiumgvaovansf.supabase.co",
+  publicKey: "sb_publishable_-UJWponCQvH-HTtiQn_HhQ_fySs2SB3"
+};
 let matchLiveData = null;
 let matchLiveId = '';
 let matchLiveBusy = false;
