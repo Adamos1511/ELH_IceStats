@@ -1247,296 +1247,47 @@ def _extract_summary_team_codes(
 # SCOREBOARD
 # =========================================================
 
-def _parse_scoreboard(
-    page: MatchPage,
-) -> dict[str, object]:
-
-    (
-        home_score,
-        away_score,
-        score_start,
-        score_end,
-    ) = (
-        _find_match_score(
-            page
-        )
-    )
-
-
-    (
-        raw_status,
-        status_index,
-    ) = (
-        _find_match_status(
-            page,
-            score_end,
-        )
-    )
-
-
-    (
-        periods,
-        periods_text,
-    ) = (
-        _find_period_scores(
-            page,
-            (
-                status_index
-                if status_index
-                is not None
-                else score_end
-            ),
-        )
-    )
-
-
-    status_lower = (
-        raw_status.lower()
-    )
-
-
-    # =====================================================
-    # STAV ZÁPASU
-    # =====================================================
-
-    if any(
-        marker in status_lower
-
-        for marker in (
-            "konec",
-            "ukončen",
-            "ukoncen",
-        )
-    ):
-
-        state = "final"
-
-
-    elif any(
-        marker in status_lower
-
-        for marker in (
-            "přestáv",
-            "prestav",
-        )
-    ):
-
-        state = "intermission"
-
-
-    elif any(
-        marker in status_lower
-
-        for marker in (
-            "před zápasem",
-            "pred zapasem",
-            "nezačal",
-            "nezacal",
-        )
-    ):
-
-        state = "scheduled"
-
-
-    elif any(
-        marker in status_lower
-
-        for marker in (
-            "odlož",
-            "odloz",
-        )
-    ):
-
-        state = "postponed"
-
-
-    elif any(
-        marker in status_lower
-
-        for marker in (
-            "přeruš",
-            "prerus",
-        )
-    ):
-
-        state = "suspended"
-
-
-    elif (
-        home_score is not None
-        and
-        away_score is not None
-    ):
-
-        state = "live"
-
-
-    else:
-
-        state = "scheduled"
-
-
-    # =====================================================
-    # AKTUÁLNÍ TŘETINA
-    # =====================================================
-
-    current_period: (
-        int
-        | str
-        | None
-    ) = None
-
-
-    status_context = (
-        raw_status
-    )
-
-
-    if status_index is not None:
-
-        lines = (
-            _page_lines(
-                page
-            )
-        )
-
-
-        status_context = (
-            _clean_text(
-                " ".join(
-                    lines[
-                        status_index:
-                        min(
-                            len(lines),
-                            status_index + 5,
-                        )
-                    ]
-                )
-            )
-        )
-
-
-    period_match = re.search(
-        r"([123])\.\s*"
-        r"(?:třetina|tretina)",
-        status_context,
-        flags=re.IGNORECASE,
-    )
-
-
-    if period_match:
-
-        current_period = int(
-            period_match.group(1)
-        )
-
-
-    elif re.search(
-        r"prodlou",
-        status_context,
-        flags=re.IGNORECASE,
-    ):
-
-        current_period = "OT"
-
-
-    elif re.search(
-        r"nájezd|najezd",
-        status_context,
-        flags=re.IGNORECASE,
-    ):
-
-        current_period = "SO"
-
-
-    # =====================================================
-    # HERNÍ ČAS
-    # =====================================================
-
-    clock = ""
-
-
-    if state in {
-        "live",
-        "intermission",
-    }:
-
-        clock_match = re.search(
-            (
-                r"(?:"
-                r"třetina|tretina|"
-                r"prodloužení|prodlouzeni"
-                r")"
-                r".{0,25}?"
-                r"\b(\d{1,2}:\d{2})\b"
-            ),
-            status_context,
-            flags=re.IGNORECASE,
-        )
-
-
-        if clock_match:
-
-            clock = (
-                clock_match.group(1)
-            )
-
-
-    # =====================================================
-    # TEXT STAVU
-    # =====================================================
-
-    display_status = (
-        raw_status
-    )
-
-
-    if (
-        periods_text
-        and
-        periods_text
-        not in display_status
-    ):
-
-        display_status = (
-            _clean_text(
-                (
-                    f"{display_status} "
-                    f"{periods_text}"
-                )
-            )
-        )
-
-
-    return {
-        "state":
-            state,
-
-        "home_score":
-            home_score,
-
-        "away_score":
-            away_score,
-
-        "status":
-            display_status,
-
-        "current_period":
-            current_period,
-
-        "clock":
-            clock,
-
-        "periods":
-            periods,
-
-        # pomocné interní údaje
-        "_score_start":
-            score_start,
-
-        "_score_end":
-            score_end,
-    }
+def _parse_scoreboard(page: MatchPage) -> dict[str, object]:
+    # Only the match's own score fragment is authoritative. Preview/H2H contains
+    # unrelated results immediately below it when a game has not started.
+    soup = BeautifulSoup(page.html, "html.parser")
+    fragment = soup.select_one("#snippet-matchOverview-score")
+    if fragment is None:
+        raise ValueError("Chybí hlavička skóre zápasu; předchozí data nesmí být přepsána.")
+    score = fragment.select_one(".score")
+    result = {"state": "scheduled", "home_score": None, "away_score": None,
+              "status": fragment.get_text(" ", strip=True), "current_period": None,
+              "clock": "", "periods": [], "_score_start": None, "_score_end": None}
+    if score is None:
+        status = result["status"].lower()
+        if "odlož" in status or "odloz" in status: result["state"] = "postponed"
+        elif "přeruš" in status or "prerus" in status: result["state"] = "suspended"
+        return result
+    for side, selector in (("home", ".home"), ("away", ".visiting")):
+        node = score.select_one(selector)
+        text = node.get_text(strip=True) if node else ""
+        if text.isdigit(): result[side + "_score"] = int(text)
+    detail = score.find("div", recursive=False)
+    spans = detail.find_all("span", recursive=False) if detail else []
+    status = spans[0].get_text(" ", strip=True) if spans else (detail.get_text(" ",strip=True) if detail else "")
+    lower = status.lower()
+    result["status"] = detail.get_text(" ", strip=True) if detail else status
+    if re.search(r"konec|ukončen|ukoncen",lower): result["state"]="final"
+    elif re.search(r"odlož|odloz",lower): result["state"]="postponed"
+    elif re.search(r"přeruš|prerus",lower): result["state"]="suspended"
+    elif re.search(r"přestáv|prestav",lower): result["state"]="intermission"
+    elif re.search(r"třetina|tretina|prodlou|nájezd|najezd",lower): result["state"]="live"
+    elif result["home_score"] is not None and result["away_score"] is not None: result["state"]="live"
+    period = re.search(r"([1-3])\.?\s*(?:třetina|tretina)",lower)
+    result["current_period"] = period[1] if period else "OT" if "prodlou" in lower else "SO" if re.search(r"nájezd|najezd",lower) else None
+    if result["state"] in ("live","intermission"):
+        clock=re.search(r"\b(\d{1,2}:[0-5]\d)\b",status)
+        result["clock"]=clock[1] if clock else ""
+    for span in spans[1:]:
+        text=span.get_text(" ",strip=True)
+        if re.fullmatch(r"\d{1,2}\s*:\s*\d{1,2}(?:\s*,\s*\d{1,2}\s*:\s*\d{1,2})*",text):
+            result["periods"]=[{"home":int(h),"away":int(a)} for h,a in re.findall(r"(\d+)\s*:\s*(\d+)",text)]
+    return result
 
 
 # =========================================================
@@ -2684,6 +2435,7 @@ def _detect_sections(
 
 def inspect_live(
     match_id: str,
+    include_details: bool = False,
 ) -> dict[str, object]:
 
     with requests.Session() as session:
@@ -2745,7 +2497,13 @@ def inspect_live(
     )
 
 
+    match_info, statistics = _parse_match_statistics(summary)
+    if include_details:
+        statistics["players_detail"] = _download_extra_player_statistics(summary)
     return {
+        "match_info": match_info,
+        "statistics": statistics,
+        "player_links": _match_player_links(summary),
         "status":
             "ok",
 
@@ -2900,6 +2658,14 @@ def _download_match_roster(page: MatchPage) -> dict[str, object]:
                     "slot": str(slot),
                 })
 
+        result["referees"] = {"main": [], "lines": []}
+        for person in data.get("referees", []):
+            if not isinstance(person, dict):
+                continue
+            role = "main" if str(person.get("type", "")).startswith("hlavni") else "lines" if str(person.get("type", "")).startswith("carovy") else None
+            name = " ".join(str(person.get(k) or "") for k in ("name", "surname")).strip()
+            if role and name:
+                result["referees"][role].append(name)
         result.update(parsed)
         result["status"] = "available"
 
@@ -2914,6 +2680,17 @@ def _download_match_roster(page: MatchPage) -> dict[str, object]:
 # =========================================================
 
 # Match information and published statistics. Keep the existing event parser separate.
+def _match_player_links(page: MatchPage) -> list[dict]:
+    soup = BeautifulSoup(page.html, "html.parser")
+    result = []
+    for side, selector in (("home", ".col-soupisky-home"), ("away", ".col-soupisky-visitor")):
+        for a in soup.select(selector + ' a[href^="/hrac/"]'):
+            path = a.get("href", "").split("?")[0]
+            if re.fullmatch(r"/hrac/[a-zA-Z0-9-]+/\d+", path):
+                result.append({"side": side, "name": a.get_text(" ", strip=True), "url": "https://www.hokej.cz" + path})
+    return result
+
+
 def _parse_match_statistics(page: MatchPage) -> tuple[dict, dict]:
     soup = BeautifulSoup(page.html, "html.parser")
     def text_at(selector):
@@ -3230,6 +3007,7 @@ def inspect_match(
     return {
         "match_info": match_info,
         "statistics": statistics,
+        "player_links": _match_player_links(pages["summary"]),
         "status":
             "ok",
 
