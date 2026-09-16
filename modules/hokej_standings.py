@@ -1,6 +1,9 @@
 ﻿from __future__ import annotations
 
+import csv
+from datetime import datetime
 from io import StringIO
+from zoneinfo import ZoneInfo
 
 import pandas as pd
 import requests
@@ -10,6 +13,12 @@ from data_bot.config import (
     OUTPUT_DIR,
     REQUEST_TIMEOUT,
     TABULKA_ELH_CSV,
+    ROZPIS_CSV,
+)
+from data_bot.modules.hokej_games import (
+    TEAM_ALIASES,
+    _team_code_from_name,
+    inspect_live,
 )
 from data_bot.modules.utils import read_csv, write_csv
 
@@ -172,6 +181,284 @@ def load_standings() -> tuple[pd.DataFrame, dict[str, object]]:
 
     return standings, page_info
 
+def load_finished_schedule_matches() -> list[dict[str, object]]:
+    if not ROZPIS_CSV.exists():
+        return []
+
+    prague = ZoneInfo("Europe/Prague")
+    now = datetime.now(prague)
+
+    matches: list[dict[str, object]] = []
+
+    with ROZPIS_CSV.open(
+        "r",
+        encoding="utf-8-sig",
+        newline="",
+    ) as handle:
+        reader = csv.reader(
+            handle,
+            delimiter=";",
+        )
+
+        for row in reader:
+            if len(row) < 7:
+                continue
+
+            if row[2].strip().lower() != "vs":
+                continue
+
+            match_id = row[6].strip()
+            date_value = row[4].strip()
+            time_value = row[5].strip() or "00:00"
+
+            if not match_id.isdigit() or not date_value:
+                continue
+
+            try:
+                start_at = datetime.strptime(
+                    f"{date_value.replace(' ', '')} {time_value}",
+                    "%d.%m.%Y %H:%M",
+                ).replace(
+                    tzinfo=prague,
+                )
+            except ValueError:
+                continue
+
+            if start_at > now:
+                continue
+
+            matches.append(
+                {
+                    "id": match_id,
+                    "start_at": start_at,
+                }
+            )
+
+    matches.sort(
+        key=lambda match: match["start_at"],
+        reverse=True,
+    )
+
+    return matches
+
+def match_form_code(
+    is_win: bool,
+    status: str,
+) -> str:
+    normalized = (
+        str(status or "")
+        .lower()
+    )
+
+    if (
+        "s.n." in normalized
+        or "nájezd" in normalized
+        or "najezd" in normalized
+    ):
+        return (
+            "VSn"
+            if is_win
+            else "PSn"
+        )
+
+    if "prodlou" in normalized:
+        return (
+            "VP"
+            if is_win
+            else "PP"
+        )
+
+    return (
+        "V"
+        if is_win
+        else "P"
+    )
+
+def load_recent_team_forms(
+    limit: int = 5,
+) -> tuple[
+    dict[str, str],
+    dict[str, str],
+]:
+    forms: dict[str, list[str]] = {
+        code: []
+        for code in TEAM_ALIASES
+    }
+
+    details: dict[str, list[str]] = {
+        code: []
+        for code in TEAM_ALIASES
+    }
+
+    for match in load_finished_schedule_matches():
+        if all(
+            len(results) >= limit
+            for results in forms.values()
+        ):
+            break
+
+        match_id = str(
+            match["id"]
+        )
+
+        try:
+            data = inspect_live(
+                match_id
+            )
+        except Exception as error:
+            print(
+                "WARNING "
+                f"{match_id} form update failed: "
+                f"{type(error).__name__}: "
+                f"{error}"
+            )
+            continue
+
+        scoreboard = (
+            data.get("scoreboard")
+            or {}
+        )
+
+        if (
+            scoreboard.get("state")
+            != "final"
+        ):
+            continue
+
+        home_score = scoreboard.get(
+            "home_score"
+        )
+
+        away_score = scoreboard.get(
+            "away_score"
+        )
+
+        if (
+            not isinstance(home_score, int)
+            or not isinstance(away_score, int)
+            or home_score == away_score
+        ):
+            continue
+
+        home_code = str(
+            (
+                data.get("home")
+                or {}
+            ).get(
+                "code",
+                "",
+            )
+        )
+
+        away_code = str(
+            (
+                data.get("away")
+                or {}
+            ).get(
+                "code",
+                "",
+            )
+        )
+
+        status = str(
+            scoreboard.get(
+                "status",
+                "",
+            )
+        )
+
+        start_at = match["start_at"]
+
+        home_name = str(
+            (
+                data.get("home")
+                or {}
+            ).get(
+                "name",
+                "",
+            )
+        )
+
+        away_name = str(
+            (
+                data.get("away")
+                or {}
+            ).get(
+                "name",
+                "",
+            )
+        )
+
+        normalized_status = status.lower()
+
+        if (
+            "s.n." in normalized_status
+            or "nájezd" in normalized_status
+            or "najezd" in normalized_status
+        ):
+            finish_label = "po nájezdech"
+
+        elif "prodlou" in normalized_status:
+            finish_label = "po prodloužení"
+
+        else:
+            finish_label = ""
+
+        detail_value = (
+            f"{start_at.day}. {start_at.month}. {start_at.year} · "
+            f"{home_name} – {away_name} "
+            f"{home_score}:{away_score}"
+        )
+
+        if finish_label:
+            detail_value += (
+                f" · {finish_label}"
+            )
+
+        if (
+            home_code in forms
+            and len(forms[home_code]) < limit
+        ):
+            forms[home_code].append(
+                match_form_code(
+                    home_score > away_score,
+                    status,
+                )
+            )
+
+            details[home_code].append(
+                detail_value
+            )
+
+        if (
+            away_code in forms
+            and len(forms[away_code]) < limit
+        ):
+            forms[away_code].append(
+                match_form_code(
+                    away_score > home_score,
+                    status,
+                )
+            )
+
+            details[away_code].append(
+                detail_value
+            )
+
+    form_values = {
+        code: ",".join(results)
+        for code, results in forms.items()
+    }
+
+    detail_values = {
+        code: " || ".join(results)
+        for code, results in details.items()
+    }
+
+    return (
+        form_values,
+        detail_values,
+    )    
 
 def format_position(
     value: object,
@@ -190,6 +477,8 @@ def format_position(
 
 def convert_to_website_format(
     standings: pd.DataFrame,
+    forms: dict[str, str],
+    details: dict[str, str],
 ) -> pd.DataFrame:
     rows: list[dict[str, object]] = []
 
@@ -199,14 +488,28 @@ def convert_to_website_format(
             index + 1,
         )
 
-        form_value = row.get("H", "")
+        team_name = str(
+            row.get(
+                "Tým",
+                "",
+            )
+        ).strip()
 
-        if str(form_value).strip().lower() in {
+        team_code = (
+            _team_code_from_name(
+                team_name
+            )
+        )
+
+        form_value = forms.get(
+            team_code,
             "",
-            "nan",
-            "none",
-        }:
-            form_value = ""
+        )
+
+        detail_value = details.get(
+    team_code,
+    "",
+)
 
         rows.append(
             {
@@ -220,6 +523,7 @@ def convert_to_website_format(
                 "SKÓRE": row.get("Skóre", ""),
                 "BODY": row.get("B", ""),
                 "FORMA": form_value,
+"FORMA_DETAIL": detail_value,
             }
         )
 
@@ -236,6 +540,7 @@ def convert_to_website_format(
             "SKÓRE",
             "BODY",
             "FORMA",
+            "FORMA_DETAIL",
         ],
     )
 
@@ -244,7 +549,13 @@ def export_standings_preview() -> dict[str, object]:
     original = read_csv(TABULKA_ELH_CSV)
     standings, page_info = load_standings()
 
-    converted = convert_to_website_format(standings)
+    forms, details = load_recent_team_forms()
+
+    converted = convert_to_website_format(
+    standings,
+    forms,
+    details,
+)
 
     output_path = OUTPUT_DIR / "TabulkaELH_preview.csv"
     raw_path = OUTPUT_DIR / "hokej_standings_raw.csv"
