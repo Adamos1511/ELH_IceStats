@@ -9897,23 +9897,122 @@ function matchEmpty(text) {
   return `<p class="mc-empty">${escapeHtml(text)}</p>`;
 }
 
+function matchEventTeamHtml(code) {
+  const team = getTeam(code);
+  return `<span class="mc-event-club">${team ? `<img src="${escapeHtml(logoUrl(team.code))}" alt="" data-hide-on-error>` : ""}<span>${escapeHtml(code || "Tým neuveden")}</span></span>`;
+}
+
 function matchEventsHtml(data, type) {
   const rows = data.events?.[type];
   if (!Array.isArray(rows) || !rows.length) {
-    return matchEmpty(type === "goals" ? "V uložených datech nejsou zaznamenané góly." : "V uložených datech nejsou zaznamenané tresty.");
+    return `<div class="mc-feed-empty">${matchEmpty(type === "goals" ? "Zatím nejsou zaznamenané žádné góly." : "Zatím nejsou zaznamenané žádné tresty.")}</div>`;
   }
-  return `<ol class="mc-events">${rows.map(item => {
-    const home = item.team === data.home?.code;
-    const person = type === "goals" ? item.scorer : item.player;
-    const info = type === "goals"
-      ? [item.assists ? `Asistence: ${item.assists}` : "", item.type ? `Hra ${item.type}` : ""].filter(Boolean).join(" · ")
-      : item.penalty;
-    return `<li class="mc-event ${home ? "mc-event-home" : "mc-event-away"}">
-      <div class="mc-event-time"><strong>${escapeHtml(item.time || "—")}</strong><span>${escapeHtml(item.team || "")}</span></div>
-      <div><strong>${escapeHtml(person || "Hráč neuveden")}</strong><p>${escapeHtml(info || "")}</p></div>
-      ${type === "goals" ? `<b class="mc-event-score">${escapeHtml(item.score_after || "")}</b>` : ""}
-    </li>`;
-  }).join("")}</ol>`;
+  const groups = new Map();
+  rows.forEach(item => {
+    const key = String(item.period || "unknown");
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(item);
+  });
+  const label = key => ({"1": "1. třetina", "2": "2. třetina", "3": "3. třetina", OT: "Prodloužení", SO: "Nájezdy"}[key] || "Další události");
+  return [...groups].map(([period, events]) => `<section class="mc-feed-period">
+    <h3 class="mc-feed-period-title"><span>${label(period)}</span><span>${events.length}</span></h3>
+    <ol class="mc-feed-list">${events.map(item => {
+      const side = item.team === data.home?.code ? "home" : item.team === data.away?.code ? "away" : "neutral";
+      const penalty = /^(\d+(?:\+\d+)*)\s*min\.?\s*(.*)$/i.exec(String(item.penalty || ""));
+      const person = type === "goals" ? item.scorer : item.player;
+      return `<li class="mc-feed-event mc-feed-${side} mc-feed-${type}">
+        <div class="mc-feed-time"><strong>${escapeHtml(item.time || "—")}</strong><span class="mc-feed-dot" aria-hidden="true"></span></div>
+        <article class="mc-feed-card">
+          <div class="mc-feed-card-top">${matchEventTeamHtml(item.team)}
+            ${type === "goals" ? `<span class="mc-feed-tag">GÓL${item.type ? ` · ${escapeHtml(item.type)}` : ""}</span>` : `<span class="mc-feed-tag mc-feed-penalty">${penalty ? `${escapeHtml(penalty[1])} min` : "Trest"}</span>`}
+          </div>
+          <div class="mc-feed-main"><strong class="mc-feed-person">${escapeHtml(person || "Hráč neuveden")}</strong>
+          ${type === "goals" && item.score_after ? `<strong class="mc-feed-score" aria-label="Průběžné skóre ${escapeHtml(item.score_after)}">${escapeHtml(item.score_after)}</strong>` : ""}</div>
+          ${type === "goals"
+            ? `<div class="mc-feed-assists"><span>Asistence</span><p>${escapeHtml(item.assists || "Neuvedeny")}</p></div>`
+            : `<p class="mc-feed-reason">${escapeHtml(penalty ? penalty[2] : item.penalty || "Důvod neuveden")}</p>`}
+        </article>
+      </li>`;
+    }).join("")}</ol>
+  </section>`).join("");
+}
+
+function matchInfoHtml(data) {
+  const info = data.match_info || {};
+  const number = value => typeof value === 'number' && Number.isFinite(value);
+  const attendance = number(info.attendance) ? info.attendance.toLocaleString('cs-CZ') : 'Zatím neuvedena';
+  const occupancy = number(info.attendance) && number(info.capacity) && info.capacity > 0
+    ? Math.round(info.attendance / info.capacity * 100) : null;
+  const officials = role => Array.isArray(info.referees?.[role]) && info.referees[role].length
+    ? info.referees[role].map(name => `<span>${escapeHtml(name)}</span>`).join('') : '<span>Zatím neuvedeni</span>';
+  return `<section class="mc-match-info" aria-label="Informace o utkání">
+    <div class="mc-info-card"><span class="mc-section-eyebrow">Návštěva</span><strong class="mc-attendance">${escapeHtml(attendance)}</strong>
+      ${occupancy !== null ? `<small>${occupancy} % kapacity · ${info.capacity.toLocaleString('cs-CZ')} míst</small><div class="mc-occupancy" aria-hidden="true"><i style="width:${Math.min(100, Math.max(0, occupancy))}%"></i></div>` : ''}</div>
+    <div class="mc-info-card"><span class="mc-section-eyebrow">Aréna</span><strong>${escapeHtml(info.venue || 'Zatím neuvedena')}</strong></div>
+    <div class="mc-info-card"><span class="mc-section-eyebrow">Hlavní rozhodčí</span><div class="mc-officials">${officials('main')}</div></div>
+    <div class="mc-info-card"><span class="mc-section-eyebrow">Čároví rozhodčí</span><div class="mc-officials">${officials('lines')}</div></div>
+  </section>`;
+}
+
+function matchStatsTableHtml(table, caption) {
+  if (!Array.isArray(table?.columns) || !Array.isArray(table?.rows) || !table.rows.length) return '';
+  const nameIndex = table.columns.findIndex(c => c.label === 'Hráč');
+  const safe = value => escapeHtml(value === null || value === undefined || value === '' ? '—' : String(value));
+  return `<div class="mc-stat-table-wrap" tabindex="0" role="region" aria-label="${escapeHtml(caption)} — posuvná tabulka">
+    <table class="mc-stat-table"><caption>${escapeHtml(caption)}</caption><thead><tr>${table.columns.map((c, i) => `<th scope="col" class="${i === nameIndex ? 'mc-stat-name' : ''}" title="${escapeHtml(c.description || c.label)}">${safe(c.label)}</th>`).join('')}</tr></thead>
+    <tbody>${table.rows.map(r => `<tr class="${r.not_played ? 'mc-stat-dnp' : ''}">${table.columns.map((_, i) => i === nameIndex
+      ? `<th scope="row" class="mc-stat-name">${safe(r.cells?.[i])}${r.not_played ? '<small>Nenastoupil</small>' : ''}</th>`
+      : `<td>${safe(r.cells?.[i])}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
+    <details class="mc-stat-legend"><summary>Vysvětlivky sloupců</summary><dl>${table.columns.map(c => `<div><dt>${safe(c.label)}</dt><dd>${safe(c.description)}</dd></div>`).join('')}</dl></details>`;
+}
+
+function matchTeamStatsHtml(data) {
+  const rows = Array.isArray(data.statistics?.team) ? data.statistics.team : [];
+  if (!rows.length) return '<p class="mc-empty">Týmové statistiky zatím nejsou k dispozici.</p>';
+  const numeric = n => typeof n === 'number' && Number.isFinite(n);
+  return `<div class="mc-team-comparison"><div class="mc-comparison-teams"><strong>${escapeHtml(matchTeamName(data.home))}</strong><span>Statistika</span><strong>${escapeHtml(matchTeamName(data.away))}</strong></div>
+    ${rows.map(row => {
+      const values = Array.isArray(row.values) ? row.values : [];
+      if (!values.length) return '';
+      const p = values[0];
+      const bar = values.length === 1 && numeric(p.home) && numeric(p.away) && p.home >= 0 && p.away >= 0 && p.home + p.away > 0;
+      const val = side => values.map(v => escapeHtml(v[side] ?? '—')).join('<span class="mc-stat-separator"> / </span>');
+      return `<div class="mc-comparison-row"><div><strong>${val('home')}</strong><span>${escapeHtml(row.label)}${values.length > 1 ? '<small>po třetinách</small>' : ''}</span><strong>${val('away')}</strong></div>
+        ${bar ? `<div class="mc-comparison-bar" aria-hidden="true"><i style="width:${p.home / (p.home + p.away) * 100}%"></i></div>` : ''}</div>`;
+    }).join('')}</div>`;
+}
+
+function matchStatisticsHtml(data) {
+  const stats = data.statistics || {};
+  const tables = Array.isArray(stats.tables) ? stats.tables : [];
+  const extra = stats.players_detail || {};
+  const extraTables = Array.isArray(extra.tables) ? extra.tables : [];
+  const scopes = [...new Set(extraTables.map(t => t.scope))];
+  return `<div class="mc-statistics">
+    <section class="mc-panel"><header class="mc-section-heading"><div><span class="mc-section-eyebrow">Srovnání týmů</span><h2>Statistiky zápasu</h2></div></header>
+      ${stats.verification ? `<p class="mc-stat-verification">Stav statistik: <strong>${escapeHtml(stats.verification)}</strong></p>` : ''}
+      ${matchTeamStatsHtml(data)}</section>
+    ${['home', 'away'].map(side => `<section class="mc-panel mc-player-stats"><header class="mc-section-heading"><div><span class="mc-section-eyebrow">Hráči a brankáři</span><h2>${escapeHtml(matchTeamName(data[side]))}</h2></div></header>
+      ${['skaters', 'goalies'].map(kind => {
+        const selected = tables.filter(t => t.side === side && t.kind === kind);
+        const title = kind === 'skaters' ? 'Hráči v poli' : 'Brankáři';
+        return selected.length ? selected.map(t => matchStatsTableHtml(t, title)).join('') : `<p class="mc-empty">${title}: statistiky zatím nejsou k dispozici.</p>`;
+      }).join('')}</section>`).join('')}
+    <section class="mc-panel"><header class="mc-section-heading"><div><span class="mc-section-eyebrow">Podrobné údaje</span><h2>Hráči po třetinách</h2></div></header>
+      <p class="mc-stat-help">Rozbal období pro další údaje včetně střídání a účastí. Pomlčka znamená, že údaj není uvedený. Tabulky lze posouvat do stran.</p>
+      ${scopes.length ? scopes.map(scope => {
+        const selected = extraTables.filter(t => t.scope === scope);
+        return `<details class="mc-stat-period"><summary>${escapeHtml(selected[0].title)}</summary>${selected.map(t => matchStatsTableHtml(t, matchTeamName(data[t.side]))).join('')}</details>`;
+      }).join('') : `<p class="mc-empty">${extra.status === 'error' ? 'Podrobné statistiky se při poslední aktualizaci nepodařilo načíst.' : 'Podrobné statistiky zatím nejsou k dispozici.'}</p>`}
+    </section>
+  </div>`;
+}
+
+function matchSummaryHtml(data) {
+  return `${matchInfoHtml(data)}<div class="mc-summary-grid">${[["goals", "Góly", "Průběh skóre"], ["penalties", "Tresty", "Vyloučení v zápase"]].map(([type, title, subtitle]) => {
+    const count = Array.isArray(data.events?.[type]) ? data.events[type].length : 0;
+    return `<section class="mc-panel mc-feed-panel"><header class="mc-section-heading"><div><span class="mc-section-eyebrow">${subtitle}</span><h2>${title}</h2></div><span class="mc-section-count">${count}</span></header>${matchEventsHtml(data, type)}</section>`;
+  }).join("")}</div>`;
 }
 
 function matchPlayerFormation(player) {
@@ -10036,11 +10135,68 @@ function matchRinkRosterHtml(data) {
   return views + `<div class="mc-columns mc-rink-backups">${["home", "away"].map(side => `<section class="mc-panel"><h3 class="mc-group-title">Další brankáři · ${escapeHtml(data[side]?.code || matchTeamName(data[side]))}</h3>${extraList(side, p => p.position === "GK" && String(p.slot) !== "101")}</section>`).join("")}</div>`;
 }
 
-function matchLast5Html(rows) {
-  if (!Array.isArray(rows) || !rows.length) return matchEmpty("Poslední zápasy zatím nejsou k dispozici.");
-  return `<ul class="mc-history">${rows.map(row => `<li>
-    <span>${escapeHtml(row.date || "")}</span><span>${escapeHtml(row.match || "")}</span>
-    <strong>${escapeHtml(row.result || "—")}</strong></li>`).join("")}</ul>`;
+function matchFormResult(row, code) {
+  const teams = String(row.match || "").split(/\s+[–—-]\s+/);
+  const score = /^\s*(\d+)\s*:\s*(\d+)(?:\s+.*)?$/.exec(String(row.result || ""));
+  if (!score || teams.length !== 2) return "unknown";
+  const home = getTeamCode(teams[0].trim());
+  const away = getTeamCode(teams[1].trim());
+  const target = getTeamCode(code);
+  if (home === away || (target !== home && target !== away)) return "unknown";
+  const difference = Number(score[1]) - Number(score[2]);
+  if (!difference) return "draw";
+  return (target === home ? difference : -difference) > 0 ? "win" : "loss";
+}
+
+function matchFormBadge(result) {
+  const labels = {win: ["V", "Výhra"], loss: ["P", "Prohra"], draw: ["R", "Remíza"], unknown: ["—", "Výsledek nerozpoznán"]};
+  const [letter, label] = labels[result] || labels.unknown;
+  return `<span class="mc-form-badge mc-form-${result}" title="${label}" aria-label="${label}">${letter}</span>`;
+}
+
+function matchPreviewTeamHtml(data, side) {
+  const team = data[side] || {};
+  const known = getTeam(team.code || team.name);
+  const rows = Array.isArray(data.preview?.[side]?.last5) ? data.preview[side].last5.slice(0, 5) : [];
+  const form = rows.map(row => matchFormResult(row, team.code || team.name));
+  const wins = form.filter(value => value === "win").length;
+  const losses = form.filter(value => value === "loss").length;
+  return `<section class="mc-panel mc-preview-team mc-preview-${side}">
+    <header class="mc-preview-team-head">${known ? `<img src="${escapeHtml(logoUrl(known.code))}" alt="" data-hide-on-error>` : ""}
+      <div><span class="mc-section-eyebrow">Poslední zápasy</span><h2>${escapeHtml(matchTeamName(team))}</h2></div></header>
+    ${rows.length ? `<div class="mc-form-overview"><div class="mc-form-strip" aria-label="Výsledky v pořadí zápasů níže">${form.map(matchFormBadge).join("")}</div><span><b>${wins}</b> V / <b>${losses}</b> P</span></div>
+      <p class="mc-form-legend">V = výhra · P = prohra · R = remíza${form.includes("unknown") ? " · — = nerozpoznáno" : ""}</p>
+      <ol class="mc-recent-list">${rows.map((row, i) => `<li>${matchFormBadge(form[i])}<div class="mc-recent-game"><span>${escapeHtml(row.date || "Datum neuvedeno")}</span><strong>${escapeHtml(row.match || "Zápas")}</strong></div><strong class="mc-recent-score">${escapeHtml(row.result || "—")}</strong></li>`).join("")}</ol>` : matchEmpty("Poslední zápasy zatím nejsou k dispozici.")}
+  </section>`;
+}
+
+function matchH2hHtml(data) {
+  const rows = Array.isArray(data.preview?.h2h) ? data.preview.h2h.slice(0, 5) : [];
+  const homeCode = getTeamCode(data.home?.code || data.home?.name);
+  const awayCode = getTeamCode(data.away?.code || data.away?.name);
+  const normalized = rows.map(row => {
+    const h = getTeamCode(row.home_code || row.home_team);
+    const a = getTeamCode(row.away_code || row.away_team);
+    const valid = /^\d+$/.test(String(row.home_score ?? "")) && /^\d+$/.test(String(row.away_score ?? ""));
+    const difference = valid ? Number(row.home_score) - Number(row.away_score) : null;
+    const knownPair = homeCode !== awayCode && ((h === homeCode && a === awayCode) || (h === awayCode && a === homeCode));
+    const winner = difference === null || !knownPair ? "unknown" : difference === 0 ? "draw" : (difference > 0 ? h : a) === homeCode ? "home" : "away";
+    return {row, h, a, winner};
+  });
+  const homeWins = normalized.filter(row => row.winner === "home").length;
+  const awayWins = normalized.filter(row => row.winner === "away").length;
+  const draws = normalized.filter(row => row.winner === "draw").length;
+  const total = homeWins + awayWins + draws;
+  const miniTeam = (code, name) => { const team = getTeam(code); return `<span class="mc-h2h-club">${team ? `<img src="${escapeHtml(logoUrl(team.code))}" alt="" data-hide-on-error>` : ""}<strong>${escapeHtml(code || name || "Tým")}</strong></span>`; };
+  return `<section class="mc-panel mc-h2h-panel"><header class="mc-section-heading"><div><span class="mc-section-eyebrow">Poslední vzájemná utkání</span><h2>Vzájemné zápasy</h2></div><span class="mc-section-count">${rows.length}</span></header>
+    ${total ? `<div class="mc-h2h-overview"><div>${miniTeam(homeCode, data.home?.name)}<strong class="mc-h2h-wins">${homeWins}</strong></div><span>Výhry<br><small>z ${total} vyhodnocených zápasů${draws ? ` · remízy: ${draws}` : ""}</small></span><div><strong class="mc-h2h-wins">${awayWins}</strong>${miniTeam(awayCode, data.away?.name)}</div></div>
+      <div class="mc-h2h-bar" role="img" aria-label="Výhry ${escapeHtml(homeCode)}: ${homeWins}, remízy: ${draws}, výhry ${escapeHtml(awayCode)}: ${awayWins}"><span class="mc-h2h-bar-home" style="width:${100 * homeWins / total}%"></span><span class="mc-h2h-bar-draw" style="width:${100 * draws / total}%"></span><span class="mc-h2h-bar-away" style="width:${100 * awayWins / total}%"></span></div>` : ""}
+    ${rows.length ? `<ol class="mc-h2h-list">${normalized.map(({row, h, a, winner}) => `<li class="mc-h2h-result-${winner}">${miniTeam(h, row.home_team)}<div class="mc-h2h-result"><strong>${escapeHtml(row.home_score ?? "—")}<span>:</span>${escapeHtml(row.away_score ?? "—")}</strong>${row.periods ? `<small>${escapeHtml(row.periods)}</small>` : ""}</div>${miniTeam(a, row.away_team)}</li>`).join("")}</ol>` : matchEmpty("Vzájemné zápasy zatím nejsou k dispozici.")}
+  </section>`;
+}
+
+function matchPreviewHtml(data) {
+  return `<div class="mc-columns">${["home", "away"].map(side => matchPreviewTeamHtml(data, side)).join("")}</div>${matchH2hHtml(data)}`;
 }
 
 function renderMatchDetail(data, notice = "") {
@@ -10048,7 +10204,7 @@ function renderMatchDetail(data, notice = "") {
   if (!container) return;
   const title = `${matchTeamName(data.home)} – ${matchTeamName(data.away)}`;
   document.getElementById("matchDetailTitle").textContent = title;
-  setSeo({title: `${title} | Match Center | ELH IceStats`, description: `Detail zápasu ${title}: skóre, góly, tresty, sestavy a preview.`, path: matchDetailPath(data.match_id)});
+  setSeo({title: `${title} | Match Center | ELH IceStats`, description: `Detail zápasu ${title}: skóre, góly, tresty, sestavy, statistiky a preview.`, path: matchDetailPath(data.match_id)});
   const sb = data.scoreboard || {};
   const statusNames = {final: "Konec zápasu", live: "Rozehráno", intermission: "Přestávka", scheduled: "Před zápasem", postponed: "Odloženo", suspended: "Přerušeno"};
   const periods = Array.isArray(sb.periods) ? sb.periods : [];
@@ -10072,22 +10228,20 @@ function renderMatchDetail(data, notice = "") {
       <button type="button" data-match-tab="summary" aria-pressed="true">Souhrn</button>
       <button type="button" data-match-tab="roster" aria-pressed="false">Sestavy</button>
       <button type="button" data-match-tab="preview" aria-pressed="false">Preview</button>
+      <button type="button" data-match-tab="statistics" aria-pressed="false">Statistiky</button>
     </nav>
-    <div data-match-panel="summary" class="mc-columns">
-      <section class="mc-panel"><h2>Góly <span>${data.events?.goals?.length ?? 0}</span></h2>${matchEventsHtml(data, "goals")}</section>
-      <section class="mc-panel"><h2>Tresty <span>${data.events?.penalties?.length ?? 0}</span></h2>${matchEventsHtml(data, "penalties")}</section>
+    <div data-match-panel="summary">
+      ${matchSummaryHtml(data)}
     </div>
     <div data-match-panel="roster" hidden>
       ${matchFormationControlsHtml(data)}
       ${matchRinkRosterHtml(data)}
     </div>
+    <div data-match-panel="statistics" hidden>${matchStatisticsHtml(data)}</div>
     <div data-match-panel="preview" hidden>
-      <div class="mc-columns">${["home", "away"].map(side => `<section class="mc-panel"><h2>${escapeHtml(matchTeamName(data[side]))}</h2><p class="mc-subtitle">Posledních 5 zápasů</p>${matchLast5Html(data.preview?.[side]?.last5)}</section>`).join("")}</div>
-      <section class="mc-panel mc-h2h"><h2>Vzájemné zápasy</h2>
-      ${Array.isArray(data.preview?.h2h) && data.preview.h2h.length ? `<ul class="mc-history">${data.preview.h2h.map(row => `<li><span>${escapeHtml(row.home_code || row.home_team || "")}</span><strong>${escapeHtml(row.home_score ?? "—")}:${escapeHtml(row.away_score ?? "—")}</strong><span>${escapeHtml(row.away_code || row.away_team || "")}</span></li>`).join("")}</ul>` : matchEmpty("Vzájemné zápasy zatím nejsou k dispozici.")}
-      </section>
+      ${matchPreviewHtml(data)}
     </div>`}
-    <p class="mc-source">Zdroj: <a href="https://www.hokej.cz/zapas/${escapeHtml(data.match_id)}" target="_blank" rel="noopener noreferrer">Hokej.cz</a> · sestavy Onlajny</p>`;
+    <p class="mc-source">Zdroj: <a href="https://www.hokej.cz/zapas/${escapeHtml(data.match_id)}" target="_blank" rel="noopener noreferrer">Hokej.cz</a> · sestavy a podrobné statistiky Onlajny</p>`;
 }
 
 async function openMatchDetail(id, {updateUrl = true} = {}) {

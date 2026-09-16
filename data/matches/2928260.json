@@ -1,7 +1,5618 @@
 {
+  "match_info": {
+    "attendance": 5038,
+    "venue": "Karlovy Vary, KV Arena",
+    "capacity": 5874,
+    "referees": {
+      "main": [
+        "Jan Jaroš",
+        "Lukáš Květoň"
+      ],
+      "lines": [
+        "Jiří Ondráček",
+        "Josef Špůr"
+      ]
+    }
+  },
+  "statistics": {
+    "status": "available",
+    "source_url": "https://www.hokej.cz/zapas/2928260",
+    "verification": "kontrola probíhá",
+    "team": [
+      {
+        "label": "Střely po třetinách",
+        "values": [
+          {
+            "home": 10,
+            "away": 9
+          },
+          {
+            "home": 9,
+            "away": 17
+          },
+          {
+            "home": 14,
+            "away": 12
+          }
+        ]
+      },
+      {
+        "label": "Vyloučení",
+        "values": [
+          {
+            "home": 3,
+            "away": 4
+          }
+        ]
+      },
+      {
+        "label": "Vyšší tresty",
+        "values": [
+          {
+            "home": 0,
+            "away": 0
+          }
+        ]
+      },
+      {
+        "label": "Využití",
+        "values": [
+          {
+            "home": 0,
+            "away": 0
+          }
+        ]
+      },
+      {
+        "label": "V oslabení",
+        "values": [
+          {
+            "home": 0,
+            "away": 0
+          }
+        ]
+      },
+      {
+        "label": "Střely na branku",
+        "values": [
+          {
+            "home": 33,
+            "away": 38
+          }
+        ]
+      },
+      {
+        "label": "Zblokované střely",
+        "values": [
+          {
+            "home": 10,
+            "away": 12
+          }
+        ]
+      },
+      {
+        "label": "Zásahy brankářů",
+        "values": [
+          {
+            "home": 36,
+            "away": 33
+          }
+        ]
+      },
+      {
+        "label": "Hity",
+        "values": [
+          {
+            "home": 2,
+            "away": 5
+          }
+        ]
+      },
+      {
+        "label": "Bloky",
+        "values": [
+          {
+            "home": 10,
+            "away": 10
+          }
+        ]
+      },
+      {
+        "label": "Vhazování",
+        "values": [
+          {
+            "home": 38,
+            "away": 34
+          }
+        ]
+      },
+      {
+        "label": "Trestné minuty",
+        "values": [
+          {
+            "home": 6,
+            "away": 8
+          }
+        ]
+      },
+      {
+        "label": "Radegast index",
+        "values": [
+          {
+            "home": 1,
+            "away": 25
+          }
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "side": "home",
+        "kind": "skaters",
+        "columns": [
+          {
+            "label": "Č",
+            "description": "Číslo hráče"
+          },
+          {
+            "label": "P",
+            "description": "Pozice hráče"
+          },
+          {
+            "label": "Hráč",
+            "description": "Jméno hráče"
+          },
+          {
+            "label": "TOI",
+            "description": "Čas na ledě"
+          },
+          {
+            "label": "PP TOI",
+            "description": "Čas v přesilovce"
+          },
+          {
+            "label": "SH TOI",
+            "description": "Čas v oslabení"
+          },
+          {
+            "label": "G",
+            "description": "Počet branek"
+          },
+          {
+            "label": "A",
+            "description": "Asistence"
+          },
+          {
+            "label": "B",
+            "description": "Body (G + A)"
+          },
+          {
+            "label": "T",
+            "description": "Trestné minuty"
+          },
+          {
+            "label": "+/-",
+            "description": "Hodnocení hráče za pozitivní a negativní účast na ledě"
+          },
+          {
+            "label": "H",
+            "description": "Hity"
+          },
+          {
+            "label": "S",
+            "description": "Střely"
+          },
+          {
+            "label": "B",
+            "description": "Bloky"
+          },
+          {
+            "label": "BULY",
+            "description": "Buly"
+          },
+          {
+            "label": "RI",
+            "description": "Radegast index"
+          }
+        ],
+        "rows": [
+          {
+            "cells": [
+              "4",
+              "O",
+              "Quinn SCHMIEMANN",
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "not_played": true
+          },
+          {
+            "cells": [
+              "6",
+              "O",
+              "Matteo KOČÍ",
+              "18:13",
+              "00:02",
+              "00:24",
+              "0",
+              "0",
+              "0",
+              "2",
+              "-1",
+              "1",
+              "5",
+              "1",
+              null,
+              "1"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "7",
+              "O",
+              "Elmeri ERONEN",
+              "17:54",
+              "02:06",
+              "01:13",
+              "0",
+              "0",
+              "0",
+              "0",
+              "-2",
+              "0",
+              "1",
+              "0",
+              null,
+              "-2"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "9",
+              "O",
+              "Daniel BRICKLEY",
+              "23:39",
+              "03:12",
+              "01:00",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "2",
+              "1",
+              null,
+              "1"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "24",
+              "O",
+              "Josef MYŠÁK",
+              "14:59",
+              "00:02",
+              "01:07",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "1",
+              "2",
+              null,
+              "2"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "27",
+              "O",
+              "Tobias WINBERG",
+              "20:14",
+              "00:00",
+              "02:34",
+              "0",
+              "0",
+              "0",
+              "0",
+              "-1",
+              "0",
+              "1",
+              "0",
+              null,
+              "-1"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "55",
+              "O",
+              "Roberts MAMČICS",
+              "17:50",
+              "00:08",
+              "01:40",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "1",
+              "0",
+              "1",
+              null,
+              "2"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "5",
+              "Ú",
+              "Matyáš VÁŇA",
+              "06:52",
+              "00:00",
+              "00:02",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "25% (1/4)",
+              "0"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "8",
+              "Ú",
+              "Ondřej BERÁNEK",
+              "17:24",
+              "03:37",
+              "01:06",
+              "0",
+              "0",
+              "0",
+              "0",
+              "-1",
+              "0",
+              "5",
+              "1",
+              null,
+              "0"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "10",
+              "Ú",
+              "Haralds EGLE",
+              "14:59",
+              "02:17",
+              "00:00",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "1",
+              "0",
+              "40% (8/20)",
+              "0"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "12",
+              "Ú",
+              "Petr TOMEK",
+              "18:41",
+              "03:11",
+              "00:02",
+              "0",
+              "0",
+              "0",
+              "0",
+              "-1",
+              "0",
+              "1",
+              "0",
+              null,
+              "-1"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "15",
+              "Ú",
+              "Jakub MINÁRIK",
+              "16:30",
+              "02:03",
+              "01:06",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "1",
+              "60% (3/5)",
+              "1"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "17",
+              "Ú",
+              "Tomáš REDLICH",
+              "07:50",
+              "00:00",
+              "01:52",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              null,
+              "0"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "18",
+              "Ú",
+              "Nicholas JONES",
+              "18:48",
+              "02:29",
+              "00:05",
+              "0",
+              "0",
+              "0",
+              "2",
+              "0",
+              "0",
+              "2",
+              "0",
+              "53% (10/19)",
+              "0"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "19",
+              "Ú",
+              "Filip KOFFER",
+              "08:16",
+              "00:00",
+              "00:21",
+              "0",
+              "0",
+              "0",
+              "0",
+              "-1",
+              "0",
+              "2",
+              "0",
+              null,
+              "-1"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "21",
+              "Ú",
+              "Jiří ČERNOCH",
+              "19:47",
+              "03:39",
+              "00:47",
+              "0",
+              "0",
+              "0",
+              "0",
+              "-1",
+              "0",
+              "2",
+              "1",
+              "70% (16/23)",
+              "0"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "23",
+              "Ú",
+              "Vít JISKRA",
+              "18:26",
+              "03:06",
+              "01:32",
+              "0",
+              "0",
+              "0",
+              "0",
+              "-1",
+              "0",
+              "4",
+              "1",
+              "0% (0/1)",
+              "0"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "29",
+              "Ú",
+              "David ŠŤASTNÝ",
+              "19:36",
+              "02:22",
+              "00:05",
+              "0",
+              "0",
+              "0",
+              "0",
+              "-1",
+              "0",
+              "5",
+              "0",
+              null,
+              "-1"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "70",
+              "Ú",
+              "Adam LUKOŠIK",
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "not_played": true
+          },
+          {
+            "cells": [
+              "86",
+              "Ú",
+              "Jan BAMBULA",
+              "16:13",
+              "00:02",
+              "01:01",
+              "0",
+              "0",
+              "0",
+              "2",
+              "-1",
+              "0",
+              "1",
+              "1",
+              null,
+              "0"
+            ],
+            "not_played": false
+          }
+        ]
+      },
+      {
+        "side": "home",
+        "kind": "goalies",
+        "columns": [
+          {
+            "label": "Č",
+            "description": "Číslo hráče"
+          },
+          {
+            "label": "P",
+            "description": "Pozice hráče"
+          },
+          {
+            "label": "Hráč",
+            "description": "Jméno hráče"
+          },
+          {
+            "label": "ČAS",
+            "description": "Čas na ledě"
+          },
+          {
+            "label": "Z",
+            "description": "Počet zásahů"
+          },
+          {
+            "label": "G",
+            "description": "Počet obdržených branek"
+          },
+          {
+            "label": "%Z",
+            "description": "Úspěšnost [%]"
+          },
+          {
+            "label": "A",
+            "description": "Asistence"
+          },
+          {
+            "label": "T",
+            "description": "Tresné minuty"
+          }
+        ],
+        "rows": [
+          {
+            "cells": [
+              "31",
+              "B",
+              "Daniel KRÁL",
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "not_played": true
+          },
+          {
+            "cells": [
+              "0",
+              "B",
+              "Dominik FRODL",
+              "58:49",
+              "36",
+              "1",
+              "97.30",
+              "0",
+              "0"
+            ],
+            "not_played": false
+          }
+        ]
+      },
+      {
+        "side": "away",
+        "kind": "skaters",
+        "columns": [
+          {
+            "label": "Č",
+            "description": "Číslo hráče"
+          },
+          {
+            "label": "P",
+            "description": "Pozice hráče"
+          },
+          {
+            "label": "Hráč",
+            "description": "Jméno hráče"
+          },
+          {
+            "label": "TOI",
+            "description": "Čas na ledě"
+          },
+          {
+            "label": "PP TOI",
+            "description": "Čas v přesilovce"
+          },
+          {
+            "label": "SH TOI",
+            "description": "Čas v oslabení"
+          },
+          {
+            "label": "G",
+            "description": "Počet branek"
+          },
+          {
+            "label": "A",
+            "description": "Asistence"
+          },
+          {
+            "label": "B",
+            "description": "Body (G + A)"
+          },
+          {
+            "label": "T",
+            "description": "Trestné minuty"
+          },
+          {
+            "label": "+/-",
+            "description": "Hodnocení hráče za pozitivní a negativní účast na ledě"
+          },
+          {
+            "label": "H",
+            "description": "Hity"
+          },
+          {
+            "label": "S",
+            "description": "Střely"
+          },
+          {
+            "label": "B",
+            "description": "Bloky"
+          },
+          {
+            "label": "BULY",
+            "description": "Buly"
+          },
+          {
+            "label": "RI",
+            "description": "Radegast index"
+          }
+        ],
+        "rows": [
+          {
+            "cells": [
+              "6",
+              "O",
+              "David MUSIL",
+              "16:42",
+              "00:00",
+              "01:55",
+              "0",
+              "0",
+              "0",
+              "2",
+              "1",
+              "0",
+              "1",
+              "0",
+              null,
+              "1"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "24",
+              "O",
+              "Filip PYROCHTA",
+              "16:58",
+              "02:00",
+              "00:13",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "1",
+              "0",
+              null,
+              "0"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "52",
+              "O",
+              "Martin MARINČIN",
+              "19:05",
+              "00:00",
+              "03:01",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "2",
+              "1",
+              null,
+              "1"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "55",
+              "O",
+              "Marian ADÁMEK",
+              "18:33",
+              "00:13",
+              "01:24",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "2",
+              "2",
+              null,
+              "2"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "64",
+              "O",
+              "Patrik KOCH",
+              "21:22",
+              "00:00",
+              "01:46",
+              "0",
+              "1",
+              "1",
+              "2",
+              "2",
+              "2",
+              "2",
+              "1",
+              null,
+              "5"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "72",
+              "O",
+              "Pavel PRŮŠEK",
+              "01:25",
+              "00:02",
+              "00:12",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              null,
+              "0"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "76",
+              "O",
+              "Jakub GALVAS",
+              "21:21",
+              "01:48",
+              "02:39",
+              "1",
+              "0",
+              "1",
+              "0",
+              "1",
+              "0",
+              "3",
+              "0",
+              null,
+              "1"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "9",
+              "Ú",
+              "Matěj KUBIESA",
+              "12:47",
+              "00:02",
+              "00:00",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "1",
+              "1",
+              null,
+              "1"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "16",
+              "Ú",
+              "Michal LAZOVSKÝ",
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "not_played": true
+          },
+          {
+            "cells": [
+              "18",
+              "Ú",
+              "Oscar FLYNN",
+              "15:54",
+              "01:46",
+              "00:02",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "1",
+              "0",
+              "0% (0/1)",
+              "0"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "19",
+              "Ú",
+              "Patrik HREHORČÁK",
+              "11:28",
+              "00:02",
+              "01:22",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "1",
+              null,
+              "1"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "27",
+              "Ú",
+              "Martin RŮŽIČKA",
+              "13:25",
+              "02:09",
+              "00:00",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "2",
+              "0",
+              null,
+              "0"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "34",
+              "Ú",
+              "Ondřej KOVAŘČÍK",
+              "17:53",
+              "02:10",
+              "02:04",
+              "1",
+              "0",
+              "1",
+              "2",
+              "2",
+              "0",
+              "2",
+              "1",
+              null,
+              "3"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "40",
+              "Ú",
+              "Miloš ROMAN",
+              "11:41",
+              "00:02",
+              "01:34",
+              "0",
+              "0",
+              "0",
+              "0",
+              "1",
+              "2",
+              "4",
+              "0",
+              "31% (4/13)",
+              "3"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "43",
+              "Ú",
+              "Daniel KUROVSKÝ",
+              "15:50",
+              "01:49",
+              "01:23",
+              "0",
+              "1",
+              "1",
+              "0",
+              "1",
+              "0",
+              "4",
+              "0",
+              null,
+              "1"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "56",
+              "Ú",
+              "Marko DAŇO",
+              "16:13",
+              "01:43",
+              "01:43",
+              "0",
+              "0",
+              "0",
+              "0",
+              "1",
+              "0",
+              "6",
+              "0",
+              "0% (0/2)",
+              "1"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "78",
+              "Ú",
+              "Petr CHLÁN",
+              "12:23",
+              "00:02",
+              "00:02",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "25% (1/4)",
+              "0"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "79",
+              "Ú",
+              "Libor HUDÁČEK",
+              "17:38",
+              "01:44",
+              "00:04",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "4",
+              "2",
+              "62% (8/13)",
+              "2"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "94",
+              "Ú",
+              "Andrej NESTRAŠIL",
+              "17:48",
+              "02:13",
+              "02:15",
+              "0",
+              "1",
+              "1",
+              "0",
+              "1",
+              "0",
+              "1",
+              "0",
+              "59% (10/17)",
+              "1"
+            ],
+            "not_played": false
+          },
+          {
+            "cells": [
+              "96",
+              "Ú",
+              "Daniel VOŽENÍLEK",
+              "14:18",
+              "02:14",
+              "00:38",
+              "0",
+              "0",
+              "0",
+              "2",
+              "0",
+              "1",
+              "2",
+              "1",
+              "50% (11/22)",
+              "2"
+            ],
+            "not_played": false
+          }
+        ]
+      },
+      {
+        "side": "away",
+        "kind": "goalies",
+        "columns": [
+          {
+            "label": "Č",
+            "description": "Číslo hráče"
+          },
+          {
+            "label": "P",
+            "description": "Pozice hráče"
+          },
+          {
+            "label": "Hráč",
+            "description": "Jméno hráče"
+          },
+          {
+            "label": "ČAS",
+            "description": "Čas na ledě"
+          },
+          {
+            "label": "Z",
+            "description": "Počet zásahů"
+          },
+          {
+            "label": "G",
+            "description": "Počet obdržených branek"
+          },
+          {
+            "label": "%Z",
+            "description": "Úspěšnost [%]"
+          },
+          {
+            "label": "A",
+            "description": "Asistence"
+          },
+          {
+            "label": "T",
+            "description": "Tresné minuty"
+          }
+        ],
+        "rows": [
+          {
+            "cells": [
+              "90",
+              "B",
+              "Ondřej KACETL",
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "not_played": true
+          },
+          {
+            "cells": [
+              "2",
+              "B",
+              "Marek MAZANEC",
+              "60:00",
+              "33",
+              "0",
+              "100.00",
+              "0",
+              "0"
+            ],
+            "not_played": false
+          }
+        ]
+      }
+    ],
+    "players_detail": {
+      "status": "available",
+      "source_url": "https://s3-eu-west-1.amazonaws.com/data.onlajny.com/hockey/player-stats/2026/532921.json",
+      "tables": [
+        {
+          "side": "home",
+          "scope": "total",
+          "title": "Celkem",
+          "columns": [
+            {
+              "label": "Č",
+              "description": "Číslo dresu"
+            },
+            {
+              "label": "Hráč",
+              "description": "Jméno hráče"
+            },
+            {
+              "label": "G",
+              "description": "Góly"
+            },
+            {
+              "label": "A",
+              "description": "Asistence"
+            },
+            {
+              "label": "B",
+              "description": "Body"
+            },
+            {
+              "label": "+/−",
+              "description": "Plus/minus"
+            },
+            {
+              "label": "S",
+              "description": "Střely na branku"
+            },
+            {
+              "label": "H",
+              "description": "Hity"
+            },
+            {
+              "label": "BLK",
+              "description": "Bloky"
+            },
+            {
+              "label": "S blok.",
+              "description": "Střely hráče zblokované soupeřem"
+            },
+            {
+              "label": "Buly",
+              "description": "Celkový počet vhazování"
+            },
+            {
+              "label": "Buly V",
+              "description": "Vyhraná vhazování"
+            },
+            {
+              "label": "TM",
+              "description": "Trestné minuty"
+            },
+            {
+              "label": "Stříd.",
+              "description": "Počet střídání"
+            },
+            {
+              "label": "TOI",
+              "description": "Čas na ledě"
+            },
+            {
+              "label": "+ účast",
+              "description": "Pozitivní účasti"
+            },
+            {
+              "label": "− účast",
+              "description": "Negativní účasti"
+            },
+            {
+              "label": "RI",
+              "description": "Radegast index"
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                9,
+                "Daniel Brickley",
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                1,
+                1,
+                0,
+                0,
+                0,
+                28,
+                "23:39",
+                0,
+                0,
+                1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                55,
+                "Roberts Mamčics",
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                1,
+                0,
+                0,
+                0,
+                0,
+                27,
+                "17:50",
+                0,
+                0,
+                2
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                27,
+                "Tobias Winberg",
+                0,
+                0,
+                0,
+                -1,
+                1,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                23,
+                "20:14",
+                0,
+                1,
+                -1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                7,
+                "Elmeri Eronen",
+                0,
+                0,
+                0,
+                -2,
+                1,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                25,
+                "17:54",
+                0,
+                2,
+                -2
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                6,
+                "Matteo Kočí",
+                0,
+                0,
+                0,
+                -1,
+                5,
+                1,
+                1,
+                1,
+                0,
+                0,
+                2,
+                28,
+                "18:13",
+                0,
+                1,
+                1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                24,
+                "Josef Myšák",
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                2,
+                0,
+                0,
+                0,
+                0,
+                23,
+                "14:59",
+                0,
+                0,
+                2
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                4,
+                "Quinn Emanuel Schmiemann",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                "00:00",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                23,
+                "Vít Jiskra",
+                0,
+                0,
+                0,
+                -1,
+                4,
+                0,
+                1,
+                0,
+                1,
+                0,
+                0,
+                28,
+                "18:26",
+                0,
+                1,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                21,
+                "Jiří Černoch",
+                0,
+                0,
+                0,
+                -1,
+                2,
+                0,
+                1,
+                2,
+                23,
+                16,
+                0,
+                27,
+                "19:47",
+                0,
+                1,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                8,
+                "Ondřej Beránek",
+                0,
+                0,
+                0,
+                -1,
+                5,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                27,
+                "17:24",
+                0,
+                1,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                29,
+                "David Šťastný",
+                0,
+                0,
+                0,
+                -1,
+                5,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                26,
+                "19:36",
+                0,
+                1,
+                -1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                18,
+                "Nicholas Jones",
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0,
+                2,
+                19,
+                10,
+                2,
+                26,
+                "18:48",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                86,
+                "Jan Bambula",
+                0,
+                0,
+                0,
+                -1,
+                1,
+                0,
+                1,
+                0,
+                0,
+                0,
+                2,
+                25,
+                "16:13",
+                0,
+                1,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                15,
+                "Jakub Minárik",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                5,
+                3,
+                0,
+                26,
+                "16:30",
+                0,
+                0,
+                1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                10,
+                "Haralds Egle",
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                1,
+                20,
+                8,
+                0,
+                21,
+                "14:59",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                12,
+                "Petr Tomek",
+                0,
+                0,
+                0,
+                -1,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                24,
+                "18:41",
+                0,
+                1,
+                -1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                17,
+                "Tomáš Redlich",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                15,
+                "07:50",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                5,
+                "Matyáš Váňa",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                4,
+                1,
+                0,
+                12,
+                "06:52",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                19,
+                "Filip Koffer",
+                0,
+                0,
+                0,
+                -1,
+                2,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                14,
+                "08:16",
+                0,
+                1,
+                -1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                70,
+                "Adam Lukošik",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                "00:00",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            }
+          ]
+        },
+        {
+          "side": "home",
+          "scope": "period-0",
+          "title": "1. třetina",
+          "columns": [
+            {
+              "label": "Č",
+              "description": "Číslo dresu"
+            },
+            {
+              "label": "Hráč",
+              "description": "Jméno hráče"
+            },
+            {
+              "label": "G",
+              "description": "Góly"
+            },
+            {
+              "label": "A",
+              "description": "Asistence"
+            },
+            {
+              "label": "B",
+              "description": "Body"
+            },
+            {
+              "label": "+/−",
+              "description": "Plus/minus"
+            },
+            {
+              "label": "S",
+              "description": "Střely na branku"
+            },
+            {
+              "label": "H",
+              "description": "Hity"
+            },
+            {
+              "label": "BLK",
+              "description": "Bloky"
+            },
+            {
+              "label": "S blok.",
+              "description": "Střely hráče zblokované soupeřem"
+            },
+            {
+              "label": "Buly",
+              "description": "Celkový počet vhazování"
+            },
+            {
+              "label": "Buly V",
+              "description": "Vyhraná vhazování"
+            },
+            {
+              "label": "TM",
+              "description": "Trestné minuty"
+            },
+            {
+              "label": "Stříd.",
+              "description": "Počet střídání"
+            },
+            {
+              "label": "TOI",
+              "description": "Čas na ledě"
+            },
+            {
+              "label": "+ účast",
+              "description": "Pozitivní účasti"
+            },
+            {
+              "label": "− účast",
+              "description": "Negativní účasti"
+            },
+            {
+              "label": "RI",
+              "description": "Radegast index"
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                9,
+                "Daniel Brickley",
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                10,
+                "07:58",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                55,
+                "Roberts Mamčics",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                8,
+                "04:52",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                27,
+                "Tobias Winberg",
+                0,
+                0,
+                0,
+                -1,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                6,
+                "03:59",
+                0,
+                1,
+                -1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                7,
+                "Elmeri Eronen",
+                0,
+                0,
+                0,
+                -1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                8,
+                "06:27",
+                0,
+                1,
+                -1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                6,
+                "Matteo Kočí",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                8,
+                "05:23",
+                0,
+                0,
+                1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                24,
+                "Josef Myšák",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                8,
+                "05:07",
+                0,
+                0,
+                1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                4,
+                "Quinn Emanuel Schmiemann",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                "00:00",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                23,
+                "Vít Jiskra",
+                0,
+                0,
+                0,
+                -1,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                9,
+                "06:41",
+                0,
+                1,
+                -1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                21,
+                "Jiří Černoch",
+                0,
+                0,
+                0,
+                -1,
+                2,
+                0,
+                1,
+                1,
+                7,
+                6,
+                0,
+                9,
+                "07:47",
+                0,
+                1,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                8,
+                "Ondřej Beránek",
+                0,
+                0,
+                0,
+                -1,
+                1,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                9,
+                "06:47",
+                0,
+                1,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                29,
+                "David Šťastný",
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                9,
+                "06:58",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                18,
+                "Nicholas Jones",
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                1,
+                5,
+                4,
+                0,
+                9,
+                "07:08",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                86,
+                "Jan Bambula",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                7,
+                "04:46",
+                0,
+                0,
+                1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                15,
+                "Jakub Minárik",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                2,
+                1,
+                0,
+                7,
+                "05:08",
+                0,
+                0,
+                1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                10,
+                "Haralds Egle",
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                1,
+                4,
+                1,
+                0,
+                7,
+                "05:24",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                12,
+                "Petr Tomek",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                9,
+                "07:57",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                17,
+                "Tomáš Redlich",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                5,
+                "02:13",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                5,
+                "Matyáš Váňa",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                1,
+                0,
+                5,
+                "02:20",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                19,
+                "Filip Koffer",
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                5,
+                "02:51",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                70,
+                "Adam Lukošik",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                "00:00",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            }
+          ]
+        },
+        {
+          "side": "home",
+          "scope": "period-1",
+          "title": "2. třetina",
+          "columns": [
+            {
+              "label": "Č",
+              "description": "Číslo dresu"
+            },
+            {
+              "label": "Hráč",
+              "description": "Jméno hráče"
+            },
+            {
+              "label": "G",
+              "description": "Góly"
+            },
+            {
+              "label": "A",
+              "description": "Asistence"
+            },
+            {
+              "label": "B",
+              "description": "Body"
+            },
+            {
+              "label": "+/−",
+              "description": "Plus/minus"
+            },
+            {
+              "label": "S",
+              "description": "Střely na branku"
+            },
+            {
+              "label": "H",
+              "description": "Hity"
+            },
+            {
+              "label": "BLK",
+              "description": "Bloky"
+            },
+            {
+              "label": "S blok.",
+              "description": "Střely hráče zblokované soupeřem"
+            },
+            {
+              "label": "Buly",
+              "description": "Celkový počet vhazování"
+            },
+            {
+              "label": "Buly V",
+              "description": "Vyhraná vhazování"
+            },
+            {
+              "label": "TM",
+              "description": "Trestné minuty"
+            },
+            {
+              "label": "Stříd.",
+              "description": "Počet střídání"
+            },
+            {
+              "label": "TOI",
+              "description": "Čas na ledě"
+            },
+            {
+              "label": "+ účast",
+              "description": "Pozitivní účasti"
+            },
+            {
+              "label": "− účast",
+              "description": "Negativní účasti"
+            },
+            {
+              "label": "RI",
+              "description": "Radegast index"
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                9,
+                "Daniel Brickley",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                7,
+                "06:26",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                55,
+                "Roberts Mamčics",
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                1,
+                0,
+                0,
+                0,
+                0,
+                10,
+                "07:03",
+                0,
+                0,
+                2
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                27,
+                "Tobias Winberg",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                9,
+                "09:52",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                7,
+                "Elmeri Eronen",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                7,
+                "05:25",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                6,
+                "Matteo Kočí",
+                0,
+                0,
+                0,
+                0,
+                2,
+                1,
+                0,
+                1,
+                0,
+                0,
+                2,
+                8,
+                "04:47",
+                0,
+                0,
+                1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                24,
+                "Josef Myšák",
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                8,
+                "06:20",
+                0,
+                0,
+                1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                4,
+                "Quinn Emanuel Schmiemann",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                "00:00",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                23,
+                "Vít Jiskra",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                10,
+                "06:14",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                21,
+                "Jiří Černoch",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                10,
+                6,
+                0,
+                9,
+                "05:33",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                8,
+                "Ondřej Beránek",
+                0,
+                0,
+                0,
+                0,
+                3,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                10,
+                "05:34",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                29,
+                "David Šťastný",
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                7,
+                "04:43",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                18,
+                "Nicholas Jones",
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                1,
+                9,
+                4,
+                2,
+                8,
+                "04:51",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                86,
+                "Jan Bambula",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                9,
+                "05:20",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                15,
+                "Jakub Minárik",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                1,
+                0,
+                9,
+                "06:10",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                10,
+                "Haralds Egle",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                7,
+                3,
+                0,
+                5,
+                "04:06",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                12,
+                "Petr Tomek",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                5,
+                "05:04",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                17,
+                "Tomáš Redlich",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                7,
+                "03:49",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                5,
+                "Matyáš Váňa",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                4,
+                "02:19",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                19,
+                "Filip Koffer",
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                4,
+                "01:59",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                70,
+                "Adam Lukošik",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                "00:00",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            }
+          ]
+        },
+        {
+          "side": "home",
+          "scope": "period-2",
+          "title": "3. třetina",
+          "columns": [
+            {
+              "label": "Č",
+              "description": "Číslo dresu"
+            },
+            {
+              "label": "Hráč",
+              "description": "Jméno hráče"
+            },
+            {
+              "label": "G",
+              "description": "Góly"
+            },
+            {
+              "label": "A",
+              "description": "Asistence"
+            },
+            {
+              "label": "B",
+              "description": "Body"
+            },
+            {
+              "label": "+/−",
+              "description": "Plus/minus"
+            },
+            {
+              "label": "S",
+              "description": "Střely na branku"
+            },
+            {
+              "label": "H",
+              "description": "Hity"
+            },
+            {
+              "label": "BLK",
+              "description": "Bloky"
+            },
+            {
+              "label": "S blok.",
+              "description": "Střely hráče zblokované soupeřem"
+            },
+            {
+              "label": "Buly",
+              "description": "Celkový počet vhazování"
+            },
+            {
+              "label": "Buly V",
+              "description": "Vyhraná vhazování"
+            },
+            {
+              "label": "TM",
+              "description": "Trestné minuty"
+            },
+            {
+              "label": "Stříd.",
+              "description": "Počet střídání"
+            },
+            {
+              "label": "TOI",
+              "description": "Čas na ledě"
+            },
+            {
+              "label": "+ účast",
+              "description": "Pozitivní účasti"
+            },
+            {
+              "label": "− účast",
+              "description": "Negativní účasti"
+            },
+            {
+              "label": "RI",
+              "description": "Radegast index"
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                9,
+                "Daniel Brickley",
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                11,
+                "09:15",
+                0,
+                0,
+                1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                55,
+                "Roberts Mamčics",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                9,
+                "05:55",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                27,
+                "Tobias Winberg",
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                8,
+                "06:23",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                7,
+                "Elmeri Eronen",
+                0,
+                0,
+                0,
+                -1,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                10,
+                "06:02",
+                0,
+                1,
+                -1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                6,
+                "Matteo Kočí",
+                0,
+                0,
+                0,
+                -1,
+                3,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                12,
+                "08:03",
+                0,
+                1,
+                -1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                24,
+                "Josef Myšák",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                7,
+                "03:32",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                4,
+                "Quinn Emanuel Schmiemann",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                "00:00",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                23,
+                "Vít Jiskra",
+                0,
+                0,
+                0,
+                0,
+                3,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                9,
+                "05:31",
+                0,
+                0,
+                1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                21,
+                "Jiří Černoch",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                6,
+                4,
+                0,
+                9,
+                "06:27",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                8,
+                "Ondřej Beránek",
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                8,
+                "05:03",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                29,
+                "David Šťastný",
+                0,
+                0,
+                0,
+                -1,
+                2,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                10,
+                "07:55",
+                0,
+                1,
+                -1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                18,
+                "Nicholas Jones",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                5,
+                2,
+                0,
+                9,
+                "06:49",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                86,
+                "Jan Bambula",
+                0,
+                0,
+                0,
+                -1,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                9,
+                "06:07",
+                0,
+                1,
+                -1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                15,
+                "Jakub Minárik",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                1,
+                0,
+                10,
+                "05:12",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                10,
+                "Haralds Egle",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                9,
+                4,
+                0,
+                9,
+                "05:29",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                12,
+                "Petr Tomek",
+                0,
+                0,
+                0,
+                -1,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                10,
+                "05:40",
+                0,
+                1,
+                -1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                17,
+                "Tomáš Redlich",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                3,
+                "01:48",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                5,
+                "Matyáš Váňa",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                3,
+                "02:13",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                19,
+                "Filip Koffer",
+                0,
+                0,
+                0,
+                -1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                5,
+                "03:26",
+                0,
+                1,
+                -1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                70,
+                "Adam Lukošik",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                "00:00",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            }
+          ]
+        },
+        {
+          "side": "away",
+          "scope": "total",
+          "title": "Celkem",
+          "columns": [
+            {
+              "label": "Č",
+              "description": "Číslo dresu"
+            },
+            {
+              "label": "Hráč",
+              "description": "Jméno hráče"
+            },
+            {
+              "label": "G",
+              "description": "Góly"
+            },
+            {
+              "label": "A",
+              "description": "Asistence"
+            },
+            {
+              "label": "B",
+              "description": "Body"
+            },
+            {
+              "label": "+/−",
+              "description": "Plus/minus"
+            },
+            {
+              "label": "S",
+              "description": "Střely na branku"
+            },
+            {
+              "label": "H",
+              "description": "Hity"
+            },
+            {
+              "label": "BLK",
+              "description": "Bloky"
+            },
+            {
+              "label": "S blok.",
+              "description": "Střely hráče zblokované soupeřem"
+            },
+            {
+              "label": "Buly",
+              "description": "Celkový počet vhazování"
+            },
+            {
+              "label": "Buly V",
+              "description": "Vyhraná vhazování"
+            },
+            {
+              "label": "TM",
+              "description": "Trestné minuty"
+            },
+            {
+              "label": "Stříd.",
+              "description": "Počet střídání"
+            },
+            {
+              "label": "TOI",
+              "description": "Čas na ledě"
+            },
+            {
+              "label": "+ účast",
+              "description": "Pozitivní účasti"
+            },
+            {
+              "label": "− účast",
+              "description": "Negativní účasti"
+            },
+            {
+              "label": "RI",
+              "description": "Radegast index"
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                52,
+                "Martin Marinčin",
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                30,
+                "19:05",
+                0,
+                0,
+                1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                55,
+                "Marian Adámek",
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                2,
+                2,
+                0,
+                0,
+                0,
+                29,
+                "18:33",
+                0,
+                0,
+                2
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                64,
+                "Patrik Koch",
+                0,
+                1,
+                1,
+                2,
+                2,
+                2,
+                1,
+                2,
+                0,
+                0,
+                2,
+                28,
+                "21:22",
+                2,
+                0,
+                5
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                76,
+                "Jakub Galvas",
+                1,
+                0,
+                1,
+                1,
+                3,
+                0,
+                0,
+                3,
+                0,
+                0,
+                0,
+                27,
+                "21:21",
+                1,
+                0,
+                1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                24,
+                "Filip Pyrochta",
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                22,
+                "16:58",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                6,
+                "David Musil",
+                0,
+                0,
+                0,
+                1,
+                1,
+                0,
+                0,
+                1,
+                0,
+                0,
+                2,
+                25,
+                "16:42",
+                1,
+                0,
+                1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                72,
+                "Pavel Průšek",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                "01:25",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                34,
+                "Ondřej Kovařčík",
+                1,
+                0,
+                1,
+                2,
+                2,
+                0,
+                1,
+                0,
+                0,
+                0,
+                2,
+                25,
+                "17:53",
+                2,
+                0,
+                3
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                94,
+                "Andrej Nestrašil",
+                0,
+                1,
+                1,
+                1,
+                1,
+                0,
+                0,
+                0,
+                17,
+                10,
+                0,
+                25,
+                "17:48",
+                1,
+                0,
+                1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                56,
+                "Marko Daňo",
+                0,
+                0,
+                0,
+                1,
+                6,
+                0,
+                0,
+                1,
+                2,
+                0,
+                0,
+                25,
+                "16:13",
+                1,
+                0,
+                1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                78,
+                "Petr Chlán",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                4,
+                1,
+                0,
+                18,
+                "12:23",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                79,
+                "Libor Hudáček",
+                0,
+                0,
+                0,
+                0,
+                4,
+                0,
+                2,
+                0,
+                13,
+                8,
+                0,
+                19,
+                "17:38",
+                0,
+                0,
+                2
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                43,
+                "Daniel Kurovský",
+                0,
+                1,
+                1,
+                1,
+                4,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                21,
+                "15:50",
+                1,
+                0,
+                1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                18,
+                "Oscar Flynn",
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                1,
+                1,
+                0,
+                0,
+                19,
+                "15:54",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                96,
+                "Daniel Voženílek",
+                0,
+                0,
+                0,
+                0,
+                2,
+                1,
+                1,
+                0,
+                22,
+                11,
+                2,
+                19,
+                "14:18",
+                0,
+                0,
+                2
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                27,
+                "Martin Růžička",
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                19,
+                "13:25",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                19,
+                "Patrik Hrehorčák",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                19,
+                "11:28",
+                0,
+                0,
+                1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                40,
+                "Miloš Roman",
+                0,
+                0,
+                0,
+                1,
+                4,
+                2,
+                0,
+                0,
+                13,
+                4,
+                0,
+                19,
+                "11:41",
+                1,
+                0,
+                3
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                9,
+                "Matěj Kubiesa",
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                1,
+                1,
+                0,
+                0,
+                0,
+                16,
+                "12:47",
+                0,
+                0,
+                1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                16,
+                "Michal Lazovský",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                "00:00",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            }
+          ]
+        },
+        {
+          "side": "away",
+          "scope": "period-0",
+          "title": "1. třetina",
+          "columns": [
+            {
+              "label": "Č",
+              "description": "Číslo dresu"
+            },
+            {
+              "label": "Hráč",
+              "description": "Jméno hráče"
+            },
+            {
+              "label": "G",
+              "description": "Góly"
+            },
+            {
+              "label": "A",
+              "description": "Asistence"
+            },
+            {
+              "label": "B",
+              "description": "Body"
+            },
+            {
+              "label": "+/−",
+              "description": "Plus/minus"
+            },
+            {
+              "label": "S",
+              "description": "Střely na branku"
+            },
+            {
+              "label": "H",
+              "description": "Hity"
+            },
+            {
+              "label": "BLK",
+              "description": "Bloky"
+            },
+            {
+              "label": "S blok.",
+              "description": "Střely hráče zblokované soupeřem"
+            },
+            {
+              "label": "Buly",
+              "description": "Celkový počet vhazování"
+            },
+            {
+              "label": "Buly V",
+              "description": "Vyhraná vhazování"
+            },
+            {
+              "label": "TM",
+              "description": "Trestné minuty"
+            },
+            {
+              "label": "Stříd.",
+              "description": "Počet střídání"
+            },
+            {
+              "label": "TOI",
+              "description": "Čas na ledě"
+            },
+            {
+              "label": "+ účast",
+              "description": "Pozitivní účasti"
+            },
+            {
+              "label": "− účast",
+              "description": "Negativní účasti"
+            },
+            {
+              "label": "RI",
+              "description": "Radegast index"
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                52,
+                "Martin Marinčin",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                12,
+                "07:26",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                55,
+                "Marian Adámek",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                1,
+                0,
+                0,
+                0,
+                9,
+                "05:49",
+                0,
+                0,
+                2
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                64,
+                "Patrik Koch",
+                0,
+                1,
+                1,
+                1,
+                0,
+                2,
+                0,
+                2,
+                0,
+                0,
+                2,
+                10,
+                "08:04",
+                1,
+                0,
+                3
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                76,
+                "Jakub Galvas",
+                1,
+                0,
+                1,
+                1,
+                2,
+                0,
+                0,
+                2,
+                0,
+                0,
+                0,
+                10,
+                "09:10",
+                1,
+                0,
+                1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                24,
+                "Filip Pyrochta",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                6,
+                "04:18",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                6,
+                "David Musil",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                2,
+                8,
+                "04:10",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                72,
+                "Pavel Průšek",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                "00:48",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                34,
+                "Ondřej Kovařčík",
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                2,
+                9,
+                "05:38",
+                1,
+                0,
+                2
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                94,
+                "Andrej Nestrašil",
+                0,
+                1,
+                1,
+                1,
+                1,
+                0,
+                0,
+                0,
+                5,
+                3,
+                0,
+                9,
+                "06:15",
+                1,
+                0,
+                1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                56,
+                "Marko Daňo",
+                0,
+                0,
+                0,
+                1,
+                2,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                9,
+                "05:37",
+                1,
+                0,
+                1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                78,
+                "Petr Chlán",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                1,
+                0,
+                6,
+                "04:05",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                79,
+                "Libor Hudáček",
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                2,
+                1,
+                0,
+                7,
+                "04:37",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                43,
+                "Daniel Kurovský",
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                7,
+                "04:46",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                18,
+                "Oscar Flynn",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                7,
+                "04:36",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                96,
+                "Daniel Voženílek",
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                1,
+                0,
+                6,
+                2,
+                0,
+                6,
+                "04:07",
+                0,
+                0,
+                2
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                27,
+                "Martin Růžička",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                6,
+                "03:54",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                19,
+                "Patrik Hrehorčák",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                7,
+                "03:36",
+                0,
+                0,
+                1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                40,
+                "Miloš Roman",
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0,
+                0,
+                5,
+                0,
+                0,
+                7,
+                "03:38",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                9,
+                "Matěj Kubiesa",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                4,
+                "02:57",
+                0,
+                0,
+                1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                16,
+                "Michal Lazovský",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                "00:00",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            }
+          ]
+        },
+        {
+          "side": "away",
+          "scope": "period-1",
+          "title": "2. třetina",
+          "columns": [
+            {
+              "label": "Č",
+              "description": "Číslo dresu"
+            },
+            {
+              "label": "Hráč",
+              "description": "Jméno hráče"
+            },
+            {
+              "label": "G",
+              "description": "Góly"
+            },
+            {
+              "label": "A",
+              "description": "Asistence"
+            },
+            {
+              "label": "B",
+              "description": "Body"
+            },
+            {
+              "label": "+/−",
+              "description": "Plus/minus"
+            },
+            {
+              "label": "S",
+              "description": "Střely na branku"
+            },
+            {
+              "label": "H",
+              "description": "Hity"
+            },
+            {
+              "label": "BLK",
+              "description": "Bloky"
+            },
+            {
+              "label": "S blok.",
+              "description": "Střely hráče zblokované soupeřem"
+            },
+            {
+              "label": "Buly",
+              "description": "Celkový počet vhazování"
+            },
+            {
+              "label": "Buly V",
+              "description": "Vyhraná vhazování"
+            },
+            {
+              "label": "TM",
+              "description": "Trestné minuty"
+            },
+            {
+              "label": "Stříd.",
+              "description": "Počet střídání"
+            },
+            {
+              "label": "TOI",
+              "description": "Čas na ledě"
+            },
+            {
+              "label": "+ účast",
+              "description": "Pozitivní účasti"
+            },
+            {
+              "label": "− účast",
+              "description": "Negativní účasti"
+            },
+            {
+              "label": "RI",
+              "description": "Radegast index"
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                52,
+                "Martin Marinčin",
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                8,
+                "05:37",
+                0,
+                0,
+                1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                55,
+                "Marian Adámek",
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                10,
+                "06:13",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                64,
+                "Patrik Koch",
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                7,
+                "05:02",
+                0,
+                0,
+                1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                76,
+                "Jakub Galvas",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                8,
+                "06:47",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                24,
+                "Filip Pyrochta",
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                7,
+                "06:43",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                6,
+                "David Musil",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                6,
+                "04:53",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                72,
+                "Pavel Průšek",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                "00:37",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                34,
+                "Ondřej Kovařčík",
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                8,
+                "06:55",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                94,
+                "Andrej Nestrašil",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                5,
+                5,
+                0,
+                8,
+                "06:25",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                56,
+                "Marko Daňo",
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0,
+                8,
+                "05:16",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                78,
+                "Petr Chlán",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0,
+                5,
+                "03:56",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                79,
+                "Libor Hudáček",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                7,
+                3,
+                0,
+                6,
+                "07:19",
+                0,
+                0,
+                2
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                43,
+                "Daniel Kurovský",
+                0,
+                0,
+                0,
+                0,
+                3,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                6,
+                "05:30",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                18,
+                "Oscar Flynn",
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                6,
+                "05:38",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                96,
+                "Daniel Voženílek",
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0,
+                0,
+                9,
+                5,
+                0,
+                6,
+                "05:24",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                27,
+                "Martin Růžička",
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                6,
+                "05:42",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                19,
+                "Patrik Hrehorčák",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                5,
+                "03:25",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                40,
+                "Miloš Roman",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                3,
+                2,
+                0,
+                5,
+                "03:36",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                9,
+                "Matěj Kubiesa",
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                5,
+                "04:46",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                16,
+                "Michal Lazovský",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                "00:00",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            }
+          ]
+        },
+        {
+          "side": "away",
+          "scope": "period-2",
+          "title": "3. třetina",
+          "columns": [
+            {
+              "label": "Č",
+              "description": "Číslo dresu"
+            },
+            {
+              "label": "Hráč",
+              "description": "Jméno hráče"
+            },
+            {
+              "label": "G",
+              "description": "Góly"
+            },
+            {
+              "label": "A",
+              "description": "Asistence"
+            },
+            {
+              "label": "B",
+              "description": "Body"
+            },
+            {
+              "label": "+/−",
+              "description": "Plus/minus"
+            },
+            {
+              "label": "S",
+              "description": "Střely na branku"
+            },
+            {
+              "label": "H",
+              "description": "Hity"
+            },
+            {
+              "label": "BLK",
+              "description": "Bloky"
+            },
+            {
+              "label": "S blok.",
+              "description": "Střely hráče zblokované soupeřem"
+            },
+            {
+              "label": "Buly",
+              "description": "Celkový počet vhazování"
+            },
+            {
+              "label": "Buly V",
+              "description": "Vyhraná vhazování"
+            },
+            {
+              "label": "TM",
+              "description": "Trestné minuty"
+            },
+            {
+              "label": "Stříd.",
+              "description": "Počet střídání"
+            },
+            {
+              "label": "TOI",
+              "description": "Čas na ledě"
+            },
+            {
+              "label": "+ účast",
+              "description": "Pozitivní účasti"
+            },
+            {
+              "label": "− účast",
+              "description": "Negativní účasti"
+            },
+            {
+              "label": "RI",
+              "description": "Radegast index"
+            }
+          ],
+          "rows": [
+            {
+              "cells": [
+                52,
+                "Martin Marinčin",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                10,
+                "06:02",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                55,
+                "Marian Adámek",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                10,
+                "06:31",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                64,
+                "Patrik Koch",
+                0,
+                0,
+                0,
+                1,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                11,
+                "08:16",
+                1,
+                0,
+                1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                76,
+                "Jakub Galvas",
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                9,
+                "05:24",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                24,
+                "Filip Pyrochta",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                9,
+                "05:57",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                6,
+                "David Musil",
+                0,
+                0,
+                0,
+                1,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                11,
+                "07:39",
+                1,
+                0,
+                1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                72,
+                "Pavel Průšek",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                "00:00",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                34,
+                "Ondřej Kovařčík",
+                1,
+                0,
+                1,
+                1,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                8,
+                "05:20",
+                1,
+                0,
+                1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                94,
+                "Andrej Nestrašil",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                7,
+                2,
+                0,
+                8,
+                "05:08",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                56,
+                "Marko Daňo",
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                8,
+                "05:20",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                78,
+                "Petr Chlán",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                7,
+                "04:22",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                79,
+                "Libor Hudáček",
+                0,
+                0,
+                0,
+                0,
+                3,
+                0,
+                0,
+                0,
+                4,
+                4,
+                0,
+                6,
+                "05:42",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                43,
+                "Daniel Kurovský",
+                0,
+                1,
+                1,
+                1,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                8,
+                "05:34",
+                1,
+                0,
+                1
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                18,
+                "Oscar Flynn",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                6,
+                "05:40",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                96,
+                "Daniel Voženílek",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                7,
+                4,
+                2,
+                7,
+                "04:47",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                27,
+                "Martin Růžička",
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                7,
+                "03:49",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                19,
+                "Patrik Hrehorčák",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                7,
+                "04:27",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                40,
+                "Miloš Roman",
+                0,
+                0,
+                0,
+                1,
+                2,
+                2,
+                0,
+                0,
+                5,
+                2,
+                0,
+                7,
+                "04:27",
+                1,
+                0,
+                3
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                9,
+                "Matěj Kubiesa",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                7,
+                "05:04",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            },
+            {
+              "cells": [
+                16,
+                "Michal Lazovský",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                "00:00",
+                0,
+                0,
+                0
+              ],
+              "not_played": false
+            }
+          ]
+        }
+      ]
+    }
+  },
   "status": "ok",
   "mode": "full",
-  "generated_at": "2026-09-16T06:28:15+00:00",
+  "generated_at": "2026-09-16T07:59:25+00:00",
   "match_id": "2928260",
   "match_url": "https://www.hokej.cz/zapas/2928260",
   "competition": "Tipsport extraliga",
