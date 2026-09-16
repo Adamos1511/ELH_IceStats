@@ -23,8 +23,10 @@ from data_bot.modules.utils import (
 
 GOALIE_STATS_URL = f"{PLAYER_STATS_URL}/detailni"
 
-COMPETITION_ID = 7537
-SEASON_START_YEAR = 2025
+# Tipsport extraliga 2026/27 – základní část.
+COMPETITION_ID = 7562
+
+SEASON_START_YEAR = 2026
 
 REQUIRED_GOALIE_COLUMNS = {
     "POŘ.",
@@ -59,6 +61,7 @@ TEAM_CODES = {
     "hc olomouc": "OLO",
     "bk mlada boleslav": "MBL",
     "hc energie karlovy vary": "KVA",
+    "byd energie karlovy vary": "KVA",
     "hc verva litvinov": "LIT",
     "bili tygri liberec": "LIB",
     "rytiri kladno": "KLA",
@@ -313,6 +316,24 @@ def update_and_add_goalies(
 ) -> tuple[pd.DataFrame, pd.DataFrame, int, int]:
     result = original.copy()
 
+    # Každý výstup obsahuje pouze statistiky aktuální sezony.
+    # Osobní údaje, smlouvy a další sloupce zachováme.
+    for column in (
+        "Odchytané zápasy",
+        "Výhry",
+        "průměr obdržených branek",
+        "% zákroků",
+        "Čistá konta",
+        "Zákroky",
+        "Střel proti",
+        "Průměr střel na zápas",
+    ):
+        if column in result.columns:
+            result[column] = "0"
+
+    if "Odchytané minuty" in result.columns:
+        result["Odchytané minuty"] = "0:00"
+
     existing_lookup: dict[str, int] = {}
 
     for index, row in result.iterrows():
@@ -464,6 +485,33 @@ def calculate_average_shots(
 
     return result
 
+def format_decimal_columns_for_excel(
+    frame: pd.DataFrame,
+) -> pd.DataFrame:
+    result = frame.copy()
+
+    decimal_columns = [
+        "průměr obdržených branek",
+        "% zákroků",
+        "Průměr střel na zápas",
+    ]
+
+    for column in decimal_columns:
+        if column not in result.columns:
+            continue
+
+        result[column] = (
+            result[column]
+            .astype(str)
+            .str.replace(
+                ".",
+                ",",
+                regex=False,
+            )
+        )
+
+    return result    
+
 
 def export_goalie_preview() -> dict[str, object]:
     original = read_csv(BRANKARI_DETAIL_CSV)
@@ -477,6 +525,10 @@ def export_goalie_preview() -> dict[str, object]:
     )
 
     updated = calculate_average_shots(updated)
+
+    updated = format_decimal_columns_for_excel(
+    updated
+)
 
     valid_original = original[
         original["Jméno"].astype(str).str.strip().ne("")

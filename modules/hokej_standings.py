@@ -16,8 +16,8 @@ from data_bot.modules.utils import read_csv, write_csv
 
 STANDINGS_URL = "https://www.hokej.cz/tipsport-extraliga/table"
 
-COMPETITION_ID = 7397
-SEASON_START_YEAR = 2025
+COMPETITION_ID = 7562
+SEASON_START_YEAR = 2026
 
 REQUIRED_COLUMNS = {
     "#",
