@@ -1,9 +1,12 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import argparse
 import json
 import re
 import unicodedata
+import os
+import tempfile
+from pathlib import Path
 
 from dataclasses import dataclass
 from datetime import datetime, timezone
@@ -3220,6 +3223,34 @@ def export_game_live(
 # CLI
 # =========================================================
 
+def save_match_json(result: dict[str, object]) -> Path:
+    """Uloží plný detail do datové složky webu. CLI bez --save se nemění."""
+    match_id = str(result.get("match_id", ""))
+    if not re.fullmatch(r"[0-9]+", match_id):
+        raise ValueError("Neplatné ID zápasu.")
+    if result.get("status") != "ok" or result.get("mode") != "full":
+        raise ValueError("Pro web ukládej plný detail bez přepínače --live.")
+
+    directory = Path(__file__).resolve().parents[2] / "data" / "matches"
+    directory.mkdir(parents=True, exist_ok=True)
+    destination = directory / f"{match_id}.json"
+    # Případná chyba zápisu nepoškodí předchozí platný JSON.
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            mode="w", encoding="utf-8", dir=directory,
+            suffix=".tmp", delete=False,
+        ) as handle:
+            temporary = Path(handle.name)
+            json.dump(result, handle, ensure_ascii=False, indent=2, allow_nan=False)
+            handle.write("\n")
+        os.replace(temporary, destination)
+    finally:
+        if temporary is not None and temporary.exists():
+            temporary.unlink()
+    return destination
+
+
 def main() -> None:
 
     parser = (
@@ -3254,9 +3285,21 @@ def main() -> None:
     )
 
 
+    parser.add_argument(
+        "--save",
+        action="store_true",
+        help="Uloží plný detail do data/matches/<match_id>.json pro web.",
+    )
+
     args = (
         parser.parse_args()
     )
+
+    if not re.fullmatch(r"[0-9]+", str(args.match_id)):
+        parser.error("match_id musí obsahovat pouze číslice.")
+    if args.save and args.live:
+        parser.error("--save používej bez --live, aby se zachovaly sestavy a preview.")
+
 
 
     if args.live:
@@ -3275,6 +3318,9 @@ def main() -> None:
             )
         )
 
+
+    if args.save:
+        save_match_json(result)
 
     print(
         json.dumps(
