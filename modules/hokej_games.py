@@ -2913,6 +2913,151 @@ def _download_match_roster(page: MatchPage) -> dict[str, object]:
 # KOMPLETNÍ MATCH CENTER
 # =========================================================
 
+# Match information and published statistics. Keep the existing event parser separate.
+def _parse_match_statistics(page: MatchPage) -> tuple[dict, dict]:
+    soup = BeautifulSoup(page.html, "html.parser")
+    def text_at(selector):
+        node = soup.select_one(selector)
+        return node.get_text(" ", strip=True) if node else ""
+
+    def count_at(selector):
+        value = re.sub(r"\s+", "", text_at(selector))
+        return int(value) if value.isdigit() else None
+
+    info = {
+        "attendance": count_at(".box-count-visitors"),
+        "venue": text_at(".box-heading-stadium"),
+        "capacity": count_at(".box-count-stadium"),
+        "referees": {"main": [], "lines": []},
+    }
+    stats = {"status": "unavailable", "source_url": page.url,
+             "verification": "", "team": [], "tables": []}
+    # The upstream status cells are sometimes outside <tr>, so walk cell siblings.
+    for table in soup.select(".table-first-bold"):
+        for cell in table.find_all("td"):
+            label = cell.get_text(" ", strip=True).rstrip(":")
+            value_cell = cell.find_next_sibling("td")
+            if value_cell is None:
+                continue
+            value = " ".join(value_cell.stripped_strings)
+            if label in ("Hlavní rozhodčí", "Čároví rozhodčí"):
+                role = "main" if label == "Hlavní rozhodčí" else "lines"
+                info["referees"][role] = [n.get_text(" ", strip=True)
+                                            for n in value_cell.select(".referee")]
+            elif label == "Stav statistik":
+                stats["verification"] = value
+            elif re.fullmatch(r"[+-]?\d+\s*:\s*[+-]?\d+(?:\s*,\s*[+-]?\d+\s*:\s*[+-]?\d+)*", value):
+                pairs = [{"home": int(a), "away": int(b)} for a, b in
+                         re.findall(r"([+-]?\d+)\s*:\s*([+-]?\d+)", value)]
+                stats["team"].append({"label": label, "values": pairs})
+
+    for side, css in (("home", ".col-soupisky-home"), ("away", ".col-soupisky-visitor")):
+        for table in soup.select(css + " table"):
+            headers = table.select("thead th")
+            labels = [n.get_text(" ", strip=True) for n in headers]
+            if "Hráč" not in labels:
+                continue
+            columns = []
+            for i, node in enumerate(headers):
+                hint = node.select_one("[data-content]")
+                columns.append({"label": labels[i], "description":
+                                hint.get("data-content", labels[i]) if hint else labels[i]})
+            rows = []
+            for row in table.select("tbody tr"):
+                cells = row.find_all("td", recursive=False)
+                if len(cells) != len(columns):
+                    continue
+                rows.append({"cells": [c.get_text(" ", strip=True) or None for c in cells],
+                             "not_played": row.find("del") is not None})
+            if rows:
+                stats["tables"].append({"side": side,
+                    "kind": "goalies" if "%Z" in labels else "skaters",
+                    "columns": columns, "rows": rows})
+    if stats["team"] or stats["tables"]:
+        stats["status"] = "available"
+    return info, stats
+
+
+# Additional player metrics from the same public feed used by Onlajny.
+_MATCH_PLAYER_COLUMNS = [
+    ("goals", "G", "Góly"), ("assistance", "A", "Asistence"),
+    ("points", "B", "Body"), ("plus_minus", "+/−", "Plus/minus"),
+    ("shots", "S", "Střely na branku"), ("hits", "H", "Hity"),
+    ("blocked_shots", "BLK", "Bloky"),
+    ("player_shot_is_blocked_count", "S blok.", "Střely hráče zblokované soupeřem"),
+    ("faceoffs", "Buly", "Celkový počet vhazování"),
+    ("faceoffs_win", "Buly V", "Vyhraná vhazování"),
+    ("penalty_minutes", "TM", "Trestné minuty"),
+    ("shifts", "Stříd.", "Počet střídání"),
+    ("time_on_ice_transformed", "TOI", "Čas na ledě"),
+    ("positive_participations", "+ účast", "Pozitivní účasti"),
+    ("negative_participations", "− účast", "Negativní účasti"),
+    ("radegast_index", "RI", "Radegast index"),
+]
+
+
+def _parse_extra_player_statistics(data: dict) -> list[dict]:
+    if data.get("statistics") is not True:
+        return []
+    tables = []
+    for source_side, side in (("home", "home"), ("guest", "away")):
+        players = data.get(source_side)
+        if not isinstance(players, list):
+            continue
+        players = [p for p in players if isinstance(p, dict)]
+        scopes = [("total", "Celkem", None)]
+        for key, title in (("period", "třetina"), ("overtime", "prodloužení"), ("shootout", "nájezdy")):
+            length = max((len(p[key]) for p in players if isinstance(p.get(key), list)), default=0)
+            scopes.extend((f"{key}-{i}", f"{i + 1}. {title}", (key, i)) for i in range(length))
+        for scope, title, path in scopes:
+            values = [(p, p if path is None else (
+                p[path[0]][path[1]] if isinstance(p.get(path[0]), list)
+                and len(p[path[0]]) > path[1] else {})) for p in players]
+            values = [(p, v) for p, v in values if isinstance(v, dict)]
+            fields = [(key, label, desc) for key, label, desc in _MATCH_PLAYER_COLUMNS
+                      if any(v.get(key) is not None for _, v in values)]
+            if not fields:
+                continue
+            rows = []
+            for player, value in values:
+                rows.append({"cells": [player.get("jersey"),
+                    " ".join(str(player.get(k) or "") for k in ("name", "surname")).strip()]
+                    + [value.get(key) for key, _, _ in fields], "not_played": False})
+            tables.append({"side": side, "scope": scope, "title": title,
+                "columns": [{"label": "Č", "description": "Číslo dresu"},
+                            {"label": "Hráč", "description": "Jméno hráče"}]
+                    + [{"label": label, "description": desc} for _, label, desc in fields],
+                "rows": rows})
+    return tables
+
+
+def _download_extra_player_statistics(page: MatchPage) -> dict:
+    result = {"status": "unavailable", "source_url": "", "tables": []}
+    match = re.search(r"\bvar\s+matchJson\s*=\s*(\{[^;]*\})\s*;", page.html)
+    if not match:
+        return result
+    try:
+        metadata = json.loads(match.group(1))
+        season, online_id = metadata.get("season"), metadata.get("onlajnyID")
+        if not str(season).isdigit() or not str(online_id).isdigit():
+            return result
+        result["source_url"] = ("https://s3-eu-west-1.amazonaws.com/data.onlajny.com/"
+                                f"hockey/player-stats/{season}/{online_id}.json")
+        response = requests.get(result["source_url"], headers=HEADERS, timeout=REQUEST_TIMEOUT)
+        if response.status_code == 404:
+            return result
+        response.raise_for_status()
+        data = response.json()
+        if not isinstance(data, dict):
+            raise ValueError("Neplatný formát hráčských statistik.")
+        result["tables"] = _parse_extra_player_statistics(data)
+        result["status"] = "available" if result["tables"] else "unavailable"
+    except (requests.RequestException, ValueError) as exc:
+        result["status"] = "error"
+        result["error"] = str(exc)
+    return result
+
+
 def inspect_match(
     match_id: str,
 ) -> dict[str, object]:
@@ -3079,7 +3224,12 @@ def inspect_match(
     )
 
 
+    match_info, statistics = _parse_match_statistics(pages["summary"])
+    statistics["players_detail"] = _download_extra_player_statistics(pages["stats"])
+
     return {
+        "match_info": match_info,
+        "statistics": statistics,
         "status":
             "ok",
 
