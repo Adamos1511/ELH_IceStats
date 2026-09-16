@@ -955,6 +955,8 @@ function navigate(
   if (page !== "matchDetail") {
     matchDetailRequest += 1;
     matchDetailController?.abort();
+    matchLiveAbort?.abort();
+    matchLiveId = "";
   }
 
   const targetId =
@@ -9852,6 +9854,165 @@ function formatScheduleDate(
 /* =========================================================
    MATCH CENTER — data/matches/<id>.json
 ========================================================= */
+// Configure once with the Supabase PROJECT URL and PUBLISHABLE (not secret) key.
+const MATCH_CLOUD = { url: "", publicKey: "" };
+let matchLiveData = null;
+let matchLiveId = '';
+let matchLiveBusy = false;
+let matchLiveAbort = null;
+let matchLiveNext = 0;
+const matchScoreCache = new Map();
+function matchCloudReady() {
+  if(!/^https:\/\//.test(MATCH_CLOUD.url))return false;
+  if(MATCH_CLOUD.publicKey.startsWith('sb_publishable_'))return true;
+  try {const p=MATCH_CLOUD.publicKey.split('.')[1];return JSON.parse(atob(p.replace(/-/g,'+').replace(/_/g,'/'))).role==='anon';} catch(_){return false;}
+}
+function matchNameKey(value) {
+  return normalize(String(value || '').replace(/\s*\(\d+\)/g, '').replace(/\s+(GV|PP|SH|EN)\s*$/g, '')).replace(/\s+/g,' ').trim();
+}
+function matchPersonLink(label, code, data = {}) {
+  const key = matchNameKey(label);
+  const candidates = state.players.filter(p => matchNameKey(`${p.jmeno} ${p.prijmeni}`) === key);
+  const local = candidates.filter(p => getTeamCode(p.tym) === code);
+  const known = local.length === 1 ? local[0] : !local.length && candidates.length === 1 ? candidates[0] : null;
+  if (known) return `<a class="mc-person-link" href="${escapeHtml(playerPath(known))}" data-player-key="${escapeHtml(playerKey(known))}">${escapeHtml(label)}</a>`;
+  const side = data.home?.code === code ? 'home' : data.away?.code === code ? 'away' : '';
+  const sources = (data.player_links || []).filter(p => p.side === side && matchNameKey(p.name) === key);
+  if (sources.length && sources.every(p => p.url === sources[0].url) && /^https:\/\/www\.hokej\.cz\/hrac\/[a-zA-Z0-9-]+\/\d+$/.test(sources[0].url))
+    return `<a class="mc-person-link" href="${escapeHtml(sources[0].url)}" target="_blank" rel="noopener noreferrer" title="Profil na Hokej.cz">${escapeHtml(label)}</a>`;
+  return `<span title="Profil hráče zatím není propojený">${escapeHtml(label || 'Hráč neuveden')}</span>`;
+}
+function matchClubLink(team) {
+  const known = getTeam(team?.code || team?.name);
+  return known ? `<a class="mc-person-link" href="${escapeHtml(clubPath(known.code))}" data-team-code="${escapeHtml(known.code)}">${escapeHtml(matchTeamName(team))}</a>` : escapeHtml(matchTeamName(team));
+}
+function matchComparisonHtml(data) {
+  const c=data.preview?.comparison;
+  if (!c) return '<section class="mc-panel"><h2>Souboj týmů</h2><p class="mc-empty">Předzápasové porovnání zatím není uložené.</p></section>';
+  const fmt=v=>v===null||v===undefined?'—':Number(v).toLocaleString('cs-CZ',{maximumFractionDigits:2});
+  const rows=(kind,fields)=>fields.map(([key,label])=>`<div class="mc-comparison-row"><div><strong>${fmt(c.home?.[kind]?.[key])}</strong><span>${label}</span><strong>${fmt(c.away?.[kind]?.[key])}</strong></div></div>`).join('');
+  const head=`<div class="mc-comparison-teams"><strong>${matchClubLink(data.home)}</strong><span>vs.</span><strong>${matchClubLink(data.away)}</strong></div>`;
+  return `<section class="mc-panel mc-preview-comparison"><span class="mc-section-eyebrow">Předzápasová data</span><h2>Souboj týmů</h2>${head}${rows('season',[['rank','Pořadí v ELH'],['gp','Odehrané zápasy'],['points','Body'],['gf_pg','Vstřelené góly / zápas'],['ga_pg','Inkasované góly / zápas'],['pp_pct','Přesilovky (%)'],['pk_pct','Oslabení (%)']])}
+    <p class="mc-stat-help">Malý počet zápasů může výrazně ovlivnit průměry. Pomlčka u přesilovek nebo oslabení znamená, že tým zatím neměl příležitost nebo údaj chybí.</p>
+    <details class="mc-stat-period" open><summary>Domácí doma × hosté venku</summary>${rows('venue',[['gp','Zápasy'],['points','Body'],['wins','Výhry za 3 body'],['ot_wins','Výhry po prodl. / nájezdech'],['ot_losses','Prohry po prodl. / nájezdech'],['losses','Prohry bez bodu'],['gf_pg','Vstřelené góly / zápas'],['ga_pg','Inkasované góly / zápas']])}</details>
+    <p class="mc-stat-help">Stav před zápasem: ${escapeHtml(new Date(c.as_of).toLocaleString('cs-CZ',{timeZone:'Europe/Prague'}))}</p></section>`;
+}
+function matchFormPlayersHtml(data) {
+  const form = data.preview?.form;
+  return `<section class="mc-panel mc-preview-comparison"><h2>Hráči ve formě</h2><div class="mc-columns">${['home','away'].map(side=>{
+    const f=form?.[side];
+    return `<div><h3>${matchClubLink(data[side])}</h3>${f?.sample ? `<p class="mc-stat-help">Z ${f.sample} dostupných uložených utkání (nejvýše 5).</p><ol class="mc-form-leaders">${f.players.map(p=>`<li>${matchPersonLink(p.name,data[side]?.code,data)}<strong>${p.goals} G + ${p.assists} A</strong></li>`).join('')}</ol>`:'<p class="mc-empty">Čekáme na uložené statistiky předchozích zápasů.</p>'}</div>`;
+  }).join('')}</div></section>`;
+}
+function matchGoaliePreview(player,side,data) {
+  const name=[player.name,player.surname].filter(Boolean).join(' ');
+  const form=data.preview?.form?.[side];const g=form?.goalies?.find(g=>matchNameKey(g.name)===matchNameKey(name));
+  return `<span class="mc-preview-goalie">${matchPersonLink(name,data[side]?.code,data)}${g?`<small>${g.gp} Z · ${g.sv_pct ?? '—'} % zákroků · ${g.gaa ?? '—'} GAA<br>Z ${form.sample} dostupných uložených utkání</small>`:''}</span>`;
+}
+function matchPreviewLineupHtml(data) {
+  return `<section class="mc-panel mc-preview-lineup"><h2>Sestavy a rozhodčí</h2>
+    <p class="mc-stat-help">${data.roster?.status==='available' ? 'Sestavy jsou zveřejněné. Celé rozestavení najdeš v záložce Sestavy.' : 'Na zveřejnění sestav čekáme. Přibližně hodinu před začátkem je worker kontroluje každou minutu.'}</p>
+    <div class="mc-columns">${['home','away'].map(side=>`<div><h3>${matchClubLink(data[side])}</h3><span class="mc-section-eyebrow">Brankáři v sestavě</span><p>${(data.roster?.[side]||[]).filter(p=>p.position==='GK').map(p=>matchGoaliePreview(p,side,data)).join('')||'Zatím neuvedeni'}</p></div>`).join('')}</div>
+    <button type="button" class="mc-retry" data-match-tab="roster" aria-pressed="false">Zobrazit celé sestavy →</button>
+    ${matchInfoHtml(data)}</section>`;
+}
+function matchPreviewStoryHtml(data) {
+  const c=data.preview?.comparison;if(!c)return '';
+  return `<div class="mc-preview-story">${['home','away'].map(side=>{
+    const s=c[side]?.season;if(!s||!s.gp)return '';
+    return `<p>${matchClubLink(data[side])}: ${escapeHtml(s.points)} bodů po ${escapeHtml(s.gp)} zápasech, skóre ${escapeHtml(s.gf)}:${escapeHtml(s.ga)}.</p>`;
+  }).join('')}</div>`;
+}
+async function matchFetchTimed(url, options={}) {
+  const ctl=new AbortController();const abort=()=>ctl.abort();options.signal?.addEventListener('abort',abort,{once:true});
+  if(options.signal?.aborted)ctl.abort();const timer=setTimeout(abort,12000);
+  try {const response=await fetch(url,{...options,signal:ctl.signal,cache:'no-store'});return {ok:response.ok,status:response.status,data:response.ok?await response.json():null};}
+  finally {clearTimeout(timer);options.signal?.removeEventListener('abort',abort);}
+}
+async function matchCloudRows(params,signal) {
+  const url=new URL(MATCH_CLOUD.url.replace(/\/$/,'')+'/rest/v1/elh_matches');
+  Object.entries(params).forEach(([k,v])=>url.searchParams.set(k,v));
+  const r=await matchFetchTimed(url.href,{headers:{apikey:MATCH_CLOUD.publicKey},signal});
+  if(!r.ok||!Array.isArray(r.data))throw new Error('Live data nejsou dostupná');return r.data;
+}
+function matchValidate(data,id) {return data?.status==='ok'&&String(data.match_id)===id&&data.home&&data.away&&data.scoreboard;}
+async function matchFetchData(id,signal) {
+  if(matchCloudReady()) {
+    try {const rows=await matchCloudRows({match_id:'eq.'+id,select:'payload'},signal);const data=rows[0]?.payload;
+      if(matchValidate(data,id))return {...data,_delivery:'cloud'};
+    } catch(e) {if(signal?.aborted)throw e;}
+  }
+  const r=await matchFetchTimed(`${DATA_URLS.matches}${encodeURIComponent(id)}.json`,{signal});
+  if(r.status===404)return null;if(!r.ok||!matchValidate(r.data,id))throw new Error('Neplatná data zápasu');
+  return {...r.data,_delivery:'archive'};
+}
+function matchLiveNotice(data,failed=false) {
+  const stateName=data.scoreboard?.state;
+  if(data.live?.archived)return 'Archiv zápasu';
+  if(data.live?.final_complete)return 'Finální data jsou uložená. Případné opravy se doplní automaticky.';
+  if(data._delivery!=='cloud')return matchCloudReady()?'Zobrazená jsou uložená data. Čekáme na živý zdroj.':'Zobrazená jsou uložená data. Live připojení zatím není nastavené.';
+  const at=Date.parse(data.live?.checked_at||data.generated_at);
+  const limit=['live','intermission'].includes(stateName)?90000:stateName==='scheduled'?3600000:600000;
+  return failed||!Number.isFinite(at)||Date.now()-at>limit?'Aktualizace mají zpoždění. Zobrazená jsou poslední dostupná data.':'Automatické aktualizace jsou zapnuté';
+}
+function matchRenderPreserving(data) {
+  const root=document.getElementById('matchDetailContent');
+  const tab=root.querySelector('.mc-tabs [aria-pressed="true"]')?.dataset.matchTab||'summary';
+  const form=root.querySelector('[data-roster-select][aria-pressed="true"]')?.dataset.rosterSelect;
+  const details=[...root.querySelectorAll('details')].map(x=>x.open);
+  const scrolls=[...root.querySelectorAll('.mc-stat-table-wrap,.mc-rink-scroll')].map(x=>x.scrollLeft);
+  const focus=document.activeElement;const href=focus?.getAttribute('href');const y=window.scrollY;
+  renderMatchDetail(data);root.querySelector(`.mc-tabs [data-match-tab="${tab}"]`)?.click();
+  if(form&&/^(?:[1-4]|other)$/.test(form))root.querySelector(`[data-roster-select="${form}"]`)?.click();
+  root.querySelectorAll('details').forEach((x,i)=>{if(i<details.length)x.open=details[i];});
+  root.querySelectorAll('.mc-stat-table-wrap,.mc-rink-scroll').forEach((x,i)=>{x.scrollLeft=scrolls[i]||0;});
+  if(href)[...root.querySelectorAll('a')].find(x=>x.getAttribute('href')===href)?.focus({preventScroll:true});
+  window.scrollTo({top:y,behavior:'instant'});
+}
+async function matchLiveTick() {
+  if(matchLiveBusy||document.hidden||!matchCloudReady())return;
+  matchLiveBusy=true;const ctl=new AbortController();matchLiveAbort=ctl;
+  try {
+    if(state.currentPage==='matchDetail'&&matchLiveId&&!matchDetailController&&Date.now()>=matchLiveNext) {
+      const id=matchLiveId,version=matchDetailRequest;
+      const rows=await matchCloudRows({match_id:'eq.'+id,select:'payload'},ctl.signal);
+      if(version!==matchDetailRequest||state.currentPage!=='matchDetail')return;
+      const data=rows[0]?.payload;
+      if(!matchValidate(data,id))throw new Error('Zápas čeká na data');
+      if(matchLiveData&&Date.parse(data.generated_at)<Date.parse(matchLiveData.generated_at))throw new Error('Starší data');
+      matchLiveData={...data,_delivery:'cloud'};matchRenderPreserving(matchLiveData);
+      matchLiveNext=data.live?.archived?Infinity:Date.now()+(data.live?.final_complete?3600000:data.scoreboard.state==='final'?60000:20000);
+    } else if(['schedule','home'].includes(state.currentPage)) {
+      const min=new Date(Date.now()-2*86400000).toISOString(),max=new Date(Date.now()+7*86400000).toISOString();
+      const rows=await matchCloudRows({select:'match_id,state,start_at,checked_at,scoreboard:payload->scoreboard',and:`(start_at.gte.${min},start_at.lte.${max})`,limit:'500'},ctl.signal);
+      let changed=false;
+      rows.forEach(r=>{
+        matchScoreCache.set(r.match_id,r);
+        const item=state.schedule.find(m=>m.id===r.match_id);
+        if(item&&Number.isFinite(Date.parse(r.start_at))) {
+          const parts=Object.fromEntries(new Intl.DateTimeFormat('cs-CZ',{timeZone:'Europe/Prague',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date(r.start_at)).map(p=>[p.type,p.value]));
+          const date=`${parts.day}.${parts.month}.${parts.year}`,time=`${parts.hour}:${parts.minute}`;
+          if(item.date!==date||item.time!==time){item.date=date;item.time=time;changed=true;}
+        }
+      });
+      if(changed){renderSchedule();renderCurrentRound();}
+      document.querySelectorAll('.mc-match-link').forEach(card=>{
+        const row=matchScoreCache.get(card.dataset.matchId),score=card.querySelector('.match-vs');
+        if(row&&score)score.textContent=matchScheduleScore(row);
+      });
+    }
+  } catch(e) {
+    if(state.currentPage==='matchDetail') {const el=document.querySelector('[data-live-notice]');if(el&&matchLiveData)el.textContent=matchLiveNotice(matchLiveData,true);}
+  } finally {matchLiveBusy=false;if(matchLiveAbort===ctl)matchLiveAbort=null;}
+}
+function matchScheduleScore(row) {
+  const s=row?.scoreboard;if(!s||s.home_score==null||s.away_score==null)return 'VS';
+  return `${s.home_score}:${s.away_score}${['live','intermission'].includes(s.state)?(Date.now()-Date.parse(row.checked_at)>90000?' · ZPOŽDĚNÍ':' · LIVE'):''}`;
+}
+function matchLiveLoop() {matchLiveTick().finally(()=>setTimeout(matchLiveLoop,20000));}
+document.addEventListener('DOMContentLoaded',matchLiveLoop);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){matchLiveNext=0;matchLiveTick();}});
+
 let matchDetailRequest = 0;
 let matchDetailController = null;
 
@@ -9871,7 +10032,7 @@ function scheduleMatchHtml(match) {
   };
   const body = `${teamHtml(match.home, "home")}
     <span class="match-center">
-      <span class="match-vs">VS</span>
+      <span class="match-vs">${escapeHtml(matchScheduleScore(matchScoreCache.get(id)))}</span>
       ${formatScheduleDate(match.date, match.time)}
       <span class="mc-open">${id ? "Detail zápasu →" : "Detail zatím není dostupný"}</span>
     </span>${teamHtml(match.away, "away")}`;
@@ -9899,7 +10060,8 @@ function matchEmpty(text) {
 
 function matchEventTeamHtml(code) {
   const team = getTeam(code);
-  return `<span class="mc-event-club">${team ? `<img src="${escapeHtml(logoUrl(team.code))}" alt="" data-hide-on-error>` : ""}<span>${escapeHtml(code || "Tým neuveden")}</span></span>`;
+  const body = `${team ? `<img src="${escapeHtml(logoUrl(team.code))}" alt="" data-hide-on-error>` : ""}<span>${escapeHtml(code || "Tým neuveden")}</span>`;
+  return team ? `<a class="mc-event-club mc-person-link" href="${escapeHtml(clubPath(team.code))}" data-team-code="${escapeHtml(team.code)}">${body}</a>` : `<span class="mc-event-club">${body}</span>`;
 }
 
 function matchEventsHtml(data, type) {
@@ -9926,10 +10088,10 @@ function matchEventsHtml(data, type) {
           <div class="mc-feed-card-top">${matchEventTeamHtml(item.team)}
             ${type === "goals" ? `<span class="mc-feed-tag">GÓL${item.type ? ` · ${escapeHtml(item.type)}` : ""}</span>` : `<span class="mc-feed-tag mc-feed-penalty">${penalty ? `${escapeHtml(penalty[1])} min` : "Trest"}</span>`}
           </div>
-          <div class="mc-feed-main"><strong class="mc-feed-person">${escapeHtml(person || "Hráč neuveden")}</strong>
+          <div class="mc-feed-main"><strong class="mc-feed-person">${matchPersonLink(person || "Hráč neuveden", item.team, data)}</strong>
           ${type === "goals" && item.score_after ? `<strong class="mc-feed-score" aria-label="Průběžné skóre ${escapeHtml(item.score_after)}">${escapeHtml(item.score_after)}</strong>` : ""}</div>
           ${type === "goals"
-            ? `<div class="mc-feed-assists"><span>Asistence</span><p>${escapeHtml(item.assists || "Neuvedeny")}</p></div>`
+            ? `<div class="mc-feed-assists"><span>Asistence</span><p>${item.assists ? item.assists.split(/\s*,\s*/).map(name => matchPersonLink(name.trim(), item.team, data)).join(", ") : "Neuvedeny"}</p></div>`
             : `<p class="mc-feed-reason">${escapeHtml(penalty ? penalty[2] : item.penalty || "Důvod neuveden")}</p>`}
         </article>
       </li>`;
@@ -9954,14 +10116,14 @@ function matchInfoHtml(data) {
   </section>`;
 }
 
-function matchStatsTableHtml(table, caption) {
+function matchStatsTableHtml(table, caption, data = {}) {
   if (!Array.isArray(table?.columns) || !Array.isArray(table?.rows) || !table.rows.length) return '';
   const nameIndex = table.columns.findIndex(c => c.label === 'Hráč');
   const safe = value => escapeHtml(value === null || value === undefined || value === '' ? '—' : String(value));
   return `<div class="mc-stat-table-wrap" tabindex="0" role="region" aria-label="${escapeHtml(caption)} — posuvná tabulka">
     <table class="mc-stat-table"><caption>${escapeHtml(caption)}</caption><thead><tr>${table.columns.map((c, i) => `<th scope="col" class="${i === nameIndex ? 'mc-stat-name' : ''}" title="${escapeHtml(c.description || c.label)}">${safe(c.label)}</th>`).join('')}</tr></thead>
     <tbody>${table.rows.map(r => `<tr class="${r.not_played ? 'mc-stat-dnp' : ''}">${table.columns.map((_, i) => i === nameIndex
-      ? `<th scope="row" class="mc-stat-name">${safe(r.cells?.[i])}${r.not_played ? '<small>Nenastoupil</small>' : ''}</th>`
+      ? `<th scope="row" class="mc-stat-name">${matchPersonLink(String(r.cells?.[i] || ""), data[table.side]?.code, data)}${r.not_played ? '<small>Nenastoupil</small>' : ''}</th>`
       : `<td>${safe(r.cells?.[i])}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
     <details class="mc-stat-legend"><summary>Vysvětlivky sloupců</summary><dl>${table.columns.map(c => `<div><dt>${safe(c.label)}</dt><dd>${safe(c.description)}</dd></div>`).join('')}</dl></details>`;
 }
@@ -9992,17 +10154,17 @@ function matchStatisticsHtml(data) {
     <section class="mc-panel"><header class="mc-section-heading"><div><span class="mc-section-eyebrow">Srovnání týmů</span><h2>Statistiky zápasu</h2></div></header>
       ${stats.verification ? `<p class="mc-stat-verification">Stav statistik: <strong>${escapeHtml(stats.verification)}</strong></p>` : ''}
       ${matchTeamStatsHtml(data)}</section>
-    ${['home', 'away'].map(side => `<section class="mc-panel mc-player-stats"><header class="mc-section-heading"><div><span class="mc-section-eyebrow">Hráči a brankáři</span><h2>${escapeHtml(matchTeamName(data[side]))}</h2></div></header>
+    ${['home', 'away'].map(side => `<section class="mc-panel mc-player-stats"><header class="mc-section-heading"><div><span class="mc-section-eyebrow">Hráči a brankáři</span><h2>${matchClubLink(data[side])}</h2></div></header>
       ${['skaters', 'goalies'].map(kind => {
         const selected = tables.filter(t => t.side === side && t.kind === kind);
         const title = kind === 'skaters' ? 'Hráči v poli' : 'Brankáři';
-        return selected.length ? selected.map(t => matchStatsTableHtml(t, title)).join('') : `<p class="mc-empty">${title}: statistiky zatím nejsou k dispozici.</p>`;
+        return selected.length ? selected.map(t => matchStatsTableHtml(t, title, data)).join('') : `<p class="mc-empty">${title}: statistiky zatím nejsou k dispozici.</p>`;
       }).join('')}</section>`).join('')}
     <section class="mc-panel"><header class="mc-section-heading"><div><span class="mc-section-eyebrow">Podrobné údaje</span><h2>Hráči po třetinách</h2></div></header>
       <p class="mc-stat-help">Rozbal období pro další údaje včetně střídání a účastí. Pomlčka znamená, že údaj není uvedený. Tabulky lze posouvat do stran.</p>
       ${scopes.length ? scopes.map(scope => {
         const selected = extraTables.filter(t => t.scope === scope);
-        return `<details class="mc-stat-period"><summary>${escapeHtml(selected[0].title)}</summary>${selected.map(t => matchStatsTableHtml(t, matchTeamName(data[t.side]))).join('')}</details>`;
+        return `<details class="mc-stat-period"><summary>${escapeHtml(selected[0].title)}</summary>${selected.map(t => matchStatsTableHtml(t, matchTeamName(data[t.side]), data)).join('')}</details>`;
       }).join('') : `<p class="mc-empty">${extra.status === 'error' ? 'Podrobné statistiky se při poslední aktualizaci nepodařilo načíst.' : 'Podrobné statistiky zatím nejsou k dispozici.'}</p>`}
     </section>
   </div>`;
@@ -10043,7 +10205,7 @@ function matchFormationControlsHtml(data) {
   </div><p class="mc-formation-note">Pořadí útoků a obranných dvojic podle zveřejněné sestavy.</p>`;
 }
 
-function matchRinkPersonHtml(player, teamCode) {
+function matchRinkPersonHtml(player, teamCode, data = {}) {
   const fullName = [player.name, player.surname].filter(Boolean).join(" ");
   const matches = state.players.filter(p =>
     normalize(`${p.jmeno} ${p.prijmeni}`).replace(/\s+/g, " ").trim() === normalize(fullName).replace(/\s+/g, " ").trim()
@@ -10063,7 +10225,10 @@ function matchRinkPersonHtml(player, teamCode) {
     </span><span class="mc-rink-name"><span>${escapeHtml(player.jersey ?? "—")}</span> <strong>${escapeHtml(player.surname || player.name || "Hráč")}</strong></span>`;
   return known
     ? `<a class="mc-rink-person" href="${escapeHtml(playerPath(known))}" data-player-key="${escapeHtml(playerKey(known))}" aria-label="${escapeHtml(fullName)}" title="${escapeHtml(fullName)}">${body}</a>`
-    : `<div class="mc-rink-person" title="${escapeHtml(fullName)}">${body}</div>`;
+    : (() => {
+      const link = matchPersonLink(fullName, teamCode, data);
+      return link.startsWith('<a ') ? link.replace('class="mc-person-link"', 'class="mc-rink-person"').replace(`>${escapeHtml(fullName)}</a>`, `>${body}</a>`) : `<div class="mc-rink-person" title="${escapeHtml(fullName)}">${body}</div>`;
+    })();
 }
 
 function matchRinkSlotHtml(data, side, slot, x, y, label) {
@@ -10071,7 +10236,7 @@ function matchRinkSlotHtml(data, side, slot, x, y, label) {
   const candidates = players.filter(player => String(player.slot) === slot);
   const player = candidates.length === 1 ? candidates[0] : null;
   return `<div class="mc-rink-player mc-rink-${side}" style="--rink-x:${x}%;--rink-y:${y}%" data-rink-slot="${side}-${slot}">
-    ${player ? matchRinkPersonHtml(player, data[side]?.code || getTeamCode(data[side]?.name)) : `<div class="mc-rink-vacant"><span>—</span><small>${escapeHtml(label)}</small></div>`}
+    ${player ? matchRinkPersonHtml(player, data[side]?.code || getTeamCode(data[side]?.name), data) : `<div class="mc-rink-vacant"><span>—</span><small>${escapeHtml(label)}</small></div>`}
   </div>`;
 }
 
@@ -10100,14 +10265,14 @@ function matchRinkRosterHtml(data) {
   const options = matchFormationOptions(data);
   const extraList = (side, predicate) => {
     const players = (Array.isArray(roster[side]) ? roster[side] : []).filter(predicate);
-    return players.length ? `<ul class="mc-roster">${players.map(p => `<li><span class="mc-jersey">${escapeHtml(p.jersey ?? "—")}</span><span>${escapeHtml([p.name, p.surname].filter(Boolean).join(" "))}</span></li>`).join("")}</ul>` : matchEmpty("Žádný další hráč není uveden.");
+    return players.length ? `<ul class="mc-roster">${players.map(p => `<li><span class="mc-jersey">${escapeHtml(p.jersey ?? "—")}</span><span>${matchPersonLink([p.name, p.surname].filter(Boolean).join(" "), data[side]?.code, data)}</span></li>`).join("")}</ul>` : matchEmpty("Žádný další hráč není uveden.");
   };
   if (!options.length) {
-    return `<div class="mc-columns">${["home", "away"].map(side => `<section class="mc-panel"><h2>${escapeHtml(matchTeamName(data[side]))}</h2>${extraList(side, () => true)}</section>`).join("")}</div>`;
+    return `<div class="mc-columns">${["home", "away"].map(side => `<section class="mc-panel"><h2>${matchClubLink(data[side])}</h2>${extraList(side, () => true)}</section>`).join("")}</div>`;
   }
   const views = options.map((formation, index) => {
     if (formation === "other") return `<div data-roster-formation="other" ${index ? "hidden" : ""}>
-      <div class="mc-columns">${["home", "away"].map(side => `<section class="mc-panel"><h2>${escapeHtml(matchTeamName(data[side]))}</h2><p class="mc-formation-note">Hráči navíc nebo bez zařazení do prvních čtyř formací.</p>${extraList(side, p => p.position !== "GK" && matchPlayerFormation(p) === "other")}</section>`).join("")}</div></div>`;
+      <div class="mc-columns">${["home", "away"].map(side => `<section class="mc-panel"><h2>${matchClubLink(data[side])}</h2><p class="mc-formation-note">Hráči navíc nebo bez zařazení do prvních čtyř formací.</p>${extraList(side, p => p.position !== "GK" && matchPlayerFormation(p) === "other")}</section>`).join("")}</div></div>`;
     const n = formation;
     return `<div data-roster-formation="${n}" ${index ? "hidden" : ""}>
       <div class="mc-rink-card">
@@ -10196,7 +10361,7 @@ function matchH2hHtml(data) {
 }
 
 function matchPreviewHtml(data) {
-  return `<div class="mc-columns">${["home", "away"].map(side => matchPreviewTeamHtml(data, side)).join("")}</div>${matchH2hHtml(data)}`;
+  return `${matchComparisonHtml(data)}${matchPreviewStoryHtml(data)}${matchFormPlayersHtml(data)}<div class="mc-columns">${["home", "away"].map(side => matchPreviewTeamHtml(data, side)).join("")}</div>${matchH2hHtml(data)}${matchPreviewLineupHtml(data)}`;
 }
 
 function renderMatchDetail(data, notice = "") {
@@ -10224,6 +10389,7 @@ function renderMatchDetail(data, notice = "") {
       ${updated ? `<p class="mc-updated">Poslední načtení dat: ${escapeHtml(updated)} (Praha)</p>` : ""}
     </section>
     ${notice ? `<div class="mc-notice" role="status">${escapeHtml(notice)} <button type="button" class="mc-retry" data-match-retry="${escapeHtml(data.match_id)}">Zkusit znovu</button></div>` : `
+    <p class="mc-live-notice" data-live-notice role="status">${escapeHtml(matchLiveNotice(data))}</p>
     <nav class="mc-tabs" aria-label="Obsah detailu zápasu">
       <button type="button" data-match-tab="summary" aria-pressed="true">Souhrn</button>
       <button type="button" data-match-tab="roster" aria-pressed="false">Sestavy</button>
@@ -10247,6 +10413,8 @@ function renderMatchDetail(data, notice = "") {
 async function openMatchDetail(id, {updateUrl = true} = {}) {
   id = String(id);
   if (!/^[0-9]+$/.test(id)) return;
+  matchLiveAbort?.abort();
+  matchLiveId=id;matchLiveData=null;matchLiveNext=0;
   const request = ++matchDetailRequest;
   matchDetailController?.abort();
   const controller = new AbortController();
@@ -10260,15 +10428,14 @@ async function openMatchDetail(id, {updateUrl = true} = {}) {
   const fallback = {match_id: id, home: {name: item?.home || "Domácí", code: getTeamCode(item?.home)}, away: {name: item?.away || "Hosté", code: getTeamCode(item?.away)}, date: item?.date || "", time: item?.time || "", round: item?.round || ""};
   const timeout = setTimeout(() => controller.abort(), 15000);
   try {
-    const response = await fetch(`${DATA_URLS.matches}${encodeURIComponent(id)}.json`, {signal: controller.signal, cache: "no-store"});
-    if (response.status === 404) {
-      if (request === matchDetailRequest && state.currentPage === "matchDetail") renderMatchDetail(fallback, item ? "Podrobná data tohoto zápasu zatím nejsou zveřejněna." : "Pro tento zápas zatím nemáme zveřejněná data ani záznam v rozpisu.");
+    const data = await matchFetchData(id, controller.signal);
+    if (!data) {
+      if (request === matchDetailRequest && state.currentPage === "matchDetail") renderMatchDetail(fallback, "Podrobná data tohoto zápasu zatím nejsou zveřejněna.");
       return;
     }
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    const data = await response.json();
-    if (data?.status !== "ok" || String(data.match_id) !== id || !data.home || !data.away || !data.scoreboard) throw new Error("Neplatná data zápasu.");
-    if (request === matchDetailRequest && state.currentPage === "matchDetail") renderMatchDetail(data);
+    if (request === matchDetailRequest && state.currentPage === "matchDetail") {
+      matchLiveData=data;renderMatchDetail(data);
+    }
   } catch (error) {
     if (request === matchDetailRequest && state.currentPage === "matchDetail") {
       renderMatchDetail(fallback, "Data zápasu se nepodařilo načíst. Zkus to prosím znovu.");
@@ -12607,8 +12774,8 @@ function bindEvents() {
       const matchTab = event.target.closest("[data-match-tab]");
       if (matchTab) {
         const view = document.getElementById("matchDetailContent");
-        view.querySelectorAll("[data-match-tab]").forEach(button => {
-          button.setAttribute("aria-pressed", String(button === matchTab));
+        view.querySelectorAll(".mc-tabs [data-match-tab]").forEach(button => {
+          button.setAttribute("aria-pressed", String(button.dataset.matchTab === matchTab.dataset.matchTab));
         });
         view.querySelectorAll("[data-match-panel]").forEach(panel => {
           panel.hidden = panel.dataset.matchPanel !== matchTab.dataset.matchTab;
@@ -12735,6 +12902,7 @@ if (
 
 
       if (playerButton) {
+  if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) return;
   event.preventDefault();
 
   const player =
@@ -12848,6 +13016,7 @@ if (statsSortButton) {
 
 
       if (teamButton) {
+        if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) return;
         event.preventDefault();
         
         await openClub(

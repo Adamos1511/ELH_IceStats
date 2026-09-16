@@ -7801,3 +7801,16 @@ a.mc-rink-person:hover .mc-rink-name { background: var(--navy-700); }
  .mc-comparison-teams strong { font-size:12px; }.mc-comparison-row strong { font-size:16px; }.mc-comparison-row span { font-size:11px; }
  .mc-stat-table .mc-stat-name { max-width:150px; white-space:normal; min-width:125px; }.mc-stat-table th,.mc-stat-table td { padding:10px 8px; }
 }
+
+/* Live Preview and links, scoped to Match Center. */
+.mc-person-link {color:inherit;text-decoration:underline;text-decoration-color:#8bacce70;text-underline-offset:3px;}
+.mc-person-link:hover {color:#7fdbef;text-decoration-color:currentColor;}
+.mc-person-link:focus-visible {outline:2px solid #7fdbef;outline-offset:3px;}
+.mc-preview-comparison,.mc-preview-lineup {margin-bottom:22px;}
+.mc-preview-lineup {margin-top:22px;}
+.mc-preview-lineup .mc-match-info {margin-top:20px;margin-bottom:0;}
+.mc-preview-story {border-left:3px solid #69cbd7;padding:3px 20px;margin:20px 0;color:#c4d3ec;}
+.mc-live-notice {font-size:13px;color:#acc1dc;margin:14px 0;}
+
+.mc-form-leaders {padding-left:22px;}.mc-form-leaders li {padding:9px 0;}.mc-form-leaders strong {display:block;color:#9bcad7;font-size:13px;margin-top:4px;}
+.mc-preview-goalie {display:block;margin:10px 0;}.mc-preview-goalie small {display:block;font-size:12px;line-height:1.6;color:#9bb0d0;margin-top:4px;}
