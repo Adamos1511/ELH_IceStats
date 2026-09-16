@@ -9944,30 +9944,96 @@ function matchFormationControlsHtml(data) {
   </div><p class="mc-formation-note">Pořadí útoků a obranných dvojic podle zveřejněné sestavy.</p>`;
 }
 
-function matchRosterHtml(data, side) {
-  const roster = data.roster;
-  if (roster?.status !== "available" || !Array.isArray(roster[side])) {
-    return matchEmpty(roster?.status === "error" ? "Sestavu se při posledním načtení nepodařilo získat." : "Sestava zatím není k dispozici.");
-  }
-  const players = roster[side].slice().sort((a, b) =>
-    collator.compare(String(a.slot || ""), String(b.slot || ""))
+function matchRinkPersonHtml(player, teamCode) {
+  const fullName = [player.name, player.surname].filter(Boolean).join(" ");
+  const matches = state.players.filter(p =>
+    normalize(`${p.jmeno} ${p.prijmeni}`).replace(/\s+/g, " ").trim() === normalize(fullName).replace(/\s+/g, " ").trim()
+    && getTeamCode(p.tym) === teamCode
   );
-  const list = (rows, label) => `<h3 class="mc-group-title">${label} <span>${rows.length}</span></h3>
-    ${rows.length ? `<ul class="mc-roster">${rows.map(p => `<li>
-      <span class="mc-jersey">${escapeHtml(p.jersey ?? "—")}</span>
-      <span>${escapeHtml([p.name, p.surname].filter(Boolean).join(" "))}</span>
-    </li>`).join("")}</ul>` : matchEmpty("Ve zveřejněné sestavě není uveden hráč pro tuto skupinu.")}`;
-  const formations = matchFormationOptions(data).map((value, index) => {
-    const selected = players.filter(p => p.position !== "GK" && matchPlayerFormation(p) === value);
-    const unknown = selected.filter(p => !["BK", "FW"].includes(p.position));
-    return `<div data-roster-formation="${value}" ${index ? "hidden" : ""}>
-      ${value === "other" ? '<p class="mc-formation-note">Hráči navíc nebo bez zařazení do prvních čtyř formací.</p>' : ""}
-      ${list(selected.filter(p => p.position === "FW"), value === "other" ? "Útočníci" : "Útok")}
-      ${list(selected.filter(p => p.position === "BK"), value === "other" ? "Obránci" : "Obranná dvojice")}
-      ${unknown.length ? list(unknown, "Nezařazení") : ""}
+  const known = matches.length === 1 ? matches[0] : null;
+  let photo = "";
+  if (known?.foto) {
+    try {
+      const url = new URL(known.foto, window.location.href);
+      if (["https:", "http:"].includes(url.protocol)) photo = url.href;
+    } catch (_) { /* Bez platné fotografie zůstane číslo dresu. */ }
+  }
+  const body = `<span class="mc-rink-portrait">
+    <span class="mc-rink-fallback" aria-hidden="true">${escapeHtml(player.jersey ?? "—")}</span>
+    ${photo ? `<img src="${escapeHtml(photo)}" alt="" loading="lazy" data-hide-on-error>` : ""}
+    </span><span class="mc-rink-name"><span>${escapeHtml(player.jersey ?? "—")}</span> <strong>${escapeHtml(player.surname || player.name || "Hráč")}</strong></span>`;
+  return known
+    ? `<a class="mc-rink-person" href="${escapeHtml(playerPath(known))}" data-player-key="${escapeHtml(playerKey(known))}" aria-label="${escapeHtml(fullName)}" title="${escapeHtml(fullName)}">${body}</a>`
+    : `<div class="mc-rink-person" title="${escapeHtml(fullName)}">${body}</div>`;
+}
+
+function matchRinkSlotHtml(data, side, slot, x, y, label) {
+  const players = Array.isArray(data.roster?.[side]) ? data.roster[side] : [];
+  const candidates = players.filter(player => String(player.slot) === slot);
+  const player = candidates.length === 1 ? candidates[0] : null;
+  return `<div class="mc-rink-player mc-rink-${side}" style="--rink-x:${x}%;--rink-y:${y}%" data-rink-slot="${side}-${slot}">
+    ${player ? matchRinkPersonHtml(player, data[side]?.code || getTeamCode(data[side]?.name)) : `<div class="mc-rink-vacant"><span>—</span><small>${escapeHtml(label)}</small></div>`}
+  </div>`;
+}
+
+function matchRinkSvg() {
+  return `<svg class="mc-rink-lines" viewBox="0 0 1000 560" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="2.5">
+      <rect x="25" y="20" width="950" height="520" rx="112"/>
+      <path d="M82 48V512 M918 48V512" opacity=".5"/>
+      <path d="M360 20V540 M640 20V540" stroke="#4764a1" stroke-width="4"/>
+      <path d="M500 20V540" stroke="#ba4259" stroke-width="3"/>
+      <circle cx="500" cy="280" r="57"/>
+      <circle cx="200" cy="132" r="58"/><circle cx="200" cy="428" r="58"/>
+      <circle cx="800" cy="132" r="58"/><circle cx="800" cy="428" r="58"/>
+      <path d="M190 132H210 M200 122V142 M190 428H210 M200 418V438 M790 132H810 M800 122V142 M790 428H810 M800 418V438"/>
+      <path d="M82 245A35 35 0 0 1 82 315 M918 245A35 35 0 0 0 918 315"/>
+      <path d="M82 257H62V303H82 M918 257H938V303H918"/>
+    </g>
+  </svg>`;
+}
+
+function matchRinkRosterHtml(data) {
+  const roster = data.roster;
+  if (roster?.status !== "available") return matchEmpty(roster?.status === "error"
+    ? "Sestavy se při posledním načtení nepodařilo získat."
+    : "Sestavy zatím nejsou k dispozici.");
+  const options = matchFormationOptions(data);
+  const extraList = (side, predicate) => {
+    const players = (Array.isArray(roster[side]) ? roster[side] : []).filter(predicate);
+    return players.length ? `<ul class="mc-roster">${players.map(p => `<li><span class="mc-jersey">${escapeHtml(p.jersey ?? "—")}</span><span>${escapeHtml([p.name, p.surname].filter(Boolean).join(" "))}</span></li>`).join("")}</ul>` : matchEmpty("Žádný další hráč není uveden.");
+  };
+  if (!options.length) {
+    return `<div class="mc-columns">${["home", "away"].map(side => `<section class="mc-panel"><h2>${escapeHtml(matchTeamName(data[side]))}</h2>${extraList(side, () => true)}</section>`).join("")}</div>`;
+  }
+  const views = options.map((formation, index) => {
+    if (formation === "other") return `<div data-roster-formation="other" ${index ? "hidden" : ""}>
+      <div class="mc-columns">${["home", "away"].map(side => `<section class="mc-panel"><h2>${escapeHtml(matchTeamName(data[side]))}</h2><p class="mc-formation-note">Hráči navíc nebo bez zařazení do prvních čtyř formací.</p>${extraList(side, p => p.position !== "GK" && matchPlayerFormation(p) === "other")}</section>`).join("")}</div></div>`;
+    const n = formation;
+    return `<div data-roster-formation="${n}" ${index ? "hidden" : ""}>
+      <div class="mc-rink-card">
+        <div class="mc-rink-teams"><strong>${escapeHtml(matchTeamName(data.home))}</strong><span>${n}. formace</span><strong>${escapeHtml(matchTeamName(data.away))}</strong></div>
+        <p class="mc-rink-swipe">Posunutím do strany zobrazíš celé hřiště.</p>
+        <div class="mc-rink-scroll" tabindex="0" role="region" aria-label="Rozestavení obou týmů – posuvné hřiště">
+          <div class="mc-rink">${matchRinkSvg()}
+            ${matchRinkSlotHtml(data, "home", "101", 10, 50, "Brankář")}
+            ${matchRinkSlotHtml(data, "home", `2${n}1`, 25, 30, "Obránce")}
+            ${matchRinkSlotHtml(data, "home", `2${n}2`, 25, 70, "Obránce")}
+            ${matchRinkSlotHtml(data, "home", `3${n}1`, 39, 23, "Útočník")}
+            ${matchRinkSlotHtml(data, "home", `3${n}2`, 39, 50, "Útočník")}
+            ${matchRinkSlotHtml(data, "home", `3${n}3`, 39, 77, "Útočník")}
+            ${matchRinkSlotHtml(data, "away", "101", 90, 50, "Brankář")}
+            ${matchRinkSlotHtml(data, "away", `2${n}2`, 75, 30, "Obránce")}
+            ${matchRinkSlotHtml(data, "away", `2${n}1`, 75, 70, "Obránce")}
+            ${matchRinkSlotHtml(data, "away", `3${n}3`, 61, 23, "Útočník")}
+            ${matchRinkSlotHtml(data, "away", `3${n}2`, 61, 50, "Útočník")}
+            ${matchRinkSlotHtml(data, "away", `3${n}1`, 61, 77, "Útočník")}
+          </div>
+        </div>
+      </div>
     </div>`;
   }).join("");
-  return formations + `<div class="mc-formation-goalies">${list(players.filter(p => p.position === "GK"), "Brankáři")}</div>`;
+  return views + `<div class="mc-columns mc-rink-backups">${["home", "away"].map(side => `<section class="mc-panel"><h3 class="mc-group-title">Další brankáři · ${escapeHtml(data[side]?.code || matchTeamName(data[side]))}</h3>${extraList(side, p => p.position === "GK" && String(p.slot) !== "101")}</section>`).join("")}</div>`;
 }
 
 function matchLast5Html(rows) {
@@ -10013,9 +10079,7 @@ function renderMatchDetail(data, notice = "") {
     </div>
     <div data-match-panel="roster" hidden>
       ${matchFormationControlsHtml(data)}
-      <div class="mc-columns">
-        ${["home", "away"].map(side => `<section class="mc-panel"><h2>${escapeHtml(matchTeamName(data[side]))}</h2>${matchRosterHtml(data, side)}</section>`).join("")}
-      </div>
+      ${matchRinkRosterHtml(data)}
     </div>
     <div data-match-panel="preview" hidden>
       <div class="mc-columns">${["home", "away"].map(side => `<section class="mc-panel"><h2>${escapeHtml(matchTeamName(data[side]))}</h2><p class="mc-subtitle">Posledních 5 zápasů</p>${matchLast5Html(data.preview?.[side]?.last5)}</section>`).join("")}</div>
