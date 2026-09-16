@@ -7507,3 +7507,44 @@ button:disabled {
   .mc-meta { font-size: 10px; }
   .mc-tabs button { flex: 1; padding: 10px; }
 }
+
+/* MATCH CENTER — přepínání formací pro oba týmy */
+.mc-formation-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 10px;
+}
+.mc-formation-controls button {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--glass);
+  color: var(--white);
+  padding: 10px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.mc-formation-controls button[aria-pressed="true"] {
+  background: var(--red);
+  border-color: var(--red-light);
+}
+.mc-formation-controls button:focus-visible {
+  outline: 2px solid var(--white);
+  outline-offset: 3px;
+}
+.mc-formation-note {
+  color: var(--text-soft);
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 0 0 16px;
+}
+[data-roster-formation][hidden] { display: none !important; }
+.mc-formation-goalies {
+  margin-top: 22px;
+  padding-top: 2px;
+  border-top: 1px solid var(--border);
+}
+@media (max-width: 700px) {
+  .mc-formation-controls button { flex: 1 1 90px; }
+}

@@ -9916,23 +9916,58 @@ function matchEventsHtml(data, type) {
   }).join("")}</ol>`;
 }
 
+function matchPlayerFormation(player) {
+  const slot = String(player.slot ?? "");
+  const pattern = player.position === "BK"
+    ? /^2([1-4])[12]$/
+    : player.position === "FW" ? /^3([1-4])[123]$/ : null;
+  return pattern?.exec(slot)?.[1] || "other";
+}
+
+function matchFormationOptions(data) {
+  if (data.roster?.status !== "available") return [];
+  const players = ["home", "away"].flatMap(side =>
+    Array.isArray(data.roster[side]) ? data.roster[side] : []
+  ).filter(player => player.position !== "GK");
+  const available = new Set(players.map(matchPlayerFormation));
+  return ["1", "2", "3", "4", "other"].filter(value => available.has(value));
+}
+
+function matchFormationControlsHtml(data) {
+  const options = matchFormationOptions(data);
+  if (!options.length) return "";
+  return `<div class="mc-formation-controls" role="group" aria-label="Výběr formace obou týmů">
+    ${options.map((value, index) => `<button type="button"
+      data-roster-select="${value}" aria-pressed="${index === 0}">
+      ${value === "other" ? "Ostatní" : `${value}. formace`}
+    </button>`).join("")}
+  </div><p class="mc-formation-note">Pořadí útoků a obranných dvojic podle zveřejněné sestavy.</p>`;
+}
+
 function matchRosterHtml(data, side) {
   const roster = data.roster;
   if (roster?.status !== "available" || !Array.isArray(roster[side])) {
     return matchEmpty(roster?.status === "error" ? "Sestavu se při posledním načtení nepodařilo získat." : "Sestava zatím není k dispozici.");
   }
-  const groups = [["GK", "Brankáři"], ["BK", "Obránci"], ["FW", "Útočníci"], ["other", "Ostatní"]];
-  return groups.map(([position, label]) => {
-    const players = roster[side].filter(p => position === "other"
-      ? !["GK", "BK", "FW"].includes(p.position) : p.position === position)
-      .slice().sort((a, b) => collator.compare(String(a.slot || ""), String(b.slot || "")));
-    if (!players.length) return "";
-    return `<h3 class="mc-group-title">${label} <span>${players.length}</span></h3>
-      <ul class="mc-roster">${players.map(p => `<li>
-        <span class="mc-jersey">${escapeHtml(p.jersey ?? "—")}</span>
-        <span>${escapeHtml([p.name, p.surname].filter(Boolean).join(" "))}</span>
-      </li>`).join("")}</ul>`;
+  const players = roster[side].slice().sort((a, b) =>
+    collator.compare(String(a.slot || ""), String(b.slot || ""))
+  );
+  const list = (rows, label) => `<h3 class="mc-group-title">${label} <span>${rows.length}</span></h3>
+    ${rows.length ? `<ul class="mc-roster">${rows.map(p => `<li>
+      <span class="mc-jersey">${escapeHtml(p.jersey ?? "—")}</span>
+      <span>${escapeHtml([p.name, p.surname].filter(Boolean).join(" "))}</span>
+    </li>`).join("")}</ul>` : matchEmpty("Ve zveřejněné sestavě není uveden hráč pro tuto skupinu.")}`;
+  const formations = matchFormationOptions(data).map((value, index) => {
+    const selected = players.filter(p => p.position !== "GK" && matchPlayerFormation(p) === value);
+    const unknown = selected.filter(p => !["BK", "FW"].includes(p.position));
+    return `<div data-roster-formation="${value}" ${index ? "hidden" : ""}>
+      ${value === "other" ? '<p class="mc-formation-note">Hráči navíc nebo bez zařazení do prvních čtyř formací.</p>' : ""}
+      ${list(selected.filter(p => p.position === "FW"), value === "other" ? "Útočníci" : "Útok")}
+      ${list(selected.filter(p => p.position === "BK"), value === "other" ? "Obránci" : "Obranná dvojice")}
+      ${unknown.length ? list(unknown, "Nezařazení") : ""}
+    </div>`;
   }).join("");
+  return formations + `<div class="mc-formation-goalies">${list(players.filter(p => p.position === "GK"), "Brankáři")}</div>`;
 }
 
 function matchLast5Html(rows) {
@@ -9976,8 +10011,11 @@ function renderMatchDetail(data, notice = "") {
       <section class="mc-panel"><h2>Góly <span>${data.events?.goals?.length ?? 0}</span></h2>${matchEventsHtml(data, "goals")}</section>
       <section class="mc-panel"><h2>Tresty <span>${data.events?.penalties?.length ?? 0}</span></h2>${matchEventsHtml(data, "penalties")}</section>
     </div>
-    <div data-match-panel="roster" class="mc-columns" hidden>
-      ${["home", "away"].map(side => `<section class="mc-panel"><h2>${escapeHtml(matchTeamName(data[side]))}</h2>${matchRosterHtml(data, side)}</section>`).join("")}
+    <div data-match-panel="roster" hidden>
+      ${matchFormationControlsHtml(data)}
+      <div class="mc-columns">
+        ${["home", "away"].map(side => `<section class="mc-panel"><h2>${escapeHtml(matchTeamName(data[side]))}</h2>${matchRosterHtml(data, side)}</section>`).join("")}
+      </div>
     </div>
     <div data-match-panel="preview" hidden>
       <div class="mc-columns">${["home", "away"].map(side => `<section class="mc-panel"><h2>${escapeHtml(matchTeamName(data[side]))}</h2><p class="mc-subtitle">Posledních 5 zápasů</p>${matchLast5Html(data.preview?.[side]?.last5)}</section>`).join("")}</div>
@@ -12332,6 +12370,19 @@ function bindEvents() {
       const matchRetry = event.target.closest("[data-match-retry]");
       if (matchRetry) {
         await openMatchDetail(matchRetry.dataset.matchRetry, {updateUrl: false});
+        return;
+      }
+
+      const formationButton = event.target.closest("[data-roster-select]");
+      if (formationButton) {
+        const view = document.getElementById("matchDetailContent");
+        const selected = formationButton.dataset.rosterSelect;
+        view.querySelectorAll("[data-roster-select]").forEach(button => {
+          button.setAttribute("aria-pressed", String(button === formationButton));
+        });
+        view.querySelectorAll("[data-roster-formation]").forEach(panel => {
+          panel.hidden = panel.dataset.rosterFormation !== selected;
+        });
         return;
       }
 
