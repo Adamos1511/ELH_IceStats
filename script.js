@@ -113,7 +113,7 @@ const TEAMS = [
 
   {
     code: "KVA",
-    name: "HC Energie Karlovy Vary",
+    name: "BYD Energie Karlovy Vary",
     aliases: [
       "HC Energie Karlovy Vary",
       "Energie Karlovy Vary"
@@ -126,7 +126,8 @@ const TEAMS = [
     aliases: [
       "Banes Motor České Budějovice",
       "Banes Motor Č. Budějovice",
-      "Motor České Budějovice"
+      "Motor České Budějovice",
+      "CEB"
     ]
   },
 
@@ -1166,21 +1167,25 @@ async function handleNavigation(
 
 
     case "statistics":
-      navigate(
-        "statistics",
-        {
-          push: false
-        }
-      );
+  navigate(
+    "statistics",
+    {
+      push: false
+    }
+  );
 
-      await loadDetailData(
-        state.statsView.type
-      );
+  if (!state.players.length) {
+    await loadPlayers();
+  }
 
-      populateStatisticsFilters();
-      renderStatistics();
+  await loadDetailData(
+    state.statsView.type
+  );
 
-      break;
+  populateStatisticsFilters();
+  renderStatistics();
+
+  break;
 
 
     case "table":
@@ -10029,18 +10034,148 @@ async function matchLiveTick() {
         }
       });
       if(changed){renderSchedule();renderCurrentRound();}
-      document.querySelectorAll('.mc-match-link').forEach(card=>{
-        const row=matchScoreCache.get(card.dataset.matchId),score=card.querySelector('.match-vs');
-        if(row&&score)score.textContent=matchScheduleScore(row);
-      });
+      document
+        .querySelectorAll(".mc-match-link")
+        .forEach(card => {
+          const id =
+            card.dataset.matchId;
+
+          const row =
+            matchScoreCache.get(id);
+
+          const score =
+            card.querySelector(
+              ".match-vs"
+            );
+
+          const meta =
+            card.querySelector(
+              ".mc-schedule-meta"
+            );
+
+          const match =
+            state.schedule.find(
+              item =>
+                item.id === id
+            );
+
+          if (
+            row &&
+            score
+          ) {
+            score.textContent =
+              matchScheduleScore(row);
+          }
+
+          if (
+            meta &&
+            match
+          ) {
+            meta.innerHTML =
+              matchScheduleMeta(
+                match,
+                row
+              );
+          }
+        });
     }
   } catch(e) {
     if(state.currentPage==='matchDetail') {const el=document.querySelector('[data-live-notice]');if(el&&matchLiveData)el.textContent=matchLiveNotice(matchLiveData,true);}
   } finally {matchLiveBusy=false;if(matchLiveAbort===ctl)matchLiveAbort=null;}
 }
+function matchDecisionCode(scoreboard) {
+  const sb = scoreboard || {};
+
+  if (
+    sb.state !== "final" ||
+    sb.home_score == null ||
+    sb.away_score == null
+  ) {
+    return "";
+  }
+
+  const status =
+    normalize(
+      sb.status || ""
+    );
+
+  const homeWon =
+    Number(sb.home_score) >
+    Number(sb.away_score);
+
+  if (
+    status.includes("s.n.") ||
+    status.includes("najezd")
+  ) {
+    return homeWon
+      ? "VSn"
+      : "PSn";
+  }
+
+  if (
+    status.includes("prodlou")
+  ) {
+    return homeWon
+      ? "VP"
+      : "PP";
+  }
+
+  return "";
+}
+
+
+function matchScheduleMeta(
+  match,
+  row
+) {
+  const stateName =
+    row?.scoreboard?.state;
+
+  if (
+    stateName === "live" ||
+    stateName === "intermission"
+  ) {
+    const delayed =
+      Date.now() -
+      Date.parse(row.checked_at) >
+      90000;
+
+    return `
+      <strong class="match-time mc-live-label">
+        ${delayed ? "LIVE · ZPOŽDĚNÍ" : "LIVE"}
+      </strong>
+    `;
+  }
+
+  return formatScheduleDate(
+    match.date,
+    match.time
+  );
+}
+
 function matchScheduleScore(row) {
-  const s=row?.scoreboard;if(!s||s.home_score==null||s.away_score==null)return 'VS';
-  return `${s.home_score}:${s.away_score}${['live','intermission'].includes(s.state)?(Date.now()-Date.parse(row.checked_at)>90000?' · ZPOŽDĚNÍ':' · LIVE'):''}`;
+  const sb =
+    row?.scoreboard;
+
+  if (
+    !sb ||
+    sb.home_score == null ||
+    sb.away_score == null
+  ) {
+    return "VS";
+  }
+
+  const decision =
+    matchDecisionCode(sb);
+
+  return (
+    `${sb.home_score}:${sb.away_score}` +
+    (
+      decision
+        ? ` ${decision}`
+        : ""
+    )
+  );
 }
 function matchLiveLoop() {matchLiveTick().finally(()=>setTimeout(matchLiveLoop,20000));}
 document.addEventListener('DOMContentLoaded',matchLiveLoop);
@@ -10055,6 +10190,8 @@ function matchDetailPath(id) {
 
 function scheduleMatchHtml(match) {
   const id = /^[0-9]+$/.test(match.id || "") ? match.id : "";
+  const liveRow =
+  matchScoreCache.get(id);
   const teamHtml = (value, side) => {
     const team = getTeam(value);
     return `<span class="schedule-team ${side}">
@@ -10065,8 +10202,11 @@ function scheduleMatchHtml(match) {
   };
   const body = `${teamHtml(match.home, "home")}
     <span class="match-center">
-      <span class="match-vs">${escapeHtml(matchScheduleScore(matchScoreCache.get(id)))}</span>
-      ${formatScheduleDate(match.date, match.time)}
+      <span class="match-vs">${escapeHtml(matchScheduleScore(liveRow))}</span>
+
+      <span class="mc-schedule-meta">
+        ${matchScheduleMeta(match, liveRow)}
+      </span>
       <span class="mc-open">${id ? "Detail zápasu →" : "Detail zatím není dostupný"}</span>
     </span>${teamHtml(match.away, "away")}`;
   return id
@@ -10404,6 +10544,8 @@ function renderMatchDetail(data, notice = "") {
   document.getElementById("matchDetailTitle").textContent = title;
   setSeo({title: `${title} | Match Center | ELH IceStats`, description: `Detail zápasu ${title}: skóre, góly, tresty, sestavy, statistiky a preview.`, path: matchDetailPath(data.match_id)});
   const sb = data.scoreboard || {};
+  const decisionCode =
+  matchDecisionCode(sb);
   const statusNames = {final: "Konec zápasu", live: "Rozehráno", intermission: "Přestávka", scheduled: "Před zápasem", postponed: "Odloženo", suspended: "Přerušeno"};
   const periods = Array.isArray(sb.periods) ? sb.periods : [];
   const periodLabel = p => p === "OT" ? "Prodloužení" : p === "SO" ? "Nájezdy" : p ? `${p}. třetina` : "";
@@ -10415,7 +10557,16 @@ function renderMatchDetail(data, notice = "") {
       <span>${escapeHtml(data.date || "")}${data.time ? ` · ${escapeHtml(data.time)}` : ""}</span></div>
       <div class="mc-score-grid">${matchTeamHtml(data.home)}
         <div class="mc-score-middle"><span class="mc-status">${escapeHtml(statusNames[sb.state] || "Detail čeká na doplnění")}</span>
-        <div class="mc-score">${escapeHtml(sb.home_score ?? "—")}<span>:</span>${escapeHtml(sb.away_score ?? "—")}</div>
+        <div class="mc-score">
+  ${escapeHtml(sb.home_score ?? "—")}
+  <span>:</span>
+  ${escapeHtml(sb.away_score ?? "—")}
+  ${
+    decisionCode
+      ? `<span>${escapeHtml(decisionCode)}</span>`
+      : ""
+  }
+</div>
         ${sb.state !== "final" ? `<span class="mc-clock">${escapeHtml([periodLabel(sb.current_period), sb.clock].filter(Boolean).join(" · "))}</span>` : ""}
         </div>${matchTeamHtml(data.away)}</div>
       ${periods.length ? `<div class="mc-periods">${periods.map((p, i) => `<span><small>${i < 3 ? `${i + 1}. třetina` : i === 3 ? "Prodloužení" : "Nájezdy"}</small><strong>${escapeHtml(p.home ?? "—")}:${escapeHtml(p.away ?? "—")}</strong></span>`).join("")}</div>` : ""}
@@ -11868,11 +12019,28 @@ function statisticsPlayerHtml(
     "Tým"
   );  
 
-  const photo =
-    getValue(
-      record,
-      "Foto"
-    );
+  const masterPlayer =
+  state.players.find(player =>
+    normalize(player.jmeno) ===
+      normalize(firstName) &&
+
+    normalize(player.prijmeni) ===
+      normalize(surname) &&
+
+    (
+      !team ||
+      getTeamCode(player.tym) ===
+        getTeamCode(team)
+    )
+  );
+
+
+const photo =
+  masterPlayer?.foto ||
+  getValue(
+    record,
+    "Foto"
+  );
 
 
   return `
