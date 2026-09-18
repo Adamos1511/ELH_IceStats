@@ -70,6 +70,7 @@ TEAM_ALIASES = {
         "Banes Motor České Budějovice",
         "Banes Motor Č. Budějovice",
         "Motor České Budějovice",
+        "CEB"
     ],
 
     "MHK": [
