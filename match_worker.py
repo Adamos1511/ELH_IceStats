@@ -134,8 +134,6 @@ def merge_data(old, fresh):
     # Missing identity/score in a failed parse must never erase a valid snapshot.
     for side in ('home','away'):
         if not result.get(side,{}).get('code'):result[side]=old.get(side,result.get(side,{}))
-    if old.get('preview',{}).get('comparison'):
-        result.setdefault('preview',{})['comparison']=old['preview']['comparison']
     return result
 
 def player_form(history, code):
