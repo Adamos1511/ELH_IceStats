@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import argparse
 import json
@@ -175,6 +175,25 @@ def _clean_text(
         " ",
         value or "",
     ).strip()
+
+
+SOURCE_TEAM_CODE_ALIASES = {
+    "CEB": "CBU",
+}
+
+
+def _canonical_team_code(
+    value: str | None,
+) -> str:
+    code = (
+        _clean_text(value)
+        .upper()
+    )
+
+    return SOURCE_TEAM_CODE_ALIASES.get(
+        code,
+        code,
+    )
 
 
 def _normalize_name(
@@ -1649,9 +1668,11 @@ def _parse_summary_events(
                                 row[0],
 
                             "team":
+                            _canonical_team_code(
                                 row[1]
                                 if len(row) > 1
-                                else "",
+                                else ""
+                            ),
 
                             "scorer":
                                 row[2]
@@ -1707,9 +1728,11 @@ def _parse_summary_events(
                                 row[0],
 
                             "team":
+                            _canonical_team_code(
                                 row[1]
                                 if len(row) > 1
-                                else "",
+                                else ""
+                            ),
 
                             "player":
                                 row[2]
@@ -1746,14 +1769,14 @@ def _parse_summary_events(
     for goal in goals:
 
         team = (
-            str(
-                goal.get(
-                    "team",
-                    "",
+            _canonical_team_code(
+                str(
+                    goal.get(
+                        "team",
+                        "",
+                    )
                 )
             )
-            .upper()
-            .strip()
         )
 
 
@@ -1859,14 +1882,14 @@ def _apply_event_score_fallback(
 
 
         team = (
-            str(
-                goal.get(
-                    "team",
-                    "",
+            _canonical_team_code(
+                str(
+                    goal.get(
+                        "team",
+                        "",
+                    )
                 )
             )
-            .upper()
-            .strip()
         )
 
 
@@ -1971,8 +1994,9 @@ def _find_last5_sections(
         sections.append(
             (
                 index,
-                match.group(1)
-                .upper(),
+                _canonical_team_code(
+                    match.group(1)
+                ),
             )
         )
 

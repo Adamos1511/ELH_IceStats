@@ -76,8 +76,23 @@ def parse_schedule(html, fallback=()):
             dt=iso(datetime(year,month,int(d[1]),int(t[1]),int(t[2]),tzinfo=PRAGUE))
         if not dt:continue
         heading=tr.find_previous(['h2','h3']);rd=re.search(r'(\d+)\.\s*kolo',heading.get_text() if heading else '')
-        out[mid]={'id':mid,'start_at':dt,'home':{'name':names[0],'code':codes[0]},
-                  'away':{'name':names[1],'code':codes[1]},'round':rd[1] if rd else previous.get(mid,{}).get('round','')}
+        out[mid] = {
+    'id': mid,
+    'start_at': dt,
+    'home': {
+        'name': names[0],
+        'code': games._canonical_team_code(codes[0]),
+    },
+    'away': {
+        'name': names[1],
+        'code': games._canonical_team_code(codes[1]),
+    },
+    'round': (
+        rd[1]
+        if rd
+        else previous.get(mid, {}).get('round', '')
+    ),
+}
     if not out:raise ValueError('Rozpis nebyl rozpoznán')
     for mid,entry in previous.items():
         if mid not in out:out[mid]=entry
@@ -119,8 +134,6 @@ def merge_data(old, fresh):
     # Missing identity/score in a failed parse must never erase a valid snapshot.
     for side in ('home','away'):
         if not result.get(side,{}).get('code'):result[side]=old.get(side,result.get(side,{}))
-    if old.get('preview',{}).get('comparison'):
-        result.setdefault('preview',{})['comparison']=old['preview']['comparison']
     return result
 
 def player_form(history, code):
