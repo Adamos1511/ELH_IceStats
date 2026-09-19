@@ -10052,12 +10052,22 @@ async function matchLiveTick() {
             card.querySelector(
               ".mc-schedule-meta"
             );
+           
+          const center =
+          card.querySelector(
+            ".match-center"
+          );  
 
           const match =
             state.schedule.find(
               item =>
                 item.id === id
             );
+
+              if (center) {
+            center.dataset.matchState =
+            matchScheduleState(row);
+          }    
 
           if (
             row &&
@@ -10123,6 +10133,27 @@ function matchDecisionCode(scoreboard) {
   return "";
 }
 
+function matchScheduleMeta(
+  match,
+  row
+) {
+  const stateName =
+    matchScheduleState(row);
+
+  if (stateName === "live") {
+    return `
+      <span class="mc-live-label">
+        <span class="mc-live-dot"></span>
+        LIVE
+      </span>
+    `;
+  }
+
+  return formatScheduleDate(
+    match.date,
+    match.time
+  );
+}
 
 function matchScheduleMeta(
   match,
@@ -10192,6 +10223,8 @@ function scheduleMatchHtml(match) {
   const id = /^[0-9]+$/.test(match.id || "") ? match.id : "";
   const liveRow =
   matchScoreCache.get(id);
+  const scheduleState =
+  matchScheduleState(liveRow);
   const teamHtml = (value, side) => {
     const team = getTeam(value);
     return `<span class="schedule-team ${side}">
@@ -10201,14 +10234,23 @@ function scheduleMatchHtml(match) {
     </span>`;
   };
   const body = `${teamHtml(match.home, "home")}
-    <span class="match-center">
-      <span class="match-vs">${escapeHtml(matchScheduleScore(liveRow))}</span>
+  <span
+    class="match-center"
+    data-match-state="${escapeHtml(scheduleState)}"
+  >
+    <span class="mc-schedule-meta">
+      ${matchScheduleMeta(match, liveRow)}
+    </span>
 
-      <span class="mc-schedule-meta">
-        ${matchScheduleMeta(match, liveRow)}
-      </span>
-      <span class="mc-open">${id ? "Detail zápasu →" : "Detail zatím není dostupný"}</span>
-    </span>${teamHtml(match.away, "away")}`;
+    <span class="match-vs">
+      ${escapeHtml(matchScheduleScore(liveRow))}
+    </span>
+
+    <span class="mc-open">
+      ${id ? "Detail zápasu →" : "Detail zatím není dostupný"}
+    </span>
+  </span>
+  ${teamHtml(match.away, "away")}`;
   return id
     ? `<a class="match-card mc-match-link" href="${escapeHtml(matchDetailPath(id))}" data-match-id="${id}">${body}</a>`
     : `<article class="match-card">${body}</article>`;

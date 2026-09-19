@@ -4355,18 +4355,12 @@ img {
 
 
 .match-vs {
-  color:
-    rgba(
-      255,
-      255,
-      255,
-      0.30
-    );
-
-  font-size: 9px;
+  color: white;
+  font-size: 21px;
   font-weight: 950;
-
-  letter-spacing: 1.4px;
+  line-height: 1.1;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
 }
 
 
@@ -7462,6 +7456,99 @@ button:disabled {
 .mc-match-link { color: inherit; text-decoration: none; }
 .mc-match-link:focus-visible { outline: 2px solid var(--red-light); outline-offset: -3px; }
 .mc-open { color: var(--text-soft); font-size: 10px; font-weight: 700; margin-top: 5px; }
+.mc-schedule-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: 17px;
+  color: var(--text-soft);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+
+/* PŘED ZÁPASEM */
+
+.match-center[data-match-state="scheduled"] .match-vs {
+  order: 1;
+  color: rgba(255, 255, 255, 0.30);
+  font-size: 9px;
+  letter-spacing: 1.4px;
+}
+
+.match-center[data-match-state="scheduled"] .mc-schedule-meta {
+  order: 2;
+}
+
+.match-center[data-match-state="scheduled"] .mc-open {
+  order: 3;
+}
+
+.match-center[data-match-state="scheduled"] .match-time {
+  color: white;
+  font-size: 17px;
+  font-weight: 950;
+}
+
+
+/* ODEHRANÝ ZÁPAS */
+
+.match-center[data-match-state="final"] .mc-schedule-meta {
+  order: 1;
+}
+
+.match-center[data-match-state="final"] .match-vs {
+  order: 2;
+  color: white;
+  font-size: 21px;
+}
+
+.match-center[data-match-state="final"] .mc-open {
+  order: 3;
+}
+
+.match-center[data-match-state="final"] .match-date,
+.match-center[data-match-state="final"] .match-time {
+  color: var(--text-muted);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+
+/* LIVE */
+
+.match-center[data-match-state="live"] .mc-schedule-meta {
+  order: 1;
+}
+
+.match-center[data-match-state="live"] .match-vs {
+  order: 2;
+  color: white;
+  font-size: 23px;
+}
+
+.match-center[data-match-state="live"] .mc-open {
+  order: 3;
+}
+
+.mc-live-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #ff4d63;
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.8px;
+}
+
+.mc-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ff304f;
+  box-shadow: 0 0 8px rgba(255, 48, 79, 0.8);
+}
 .mc-page .hraci-header h1 { font-size: clamp(21px, 3vw, 32px); line-height: 1.3; }
 .mc-scoreboard {
   border: 1px solid var(--border); border-radius: var(--radius-large);
