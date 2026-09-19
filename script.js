@@ -10133,6 +10133,24 @@ function matchDecisionCode(scoreboard) {
   return "";
 }
 
+function matchScheduleState(row) {
+  const stateName =
+    row?.scoreboard?.state;
+
+  if (
+    stateName === "live" ||
+    stateName === "intermission"
+  ) {
+    return "live";
+  }
+
+  if (stateName === "final") {
+    return "final";
+  }
+
+  return "scheduled";
+}
+
 function matchScheduleMeta(
   match,
   row
@@ -10146,35 +10164,6 @@ function matchScheduleMeta(
         <span class="mc-live-dot"></span>
         LIVE
       </span>
-    `;
-  }
-
-  return formatScheduleDate(
-    match.date,
-    match.time
-  );
-}
-
-function matchScheduleMeta(
-  match,
-  row
-) {
-  const stateName =
-    row?.scoreboard?.state;
-
-  if (
-    stateName === "live" ||
-    stateName === "intermission"
-  ) {
-    const delayed =
-      Date.now() -
-      Date.parse(row.checked_at) >
-      90000;
-
-    return `
-      <strong class="match-time mc-live-label">
-        ${delayed ? "LIVE · ZPOŽDĚNÍ" : "LIVE"}
-      </strong>
     `;
   }
 
