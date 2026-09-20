@@ -10021,7 +10021,12 @@ async function matchLiveTick() {
       matchLiveData={...data,_delivery:'cloud'};matchRenderPreserving(matchLiveData);
       matchLiveNext=data.live?.archived?Infinity:Date.now()+(data.live?.final_complete?3600000:data.scoreboard.state==='final'?60000:20000);
     } else if(['schedule','home'].includes(state.currentPage)) {
-      const min=new Date(Date.now()-2*86400000).toISOString(),max=new Date(Date.now()+7*86400000).toISOString();
+      const min =
+      "2026-07-01T00:00:00Z";
+      const max =
+      new Date(
+      Date.now() + 7 * 86400000
+  ).toISOString();
       const rows=await matchCloudRows({select:'match_id,state,start_at,checked_at,scoreboard:payload->scoreboard',and:`(start_at.gte.${min},start_at.lte.${max})`,limit:'500'},ctl.signal);
       let changed=false;
       rows.forEach(r=>{
